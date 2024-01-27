@@ -1,0 +1,45 @@
+.sign-in {
+    position: relative;
+    height: 100vh;
+    background-image: url("../../assets/auth/auth\ bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    backdrop-filter: blur(10px);
+}
+
+.sign-in_form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vh;
+    height: 60vh;
+    padding-top: 50px;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border-radius: 25px;
+}
+
+.sign-in_form > h1 {
+    display: flex;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    padding: 0 20px 0 20px;
+}
+
+.sign-in_form > span {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 50px;
+}
