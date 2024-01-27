@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { images } from '../../constants'
-import { UserOutlined } from '@ant-design/icons'
+import { UserOutlined, NotificationOutlined } from '@ant-design/icons'
 import { Avatar } from 'antd'
 import './Header.scss'
 import { Link } from 'react-router-dom'
 
-const Header = () => {
+const Header = (props) => {
 	const [isUserOptions, setIsUserOptions] = useState(false)
 
 	return (
-		<section className='header'>
+		<section className={`header${props.isCollapse ? ' close': ''}`}>
 			<img src={images.logo} alt='logo' />
 			<div className='search'>
 				<input
@@ -20,7 +20,11 @@ const Header = () => {
 				/>
 			</div>
 			<div className='user_info'>
-				<span>Admin</span>
+				<NotificationOutlined className='header_notification' />
+				<div className='header_user_data'>
+					<span>Dua Lipa</span>
+					<span>Admin</span>
+				</div>
 				<Avatar
 					size={30}
 					icon={<UserOutlined />}
@@ -44,7 +48,7 @@ const Header = () => {
 								<span>Activity Log</span>
 							</li>
 							<hr />
-							<Link to="/sign_in">
+							<Link to='/sign_in'>
 								<li>
 									<img src={images.logout} alt='log out' />
 									<span>Log out</span>

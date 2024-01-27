@@ -9,6 +9,7 @@ import {
 	MessageOutlined,
 	CheckCircleOutlined,
 	ClusterOutlined,
+	ApiOutlined,
 } from '@ant-design/icons'
 import { Breadcrumb, Layout, Menu, theme } from 'antd'
 import Header from '../Header/Header'
@@ -26,12 +27,12 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-	getItem('Analysis', '1', <PieChartOutlined />),
-	getItem('Devices', 'device1', <DesktopOutlined />, [
-		getItem('Company', '3', <ProfileOutlined />),
-		getItem('Device', '4', <DesktopOutlined />),
-		getItem('SMS', '5', <MessageOutlined />),
-		getItem('Versions', '5', <ClusterOutlined />),
+	getItem('Analysis', 'analysis_item', <PieChartOutlined />),
+	getItem('Devices', 'devices_item', <DesktopOutlined />, [
+		getItem('Company', 'devices_company_item', <ProfileOutlined />),
+		getItem('Device', 'devices_device_item', <DesktopOutlined />),
+		getItem('SMS', 'devices_sms_item', <MessageOutlined />),
+		getItem('Versions', 'devices_versions_item', <ClusterOutlined />),
 	]),
 	getItem('Team', 'sub2', <TeamOutlined />, [
 		getItem('Team 1', '6'),
@@ -39,12 +40,13 @@ const items = [
 	]),
 	getItem(
 		'Orders',
-		'10',
-		<Link to='https://www.google.com/'>
+		'orders_orders_item',
+		<Link to='https://www.google.com/' target='_blank'>
 			<CheckCircleOutlined />
 		</Link>
 	),
-	getItem('Pricing', '9', <DollarOutlined />),
+	getItem('Pricing', 'pricing_pricing_item', <DollarOutlined />),
+	getItem('Equipments', 'equipments_equipment_item', <ApiOutlined />),
 ]
 
 const SideBar = () => {
@@ -74,7 +76,7 @@ const SideBar = () => {
 					/>
 				</Sider>
 				<Layout>
-					<Header />
+					<Header isCollapse={collapsed} />
 					<Content
 						style={{
 							margin: '0 16px',

@@ -9,6 +9,15 @@
     height: 50px;
     margin: 10px 20px 0 20px;
     border-radius: 10px;
+    transition: max-width 0.3s ease-in-out; // Smoothly change size when collapse is opening or closing
+}
+
+.header.close {
+    max-width: 1370px;
+    width: 100%;
+    height: 50px;
+    margin: 10px 20px 0 20px;
+    border-radius: 10px;
 }
 
 .header > img {
@@ -16,6 +25,13 @@
     height: 25px;
     object-fit: contain;
     margin-left: 15px;
+}
+
+.search {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
 }
 
 .search_icon {
@@ -40,6 +56,22 @@
     align-items: center;
     margin-right: 15px;
     gap: 15px;
+}
+
+.header_user_data {
+    display: flex;
+    flex-direction: column;
+}
+
+.header_user_data > span:first-child {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.header_user_data > span:last-child {
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.5;
 }
 
 .arrow_down {
@@ -70,12 +102,14 @@
     // transition: transform ease-in-out 1s
     transition: all 5s ease-in-out;
 }
+
 .header-menu.show-menu {
     width: 100%;
     transform: translateX(0px);
     border-radius: 14px;
     box-shadow: 0px 9px 40px 0px rgba(0, 0, 0, 0.10);
 }
+
 .header-menu li, .header-menu li {
     display: flex;
     gap: 5px;
@@ -94,6 +128,10 @@
     height: 16px;
 }
 
+.header_notification {
+    cursor: pointer;
+}
+
 .search_input:hover {
     border: 0.6px solid #1677ff;
 }
@@ -109,4 +147,9 @@ input:focus::placeholder {
 ::placeholder {
     text-align: center;
     left: 20px;
+}
+
+/* Smoothly change size when collapse is opening or closing */
+.header .search {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
