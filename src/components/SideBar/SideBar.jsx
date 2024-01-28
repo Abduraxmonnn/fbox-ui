@@ -14,9 +14,9 @@ import {
 import { Breadcrumb, Layout, Menu, theme } from 'antd'
 import Header from '../Header/Header'
 import { Link } from 'react-router-dom'
-import { images } from '../../constants'
-
+import CustomHeader from '../CutsomHeader/CustomHeader'
 const { Content, Footer, Sider } = Layout
+
 function getItem(label, key, icon, children) {
 	return {
 		key,
@@ -55,6 +55,8 @@ const SideBar = () => {
 		token: { colorBgContainer, borderRadiusLG },
 	} = theme.useToken()
 
+	console.log('-----> ', items)
+
 	return (
 		<section className='sidebar'>
 			<Layout
@@ -77,6 +79,7 @@ const SideBar = () => {
 				</Sider>
 				<Layout>
 					<Header isCollapse={collapsed} />
+					{/* <CustomHeader /> */}
 					<Content
 						style={{
 							margin: '0 16px',

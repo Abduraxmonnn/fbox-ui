@@ -9,7 +9,7 @@ const Header = (props) => {
 	const [isUserOptions, setIsUserOptions] = useState(false)
 
 	return (
-		<section className={`header${props.isCollapse ? ' close': ''}`}>
+		<section className={`header${props.isCollapse ? ' close' : ''}`}>
 			<img src={images.logo} alt='logo' />
 			<div className='search'>
 				<input
@@ -62,4 +62,4 @@ const Header = (props) => {
 	)
 }
 
-export default Header
+export default Header;
