@@ -1,5 +1,5 @@
 import Header from './Header/Header'
 import SignIn from './SignIn/SignIn'
-import SideBar from './SideBar/SideBar'
+import SideBar from '../layout/SideBar'
 
 export { Header, SignIn, SideBar }
