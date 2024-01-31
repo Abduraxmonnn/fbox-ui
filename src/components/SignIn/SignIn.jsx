@@ -1,4 +1,4 @@
-import SignInForm from "../Form/SignInForm"
+import SignInForm from "../../forms/SignInForm/SignInForm"
 import './SignIn.scss'
 
 const SignIn = () => {

@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Tag, Pagination } from 'antd'
+import { Table, Tag, FloatButton } from 'antd'
+import {
+	FileAddOutlined,
+	FileExcelOutlined,
+	UploadOutlined,
+} from '@ant-design/icons'
 import { API } from '../api'
+import { Link } from 'react-router-dom'
+import { AddNewDevice } from '../components'
 
 const columns = [
 	{
@@ -94,11 +101,16 @@ const columns = [
 	},
 ]
 
+// rowSelection object indicates the need for row selection
+const rowSelection = {
+	onChange: (selectedRowKeys, selectedRows) => {
+		console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+	}
+};
+
 const Devices = () => {
     const [devices, setDevices] = useState([])
-	const onChange = (pagination, filters, sorter, extra) => {
-		console.log('params', pagination, filters, sorter, extra)
-	}
+	const [selectionType, setSelectionType] = useState('checkbox')
 
     function extractDate(dateString) {
 		const date = new Date(dateString)
@@ -112,8 +124,14 @@ const Devices = () => {
 				key: device.id,
 				device_serial_number: device.device_serial_number,
 				is_multi_user: [device.is_multi_user],
-				start_date: extractDate(device.start_date),
-				end_date: extractDate(device.end_date),
+				start_date:
+					device.start_date === null
+						? '----/--/--'
+						: extractDate(device.start_date),
+				end_date:
+					device.end_date === null
+						? '----/--/--'
+						: extractDate(device.end_date),
 			}))
 			setDevices(devicesData)
 		} catch (err) {
@@ -130,17 +148,41 @@ const Devices = () => {
 		<>
 			<div className='content_container'>
 				<Table
+					rowSelection={{
+						type: selectionType,
+						...rowSelection,
+					}}
 					columns={columns}
 					dataSource={devices}
-					onChange={onChange}
 					pagination={{
 						defaultPageSize: 20,
 						showSizeChanger: true,
 						defaultCurrent: 1,
-                        showTotal: (total, range) => `${range[0]} - ${range[1]} / ${devices.length}`,
+						showTotal: (total, range) =>
+							`${range[0]} - ${range[1]} / ${devices.length}`,
 						pageSizeOptions: ['10', '20', '50', '100'],
 					}}
 				/>
+				<FloatButton.Group
+					trigger='click'
+					type='primary'
+					style={{
+						right: 24,
+					}}
+					icon={<UploadOutlined />}
+				>
+					<FloatButton
+						icon={<FileExcelOutlined />}
+						tooltip={<div>Delete Device</div>}
+					/>
+					<Link to='/create_device'>
+						<FloatButton
+							type='primary'
+							icon={<FileAddOutlined />}
+							tooltip={<div>Add Device</div>}
+						/>
+					</Link>
+				</FloatButton.Group>
 			</div>
 		</>
 	)

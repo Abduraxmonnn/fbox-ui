@@ -55,7 +55,7 @@ const SideBar = () => {
 					>
 						<Breadcrumb style={{ margin: '16px 0' }}>
 							<Breadcrumb.Item>
-								<NavLink to='/'>Pages</NavLink>
+								<NavLink to='/analysis'>Main</NavLink>
 							</Breadcrumb.Item>
 							<Breadcrumb.Item
 								style={{ textTransform: 'capitalize' }}

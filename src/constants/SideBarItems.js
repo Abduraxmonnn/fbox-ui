@@ -22,7 +22,13 @@ export function getItem(label, key, icon, children) {
 }
 
 export const items = [
-	getItem('Analysis', 'analysis_item', <PieChartOutlined />),
+	getItem(
+		'Analysis',
+		'analysis_item',
+		<Link to='/analysis'>
+			<PieChartOutlined />
+		</Link>
+	),
 	getItem('Devices', 'devices_item', <DesktopOutlined />, [
 		getItem('Company', 'devices_company_item', <ProfileOutlined />),
 		getItem(
