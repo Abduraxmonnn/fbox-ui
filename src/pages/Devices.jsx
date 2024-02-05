@@ -33,17 +33,11 @@ const columns = [
 
 		render: (_, { is_multi_user }) => (
 			<>
-				{is_multi_user.map(tag => {
-					let color = tag.length > 5 ? true : 'green'
-					if (tag === false) {
-						color = 'volcano'
-					}
-					return (
-						<Tag color={color} key={toString(tag)}>
-							{`${tag}`.toUpperCase()}
-						</Tag>
-					)
-				})}
+				{is_multi_user.map(tag => (
+					<Tag color={tag === true ? 'green' : 'volcano'} key={tag}>
+						{`${String(tag)}`.toUpperCase()}
+					</Tag>
+				))}
 			</>
 		),
 	},
