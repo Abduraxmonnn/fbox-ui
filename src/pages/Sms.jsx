@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Table, Tag } from 'antd'
 import { API } from '../api'
 
-
 const columns = [
 	{
 		title: 'id',
@@ -34,6 +33,8 @@ const columns = [
 			},
 		],
 
+		onFilter: (value, record) => record.is_success.indexOf(value) === 0,
+
 		render: (_, { is_success }) => (
 			<>
 				{is_success.map(tag => (
@@ -53,9 +54,13 @@ const columns = [
 // rowSelection object indicates the need for row selection
 const rowSelection = {
 	onChange: (selectedRowKeys, selectedRows) => {
-		console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-	}
-};
+		console.log(
+			`selectedRowKeys: ${selectedRowKeys}`,
+			'selectedRows: ',
+			selectedRows
+		)
+	},
+}
 
 const Sms = () => {
 	const [smsData, setSmsData] = useState([])
@@ -69,10 +74,6 @@ const Sms = () => {
 	async function getSmsData() {
 		try {
 			const response = await API.get('/list_sms/')
-			console.log(
-				'---> ',
-				response.data
-			)
 			const data = response.data.map(sms => ({
 				key: sms.id,
 				sms_id: sms.id,
