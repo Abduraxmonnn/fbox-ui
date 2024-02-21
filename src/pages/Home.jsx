@@ -1,9 +1,6 @@
-import { Layout, Drawer, Affix } from "antd";
-import {
-	SideBar
-} from '../components/'
-import Sms from "./Sms";
-
+import { Layout, Drawer, Affix } from 'antd'
+import { SideBar } from '../components/'
+import Sms from './Sms'
 
 const { Header: AntHeader, Content, Sider } = Layout
 
@@ -15,4 +12,4 @@ const Home = () => {
 	)
 }
 
-export default Home;
+export default Home

@@ -98,20 +98,24 @@ const columns = [
 // rowSelection object indicates the need for row selection
 const rowSelection = {
 	onChange: (selectedRowKeys, selectedRows) => {
-		console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-	}
-};
+		console.log(
+			`selectedRowKeys: ${selectedRowKeys}`,
+			'selectedRows: ',
+			selectedRows
+		)
+	},
+}
 
 const Devices = () => {
-    const [devices, setDevices] = useState([])
+	const [devices, setDevices] = useState([])
 	const [selectionType, setSelectionType] = useState('checkbox')
 
-    function extractDate(dateString) {
+	function extractDate(dateString) {
 		const date = new Date(dateString)
 		return date.toISOString().slice(0, 10)
 	}
 
-    async function getDevicesData() {
+	async function getDevicesData() {
 		try {
 			const response = await API.get('/devices')
 			const devicesData = response.data.map(device => ({
@@ -130,11 +134,10 @@ const Devices = () => {
 			setDevices(devicesData)
 		} catch (err) {
 			console.error('Something went wrong:', err)
-            throw err;
 		}
 	}
 
-    useEffect(() => {
+	useEffect(() => {
 		getDevicesData()
 	}, [])
 
@@ -182,4 +185,4 @@ const Devices = () => {
 	)
 }
 
-export default Devices;
+export default Devices

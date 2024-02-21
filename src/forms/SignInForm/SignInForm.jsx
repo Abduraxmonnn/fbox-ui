@@ -75,7 +75,7 @@ const SignInForm = () => {
 					span: 16,
 				}}
 			>
-				<Link to="/">
+				<Link to='/analysis'>
 					<Button type='primary' htmlType='submit'>
 						Submit
 					</Button>
@@ -85,4 +85,4 @@ const SignInForm = () => {
 	)
 }
 
-export default SignInForm;
+export default SignInForm

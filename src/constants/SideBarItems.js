@@ -30,7 +30,13 @@ export const items = [
 		</Link>
 	),
 	getItem('Devices', 'devices_item', <DesktopOutlined />, [
-		getItem('Company', 'devices_company_item', <ProfileOutlined />),
+		getItem(
+			'Company',
+			'devices_company_item',
+			<Link to='/company'>
+				<ProfileOutlined />
+			</Link>
+		),
 		getItem(
 			'Device',
 			'devices_device_item',
@@ -38,7 +44,13 @@ export const items = [
 				<DesktopOutlined />
 			</Link>
 		),
-		getItem('Status', 'devices_status_item', <CheckCircleOutlined />),
+		getItem(
+			'Status',
+			'devices_status_item',
+			<Link to='/devices/status'>
+				<CheckCircleOutlined />
+			</Link>
+		),
 		getItem(
 			'SMS',
 			'devices_sms_item',
@@ -46,7 +58,13 @@ export const items = [
 				<MessageOutlined />
 			</Link>
 		),
-		getItem('Versions', 'devices_versions_item', <ClusterOutlined />),
+		getItem(
+			'Versions',
+			'devices_versions_item',
+			<Link to='/version'>
+				<ClusterOutlined />
+			</Link>
+		),
 	]),
 	getItem('Team', 'sub2', <TeamOutlined />, [
 		getItem('Team 1', '6'),
@@ -55,7 +73,7 @@ export const items = [
 	getItem(
 		'Orders',
 		'orders_orders_item',
-		<Link to='/sign_in'>
+		<Link to='/analysis'>
 			<FileDoneOutlined />
 		</Link>
 	),

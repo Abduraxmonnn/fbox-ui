@@ -33,11 +33,11 @@ const columns = [
 			},
 		],
 
-		onFilter: (value, record) => record.is_success.indexOf(value) === 0,
+		onFilter: (value, record) => record.is_success === value,
 
 		render: (_, { is_success }) => (
 			<>
-				{is_success.map(tag => (
+				{[is_success].map(tag => (
 					<Tag color={tag === true ? 'green' : 'volcano'} key={tag}>
 						{`${String(tag)}`.toUpperCase()}
 					</Tag>
@@ -79,13 +79,12 @@ const Sms = () => {
 				sms_id: sms.id,
 				inn: sms.inn,
 				recipient: sms.recipient,
-				is_success: [sms.is_success],
+				is_success: sms.is_success,
 				created_date: extractDate(sms.created_date),
 			}))
 			setSmsData(data)
 		} catch (err) {
 			console.error('Something went wrong:', err)
-			throw err
 		}
 	}
 
