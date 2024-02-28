@@ -6,7 +6,7 @@ const columns = [
 	{
 		title: 'id',
 		dataIndex: 'sms_id',
-		sorter: {},
+		sorter: (a, b) => a.sms_id - b.sms_id,
 		render: title => <a>{title}</a>,
 		width: 300,
 	},
@@ -25,11 +25,11 @@ const columns = [
 		filters: [
 			{
 				text: 'True',
-				value: 'true',
+				value: true,
 			},
 			{
 				text: 'False',
-				value: 'false',
+				value: false,
 			},
 		],
 

@@ -14,6 +14,8 @@ const columns = [
 		title: 'Device serial number',
 		dataIndex: 'device_serial_number',
 		sorter: {},
+		onFilter: (value, record) =>
+			record.device_serial_number.startsWith(value),
 		render: title => <a>{title}</a>,
 		width: 300,
 	},
@@ -23,13 +25,15 @@ const columns = [
 		filters: [
 			{
 				text: 'True',
-				value: 'true',
+				value: true,
 			},
 			{
 				text: 'False',
-				value: 'false',
+				value: false,
 			},
 		],
+
+		onFilter: (value, record) => record.is_multi_user[0] === value,
 
 		render: (_, { is_multi_user }) => (
 			<>
@@ -110,6 +114,10 @@ const Devices = () => {
 	const [devices, setDevices] = useState([])
 	const [selectionType, setSelectionType] = useState('checkbox')
 
+	const onChange = (pagination, filters, sorter, extra) => {
+		console.log('params', pagination, filters, sorter, extra)
+	}
+
 	function extractDate(dateString) {
 		const date = new Date(dateString)
 		return date.toISOString().slice(0, 10)
@@ -151,6 +159,7 @@ const Devices = () => {
 					}}
 					columns={columns}
 					dataSource={devices}
+					onChange={onChange}
 					pagination={{
 						defaultPageSize: 20,
 						showSizeChanger: true,
