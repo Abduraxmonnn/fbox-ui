@@ -2,53 +2,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
-  --nunito-sans: 'Nunito Sans', serif;
-  --libre-baskerville: 'Libre Baskerville', serif;
+	--nunito-sans: 'Nunito Sans', serif;
+	--libre-baskerville: 'Libre Baskerville', serif;
 
-  --color-lightgray: lightgray;
-  --color-lightgreen: rgba(191, 216, 191, 0.49);
-  --color-black: #000;
-  --color-white: #ffffff;
-  --color-grey: #aaaaaa;
-  --color-green: #4BB543;
+	--color-lightgray: lightgray;
+	--color-lightgreen: rgba(191, 216, 191, 0.49);
+	--color-black: #000;
+	--color-white: #ffffff;
+	--color-grey: #aaaaaa;
+	--color-green: #4bb543;
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  scroll-behavior: smooth;
-  font-family: 'Nunito Sans', sans-serif;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	scroll-behavior: smooth;
+	font-family: 'Nunito Sans', sans-serif;
 }
 
 ul,
 ol {
-  list-style: none;
+	list-style: none;
 }
 
 a {
-  color: unset;
-  text-decoration: none;
+	color: unset;
+	text-decoration: none;
 }
 
 @-webkit-keyframes slide-bottom {
-  0% {
-    -webkit-transform: translateY(-25%);
-    transform: translateY(-25%);
-  }
-  100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
+	0% {
+		-webkit-transform: translateY(-25%);
+		transform: translateY(-25%);
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
 }
 
 @keyframes slide-bottom {
-  0% {
-    -webkit-transform: translateY(-25%);
-    transform: translateY(-25%);
-  }
-  100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
+	0% {
+		-webkit-transform: translateY(-25%);
+		transform: translateY(-25%);
+	}
+	100% {
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
 }

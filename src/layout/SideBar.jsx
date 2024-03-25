@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Breadcrumb, Layout, Menu, theme } from 'antd'
 import Header from '../components/Header/Header'
-import CustomHeader from '../components/CutsomHeader/CustomHeader'
 import { items } from '../constants'
 import { useLocation, NavLink, Outlet } from 'react-router-dom'
 

@@ -48,7 +48,7 @@ const Header = (props) => {
 								<span>Activity Log</span>
 							</li>
 							<hr />
-							<Link to='/sign_in'>
+							<Link to='/'>
 								<li>
 									<img src={images.logout} alt='log out' />
 									<span>Log out</span>

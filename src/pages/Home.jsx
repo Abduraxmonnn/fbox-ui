@@ -1,8 +1,5 @@
-import { Layout, Drawer, Affix } from 'antd'
+import { Layout } from 'antd'
 import { SideBar } from '../components/'
-import Sms from './Sms'
-
-const { Header: AntHeader, Content, Sider } = Layout
 
 const Home = () => {
 	return (

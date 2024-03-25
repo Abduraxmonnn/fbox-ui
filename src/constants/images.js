@@ -1,6 +1,6 @@
 import sig_in_bg from '../assets/auth/auth bg.png';
 import search_icon from '../assets/icons/search loop.png';
-import logo from '../assets/icons/tmp logo.svg';
+import logo from '../assets/icons/logo-fiscalbox.svg';
 import arrow_down from '../assets/icons/arrow down.svg'
 import manage_account from '../assets/icons/manage-acc-icon.svg'
 import activity_log from '../assets/icons/activity-log-icon.svg'

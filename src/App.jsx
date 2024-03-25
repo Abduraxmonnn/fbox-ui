@@ -10,7 +10,7 @@ import './App.css'
 import { SignIn } from './components'
 import AddNewDevice from './pages/AddNewDevice'
 import RootLayout from './layout/RootLayout'
-import Analysis from './pages/Analysis'
+import Analysis from './pages/Analysis/Analysis'
 
 function App() {
 	return (
@@ -26,7 +26,7 @@ function App() {
 					<Route path='/sms' element={<Sms />} />
 				</Route>
 				{/* <Route path='/' element={<Home />} /> */}
-				<Route path='/sign_in' element={<SignIn />} />
+				<Route path='/' element={<SignIn />} />
 			</Routes>
 		</div>
 	)

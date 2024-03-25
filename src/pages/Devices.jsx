@@ -7,7 +7,6 @@ import {
 } from '@ant-design/icons'
 import { API } from '../api'
 import { Link } from 'react-router-dom'
-import { AddNewDevice } from '../components'
 
 const columns = [
 	{
