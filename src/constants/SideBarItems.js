@@ -73,7 +73,7 @@ export const items = [
 	getItem(
 		'Orders',
 		'orders_orders_item',
-		<Link to='/analysis'>
+		<Link to='/orders'>
 			<FileDoneOutlined />
 		</Link>
 	),

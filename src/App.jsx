@@ -1,4 +1,4 @@
-import { Switch, Route, Routes } from 'react-router-dom'
+import { 	Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Sms from './pages/Sms'
 import Devices from './pages/Devices'
