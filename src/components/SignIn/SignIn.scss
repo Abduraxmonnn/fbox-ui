@@ -43,3 +43,10 @@
     font-weight: 600;
     margin-bottom: 50px;
 }
+
+.auth-fail-msg {
+    display: flex;
+    justify-content: center;
+    color: red;
+    padding: 0 0 10px 0;
+}

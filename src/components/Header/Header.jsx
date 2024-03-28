@@ -4,7 +4,7 @@ import {UserOutlined, NotificationOutlined} from '@ant-design/icons'
 import {useDispatch} from "react-redux";
 
 import {images} from '../../constants';
-import {logout} from "../../actions/SignIn";
+import {logout} from "../../actions/auth";
 import './Header.scss';
 import {Link} from "react-router-dom";
 

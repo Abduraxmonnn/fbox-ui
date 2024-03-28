@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useDispatch} from "react-redux";
 import {Button, Checkbox, Form, Input} from 'antd'
 import {useNavigate} from 'react-router-dom'
-import {signin} from "../../actions/SignIn";
+import {auth} from "../../actions/auth";
 
 const initialState = {username: "", password: ""}
 
@@ -17,7 +17,7 @@ const SignInForm = props => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(signin(formData, navigate));
+        dispatch(auth(formData, navigate));
     };
 
     return (
