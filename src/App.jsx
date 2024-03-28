@@ -1,4 +1,6 @@
 import { 	Route, Routes } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+
 import Home from './pages/Home'
 import Sms from './pages/Sms'
 import Devices from './pages/Devices'
@@ -7,7 +9,7 @@ import DeviceStatus from './pages/DeviceStatus'
 import Version from './pages/Version'
 
 import './App.css'
-import { SignIn } from './components'
+import SignIn from './components/SignIn/SignIn';
 import AddNewDevice from './pages/AddNewDevice'
 import RootLayout from './layout/RootLayout'
 import Analysis from './pages/Analysis/Analysis'

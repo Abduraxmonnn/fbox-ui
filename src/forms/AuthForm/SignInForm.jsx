@@ -2,8 +2,7 @@ import React, {useState} from 'react'
 import {useDispatch} from "react-redux";
 import {Button, Checkbox, Form, Input} from 'antd'
 import {useNavigate} from 'react-router-dom'
-import './SignInForm.css'
-import {signin} from "../../../actions/SignIn";
+import {signin} from "../../actions/SignIn";
 
 const initialState = {username: "", password: ""}
 
@@ -20,8 +19,6 @@ const SignInForm = props => {
         e.preventDefault();
         dispatch(signin(formData, navigate));
     };
-
-    const authFailed = true
 
     return (
         <Form
@@ -40,9 +37,8 @@ const SignInForm = props => {
             }}
             autoComplete='on'
             className='text'
-            onSubmit={handleSubmit}
+            onSubmitCapture={handleSubmit}
         >
-            {authFailed && <p className="auth-fail-msg">Invalid Username or Password</p>}
             <Form.Item
                 label='Username'
                 name='email'
