@@ -1,17 +1,18 @@
-import {SIGNIN_SUCCESS, SIGNIN_FAILURE, LOGOUT} from '../constants/actionTypes';
+import {SIGNIN_SUCCESS, SIGNIN_FAILURE, LOGOUT} from '../../constants/actionTypes';
 
 const initialState = {
     signInSuccess: false,
     signInError: false,
     isAuthenticated: false,
+    userData: null,
 };
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case SIGNIN_SUCCESS:
+            localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
             return {
                 ...state,
-                userData: null,
                 signInSuccess: true,
                 signInError: false
             };
