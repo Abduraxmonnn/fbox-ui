@@ -66,10 +66,6 @@ export const items = [
 			</Link>
 		),
 	]),
-	getItem('Team', 'sub2', <TeamOutlined />, [
-		getItem('Team 1', '6'),
-		getItem('Team 2', '8'),
-	]),
 	getItem(
 		'Orders',
 		'orders_orders_item',

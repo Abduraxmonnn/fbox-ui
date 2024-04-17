@@ -24,6 +24,7 @@ export const userSignIn = (formData, navigate) => async (dispatch) => {
     }
 };
 
-export const logout = () => (dispatch) => {
+export const logout = () => (dispatch, navigate) => {
     dispatch({type: LOGOUT});
+    navigate("/");
 };

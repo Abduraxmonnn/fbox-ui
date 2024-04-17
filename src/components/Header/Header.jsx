@@ -6,18 +6,19 @@ import {useDispatch} from "react-redux";
 import {images} from '../../constants';
 import {logout} from "../../store/auth/user.action";
 import './Header.scss';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Header = (props) => {
     const [isUserOptions, setIsUserOptions] = useState(false)
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleLogout = () => {
-        dispatch(logout());
+        dispatch(logout(navigate));
     };
 
     useEffect(() => {
-        dispatch(logout());
+        dispatch(logout(navigate));
     }, [dispatch]);
 
     return (

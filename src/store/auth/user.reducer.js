@@ -10,7 +10,7 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case SIGNIN_SUCCESS:
-            localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
+            localStorage.setItem("user", JSON.stringify({ ...action.payload }));
             return {
                 ...state,
                 signInSuccess: true,
