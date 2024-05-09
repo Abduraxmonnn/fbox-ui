@@ -12,7 +12,7 @@ const columns = [
     {
         title: 'Device serial number',
         dataIndex: 'device_serial_number',
-        sorter: {},
+        sorter: (a, b) => a.device_serial_number - b.device_serial_number,
         onFilter: (value, record) =>
             record.device_serial_number.startsWith(value),
         render: title => <a>{title}</a>,
@@ -47,9 +47,9 @@ const columns = [
     {
         title: 'Start date',
         dataIndex: 'start_date',
+        // defaultSortOrder: 'ascend',
         sorter: {
-            compare: (a, b) => a.start_date - b.end_date,
-            multiple: 1,
+            compare: (a, b) => new Date(a.start_date) - new Date(b.end_date),
         },
         filters: [
             {
@@ -74,8 +74,7 @@ const columns = [
         title: 'End date',
         dataIndex: 'end_date',
         sorter: {
-            compare: (a, b) => a.english - b.english,
-            multiple: 1,
+            compare: (a, b) => new Date(a.start_date) - new Date(b.end_date),
         },
         filters: [
             {

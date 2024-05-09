@@ -1,35 +1,41 @@
 .addNewDevice_main {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.addNewDevice_main > h1 {
-    margin-bottom: 30px;
+.addNewDevice_main__title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.addNewDevice_main__title > h1 {
+  margin-bottom: 30px;
 }
 
 .input_form {
-    list-style-type: none;
-    padding-left: 0px;
+  list-style-type: none;
+  padding-left: 0px;
 }
 
 .input_form > li {
-    margin-bottom: 30px;
-    width: auto;
+  margin-bottom: 30px;
+  width: auto;
 }
 
 .input_form > li > p {
-    float: left;
-    max-width: 300px;
-    width: 100%;
-    text-align: start;
-    margin: 0 20px 0 0;
+  float: left;
+  max-width: 300px;
+  width: 100%;
+  text-align: start;
+  margin: 0 20px 0 0;
 }
 
 .required_field {
-    color: red;
+  color: red;
 }
 
 .buttons {
-    text-align: right;
+  text-align: right;
 }

@@ -1,4 +1,5 @@
 import { Button, DatePicker, Space, Select, Input, Checkbox, Row, Col } from 'antd'
+import { useNavigate } from 'react-router-dom';
 import './AddNewDeviceForm.scss'
 const { RangePicker } = DatePicker
 const { TextArea } = Input
@@ -75,11 +76,25 @@ const onChangePermissions = checkedValues => {
 const plainOptions = ['Is multiple User', 'Update available', 'Click', 'PayMe', 'Apelsin / Uzum', 'Anor']
 
 const AddNewDeviceForm = () => {
+	const navigate = useNavigate();
+
 	return (
 		<>
 			<div className='content_container'>
 				<div className='addNewDevice_main'>
-					<h1>Add Device</h1>
+					<div className='addNewDevice_main__title'>
+						<h1>Add Device</h1>
+						<Button
+							style={{
+								width: '15%',
+								display: 'inline-block',
+								marginRight: '1%'
+							}}
+							type='dashed'
+							onClick={() => navigate(-1)}>
+							Back
+						</Button>
+					</div>
 					<ul className='input_form'>
 						<li>
 							<p>Start / End date</p>

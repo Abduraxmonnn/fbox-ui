@@ -1,7 +1,5 @@
 import {Route, Routes} from 'react-router-dom'
-import {useSelector} from 'react-redux';
 
-import Home from './pages/Home'
 import Sms from './pages/Sms'
 import Devices from './pages/Devices'
 import Company from './pages/Company'
@@ -42,7 +40,7 @@ function App() {
                         <Route path='/version' element={<Version/>}/>
                         <Route path='/sms' element={<Sms/>}/>
                     </Route>
-                    {/* <Route path='/' element={<Home />} /> */}
+                    <Route path='/' element={<SignIn/>}/>
                 </Routes>
             ) : (
                 <Routes>
