@@ -1,0 +1,51 @@
+.addNewCompany_main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.addNewCompany_main__title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.addNewDevice_main__title > h1 {
+  margin-bottom: 30px;
+}
+
+.input_form {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+.input_form > li {
+  margin-bottom: 30px;
+  width: auto;
+}
+
+.input_form > li > p {
+  float: left;
+  max-width: 200px;
+  width: 100%;
+  text-align: start;
+  margin: 0 20px 0 0;
+}
+
+.required_field {
+  color: red;
+}
+
+.buttons {
+  text-align: right;
+}
+
+.user_list {
+  max-height: 500px;
+  overflow: auto;
+}
+
+.not_required_field {
+  color: #aaaaaa;
+}
