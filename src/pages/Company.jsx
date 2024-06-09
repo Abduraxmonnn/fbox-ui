@@ -46,7 +46,6 @@ const columns = [
     },
 ]
 
-// rowSelection object indicates the need for row selection
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
         console.log(
@@ -59,32 +58,28 @@ const rowSelection = {
 
 const Company = () => {
     const [companies, setCompanies] = useState([])
-    const [selectionType, setSelectionType] = useState('checkbox')
+    const [selectionType] = useState('checkbox')
 
     const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra)
     }
 
+    useEffect(() => {
+        getCompaniesData()
+    }, [])
+
     async function getCompaniesData() {
         try {
-            const response = await APIv1.get('/company')
-            const companiesData = response.data.map(company => ({
-                key: company.id,
-                companyName: company.name,
-                companyInn: company.inn,
-                companyAddress: company.address,
-                companyCountSentSms: company.count_sent_sms,
-                companyPhoneNumber: company.phone_number
-            }))
-            setCompanies(companiesData)
+            const response = await APIv1.get('/company');
+            const companiesData = response.data.map((company) => ({
+                ...company,
+                key: company.id ? company.id.toString() : Math.random().toString(),
+            }));
+            setCompanies(companiesData);
         } catch (err) {
             console.error('Something went wrong:', err)
         }
     }
-
-    useEffect(() => {
-        getCompaniesData()
-    }, [])
 
     return (
         <>

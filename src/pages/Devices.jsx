@@ -5,7 +5,7 @@ import {
     FileExcelOutlined,
     UploadOutlined,
 } from '@ant-design/icons'
-import {API} from '../api'
+import {APIv1} from '../api'
 import {Link} from 'react-router-dom'
 
 const columns = [
@@ -123,7 +123,7 @@ const Devices = () => {
 
     async function getDevicesData() {
         try {
-            const response = await API.get('/devices')
+            const response = await APIv1.get('/devices')
             const devicesData = response.data.map(device => ({
                 key: device.id,
                 device_serial_number: device.device_serial_number,
@@ -192,4 +192,4 @@ const Devices = () => {
     )
 }
 
-export default Devices
+export default Devices;

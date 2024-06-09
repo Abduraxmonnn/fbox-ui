@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Table, Tag} from 'antd'
-import {API} from '../api'
+import {APIv1} from '../api'
 
 const columns = [
     {
@@ -73,7 +73,7 @@ const Sms = () => {
 
     async function getSmsData() {
         try {
-            const response = await API.get('/list_sms/')
+            const response = await APIv1.get('/list_sms/')
             const data = response.data.map(sms => ({
                 key: sms.id,
                 sms_id: sms.id,

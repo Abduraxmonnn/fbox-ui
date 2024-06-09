@@ -1,19 +1,26 @@
 import React, {useState, useEffect} from 'react'
-import {Table} from 'antd'
-import {APIv1 as API} from '../../api'
+import {Table, Tag} from 'antd'
+import {APIv1} from '../../api'
 
 const columns = [
     {
         title: 'Terminal ID',
         dataIndex: 'terminal_id',
-		// eslint-disable-next-line jsx-a11y/anchor-is-valid
         render: title => <a>{title}</a>,
     },
     {
         title: 'Left count',
         dataIndex: 'z_report_left_count',
-		// eslint-disable-next-line jsx-a11y/anchor-is-valid
-        render: title => <a>{title}</a>,
+        sorter: (a, b) => a.z_report_left_count - b.z_report_left_count,
+        render: (_, {z_report_left_count}) => (
+            <>
+                {[z_report_left_count].map(tag => (
+                    <Tag color={tag <= 10 ? 'red' : 'green'} key={tag}>
+                        {`${String(tag)}`.toUpperCase()}
+                    </Tag>
+                ))}
+            </>
+        ),
     },
 ]
 
@@ -34,7 +41,7 @@ const ZReport = () => {
 
     async function getReportData() {
         try {
-            const response = await API.get('/device_status/')
+            const response = await APIv1.get('/device_status/')
             const data = response.data.map(report => ({
                 key: report.id,
                 terminal_id:
