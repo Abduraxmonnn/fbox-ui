@@ -1,0 +1,31 @@
+.device_detail__title {
+  text-align: left;
+  font-size: 22px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.device_detail__device_serial_number_title {
+  font-size: 16px;
+}
+
+.graphBox {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  min-height: 200px;
+}
+
+.box {
+  position: relative;
+  background-color: var(--color-white);
+  padding: 20px;
+  width: 100%;
+  min-width: 532px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}

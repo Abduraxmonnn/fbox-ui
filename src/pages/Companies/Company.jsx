@@ -5,7 +5,7 @@ import {
     FileExcelOutlined,
     UploadOutlined,
 } from '@ant-design/icons'
-import {APIv1} from '../api'
+import {APIv1} from '../../api'
 import {Link} from 'react-router-dom'
 
 const columns = [
