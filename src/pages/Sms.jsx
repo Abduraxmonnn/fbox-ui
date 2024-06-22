@@ -62,8 +62,9 @@ const rowSelection = {
     },
 }
 
-const Sms = () => {
+const Sms = (props) => {
     const [smsData, setSmsData] = useState([])
+    const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
 
     function extractDate(dateString) {
@@ -72,6 +73,7 @@ const Sms = () => {
     }
 
     async function getSmsData() {
+        setLoading(true)
         try {
             const response = await APIv1.get('/list_sms/')
             const data = response.data.map(sms => ({
@@ -85,7 +87,9 @@ const Sms = () => {
             setSmsData(data)
         } catch (err) {
             console.error('Something went wrong:', err)
-        }
+        } finally {
+			setLoading(false)
+		}
     }
 
     useEffect(() => {
@@ -102,8 +106,9 @@ const Sms = () => {
                     }}
                     columns={columns}
                     dataSource={smsData}
+                    loading={loading}
                     pagination={{
-                        defaultPageSize: 20,
+                        defaultPageSize: props.defaultPaginationSize,
                         showSizeChanger: true,
                         defaultCurrent: 1,
                         showTotal: (total, range) =>

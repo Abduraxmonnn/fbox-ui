@@ -37,9 +37,11 @@ const rowSelection = {
 
 const ZReport = () => {
     const [reportData, setReportData] = useState([])
+    const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
 
     async function getReportData() {
+        setLoading(true)
         try {
             const response = await APIv1.get('/device_status/')
             const data = response.data.map(report => ({
@@ -54,6 +56,8 @@ const ZReport = () => {
             setReportData(data)
         } catch (err) {
             console.error('Something went wrong:', err)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -71,6 +75,7 @@ const ZReport = () => {
                     }}
                     columns={columns}
                     dataSource={reportData}
+                    loading={loading}
                     pagination={{
                         defaultCurrent: 1,
                         showTotal: (total, range) =>

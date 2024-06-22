@@ -58,9 +58,11 @@ const rowSelection = {
 
 const Subscription = () => {
     const [subscriptionData, setSubscriptionData] = useState([])
+    const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
 
     async function getSubscriptionData() {
+        setLoading(true)
         try {
             const response = await API.get('/subscription/get-last-20/')
             const data = response.data.map(subs => ({
@@ -72,7 +74,9 @@ const Subscription = () => {
             setSubscriptionData(data)
         } catch (err) {
             console.error('Something went wrong:', err)
-        }
+        } finally {
+			setLoading(false)
+		}
     }
 
     useEffect(() => {
@@ -89,6 +93,7 @@ const Subscription = () => {
                     }}
                     columns={columns}
                     dataSource={subscriptionData}
+                    loading={loading}
                     pagination={{
                         defaultPageSize: 10,
                         showSizeChanger: true,

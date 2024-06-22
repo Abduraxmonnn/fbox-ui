@@ -5,7 +5,7 @@ import PieChart from '../../components/Charts/PieChart'
 import BarChart from '../../components/Charts/BarChart'
 import ZReport from '../../components/Analysis/ZReport'
 import Subscription from '../../components/Analysis/Subscription'
-import Sms from "../../components/Analysis/Sms";
+import Sms from "../../pages/Sms";
 import {useNavigate} from "react-router-dom";
 
 const Analysis = () => {
@@ -33,12 +33,12 @@ const Analysis = () => {
                     <ZReport/>
                 </div>
                 <div className='subscription'>
-                    <h1 onClick={() => handleNavigate("/devices")}>Subscription</h1>
+                    <h1 onClick={() => handleNavigate("/device")}>Subscription</h1>
                     <Subscription/>
                 </div>
                 <div className='sms'>
                     <h1 onClick={() => handleNavigate("/sms")}>SMS</h1>
-                    <Sms/>
+                    <Sms defaultPaginationSize={20} />
                 </div>
             </div>
         </section>
