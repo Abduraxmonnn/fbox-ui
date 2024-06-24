@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {Avatar} from 'antd';
+import {Avatar, Spin} from 'antd';
 import {UserOutlined, NotificationOutlined} from '@ant-design/icons'
 import {useDispatch} from "react-redux";
 
@@ -12,6 +12,14 @@ const Header = (props) => {
     const [isUserOptions, setIsUserOptions] = useState(false)
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [userData, setUserData] = useState({});
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setUserData(items);
+        }
+    }, [userData.token]);
 
     const handleLogout = () => {
         dispatch(logout(navigate));
@@ -20,6 +28,10 @@ const Header = (props) => {
     useEffect(() => {
         dispatch(logout(navigate));
     }, [dispatch]);
+
+    if (!userData.token) {
+        return <Spin size="large"/>;
+    }
 
     return (
         <section className={`header${props.isCollapse ? ' close' : ''}`}>
@@ -35,8 +47,8 @@ const Header = (props) => {
             <div className='user_info'>
                 <NotificationOutlined className='header_notification'/>
                 <div className='header_user_data'>
-                    <span>Dua Lipa</span>
-                    <span>Admin</span>
+                    <span>{userData.data.username}</span>
+                    <span>{userData.data.is_superuser ? 'Admin' : 'Client'}</span>
                 </div>
                 <Avatar
                     size={30}
