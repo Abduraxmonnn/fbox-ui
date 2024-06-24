@@ -87,20 +87,34 @@ const ZReport = () => {
     const [reportData, setReportData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
+    const [userData, setUserData] = useState({});
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setUserData(items);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (userData.token) {
+            getReportData();
+        }
+    }, [userData.token]);
 
     function extractDate(dateString) {
         const date = new Date(dateString)
         return date.toISOString().slice(0, 10)
     }
 
-    useEffect(() => {
-        getReportData()
-    }, [])
-
     async function getReportData() {
         setLoading(true)
         try {
-            const response = await APIv1.get('/device_status/');
+            const response = await APIv1.get('/device_status/', {
+                headers: {
+                    Authorization: `Token ${userData.token}`
+                }
+            });
             const data = response.data.map(report => ({
                 key: report.id,
                 z_report_left_count: report.z_report_left_count ?? '-',
@@ -115,32 +129,32 @@ const ZReport = () => {
         } catch (err) {
             console.error('Something went wrong:', err)
         } finally {
-			setLoading(false)
-		}
+            setLoading(false)
+        }
     }
 
     return (
-			<>
-				<div className='content_container'>
-					<Table
-						rowSelection={{
-							type: selectionType,
-							...rowSelection,
-						}}
-						columns={columns}
-						dataSource={reportData}
-						loading={loading}
-						pagination={{
-							defaultCurrent: 1,
-							pageSizeOptions: [10, 20, 50, 100],
-							defaultPageSize: 20,
-							showTotal: (total, range) =>
-								`${range[0]} - ${range[1]} / ${reportData.length}`,
-						}}
-					/>
-				</div>
-			</>
-		)
+        <>
+            <div className='content_container'>
+                <Table
+                    rowSelection={{
+                        type: selectionType,
+                        ...rowSelection,
+                    }}
+                    columns={columns}
+                    dataSource={reportData}
+                    loading={loading}
+                    pagination={{
+                        defaultCurrent: 1,
+                        pageSizeOptions: [10, 20, 50, 100],
+                        defaultPageSize: 20,
+                        showTotal: (total, range) =>
+                            `${range[0]} - ${range[1]} / ${reportData.length}`,
+                    }}
+                />
+            </div>
+        </>
+    )
 }
 
 export default ZReport

@@ -39,6 +39,16 @@ const ZReport = () => {
     const [reportData, setReportData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        getReportData()
+        const storedData = localStorage.getItem('user');
+        if (storedData) {
+          setUserData(JSON.parse(storedData));
+        }
+    }, [])
+
 
     async function getReportData() {
         setLoading(true)
@@ -60,10 +70,6 @@ const ZReport = () => {
             setLoading(false)
         }
     }
-
-    useEffect(() => {
-        getReportData()
-    }, [])
 
     return (
         <>
