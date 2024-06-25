@@ -9,6 +9,16 @@ const columns = [
         render: title => <a>{title}</a>,
     },
     {
+        title: 'Device serial',
+        dataIndex: 'device_serial_number',
+        render: title => <a>{title}</a>,
+    },
+    {
+        title: 'Company name',
+        dataIndex: 'company_name',
+        render: title => <a>{title}</a>,
+    },
+    {
         title: 'Left count',
         dataIndex: 'z_report_left_count',
         sorter: (a, b) => a.z_report_left_count - b.z_report_left_count,
@@ -39,14 +49,9 @@ const ZReport = () => {
     const [reportData, setReportData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
-    const [userData, setUserData] = useState(null);
 
     useEffect(() => {
         getReportData()
-        const storedData = localStorage.getItem('user');
-        if (storedData) {
-          setUserData(JSON.parse(storedData));
-        }
     }, [])
 
 
@@ -56,6 +61,8 @@ const ZReport = () => {
             const response = await APIv1.get('/device_status/')
             const data = response.data.map(report => ({
                 key: report.id,
+                device_serial_number: report.device_serial.split('||')[0],
+                company_name: report.device_serial.split('||')[1],
                 terminal_id:
                     report.terminal_id === null ? '-' : report.terminal_id,
                 z_report_left_count:
