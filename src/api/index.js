@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+export const baseAPI = process.env.REACT_APP_BASE_URL_PROD;
+
 export const API = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL_PROD,
 })
