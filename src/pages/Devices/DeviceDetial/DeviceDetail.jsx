@@ -31,16 +31,12 @@ const DeviceDetail = () => {
         fetchDeviceDetail()
     }, [id])
 
-    if (loading) {
-        return <div>Loading...</div>
-    }
-
     if (!device) {
         return <div>Device not found</div>
     }
 
     return (
-        <div className='content_container'>
+        <section className='content_container'>
             <div className='device_detail__title'>
                 <div>
                     <h1>{device.company.name}</h1>
@@ -307,7 +303,7 @@ const DeviceDetail = () => {
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 
