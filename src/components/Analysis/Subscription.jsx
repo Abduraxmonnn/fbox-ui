@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {Table, Tag} from 'antd'
 import {APIv1 as API} from '../../api'
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {userSignIn} from "../../store/auth/user.action";
 
 const columns = [
@@ -9,7 +9,9 @@ const columns = [
         title: 'Company',
         dataIndex: 'company_name',
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        render: title => <a>{title}</a>,
+        render: (text, record) => (
+            <Link to={`/device/detail/${record.key}`}>{text}</Link>
+        ),
     },
     {
         title: 'Inn',
