@@ -40,7 +40,7 @@ function App() {
 						<Route element={<RootLayout />}>
 							<Route path='/analysis' element={<Analysis />} />
 							<Route path='/company' element={<Company />} />
-							<Route path='/company/detail' element={<CompanyDetail />} />
+							<Route path='/company/detail/:id' element={<CompanyDetail />} />
 							<Route path='/device' element={<Device />} />
 							<Route path='/device/detail/:id' element={<DeviceDetail />} />
 							<Route path='/device/status' element={<DeviceStatus />} />
