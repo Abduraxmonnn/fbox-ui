@@ -1,0 +1,19 @@
+.company_detail__title {
+  text-align: left;
+  font-size: 22px;
+  display: flex;
+  justify-content: left;
+  margin-bottom: 25px;
+}
+
+.action_buttons {
+  display: flex;
+  justify-content: right;
+  max-width: 1500px;
+  width: 100%;
+  gap: 25px;
+}
+
+.company_detail__inn {
+  font-size: 16px;
+}

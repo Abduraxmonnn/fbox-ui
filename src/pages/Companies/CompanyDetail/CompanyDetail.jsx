@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import {APIv1, baseAPI} from "../../../api";
 import {Button, Tag, Result} from "antd";
 import "./CompanyDetail.scss"
-import getUserData from "../../../api/user";
 
 const CompanyDetail = () => {
     const {id} = useParams()
