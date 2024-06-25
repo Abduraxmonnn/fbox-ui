@@ -13,7 +13,9 @@ const columns = [
         title: 'Name',
         dataIndex: 'company_name',
         sorter: (a, b) => a.company_name.localeCompare(b.company_name),
-        render: title => <a>{title}</a>,
+        render: (text, record) => (
+            <Link to={`/company/detail/${record.key}`}>{text}</Link>
+        ),
         width: 300,
     },
     {
@@ -26,7 +28,6 @@ const columns = [
     {
         title: 'Address',
         dataIndex: 'company_address',
-        // defaultSortOrder: 'ascend',
         sorter: (a, b) => {
             a = a.company_name || '';
             b = b.company_name || '';
@@ -41,7 +42,6 @@ const columns = [
     {
         title: 'Phone Number',
         dataIndex: 'company_phone_number',
-        // defaultSortOrder: 'ascend',
         sorter: (a, b) => a.company_phone_number - b.company_phone_number,
     },
 ]
@@ -59,6 +59,7 @@ const rowSelection = {
 const Company = () => {
     const [companies, setCompanies] = useState([])
     const [selectionType] = useState('checkbox')
+    const [loading, setLoading] = useState(true)
 
     const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra)
@@ -69,15 +70,22 @@ const Company = () => {
     }, [])
 
     async function getCompaniesData() {
+        setLoading(true)
         try {
             const response = await APIv1.get('/company');
             const companiesData = response.data.map((company) => ({
-                ...company,
-                key: company.id ? company.id.toString() : Math.random().toString(),
+                key: company.id,
+                company_name: company.name,
+                company_address: company.address ?? '-',
+                company_inn: company.inn,
+                company_count_sent_sms: company.count_sent_sms,
+                company_phone_number: company.phone_number,
             }));
             setCompanies(companiesData);
         } catch (err) {
             console.error('Something went wrong:', err)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -92,6 +100,7 @@ const Company = () => {
                     columns={columns}
                     dataSource={companies}
                     onChange={onChange}
+                    loading={loading}
                     pagination={{
                         defaultPageSize: 20,
                         showSizeChanger: true,
