@@ -11,16 +11,24 @@
   font-size: 16px;
 }
 
-.graphBox {
+.device_detail_graphBox {
   position: relative;
   width: 100%;
   padding: 20px;
   display: grid;
-  grid-template-columns: 1fr 2fr;
   min-height: 200px;
 }
 
-.box {
+.device_detail_box {
+  display: grid;
+  width: 100%;
+  padding: 20px;
+  gap: 50px;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100px;
+}
+
+.device_detail_box > ul {
   position: relative;
   background-color: var(--color-white);
   padding: 20px;
@@ -28,4 +36,43 @@
   min-width: 532px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   border-radius: 20px;
+}
+
+.device_detail_box > ul > h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.data_list {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.data_list > * {
+  margin: 5px 0 5px 0;
+}
+
+.data_list > li > span {
+  color: black;
+}
+
+.data_list > li > span:first-child {
+  font-size: 18px;
+  margin-top: 50px;
+  margin-right: 10px;
+}
+
+.data_list > li > span:last-child {
+  text-align: right;
+}
+
+.data_list:hover {
+  transform: scale(1.03);
+  border-bottom: 2px dashed lightblue;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.data_list:hover h1 {
+  color: #007bff;
 }
