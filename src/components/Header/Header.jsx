@@ -35,7 +35,7 @@ const Header = (props) => {
 
     return (
         <section className={`header${props.isCollapse ? ' close' : ''}`}>
-            <img src={images.logo} alt='logo'/>
+            <a href="/analysis"><img src={images.logo} alt='logo'/></a>
             <div className='search'>
                 <input
                     type='text'
