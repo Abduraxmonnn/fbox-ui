@@ -17,7 +17,9 @@ const columns = [
         title: 'Inn',
         dataIndex: 'company_inn',
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        render: title => <a>{title}</a>,
+        render: (text, record) => (
+            <Link to={`/device/detail/${record.key}`}>{text}</Link>
+        ),
     },
     {
         title: 'Multi user',
