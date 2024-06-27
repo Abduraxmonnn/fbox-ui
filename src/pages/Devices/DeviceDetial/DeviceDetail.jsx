@@ -1,39 +1,62 @@
 import React, {useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
-import {Button, Tag} from 'antd'
+import {LoadingOutlined} from '@ant-design/icons';
+import {Button, Tag, Spin} from 'antd'
 
 import {APIv1} from '../../../api'
 import './DeviceDetail.scss'
 
 const DeviceDetail = () => {
-    const {id} = useParams()
-    const [device, setDevice] = useState(null)
-    const [loading, setLoading] = useState(true)
-    const navigate = useNavigate()
+    const {id} = useParams();
+    const [device, setDevice] = useState(null);
+    const [relatedDevices, setRelatedDevices] = useState([]); // Use an array for related devices
+    const [selectedDeviceId, setSelectedDeviceId] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
-    const extractDate = dateString => {
-        const date = new Date(dateString)
-        return date.toISOString().slice(0, 10)
-    }
+    const extractDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toISOString().slice(0, 10);
+    };
 
     useEffect(() => {
-        const fetchDeviceDetail = async () => {
-            setLoading(true)
+        const fetchData = async () => {
             try {
-                const response = await APIv1.get(`/devices/${id}`)
-                setDevice(response.data)
+                const deviceResponse = await APIv1.get(`/devices/${id}`);
+                const relatedDevicesResponse = await APIv1.get(
+                    `/devices/get_related_devices/?serial=${deviceResponse.data.device_serial_number}`
+                );
+                setDevice(deviceResponse.data);
+                setRelatedDevices(relatedDevicesResponse.data);
             } catch (err) {
-                console.error('Something went wrong:', err)
+                console.error('Something went wrong:', err);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
-        }
-        fetchDeviceDetail()
-    }, [id])
+        };
+
+        fetchData();
+    }, [id]);
 
     if (!device) {
-        return <div>Device not found</div>
+        return <div>Device not found</div>;
     }
+
+    const renderRelatedDevices = () => {
+        if (relatedDevices.length === 0) {
+            return <li>No related devices found.</li>;
+        } else {
+            return relatedDevices.map((item) => (
+                <li key={item.device_serial_number || Math.random()}
+                    className="related_device"
+                    onClick={() => navigate(`/device/detail/${item.id}`)}
+                >
+                    <span>{item.device_serial_number}
+                        {Number(id) === Number(item.id) && <span className="current_text">- picked</span>}</span>
+                </li>
+            ));
+        }
+    };
 
     return (
         <section className='content_container'>
@@ -68,7 +91,6 @@ const DeviceDetail = () => {
                             <span>{device.company.name}</span>
                         </li>
                         <li>
-                            {console.log(device)}
                             <span>Multiple user:</span>
                             <span>
 								<Tag color={device.is_multi_user ? 'green' : 'volcano'}>
@@ -300,6 +322,11 @@ const DeviceDetail = () => {
                                     </Tag>}
                             </span>
                         </li>
+                    </ul>
+                    <ul className="data_list">
+                        <h1>Related Devices</h1>
+                        <h3>Total: {relatedDevices.length}</h3>
+                        {renderRelatedDevices()}
                     </ul>
                 </div>
             </div>

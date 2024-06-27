@@ -10,3 +10,17 @@
 .device_detail__device_serial_number_title {
   font-size: 16px;
 }
+
+.related_device {
+  cursor: pointer;
+}
+
+.current_text {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #007bff;
+}
+
+.related_device > span:hover {
+  color: #007bff;
+}
