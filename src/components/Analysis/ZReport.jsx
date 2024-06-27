@@ -49,16 +49,31 @@ const ZReport = () => {
     const [reportData, setReportData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
+    const [userData, setUserData] = useState({})
 
     useEffect(() => {
-        getReportData()
+        const items = JSON.parse(localStorage.getItem('user'))
+        if (items) {
+            setUserData(items)
+        }
     }, [])
+
+
+    useEffect(() => {
+        if (userData.token){
+            getReportData()
+        }
+    }, [userData.token])
 
 
     async function getReportData() {
         setLoading(true)
         try {
-            const response = await APIv1.get('/device_status/')
+            const response = await APIv1.get('/device_status/', {
+                headers: {
+                    Authorization: `Token ${userData.token}`
+                }
+            });
             const data = response.data.map(report => ({
                 key: report.id,
                 device_serial_number: report.device_serial.split('||')[0],
