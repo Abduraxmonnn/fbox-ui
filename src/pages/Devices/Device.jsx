@@ -105,12 +105,13 @@ const columns = [
 ]
 
 const Device = () => {
+    let defaultPageSize = 20
     const [devices, setDevices] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
     const [totalDevices, setTotalDevices] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
-    const [pageSize, setPageSize] = useState(20)
+    const [pageSize, setPageSize] = useState(defaultPageSize)
 
     useEffect(() => {
         getDevicesData(currentPage, pageSize);
@@ -158,7 +159,7 @@ const Device = () => {
                     current: currentPage,
                     pageSize: pageSize,
                     onChange: onChange,
-                    defaultPageSize: 20,
+                    defaultPageSize: defaultPageSize,
                     showSizeChanger: true,
                     defaultCurrent: 1,
                     showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,
