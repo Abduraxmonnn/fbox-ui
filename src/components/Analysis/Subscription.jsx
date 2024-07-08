@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Table, Tag} from 'antd'
-import {APIv1 as API} from '../../api'
+import {APIv1, APIv1 as API} from '../../api'
 import {Link, useNavigate} from "react-router-dom";
 import {userSignIn} from "../../store/auth/user.action";
 
@@ -61,31 +61,41 @@ const rowSelection = {
 }
 
 const Subscription = () => {
+    let defaultPageSize = 10
     const [subscriptionData, setSubscriptionData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
+    const [totalDevices, setTotalDevices] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1)
+    const [pageSize, setPageSize] = useState(defaultPageSize)
 
-    async function getSubscriptionData() {
-        setLoading(true)
+    useEffect(() => {
+        getSubscriptionData(currentPage, pageSize);
+    }, [currentPage, pageSize])
+
+    const onChange = (page, pageSize) => {
+        setCurrentPage(page)
+        setPageSize(pageSize)
+    }
+
+    async function getSubscriptionData(page, size) {
+        setLoading(true);
         try {
-            const response = await API.get('/subscription/get-last-20/')
-            const data = response.data.map(subs => ({
+            const response = await APIv1.get(`/subscription?page=${page}&page_size=${size}`);
+            const data = response.data.results.map(subs => ({
                 key: subs.id,
                 company_name: subs.company.name,
                 company_inn: subs.company.inn,
                 is_multi_user: subs.is_multi_user,
             }))
             setSubscriptionData(data)
+            setTotalDevices(response.data.count);
         } catch (err) {
             console.error('Something went wrong:', err)
         } finally {
-			setLoading(false)
-		}
+            setLoading(false)
+        }
     }
-
-    useEffect(() => {
-        getSubscriptionData()
-    }, [])
 
     return (
         <>
@@ -99,12 +109,15 @@ const Subscription = () => {
                     dataSource={subscriptionData}
                     loading={loading}
                     pagination={{
-                        defaultPageSize: 10,
+                        total: totalDevices,
+                        current: currentPage,
+                        pageSize: pageSize,
+                        onChange: onChange,
+                        defaultPageSize: defaultPageSize,
                         showSizeChanger: true,
                         defaultCurrent: 1,
-                        showTotal: (total, range) =>
-                            `${range[0]} - ${range[1]} / ${subscriptionData.length}`,
-                        pageSizeOptions: ['5', '10', '15', '20'],
+                        showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,
+                        pageSizeOptions: ['10', '20', '50', '100']
                     }}
                 />
             </div>
