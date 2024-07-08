@@ -104,45 +104,32 @@ const columns = [
     },
 ]
 
-const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-        console.log(
-            `selectedRowKeys: ${selectedRowKeys}`,
-            'selectedRows: ',
-            selectedRows
-        )
-    },
-}
-
 const Device = () => {
     const [devices, setDevices] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
-	const [totalDevices, setTotalDevices] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [totalDevices, setTotalDevices] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [pageSize, setPageSize] = useState(20)
 
     useEffect(() => {
-        getDevicesData(currentPage)
-    }, [currentPage])
+        getDevicesData(currentPage, pageSize);
+    }, [currentPage, pageSize])
 
-    const onChange = (page, pagination, filters, sorter, extra) => {
-        // console.log('params', pagination, filters, sorter, extra)
-        setCurrentPage(page);
+    const onChange = (page, pageSize) => {
+        setCurrentPage(page)
+        setPageSize(pageSize)
     }
 
-    const extractDate = dateString => {
+    const extractDate = (dateString) => {
         const date = new Date(dateString)
         return date.toISOString().slice(0, 10)
-    }
+    };
 
-    async function getDevicesData(page) {
+    async function getDevicesData(page, size) {
         setLoading(true);
         try {
-            const response = await APIv1.get('/devices', {
-                params: {
-                    page: page,
-                },
-            });
+            const response = await APIv1.get(`/devices?page=${page}&page_size=${size}`);
             const devicesData = response.data.results.map((device) => ({
                 key: device.id,
                 device_serial_number: device.device_serial_number,
@@ -150,10 +137,10 @@ const Device = () => {
                 start_date: device.start_date ? extractDate(device.start_date) : '----/--/--',
                 end_date: device.end_date ? extractDate(device.end_date) : '----/--/--',
             }));
-            setDevices([...devices, ...devicesData]);
-			setTotalDevices(response.data.count);
+            setDevices(devicesData)
+            setTotalDevices(response.data.count)
         } catch (err) {
-            console.error('Something went wrong:', err);
+            console.error('Something went wrong:', err)
         } finally {
             setLoading(false);
         }
@@ -162,19 +149,20 @@ const Device = () => {
     return (
         <div className='content_container'>
             <Table
-                rowSelection={{type: selectionType, ...rowSelection}}
+                rowSelection={{type: selectionType}}
                 columns={columns}
                 dataSource={devices}
                 loading={loading}
                 pagination={{
-					total: totalDevices,
-					current: currentPage,
-					onChange: onChange,
-					defaultPageSize: 20,
-					showSizeChanger: true,
-					defaultCurrent: 1,
-					showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,
-					pageSizeOptions: ['10', '20', '50', '100']
+                    total: totalDevices,
+                    current: currentPage,
+                    pageSize: pageSize,
+                    onChange: onChange,
+                    defaultPageSize: 20,
+                    showSizeChanger: true,
+                    defaultCurrent: 1,
+                    showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,
+                    pageSizeOptions: ['10', '20', '50', '100']
                 }}
             />
             <FloatButton.Group
@@ -199,4 +187,4 @@ const Device = () => {
     )
 }
 
-export default Device
+export default Device;
