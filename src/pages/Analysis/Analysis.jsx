@@ -38,7 +38,7 @@ const Analysis = () => {
                 </div>
                 <div className='sms'>
                     <h1 onClick={() => handleNavigate("/sms")}>SMS</h1>
-                    <Sms defaultPaginationSize={20} />
+                    <Sms defaultPaginationSize={10} />
                 </div>
             </div>
         </section>

@@ -63,20 +63,28 @@ const rowSelection = {
 }
 
 const Sms = (props) => {
+    let {defaultPageSize} = props
     const [smsData, setSmsData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
+    const [totalSms, setTotalSms] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [pageSize, setPageSize] = useState(defaultPageSize)
+
+    useEffect(() => {
+        getSmsData(currentPage, pageSize)
+    }, [currentPage, pageSize])
 
     function extractDate(dateString) {
         const date = new Date(dateString)
         return date.toISOString().slice(0, 10)
     }
 
-    async function getSmsData() {
+    async function getSmsData(page, size) {
         setLoading(true)
         try {
-            const response = await APIv1.get('/list_sms/')
-            const data = response.data.map(sms => ({
+            const response = await APIv1.get(`/list_sms/?page=${page}&page_size=${size}`)
+            const data = response.data.results.map(sms => ({
                 key: sms.id,
                 sms_id: sms.id,
                 inn: sms.inn,
@@ -85,16 +93,13 @@ const Sms = (props) => {
                 created_date: extractDate(sms.created_date),
             }))
             setSmsData(data)
+            setTotalSms(response.data.count)
         } catch (err) {
             console.error('Something went wrong:', err)
         } finally {
-			setLoading(false)
-		}
+            setLoading(false)
+        }
     }
-
-    useEffect(() => {
-        getSmsData()
-    }, [])
 
     return (
         <>
@@ -108,6 +113,9 @@ const Sms = (props) => {
                     dataSource={smsData}
                     loading={loading}
                     pagination={{
+                        total: totalSms,
+                        current: currentPage,
+                        pageSize: pageSize,
                         defaultPageSize: props.defaultPaginationSize,
                         showSizeChanger: true,
                         defaultCurrent: 1,
