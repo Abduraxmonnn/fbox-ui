@@ -17,6 +17,7 @@ import {
 	Version,
 	Analysis,
 	ZReport,
+	ZReportDetail,
 	Orders
 } from './pages'
 
@@ -49,6 +50,7 @@ function App() {
 							<Route path='/version' element={<Version />} />
 							<Route path='/sms' element={<Sms />} />
 							<Route path='/z-reports' element={<ZReport />} />
+							<Route path='/z-reports/detail/:id' element={<ZReportDetail />} />
 							<Route path='/orders' element={<Orders />} />
 						</Route>
 						<Route path='/' element={<SignIn />} />

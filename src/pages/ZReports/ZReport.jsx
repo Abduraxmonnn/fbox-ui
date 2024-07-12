@@ -1,22 +1,30 @@
 import React, {useState, useEffect} from 'react'
 import {Table, Tag} from 'antd'
-import {APIv1} from "../api";
+import {APIv1} from "../../api";
+import {Link} from "react-router-dom";
 
 const columns = [
     {
         title: 'Teamviewer',
         dataIndex: 'teamviewer',
-        render: title => <a>{title}</a>,
         sorter: (a, b) => a.teamviewer - b.teamviewer,
+        render: (text, record) => (
+            <Link to={`/z-reports/detail/${record.key}`}>{text}</Link>
+        ),
     },
     {
         title: 'Device IP address',
         dataIndex: 'device_ip_address',
-        render: title => <a>{title}</a>,
+        render: (text, record) => (
+            <Link to={`/z-reports/detail/${record.key}`}>{text}</Link>
+        ),
     },
     {
         title: 'Terminal ID',
         dataIndex: 'terminal_id',
+        render: (text, record) => (
+            <Link to={`/z-reports/detail/${record.key}`}>{text}</Link>
+        ),
     },
     {
         title: 'Order not sent count',
@@ -86,8 +94,12 @@ const rowSelection = {
 const ZReport = () => {
     const [reportData, setReportData] = useState([])
     const [loading, setLoading] = useState(true)
-    const [selectionType, setSelectionType] = useState('checkbox')
     const [userData, setUserData] = useState({});
+    const [paginationState, setPaginationState] = useState({
+        totalData: 0,
+        currentPage: 1,
+        pageSize: 20,
+    });
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
@@ -98,24 +110,44 @@ const ZReport = () => {
 
     useEffect(() => {
         if (userData.token) {
-            getReportData();
+            getReportData(paginationState.currentPage, paginationState.pageSize);
         }
-    }, [userData.token]);
+    }, [userData.token, paginationState.currentPage, paginationState.pageSize]);
+
+    const handlePageChange = (newPage) => {
+        setPaginationState((prev) => ({
+            ...prev,
+            currentPage: newPage,
+        }))
+    }
+
+    const handlePageSizeChange = (newSize) => {
+        setPaginationState((prev) => ({
+            ...prev,
+            pageSize: newSize,
+        }))
+    }
+
+    const handleChange = (page, pageSize) => {
+        handlePageChange(page);
+        handlePageSizeChange(pageSize);
+    }
+
 
     function extractDate(dateString) {
         const date = new Date(dateString)
         return date.toISOString().slice(0, 10)
     }
 
-    async function getReportData() {
+    async function getReportData(page, size) {
         setLoading(true)
         try {
-            const response = await APIv1.get('/device_status/', {
+            const response = await APIv1.get(`/device_status?page=${page}&page_size=${size}`, {
                 headers: {
                     Authorization: `Token ${userData.token}`
                 }
             });
-            const data = response.data.map(report => ({
+            const data = response.data.results.map(report => ({
                 key: report.id,
                 z_report_left_count: report.z_report_left_count ?? '-',
                 teamviewer: report.teamviewer ?? '-',
@@ -126,6 +158,10 @@ const ZReport = () => {
                 version_number: report.version_number,
             }));
             setReportData(data);
+            setPaginationState((prev) => ({
+                ...prev,
+                totalDevices: response.data.count
+            }))
         } catch (err) {
             console.error('Something went wrong:', err)
         } finally {
@@ -138,18 +174,22 @@ const ZReport = () => {
             <div className='content_container'>
                 <Table
                     rowSelection={{
-                        type: selectionType,
+                        type: 'checkbox',
                         ...rowSelection,
                     }}
                     columns={columns}
                     dataSource={reportData}
                     loading={loading}
                     pagination={{
+                        total: paginationState.totalDevices,
+                        current: paginationState.currentPage,
+                        pageSize: paginationState.pageSize,
+                        onChange: handleChange,
                         defaultCurrent: 1,
-                        pageSizeOptions: [10, 20, 50, 100],
                         defaultPageSize: 20,
                         showTotal: (total, range) =>
                             `${range[0]} - ${range[1]} / ${reportData.length}`,
+                        pageSizeOptions: ['10', '20', '50', '100']
                     }}
                 />
             </div>

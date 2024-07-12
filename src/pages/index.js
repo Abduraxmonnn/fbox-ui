@@ -8,7 +8,8 @@ import Version from './Version'
 import AddNewDevice from './AddNewDevice'
 import AddNewCompany from './AddNewCompany'
 import Analysis from './Analysis/Analysis'
-import ZReport from './ZReport'
+import ZReport from './ZReports/ZReport'
+import ZReportDetail from './ZReports/ZReportDetail/ZReportDetail'
 import Orders from './Orders'
 
 export {
@@ -23,5 +24,6 @@ export {
 	AddNewCompany,
 	Analysis,
 	ZReport,
+	ZReportDetail,
 	Orders,
 }
