@@ -107,8 +107,8 @@ const columns = (searchText) => [
 const Device = () => {
     let defaultPageSize = 20
     const [devices, setDevices] = useState([])
-    const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
+    const [loading, setLoading] = useState(true)
     const [totalDevices, setTotalDevices] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPageSize)
