@@ -74,10 +74,14 @@ const rowSelection = {
 }
 
 const DeviceStatus = () => {
+    let defaultPageSize = 20
     const [deviceStatusData, setDeviceStatusData] = useState([])
     const [selectionType, setSelectionType] = useState('checkbox')
     const [loading, setLoading] = useState(true)
     const [userData, setUserData] = useState({})
+    const [totalDevices, setTotalDevices] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [pageSize, setPageSize] = useState(defaultPageSize)
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'))
@@ -88,24 +92,29 @@ const DeviceStatus = () => {
 
     useEffect(() => {
         if (userData.token) {
-            getDeviceStatusData()
+            getDeviceStatusData(currentPage, pageSize)
         }
-    }, [userData.token])
+    }, [currentPage, pageSize, userData.token])
+
+    const onChange = (page, pageSize) => {
+        setCurrentPage(page)
+        setPageSize(pageSize)
+    }
 
     function extractDate(dateString) {
         const date = new Date(dateString)
         return date.toISOString().slice(0, 10)
     }
 
-    async function getDeviceStatusData() {
+    async function getDeviceStatusData(page, size) {
         setLoading(true)
         try {
-            const response = await API.get('/device_status/', {
+            const response = await API.get(`/device_status?page=${page}&page_size=${size}`, {
                 headers: {
                     Authorization: `Token ${userData.token}`
                 }
             })
-            const data = response.data.map(device_status => ({
+            const data = response.data.results.map(device_status => ({
                 key: device_status.id,
                 status_id: device_status.id,
                 device_serial: device_status.device_serial,
@@ -136,6 +145,7 @@ const DeviceStatus = () => {
                         : device_status.version_number,
             }))
             setDeviceStatusData(data)
+            setTotalDevices(response.data.count)
         } catch (err) {
             console.error('Something went wrong:', err)
         } finally {
@@ -155,11 +165,14 @@ const DeviceStatus = () => {
                     dataSource={deviceStatusData}
                     loading={loading}
                     pagination={{
-                        defaultPageSize: 20,
+                        total: totalDevices,
+                        current: currentPage,
+                        pageSize: pageSize,
+                        onChange: onChange,
+                        defaultPageSize: defaultPageSize,
                         showSizeChanger: true,
                         defaultCurrent: 1,
-                        showTotal: (total, range) =>
-                            `${range[0]} - ${range[1]} / ${deviceStatusData.length}`,
+                        showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,
                         pageSizeOptions: ['10', '20', '50', '100'],
                     }}
                 />
