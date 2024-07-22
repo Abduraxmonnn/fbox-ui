@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from 'react'
-import {Table, FloatButton} from 'antd'
+import React, {useState, useEffect} from 'react';
+import {Table, FloatButton} from 'antd';
 import {
     FileAddOutlined,
     FileExcelOutlined,
     UploadOutlined,
-} from '@ant-design/icons'
-import {APIv1} from '../../api'
-import {Link} from 'react-router-dom'
+} from '@ant-design/icons';
+import {APIv1} from '../../api';
+import {Link, useOutletContext} from 'react-router-dom';
 
-const columns = [
+const columns = (searchText) => [
     {
         title: 'Name',
         dataIndex: 'company_name',
@@ -23,7 +23,6 @@ const columns = [
         dataIndex: 'company_inn',
         sorter: (a, b) => a.company_inn - b.company_inn,
         render: title => <a>{title}</a>,
-        onFilter: (value, record) => record.company_inn[0] === value,
     },
     {
         title: 'Address',
@@ -44,7 +43,7 @@ const columns = [
         dataIndex: 'company_phone_number',
         sorter: (a, b) => a.company_phone_number - b.company_phone_number,
     },
-]
+];
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -52,25 +51,25 @@ const rowSelection = {
             `selectedRowKeys: ${selectedRowKeys}`,
             'selectedRows: ',
             selectedRows
-        )
+        );
     },
-}
-
+};
 const Company = () => {
-    const [companies, setCompanies] = useState([])
-    const [selectionType] = useState('checkbox')
-    const [loading, setLoading] = useState(true)
+    const [companies, setCompanies] = useState([]);
+    const [selectionType] = useState('checkbox');
+    const [loading, setLoading] = useState(true);
+    const {searchText} = useOutletContext();
 
     const onChange = (pagination, filters, sorter, extra) => {
-        console.log('params', pagination, filters, sorter, extra)
-    }
+        console.log('params', pagination, filters, sorter, extra);
+    };
 
     useEffect(() => {
-        getCompaniesData()
-    }, [])
+        getCompaniesData();
+    }, []);
 
     async function getCompaniesData() {
-        setLoading(true)
+        setLoading(true);
         try {
             const response = await APIv1.get('/company');
             const companiesData = response.data.map((company) => ({
@@ -83,55 +82,57 @@ const Company = () => {
             }));
             setCompanies(companiesData);
         } catch (err) {
-            console.error('Something went wrong:', err)
+            console.error('Something went wrong:', err);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     }
 
+    const filteredCompanies = companies.filter((company) =>
+        company.company_name.toLowerCase().includes(searchText.toLowerCase()) ||
+        company.company_inn.toLowerCase().includes(searchText.toLowerCase()) ||
+        company.company_address.toLowerCase().includes(searchText.toLowerCase())
+    );
+
     return (
-        <>
-            <div className='content_container'>
-                <Table
-                    rowSelection={{
-                        type: selectionType,
-                        ...rowSelection,
-                    }}
-                    columns={columns}
-                    dataSource={companies}
-                    onChange={onChange}
-                    loading={loading}
-                    pagination={{
-                        defaultPageSize: 20,
-                        showSizeChanger: true,
-                        defaultCurrent: 1,
-                        showTotal: (total, range) =>
-                            `${range[0]} - ${range[1]} / ${companies.length}`,
-                        pageSizeOptions: ['10', '20', '50', '100'],
-                    }}
+        <div className="content_container">
+            <Table
+                rowSelection={{
+                    type: selectionType,
+                    ...rowSelection,
+                }}
+                columns={columns(searchText)}
+                dataSource={filteredCompanies}
+                onChange={onChange}
+                loading={loading}
+                pagination={{
+                    defaultPageSize: 20,
+                    showSizeChanger: true,
+                    defaultCurrent: 1,
+                    showTotal: (total, range) =>
+                        `${range[0]} - ${range[1]} / ${companies.length}`,
+                    pageSizeOptions: ['10', '20', '50', '100'],
+                }}
+            />
+            <FloatButton.Group
+                trigger="click"
+                type="primary"
+                style={{right: 24}}
+                icon={<UploadOutlined/>}
+            >
+                <FloatButton
+                    icon={<FileExcelOutlined/>}
+                    tooltip={<div>Delete Company</div>}
                 />
-                <FloatButton.Group
-                    trigger='click'
-                    type='primary'
-                    style={{
-                        right: 24,
-                    }}
-                    icon={<UploadOutlined/>}
-                >
+                <Link to="/create_company">
                     <FloatButton
-                        icon={<FileExcelOutlined/>}
-                        tooltip={<div>Delete Company</div>}
+                        type="primary"
+                        icon={<FileAddOutlined/>}
+                        tooltip={<div>Add Company</div>}
                     />
-                    <Link to='/create_company'>
-                        <FloatButton
-                            type='primary'
-                            icon={<FileAddOutlined/>}
-                            tooltip={<div>Add Company</div>}
-                        />
-                    </Link>
-                </FloatButton.Group>
-            </div>
-        </>
+                </Link>
+            </FloatButton.Group>
+        </div>
     )
 }
 
