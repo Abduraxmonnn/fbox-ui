@@ -6,9 +6,9 @@ import {
     UploadOutlined,
 } from '@ant-design/icons'
 import {APIv1} from '../../api'
-import {Link} from 'react-router-dom'
+import {Link, useOutletContext} from 'react-router-dom'
 
-const columns = [
+const columns = (searchText) => [
     {
         title: 'Device serial number',
         dataIndex: 'device_serial_number',
@@ -112,6 +112,7 @@ const Device = () => {
     const [totalDevices, setTotalDevices] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPageSize)
+    const {searchText} = useOutletContext();
 
     useEffect(() => {
         getDevicesData(currentPage, pageSize);
@@ -147,12 +148,16 @@ const Device = () => {
         }
     }
 
+    const filteredDevices = devices.filter((device) =>
+        device.device_serial_number.toLowerCase().includes(searchText.toLowerCase())
+    );
+
     return (
         <div className='content_container'>
             <Table
                 rowSelection={{type: selectionType}}
-                columns={columns}
-                dataSource={devices}
+                columns={columns(searchText)}
+                dataSource={filteredDevices}
                 loading={loading}
                 pagination={{
                     total: totalDevices,
