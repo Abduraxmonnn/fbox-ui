@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import {Table, Tag} from 'antd'
 import {APIv1 as API} from '../../api'
+import {useOutletContext} from "react-router-dom";
 
-const columns = [
+const columns = (searchText) => [
     {
         title: 'id',
         dataIndex: 'status_id',
@@ -82,6 +83,7 @@ const DeviceStatus = () => {
     const [totalDevices, setTotalDevices] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPageSize)
+    const {searchText} = useOutletContext()
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'))
@@ -153,6 +155,14 @@ const DeviceStatus = () => {
         }
     }
 
+    const filteredDevices = deviceStatusData.filter((device) =>
+        device.device_serial.toLowerCase().includes(searchText.toLowerCase()) ||
+        device.teamviewer.toLowerCase().includes(searchText.toLowerCase()) ||
+        device.device_ip_addr.toLowerCase().includes(searchText.toLowerCase()) ||
+        device.terminal_id.toLowerCase().includes(searchText.toLowerCase()) ||
+        device.z_report_left_count.toString().includes(searchText.toLowerCase())
+    )
+
     return (
         <>
             <div className='content_container'>
@@ -161,8 +171,8 @@ const DeviceStatus = () => {
                         type: selectionType,
                         ...rowSelection,
                     }}
-                    columns={columns}
-                    dataSource={deviceStatusData}
+                    columns={columns(searchText)}
+                    dataSource={filteredDevices}
                     loading={loading}
                     pagination={{
                         total: totalDevices,
