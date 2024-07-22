@@ -46,10 +46,14 @@ const rowSelection = {
 }
 
 const ZReport = () => {
+    let defaultPageSize = 10
     const [reportData, setReportData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
     const [userData, setUserData] = useState({})
+    const [totalReports, setTotalReports] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [pageSize, setPageSize] = useState(defaultPageSize)
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'))
@@ -60,21 +64,25 @@ const ZReport = () => {
 
 
     useEffect(() => {
-        if (userData.token){
-            getReportData()
+        if (userData.token) {
+            getReportData(currentPage, pageSize)
         }
-    }, [userData.token])
+    }, [currentPage, pageSize, userData.token])
 
+    const onChange = (page, pageSize) => {
+        setCurrentPage(page)
+        setPageSize(pageSize)
+    }
 
-    async function getReportData() {
+    async function getReportData(page, size) {
         setLoading(true)
         try {
-            const response = await APIv1.get('/device_status/', {
+            const response = await APIv1.get(`/device_status?page=${page}&page_size=${size}`, {
                 headers: {
                     Authorization: `Token ${userData.token}`
                 }
             });
-            const data = response.data.map(report => ({
+            const data = response.data.results.map(report => ({
                 key: report.id,
                 device_serial_number: report.device_serial.split('||')[0],
                 company_name: report.device_serial.split('||')[1],
@@ -86,6 +94,7 @@ const ZReport = () => {
                         : report.z_report_left_count,
             }))
             setReportData(data)
+            setTotalReports(response.data.count)
         } catch (err) {
             console.error('Something went wrong:', err)
         } finally {
@@ -105,9 +114,15 @@ const ZReport = () => {
                     dataSource={reportData}
                     loading={loading}
                     pagination={{
+                        total: totalReports,
+                        current: currentPage,
+                        pageSize: pageSize,
+                        onChange: onChange,
+                        showSizeChanger: true,
+
                         defaultCurrent: 1,
-                        showTotal: (total, range) =>
-                            `${range[0]} - ${range[1]} / ${reportData.length}`,
+                        showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,
+                        pageSizeOptions: ['10', '20', '50', '100']
                     }}
                 />
             </div>
