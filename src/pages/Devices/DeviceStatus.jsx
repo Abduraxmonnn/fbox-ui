@@ -77,6 +77,20 @@ const DeviceStatus = () => {
     const [deviceStatusData, setDeviceStatusData] = useState([])
     const [selectionType, setSelectionType] = useState('checkbox')
     const [loading, setLoading] = useState(true)
+    const [userData, setUserData] = useState({})
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'))
+        if (items) {
+            setUserData(items)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (userData.token) {
+            getDeviceStatusData()
+        }
+    }, [userData.token])
 
     function extractDate(dateString) {
         const date = new Date(dateString)
@@ -86,7 +100,11 @@ const DeviceStatus = () => {
     async function getDeviceStatusData() {
         setLoading(true)
         try {
-            const response = await API.get('/device_status/')
+            const response = await API.get('/device_status/', {
+                headers: {
+                    Authorization: `Token ${userData.token}`
+                }
+            })
             const data = response.data.map(device_status => ({
                 key: device_status.id,
                 status_id: device_status.id,
@@ -125,10 +143,6 @@ const DeviceStatus = () => {
         }
     }
 
-    useEffect(() => {
-        getDeviceStatusData()
-    }, [])
-
     return (
         <>
             <div className='content_container'>
@@ -139,7 +153,7 @@ const DeviceStatus = () => {
                     }}
                     columns={columns}
                     dataSource={deviceStatusData}
-					loading={loading}
+                    loading={loading}
                     pagination={{
                         defaultPageSize: 20,
                         showSizeChanger: true,
