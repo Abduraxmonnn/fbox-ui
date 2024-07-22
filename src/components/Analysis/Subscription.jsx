@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import {Table, Tag} from 'antd'
 import {APIv1, APIv1 as API} from '../../api'
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useOutletContext} from "react-router-dom";
 import {userSignIn} from "../../store/auth/user.action";
 
-const columns = [
+const columns = (searchText) => [
     {
         title: 'Company',
         dataIndex: 'company_name',
@@ -68,6 +68,7 @@ const Subscription = () => {
     const [totalDevices, setTotalDevices] = useState(0);
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPageSize)
+    const {searchText} = useOutletContext()
 
     useEffect(() => {
         getSubscriptionData(currentPage, pageSize);
@@ -97,6 +98,11 @@ const Subscription = () => {
         }
     }
 
+    const filteredSubscriptions = subscriptionData.filter((data) =>
+        data.company_name.toLowerCase().includes(searchText.toLowerCase()) ||
+        data.company_inn.toLowerCase().includes(searchText.toLowerCase())
+    )
+
     return (
         <>
             <div className='content_container'>
@@ -105,8 +111,8 @@ const Subscription = () => {
                         type: selectionType,
                         ...rowSelection,
                     }}
-                    columns={columns}
-                    dataSource={subscriptionData}
+                    columns={columns(searchText)}
+                    dataSource={filteredSubscriptions}
                     loading={loading}
                     pagination={{
                         total: totalDevices,

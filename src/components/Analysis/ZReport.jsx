@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import {Table, Tag} from 'antd'
 import {APIv1} from '../../api'
+import {useOutletContext} from "react-router-dom";
 
-const columns = [
+const columns = (searchText) => [
     {
         title: 'Terminal ID',
         dataIndex: 'terminal_id',
@@ -54,6 +55,7 @@ const ZReport = () => {
     const [totalReports, setTotalReports] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPageSize)
+    const {searchText} = useOutletContext()
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'))
@@ -102,6 +104,14 @@ const ZReport = () => {
         }
     }
 
+    const filteredReports = reportData.filter((report) =>
+        report.device_serial_number.toLowerCase().includes(searchText.toLowerCase()) ||
+        report.company_name.toLowerCase().includes(searchText.toLowerCase()) ||
+        report.terminal_id.toLowerCase().includes(searchText.toLowerCase()) ||
+        report.z_report_left_count.toString().includes(searchText.toLowerCase())
+    )
+
+
     return (
         <>
             <div className='content_container'>
@@ -110,8 +120,8 @@ const ZReport = () => {
                         type: selectionType,
                         ...rowSelection,
                     }}
-                    columns={columns}
-                    dataSource={reportData}
+                    columns={columns(searchText)}
+                    dataSource={filteredReports}
                     loading={loading}
                     pagination={{
                         total: totalReports,
