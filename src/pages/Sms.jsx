@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import {Table, Tag} from 'antd'
 import {APIv1} from '../api'
+import {useOutletContext} from "react-router-dom";
 
-const columns = [
+const columns = (searchText) => [
     {
         title: 'id',
         dataIndex: 'sms_id',
@@ -70,6 +71,7 @@ const Sms = (props) => {
     const [totalSms, setTotalSms] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPageSize)
+    const {searchText} = useOutletContext()
 
     useEffect(() => {
         getSmsData(currentPage, pageSize)
@@ -101,6 +103,12 @@ const Sms = (props) => {
         }
     }
 
+    const filteredSms = smsData.filter((data) =>
+        data.sms_id.toString().includes(searchText.toLowerCase()) ||
+        data.inn.toLowerCase().includes(searchText.toLowerCase()) ||
+        data.recipient.toLowerCase().includes(searchText.toLowerCase())
+    );
+
     return (
         <>
             <div className='content_container'>
@@ -109,8 +117,8 @@ const Sms = (props) => {
                         type: selectionType,
                         ...rowSelection,
                     }}
-                    columns={columns}
-                    dataSource={smsData}
+                    columns={columns(searchText)}
+                    dataSource={filteredSms}
                     loading={loading}
                     pagination={{
                         total: totalSms,
