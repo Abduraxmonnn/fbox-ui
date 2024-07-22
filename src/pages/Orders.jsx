@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {APIv1} from "../api";
 import {Table} from "antd";
+import {useOutletContext} from "react-router-dom";
 
-const columns = [
+const columns = (searchText) => [
     {
         title: 'Market name',
         dataIndex: 'market_name',
@@ -55,6 +56,7 @@ const Orders = () => {
     const [totalOrders, setTotalOrders] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPageSize)
+    const {searchText} = useOutletContext()
 
     useEffect(() => {
         getReportData(currentPage, pageSize)
@@ -92,6 +94,13 @@ const Orders = () => {
         }
     }
 
+    const filteredOrders = ordersData.filter((order) =>
+        order.market_name.toLowerCase().includes(searchText.toLowerCase()) ||
+        order.cashier.toLowerCase().includes(searchText.toLowerCase()) ||
+        order.cash_desc_serial.toLowerCase().includes(searchText.toLowerCase()) ||
+        order.received_cash.toString().includes(searchText.toLowerCase()) ||
+        order.received_card.toString().includes(searchText.toLowerCase())
+    )
 
     return (
         <>
@@ -100,8 +109,8 @@ const Orders = () => {
                     rowSelection={{
                         type: selectionType
                     }}
-                    columns={columns}
-                    dataSource={ordersData}
+                    columns={columns(searchText)}
+                    dataSource={filteredOrders}
                     loading={loading}
                     pagination={{
                         total: totalOrders,
