@@ -33,9 +33,7 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
     return (
         <section className={`header${isCollapse ? ' close' : ''}`}>
             <a href="/analysis"><img src={images.logo} alt="logo"/></a>
-            <div className="search">
-                <SearchComponent searchText={searchText} setSearchText={setSearchText}/>
-            </div>
+            <SearchComponent searchText={searchText} setSearchText={setSearchText}/>
             <div className="user_info">
                 <NotificationOutlined className="header_notification"/>
                 <div className="header_user_data">

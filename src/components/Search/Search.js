@@ -1,5 +1,6 @@
 import React from 'react';
 import {Input} from 'antd';
+import './Search.scss'
 
 const {Search} = Input;
 
@@ -9,7 +10,7 @@ const SearchComponent = ({searchText, setSearchText}) => {
     };
 
     return (
-        <div style={{display: 'flex', justifyContent: 'center', marginBottom: 16}}>
+        <div className="search">
             <Search
                 placeholder="search..."
                 value={searchText}
