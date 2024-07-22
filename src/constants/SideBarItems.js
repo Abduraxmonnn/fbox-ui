@@ -79,6 +79,6 @@ export const items = [
 			<AlertOutlined />
 		</Link>
 	),
-	getItem('Equipments', 'equipments_equipment_item', <ApiOutlined />),
-	getItem('Pricing', 'pricing_pricing_item', <DollarOutlined />),
+	// getItem('Equipments', 'equipments_equipment_item', <ApiOutlined />),
+	// getItem('Pricing', 'pricing_pricing_item', <DollarOutlined />),
 ]
