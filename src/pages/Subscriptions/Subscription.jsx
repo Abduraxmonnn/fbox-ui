@@ -3,7 +3,7 @@ import {Table, Tag, FloatButton} from 'antd';
 import {FileAddOutlined, FileExcelOutlined, UploadOutlined} from '@ant-design/icons';
 import {APIv1} from '../../api';
 import {Link, useOutletContext} from 'react-router-dom';
-import {handleTableChange} from "../../utils";
+import {defaultExtractDate, handleTableChange} from "../../utils";
 
 const columns = [
     {
@@ -132,8 +132,8 @@ const Subscription = () => {
                 key: subscription.id,
                 device_serial_number: subscription.device_serial_number,
                 is_multi_user: [subscription.is_multi_user],
-                start_date: subscription.start_date ? extractDate(subscription.start_date) : '----/--/--',
-                end_date: subscription.end_date ? extractDate(subscription.end_date) : '----/--/--',
+                start_date: subscription.start_date ? defaultExtractDate(subscription.start_date) : '----/--/--',
+                end_date: subscription.end_date ? defaultExtractDate(subscription.end_date) : '----/--/--',
             }));
             setSubscriptionsData(data)
             setTotalSubscriptions(response.data.count)
@@ -162,11 +162,6 @@ const Subscription = () => {
     };
 
     const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns);
-
-    const extractDate = (dateString) => {
-        const date = new Date(dateString);
-        return date.toISOString().slice(0, 10);
-    };
 
     return (
         <div className='content_container'>
