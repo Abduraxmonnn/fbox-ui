@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 import {APIv1} from '../../api';
 import {Link, useOutletContext} from 'react-router-dom';
+import {handleTableChange} from "../../utils";
 
 const columns = [
     {
@@ -96,22 +97,7 @@ const Company = () => {
         fetchCompanies(searchText, ordering);
     }, [searchText, sortField, sortOrder, fetchCompanies]);
 
-    const handleTableChange = (pagination, filters, sorter) => {
-        let field = sorter.field;
-        let order = sorter.order;
-        let orderIndex = columns.find(column => column.dataIndex === field)?.orderIndex || field;
-
-        if (order === 'ascend') {
-            setSortField(orderIndex);
-            setSortOrder('ascend');
-        } else if (order === 'descend') {
-            setSortField(orderIndex);
-            setSortOrder('descend');
-        } else {
-            setSortField('');
-            setSortOrder('');
-        }
-    };
+    const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns);
 
     return (
         <div className="content_container">
@@ -122,7 +108,7 @@ const Company = () => {
                 }}
                 columns={columns}
                 dataSource={companies}
-                onChange={handleTableChange}
+                onChange={tableChangeHandler}
                 loading={loading}
                 pagination={{
                     defaultPageSize: 20,
