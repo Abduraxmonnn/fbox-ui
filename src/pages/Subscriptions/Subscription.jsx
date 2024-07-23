@@ -10,13 +10,13 @@ import {Link, useOutletContext} from 'react-router-dom'
 
 const columns = (searchText) => [
     {
-        title: 'Device serial number',
+        title: 'Subscription serial number',
         dataIndex: 'device_serial_number',
         sorter: (a, b) =>
             a.device_serial_number.localeCompare(b.device_serial_number),
         onFilter: (value, record) => record.device_serial_number.startsWith(value),
         render: (text, record) => (
-            <Link to={`/device/detail/${record.key}`}>{text}</Link>
+            <Link to={`/subscription/detail/${record.key}`}>{text}</Link>
         ),
         width: 300,
     },
@@ -104,18 +104,18 @@ const columns = (searchText) => [
     },
 ]
 
-const Device = () => {
+const Subscription = () => {
     let defaultPageSize = 20
-    const [devices, setDevices] = useState([])
+    const [subscriptionsData, setSubscriptionsData] = useState([])
     const [selectionType, setSelectionType] = useState('checkbox')
     const [loading, setLoading] = useState(true)
-    const [totalDevices, setTotalDevices] = useState(0)
+    const [totalSubscriptions, setTotalSubscriptions] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPageSize)
     const {searchText} = useOutletContext();
 
     useEffect(() => {
-        getDevicesData(currentPage, pageSize);
+        getSubscriptionData(currentPage, pageSize);
     }, [currentPage, pageSize])
 
     const onChange = (page, pageSize) => {
@@ -128,19 +128,19 @@ const Device = () => {
         return date.toISOString().slice(0, 10)
     };
 
-    async function getDevicesData(page, size) {
+    async function getSubscriptionData(page, size) {
         setLoading(true);
         try {
             const response = await APIv1.get(`/devices?page=${page}&page_size=${size}`);
-            const devicesData = response.data.results.map((device) => ({
-                key: device.id,
-                device_serial_number: device.device_serial_number,
-                is_multi_user: [device.is_multi_user],
-                start_date: device.start_date ? extractDate(device.start_date) : '----/--/--',
-                end_date: device.end_date ? extractDate(device.end_date) : '----/--/--',
+            const devicesData = response.data.results.map((subscription) => ({
+                key: subscription.id,
+                device_serial_number: subscription.device_serial_number,
+                is_multi_user: [subscription.is_multi_user],
+                start_date: subscription.start_date ? extractDate(subscription.start_date) : '----/--/--',
+                end_date: subscription.end_date ? extractDate(subscription.end_date) : '----/--/--',
             }));
-            setDevices(devicesData)
-            setTotalDevices(response.data.count)
+            setSubscriptionsData(devicesData)
+            setTotalSubscriptions(response.data.count)
         } catch (err) {
             console.error('Something went wrong:', err)
         } finally {
@@ -148,8 +148,8 @@ const Device = () => {
         }
     }
 
-    const filteredDevices = devices.filter((device) =>
-        device.device_serial_number.toLowerCase().includes(searchText.toLowerCase())
+    const filteredDevices = subscriptionsData.filter((subscription) =>
+        subscription.device_serial_number.toLowerCase().includes(searchText.toLowerCase())
     );
 
     return (
@@ -160,7 +160,7 @@ const Device = () => {
                 dataSource={filteredDevices}
                 loading={loading}
                 pagination={{
-                    total: totalDevices,
+                    total: totalSubscriptions,
                     current: currentPage,
                     pageSize: pageSize,
                     onChange: onChange,
@@ -193,4 +193,4 @@ const Device = () => {
     )
 }
 
-export default Device;
+export default Subscription;

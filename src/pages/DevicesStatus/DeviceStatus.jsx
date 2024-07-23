@@ -11,7 +11,7 @@ const columns = (searchText) => [
         render: title => <a>{title}</a>,
     },
     {
-        title: 'Device serial number',
+        title: 'Subscription serial number',
         dataIndex: 'device_serial',
         render: title => <a>{title}</a>,
     },
@@ -20,7 +20,7 @@ const columns = (searchText) => [
         dataIndex: 'teamviewer',
     },
     {
-        title: 'Device IP address',
+        title: 'Subscription IP address',
         dataIndex: 'device_ip_addr',
     },
     {

@@ -10,7 +10,7 @@ const columns = (searchText) => [
         render: title => <a>{title}</a>,
     },
     {
-        title: 'Device serial',
+        title: 'Subscription serial',
         dataIndex: 'device_serial_number',
         render: title => <a>{title}</a>,
     },

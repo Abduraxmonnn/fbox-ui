@@ -10,7 +10,7 @@ const columns = (searchText) => [
         dataIndex: 'company_name',
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         render: (text, record) => (
-            <Link to={`/device/detail/${record.key}`}>{text}</Link>
+            <Link to={`/subscription/detail/${record.key}`}>{text}</Link>
         ),
     },
     {
@@ -18,7 +18,7 @@ const columns = (searchText) => [
         dataIndex: 'company_inn',
         // eslint-disable-next-line jsx-a11y/anchor-is-valid
         render: (text, record) => (
-            <Link to={`/device/detail/${record.key}`}>{text}</Link>
+            <Link to={`/subscription/detail/${record.key}`}>{text}</Link>
         ),
     },
     {
@@ -65,7 +65,7 @@ const Subscription = () => {
     const [subscriptionData, setSubscriptionData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
-    const [totalDevices, setTotalDevices] = useState(0);
+    const [totalSubscriptions, setTotalSubscriptions] = useState(0);
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPageSize)
     const {searchText} = useOutletContext()
@@ -90,7 +90,7 @@ const Subscription = () => {
                 is_multi_user: subs.is_multi_user,
             }))
             setSubscriptionData(data)
-            setTotalDevices(response.data.count);
+            setTotalSubscriptions(response.data.count);
         } catch (err) {
             console.error('Something went wrong:', err)
         } finally {
@@ -115,7 +115,7 @@ const Subscription = () => {
                     dataSource={filteredSubscriptions}
                     loading={loading}
                     pagination={{
-                        total: totalDevices,
+                        total: totalSubscriptions,
                         current: currentPage,
                         pageSize: pageSize,
                         onChange: onChange,

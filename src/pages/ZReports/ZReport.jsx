@@ -13,7 +13,7 @@ const columns = [
         ),
     },
     {
-        title: 'Device IP address',
+        title: 'Subscription IP address',
         dataIndex: 'device_ip_address',
         render: (text, record) => (
             <Link to={`/z-reports/detail/${record.key}`}>{text}</Link>

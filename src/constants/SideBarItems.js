@@ -2,12 +2,11 @@ import {
 	DesktopOutlined,
 	ProfileOutlined,
 	PieChartOutlined,
-	DollarOutlined,
 	MessageOutlined,
 	CheckCircleOutlined,
 	ClusterOutlined,
 	ApiOutlined,
-	FileDoneOutlined, AlertOutlined,
+	FileDoneOutlined, AlertOutlined, RetweetOutlined,
 } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 
@@ -37,10 +36,10 @@ export const items = [
 			</Link>
 		),
 		getItem(
-			'Device',
-			'devices_device_item',
-			<Link to='/device'>
-				<DesktopOutlined />
+			'Subscription',
+			'devices_subscription_item',
+			<Link to='/subscription'>
+				<RetweetOutlined />
 			</Link>
 		),
 		getItem(
@@ -72,13 +71,13 @@ export const items = [
 			<FileDoneOutlined />
 		</Link>
 	),
-	getItem(
-		'Z-Reports',
-		'zreports_item',
-		<Link to='/z-reports'>
-			<AlertOutlined />
-		</Link>
-	),
+	// getItem(
+	// 	'Z-Reports',
+	// 	'zreports_item',
+	// 	<Link to='/z-reports'>
+	// 		<AlertOutlined />
+	// 	</Link>
+	// ),
 	// getItem('Equipments', 'equipments_equipment_item', <ApiOutlined />),
 	// getItem('Pricing', 'pricing_pricing_item', <DollarOutlined />),
 ]

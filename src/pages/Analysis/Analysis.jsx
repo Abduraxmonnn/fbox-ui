@@ -33,7 +33,7 @@ const Analysis = () => {
                     <ZReport/>
                 </div>
                 <div className='subscription'>
-                    <h1 onClick={() => handleNavigate("/device")}>Subscription</h1>
+                    <h1 onClick={() => handleNavigate("/subscription")}>Subscription</h1>
                     <Subscription/>
                 </div>
                 <div className='sms'>

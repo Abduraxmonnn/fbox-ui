@@ -4,9 +4,9 @@ import {LoadingOutlined} from '@ant-design/icons';
 import {Button, Tag, Spin} from 'antd'
 
 import {APIv1} from '../../../api'
-import './DeviceDetail.scss'
+import './SubscriptionDetail.scss'
 
-const DeviceDetail = () => {
+const SubscriptionDetail = () => {
     const {id} = useParams();
     const [device, setDevice] = useState(null);
     const [relatedDevices, setRelatedDevices] = useState([]); // Use an array for related devices
@@ -334,4 +334,4 @@ const DeviceDetail = () => {
     )
 }
 
-export default DeviceDetail;
+export default SubscriptionDetail;
