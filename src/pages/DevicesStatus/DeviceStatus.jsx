@@ -104,19 +104,15 @@ const DeviceStatus = () => {
     }
 
     function extractDate(dateString) {
-        // Parse the date string into a Date object in UTC
         const utcDate = new Date(dateString);
 
-        // Ensure valid date object (optional but recommended for robustness)
         if (isNaN(utcDate.getTime())) {
             console.error('Invalid date string:', dateString);
-            return 'Invalid Date'; // Or handle invalid dates gracefully
+            return 'Invalid Date';
         }
 
-        // Create a new Date object for Tashkent time zone (UTC+05:00)
         const tashkentDate = new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60 * 1000 + 5 * 60 * 60 * 1000);
 
-        // Format the date using toLocaleString with specific options for 24H format
         const options = {
             year: 'numeric',
             month: '2-digit',
@@ -124,7 +120,7 @@ const DeviceStatus = () => {
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit',
-            hour12: false, // Ensure 24-hour format
+            hour12: false,
         };
 
         return tashkentDate.toLocaleString([], options);
