@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Table, FloatButton} from 'antd';
 import {
     FileAddOutlined,
@@ -8,11 +8,12 @@ import {
 import {APIv1} from '../../api';
 import {Link, useOutletContext} from 'react-router-dom';
 
-const columns = (searchText) => [
+const columns = [
     {
         title: 'Name',
         dataIndex: 'company_name',
-        sorter: (a, b) => a.company_name.localeCompare(b.company_name),
+        sorter: true,
+        orderIndex: "name",
         render: (text, record) => (
             <Link to={`/company/detail/${record.key}`}>{text}</Link>
         ),
@@ -21,27 +22,27 @@ const columns = (searchText) => [
     {
         title: 'INN',
         dataIndex: 'company_inn',
-        sorter: (a, b) => a.company_inn - b.company_inn,
+        sorter: true,
+        orderIndex: "inn",
         render: title => <a>{title}</a>,
     },
     {
         title: 'Address',
         dataIndex: 'company_address',
-        sorter: (a, b) => {
-            a = a.company_name || '';
-            b = b.company_name || '';
-            return a.localeCompare(b);
-        },
+        sorter: true,
+        orderIndex: "address",
     },
     {
         title: 'Sent SMS',
         dataIndex: 'company_count_sent_sms',
-        sorter: (a, b) => a.company_count_sent_sms - b.company_count_sent_sms,
+        sorter: true,
+        orderIndex: "send_sms",
     },
     {
         title: 'Phone Number',
         dataIndex: 'company_phone_number',
-        sorter: (a, b) => a.company_phone_number - b.company_phone_number,
+        sorter: true,
+        orderIndex: "phone_number",
     },
 ];
 
@@ -58,20 +59,19 @@ const Company = () => {
     const [companies, setCompanies] = useState([]);
     const [selectionType] = useState('checkbox');
     const [loading, setLoading] = useState(true);
+    const [sortField, setSortField] = useState('');
+    const [sortOrder, setSortOrder] = useState('');
     const {searchText} = useOutletContext();
 
-    const onChange = (pagination, filters, sorter, extra) => {
-        console.log('params', pagination, filters, sorter, extra);
-    };
-
-    useEffect(() => {
-        getCompaniesData();
-    }, []);
-
-    async function getCompaniesData() {
+    const fetchCompanies = useCallback(async (search = '', ordering = '') => {
         setLoading(true);
         try {
-            const response = await APIv1.get('/company');
+            const response = await APIv1.get(`/company/`, {
+                params: {
+                    search,
+                    ordering
+                }
+            });
             const companiesData = response.data.map((company) => ({
                 key: company.id,
                 company_name: company.name,
@@ -86,13 +86,32 @@ const Company = () => {
         } finally {
             setLoading(false);
         }
-    }
+    }, []);
 
-    const filteredCompanies = companies.filter((company) =>
-        company.company_name.toLowerCase().includes(searchText.toLowerCase()) ||
-        company.company_inn.toLowerCase().includes(searchText.toLowerCase()) ||
-        company.company_address.toLowerCase().includes(searchText.toLowerCase())
-    );
+    useEffect(() => {
+        let ordering = '';
+        if (sortField) {
+            ordering = sortOrder === 'ascend' ? sortField : `-${sortField}`;
+        }
+        fetchCompanies(searchText, ordering);
+    }, [searchText, sortField, sortOrder, fetchCompanies]);
+
+    const handleTableChange = (pagination, filters, sorter) => {
+        let field = sorter.field;
+        let order = sorter.order;
+        let orderIndex = columns.find(column => column.dataIndex === field)?.orderIndex || field;
+
+        if (order === 'ascend') {
+            setSortField(orderIndex);
+            setSortOrder('ascend');
+        } else if (order === 'descend') {
+            setSortField(orderIndex);
+            setSortOrder('descend');
+        } else {
+            setSortField('');
+            setSortOrder('');
+        }
+    };
 
     return (
         <div className="content_container">
@@ -101,9 +120,9 @@ const Company = () => {
                     type: selectionType,
                     ...rowSelection,
                 }}
-                columns={columns(searchText)}
-                dataSource={filteredCompanies}
-                onChange={onChange}
+                columns={columns}
+                dataSource={companies}
+                onChange={handleTableChange}
                 loading={loading}
                 pagination={{
                     defaultPageSize: 20,
