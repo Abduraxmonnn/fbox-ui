@@ -3,10 +3,10 @@ import React from 'react'
 import './Analysis.css'
 import PieChart from '../../components/Charts/PieChart'
 import BarChart from '../../components/Charts/BarChart'
-import ZReport from '../../components/Analysis/ZReport'
 import Subscription from '../../components/Analysis/Subscription'
 import Sms from "../../pages/Sms";
 import {useNavigate} from "react-router-dom";
+import Orders from "../../components/Analysis/Orders";
 
 const Analysis = () => {
     const navigate = useNavigate();
@@ -28,9 +28,9 @@ const Analysis = () => {
                 </div>
             </div>
             <div className='content'>
-                <div className='zReport'>
-                    <h1 onClick={() => handleNavigate("/z-reports")}>Z-Report</h1>
-                    <ZReport/>
+                <div className='orders'>
+                    <h1 onClick={() => handleNavigate("/orders")}>Orders</h1>
+                    <Orders />
                 </div>
                 <div className='subscription'>
                     <h1 onClick={() => handleNavigate("/subscription")}>Subscription</h1>
