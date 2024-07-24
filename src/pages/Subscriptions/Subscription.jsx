@@ -24,6 +24,7 @@ const columns = [
             {text: 'True', value: true},
             {text: 'False', value: false},
         ],
+        orderIndex: "is_multi_user",
         onFilter: (value, record) => record.is_multi_user[0] === value,
         render: (_, {is_multi_user}) => (
             <>
@@ -115,9 +116,10 @@ const Subscription = () => {
     const [pageSize, setPageSize] = useState(defaultPageSize)
     const [sortField, setSortField] = useState('')
     const [sortOrder, setSortOrder] = useState('')
+    const [filters, setFilters] = useState({})
     const {searchText} = useOutletContext()
 
-    const fetchSubscriptions = useCallback(async (page, size, search = '', ordering = '') => {
+    const fetchSubscriptions = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
         try {
             const response = await APIv1.get(`/devices`, {
@@ -126,6 +128,7 @@ const Subscription = () => {
                     page_size: size,
                     search,
                     ordering,
+                    ...filters
                 }
             })
             const data = response.data.results.map((subscription) => ({
@@ -149,8 +152,8 @@ const Subscription = () => {
         if (sortField) {
             ordering = sortOrder === 'ascend' ? sortField : `-${sortField}`
         }
-        fetchSubscriptions(currentPage, pageSize, searchText, ordering)
-    }, [currentPage, pageSize, searchText, sortOrder, sortField, fetchSubscriptions])
+        fetchSubscriptions(currentPage, pageSize, searchText, ordering, filters)
+    }, [currentPage, pageSize, searchText, sortOrder, sortField, filters, fetchSubscriptions])
 
     useEffect(() => {
         setCurrentPage(1) // Reset to the first page when search text changes
@@ -161,7 +164,7 @@ const Subscription = () => {
         setPageSize(pageSize)
     };
 
-    const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns);
+    const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns, setFilters, 'is_multi_user');
 
     return (
         <div className='content_container'>

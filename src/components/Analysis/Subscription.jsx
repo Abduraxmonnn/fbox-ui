@@ -1,25 +1,28 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import {Table, Tag} from 'antd'
 import {APIv1, APIv1 as API} from '../../api'
 import {Link, useNavigate, useOutletContext} from "react-router-dom";
 import {userSignIn} from "../../store/auth/user.action";
+import {defaultExtractDate, handleTableChange} from "../../utils";
 
-const columns = (searchText) => [
+const columns = [
     {
         title: 'Company',
         dataIndex: 'company_name',
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
         render: (text, record) => (
             <Link to={`/subscription/detail/${record.key}`}>{text}</Link>
         ),
+        sorter: true,
+        orderIndex: "company__name",
     },
     {
         title: 'Inn',
         dataIndex: 'company_inn',
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
         render: (text, record) => (
             <Link to={`/subscription/detail/${record.key}`}>{text}</Link>
         ),
+        sorter: true,
+        orderIndex: "company__inn",
     },
     {
         title: 'Multi user',
@@ -34,7 +37,7 @@ const columns = (searchText) => [
                 value: false,
             },
         ],
-
+        orderIndex: "is_multi_user",
         onFilter: (value, record) => record.is_multi_user === value,
 
         render: (_, {is_multi_user}) => (
@@ -68,21 +71,23 @@ const Subscription = () => {
     const [totalSubscriptions, setTotalSubscriptions] = useState(0);
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPageSize)
+    const [sortField, setSortField] = useState('')
+    const [sortOrder, setSortOrder] = useState('')
+    const [filters, setFilters] = useState({})
     const {searchText} = useOutletContext()
 
-    useEffect(() => {
-        getSubscriptionData(currentPage, pageSize);
-    }, [currentPage, pageSize])
-
-    const onChange = (page, pageSize) => {
-        setCurrentPage(page)
-        setPageSize(pageSize)
-    }
-
-    async function getSubscriptionData(page, size) {
+    const fetchSubscriptions = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
         try {
-            const response = await APIv1.get(`/subscription?page=${page}&page_size=${size}`);
+            const response = await APIv1.get(`/devices/`, {
+                params: {
+                    page,
+                    page_size: size,
+                    search,
+                    ordering,
+                    ...filters
+                }
+            })
             const data = response.data.results.map(subs => ({
                 key: subs.id,
                 company_name: subs.company.name,
@@ -90,18 +95,32 @@ const Subscription = () => {
                 is_multi_user: subs.is_multi_user,
             }))
             setSubscriptionData(data)
-            setTotalSubscriptions(response.data.count);
+            setTotalSubscriptions(response.data.count)
         } catch (err) {
             console.error('Something went wrong:', err)
         } finally {
             setLoading(false)
         }
-    }
+    }, []);
 
-    const filteredSubscriptions = subscriptionData.filter((data) =>
-        data.company_name.toLowerCase().includes(searchText.toLowerCase()) ||
-        data.company_inn.toLowerCase().includes(searchText.toLowerCase())
-    )
+    useEffect(() => {
+        let ordering = ''
+        if (sortField) {
+            ordering = sortOrder === 'ascend' ? sortField : `-${sortField}`
+        }
+        fetchSubscriptions(currentPage, pageSize, searchText, ordering, filters)
+    }, [currentPage, pageSize, searchText, sortOrder, sortField, filters])
+
+    useEffect(() => {
+        setCurrentPage(1) // Reset to the first page when search text changes
+    }, [searchText])
+
+    const onChange = (page, pageSize) => {
+        setCurrentPage(page)
+        setPageSize(pageSize)
+    };
+
+    const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns, setFilters, 'is_multi_user');
 
     return (
         <>
@@ -111,9 +130,10 @@ const Subscription = () => {
                         type: selectionType,
                         ...rowSelection,
                     }}
-                    columns={columns(searchText)}
-                    dataSource={filteredSubscriptions}
+                    columns={columns}
+                    dataSource={subscriptionData}
                     loading={loading}
+                    onChange={tableChangeHandler}
                     pagination={{
                         total: totalSubscriptions,
                         current: currentPage,
