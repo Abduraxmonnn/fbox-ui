@@ -1,13 +1,15 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import {Table, Tag} from 'antd'
 import {APIv1} from '../api'
 import {useOutletContext} from "react-router-dom";
+import {defaultExtractDate, handleTableChange} from "../utils";
 
-const columns = (searchText) => [
+const columns = [
     {
         title: 'id',
         dataIndex: 'sms_id',
-        sorter: (a, b) => a.sms_id - b.sms_id,
+        sorter: true,
+        orderIndex: "id",
         render: title => <a>{title}</a>,
         width: 300,
     },
@@ -15,10 +17,14 @@ const columns = (searchText) => [
         title: 'Inn',
         dataIndex: 'inn',
         render: title => <a>{title}</a>,
+        sorter: true,
+        orderIndex: "inn",
     },
     {
         title: 'Recipient',
         dataIndex: 'recipient',
+        sorter: true,
+        orderIndex: "recipient",
     },
     {
         title: 'Is Success',
@@ -33,7 +39,8 @@ const columns = (searchText) => [
                 value: false,
             },
         ],
-
+        sorter: true,
+        orderIndex: "is_success",
         onFilter: (value, record) => record.is_success === value,
 
         render: (_, {is_success}) => (
@@ -49,6 +56,8 @@ const columns = (searchText) => [
     {
         title: 'Created date',
         dataIndex: 'created_date',
+        sorter: true,
+        orderIndex: "created_date",
     },
 ]
 
@@ -71,43 +80,58 @@ const Sms = (props) => {
     const [totalSms, setTotalSms] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPageSize)
+    const [sortField, setSortField] = useState('')
+    const [sortOrder, setSortOrder] = useState('')
+    const [filters, setFilters] = useState({})
     const {searchText} = useOutletContext()
 
-    useEffect(() => {
-        getSmsData(currentPage, pageSize)
-    }, [currentPage, pageSize])
-
-    function extractDate(dateString) {
-        const date = new Date(dateString)
-        return date.toISOString().slice(0, 10)
-    }
-
-    async function getSmsData(page, size) {
-        setLoading(true)
+    const fetchSmsData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
+        setLoading(true);
         try {
-            const response = await APIv1.get(`/list_sms/?page=${page}&page_size=${size}`)
+            const response = await APIv1.get(`/list_sms/`, {
+                params: {
+                    page,
+                    page_size: size,
+                    search,
+                    ordering,
+                    ...filters,
+                }
+            })
             const data = response.data.results.map(sms => ({
                 key: sms.id,
                 sms_id: sms.id,
                 inn: sms.inn,
                 recipient: sms.recipient,
                 is_success: sms.is_success,
-                created_date: extractDate(sms.created_date),
+                created_date: defaultExtractDate(sms.created_date),
             }))
             setSmsData(data)
             setTotalSms(response.data.count)
         } catch (err) {
-            console.error('Something went wrong:', err)
+            console.error('Something went wron', err)
         } finally {
             setLoading(false)
         }
+    }, []);
+
+    useEffect(() => {
+        let ordering = ''
+        if (sortField) {
+            ordering = sortOrder === 'ascend' ? sortField : `${sortOrder}`
+        }
+        fetchSmsData(currentPage, pageSize, searchText, ordering, filters)
+    }, [currentPage, pageSize, searchText, sortOrder, sortField, filters, fetchSmsData])
+
+    useEffect(() => {
+        setCurrentPage(1) // Reset to the first page when search text changes
+    }, [searchText, filters]);
+
+    const onChange = (page, pageSize) => {
+        setCurrentPage(page)
+        setPageSize(pageSize)
     }
 
-    const filteredSms = smsData.filter((data) =>
-        data.sms_id.toString().includes(searchText.toLowerCase()) ||
-        data.inn.toLowerCase().includes(searchText.toLowerCase()) ||
-        data.recipient.toLowerCase().includes(searchText.toLowerCase())
-    );
+    const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns, setFilters, 'is_success');
 
     return (
         <>
@@ -117,14 +141,16 @@ const Sms = (props) => {
                         type: selectionType,
                         ...rowSelection,
                     }}
-                    columns={columns(searchText)}
-                    dataSource={filteredSms}
+                    columns={columns}
+                    dataSource={smsData}
                     loading={loading}
+                    onChange={tableChangeHandler}
                     pagination={{
                         total: totalSms,
                         current: currentPage,
                         pageSize: pageSize,
-                        defaultPageSize: props.defaultPaginationSize,
+                        onChange: onChange,
+                        defaultPageSize: defaultPageSize,
                         showSizeChanger: true,
                         defaultCurrent: 1,
                         showTotal: (total, range) =>
