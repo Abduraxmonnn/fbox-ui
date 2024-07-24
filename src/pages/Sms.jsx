@@ -73,13 +73,14 @@ const rowSelection = {
 }
 
 const Sms = (props) => {
-    let {defaultPageSize} = props
+    let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
+    console.log(defaultPaginationSize)
     const [smsData, setSmsData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
     const [totalSms, setTotalSms] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
-    const [pageSize, setPageSize] = useState(defaultPageSize)
+    const [pageSize, setPageSize] = useState(defaultPaginationSize)
     const [sortField, setSortField] = useState('')
     const [sortOrder, setSortOrder] = useState('')
     const [filters, setFilters] = useState({})
@@ -150,7 +151,7 @@ const Sms = (props) => {
                         current: currentPage,
                         pageSize: pageSize,
                         onChange: onChange,
-                        defaultPageSize: defaultPageSize,
+                        defaultPageSize: defaultPaginationSize,
                         showSizeChanger: true,
                         defaultCurrent: 1,
                         showTotal: (total, range) =>
