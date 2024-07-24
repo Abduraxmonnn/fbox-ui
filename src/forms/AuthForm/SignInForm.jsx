@@ -31,6 +31,7 @@ const SignInForm = props => {
             }}
             style={{
                 maxWidth: 600,
+                marginLeft: 75
             }}
             initialValues={{
                 remember: true,

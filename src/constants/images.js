@@ -1,4 +1,4 @@
-import sig_in_bg from '../assets/auth/auth bg.png';
+import sig_in_bg from '../assets/auth/auth-bg.png';
 import search_icon from '../assets/icons/search loop.png';
 import logo from '../assets/icons/logo-fiscalbox.svg';
 import arrow_down from '../assets/icons/arrow down.svg'
