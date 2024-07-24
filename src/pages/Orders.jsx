@@ -1,40 +1,47 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {APIv1} from "../api";
 import {Table} from "antd";
 import {useOutletContext} from "react-router-dom";
+import {defaultExtractDate, handleTableChange} from "../utils";
 
-const columns = (searchText) => [
+const columns = [
     {
         title: 'Market name',
         dataIndex: 'market_name',
         render: title => <a>{title}</a>,
-        sorter: (a, b) => a.market_name - b.market_name,
+        sorter: true,
+        orderIndex: "market_name",
     },
     {
         title: 'Cashier',
         dataIndex: 'cashier',
         render: title => <a>{title}</a>,
-        sorter: (a, b) => a.cashier - b.cashier,
+        sorter: true,
+        orderIndex: "cashier",
     },
     {
         title: 'Cash desc serial',
         dataIndex: 'cash_desc_serial',
-        sorter: (a, b) => a.cash_desc_serial - b.cash_desc_serial,
+        sorter: true,
+        orderIndex: "cash_desc_serial",
     },
     {
         title: 'Received cash',
         dataIndex: 'received_cash',
-        sorter: (a, b) => a.received_cash - b.received_cash,
+        sorter: true,
+        orderIndex: "received_cash",
     },
     {
         title: 'Received card',
         dataIndex: 'received_card',
-        sorter: (a, b) => a.received_card - b.received_card,
+        sorter: true,
+        orderIndex: "received_card",
     },
     {
         title: 'Time',
         dataIndex: 'time',
-        sorter: (a, b) => a.time - b.time,
+        sorter: true,
+        orderIndex: "time",
     },
 ]
 
@@ -56,26 +63,21 @@ const Orders = () => {
     const [totalOrders, setTotalOrders] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPageSize)
+    const [sortField, setSortField] = useState('')
+    const [sortOrder, setSortOrder] = useState('')
     const {searchText} = useOutletContext()
 
-    useEffect(() => {
-        getReportData(currentPage, pageSize)
-    }, [currentPage, pageSize])
-
-    const onChange = (page, pageSize) => {
-        setCurrentPage(page)
-        setPageSize(pageSize)
-    }
-
-    function extractDate(dateString) {
-        const date = new Date(dateString)
-        return date.toISOString().slice(0, 10)
-    }
-
-    async function getReportData(page, size) {
+    const fetchOrdersData = useCallback(async (page, size, search = '', ordering = '') => {
         setLoading(true);
         try {
-            const response = await APIv1.get(`/orders/list?page=${page}&page_size=${size}`);
+            const response = await APIv1.get(`/orders/list/`, {
+                params: {
+                    page,
+                    page_size: size,
+                    search,
+                    ordering
+                }
+            });
             const data = response.data.results.map((report) => ({
                 key: report.id,
                 market_name: report.market_name ?? '-',
@@ -83,35 +85,48 @@ const Orders = () => {
                 cash_desc_serial: report.cash_desc_serial,
                 received_cash: report.received_cash,
                 received_card: report.received_card,
-                time: report.time ? extractDate(report.time) : '----/--/--'
+                time: report.time ? defaultExtractDate(report.time) : '----/--/--'
             }));
             setOrdersData(data)
             setTotalOrders(response.data.count)
         } catch (err) {
             console.error('Something went wrong:', err)
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
-    }
+    })
 
-    const filteredOrders = ordersData.filter((order) =>
-        order.market_name.toLowerCase().includes(searchText.toLowerCase()) ||
-        order.cashier.toLowerCase().includes(searchText.toLowerCase()) ||
-        order.cash_desc_serial.toLowerCase().includes(searchText.toLowerCase()) ||
-        order.received_cash.toString().includes(searchText.toLowerCase()) ||
-        order.received_card.toString().includes(searchText.toLowerCase())
-    )
+    useEffect(() => {
+        let ordering = ''
+        if (sortField) {
+            ordering = sortOrder === 'ascend' ? sortField : `-${sortField}`
+        }
+        fetchOrdersData(currentPage, pageSize, searchText, ordering)
+    }, [currentPage, pageSize, searchText, sortOrder, sortField])
+
+    useEffect(() => {
+        setCurrentPage(1) // Reset to the first page when search text changes
+    }, [searchText])
+
+    const onChange = (page, pageSize) => {
+        setCurrentPage(page)
+        setPageSize(pageSize)
+    };
+
+    const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns);
 
     return (
         <>
             <div className='content_container'>
                 <Table
                     rowSelection={{
-                        type: selectionType
+                        type: selectionType,
+                        ...rowSelection,
                     }}
-                    columns={columns(searchText)}
-                    dataSource={filteredOrders}
+                    columns={columns}
+                    dataSource={ordersData}
                     loading={loading}
+                    onChange={tableChangeHandler}
                     pagination={{
                         total: totalOrders,
                         current: currentPage,
