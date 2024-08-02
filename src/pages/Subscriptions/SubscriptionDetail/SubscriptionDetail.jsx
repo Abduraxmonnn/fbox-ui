@@ -49,7 +49,7 @@ const SubscriptionDetail = () => {
             return relatedDevices.map((item) => (
                 <li key={item.device_serial_number || Math.random()}
                     className="related_device"
-                    onClick={() => navigate(`/device/detail/${item.id}`)}
+                    onClick={() => navigate(`/subscription/detail/${item.id}`)}
                 >
                     <span>{item.device_serial_number}
                         {Number(id) === Number(item.id) && <span className="current_text">- picked</span>}</span>
