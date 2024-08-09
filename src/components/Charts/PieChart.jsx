@@ -1,42 +1,41 @@
-import React, { useEffect, useRef } from 'react'
-
-import { Chart, Legend, Tooltip } from 'chart.js/auto'
-
-Chart.register(Legend, Tooltip)
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Pie} from '@ant-design/plots';
 
 const PieChart = () => {
-	const chartRef = useRef(null)
-	const chartInstance = useRef(null)
+    const config = {
+        data: [
+            {type: 'Online', value: 300},
+            {type: 'Offline', value: 100},
+        ],
+        angleField: 'value',
+        colorField: 'type',
+        innerRadius: 0.6,
+        label: {
+            text: 'value',
+            style: {
+                fontSize: 14,
+            },
+        },
+        legend: {
+            position: 'right',
+        },
+        annotations: [
+            {
+                type: 'text',
+                style: {
+                    // text: 'Users',
+                    x: '50%',
+                    y: '50%',
+                    textAlign: 'center',
+                    fontSize: 40,
+                    fontStyle: 'bold',
+                },
+            },
+        ],
+    };
 
-	useEffect(() => {
-		if (chartInstance.current) {
-			chartInstance.current.destroy()
-		}
-		const myChartRef = chartRef.current.getContext('2d')
+    return <Pie {...config} />;
+};
 
-		chartInstance.current = new Chart(myChartRef, {
-			type: 'polarArea',
-			data: {
-				labels: ['Online', 'Offline'],
-				datasets: [
-					{
-						data: [300, 100],
-						backgroundColor: [
-							'rgb(51, 204, 51)',
-							'rgb(128, 128, 128)',
-						],
-					},
-				],
-			},
-		})
-		return () => {
-			if (chartInstance.current) {
-				chartInstance.current.destroy()
-			}
-		}
-	}, [])
-
-	return <canvas ref={chartRef} />
-}
-
-export default PieChart
+export default PieChart;
