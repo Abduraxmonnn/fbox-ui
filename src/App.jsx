@@ -40,18 +40,21 @@ function App() {
 					<Routes>
 						<Route element={<RootLayout />}>
 							<Route path='/analysis' element={<Analysis />} />
-							<Route path='/company' element={<Company />} />
-							<Route path='/company/detail/:id' element={<CompanyDetail />} />
-							<Route path='/subscription' element={<Subscription />} />
-							<Route path='/subscription/detail/:id' element={<SubscriptionDetail />} />
-							<Route path='/device/status' element={<DeviceStatus />} />
+							<Route path='/devices/company' element={<Company />} />
+							<Route path='/devices/subscription' element={<Subscription />} />
+							<Route path='/devices/version' element={<Version />} />
+							<Route path='/devices/status' element={<DeviceStatus />} />
+							<Route path='/payments/sms' element={<Sms />} />
+							<Route path='/orders' element={<Orders />} />
+
 							<Route path='/create_device' element={<AddNewDevice />} />
 							<Route path='/create_company' element={<AddNewCompany />} />
-							<Route path='/version' element={<Version />} />
-							<Route path='/sms' element={<Sms />} />
+
+							<Route path='/company/detail/:id' element={<CompanyDetail />} />
+							<Route path='/subscription/detail/:id' element={<SubscriptionDetail />} />
+
 							<Route path='/z-reports' element={<ZReport />} />
 							<Route path='/z-reports/detail/:id' element={<ZReportDetail />} />
-							<Route path='/orders' element={<Orders />} />
 						</Route>
 						<Route path='/' element={<SignIn />} />
 					</Routes>
