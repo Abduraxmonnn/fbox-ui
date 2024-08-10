@@ -45,7 +45,7 @@ const BarChart = () => {
                     labels: ['PayMe', 'Click', 'Uzum', 'Anor'],
                     maxBarThickness: 8,
                     datasets: [
-                        {label: 'Success', data: successData, backgroundColor: '#33cc33'},
+                        {label: 'Success', data: successData, backgroundColor: '#09e509'},
                         {label: 'Failure', data: failureData, backgroundColor: '#fc0303'},
                     ],
                 });
