@@ -1,13 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Pie} from '@ant-design/plots';
 
 const PieChart = () => {
+    const data = [
+        {type: 'Online', value: 300},
+        {type: 'Offline', value: 100},
+    ];
+
+    const totalUsers = data.reduce((acc, item) => acc + item.value, 0);
     const config = {
-        data: [
-            {type: 'Online', value: 300},
-            {type: 'Offline', value: 100},
-        ],
+        data,
         angleField: 'value',
         colorField: 'type',
         innerRadius: 0.6,
@@ -24,11 +26,11 @@ const PieChart = () => {
             {
                 type: 'text',
                 style: {
-                    // text: 'Users',
+                    text: `Online Users\nTotal: ${totalUsers}`,
                     x: '50%',
                     y: '50%',
                     textAlign: 'center',
-                    fontSize: 40,
+                    fontSize: 18,
                     fontStyle: 'bold',
                 },
             },
