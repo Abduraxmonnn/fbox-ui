@@ -74,7 +74,6 @@ const rowSelection = {
 
 const Sms = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
-    console.log(defaultPaginationSize)
     const [smsData, setSmsData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
@@ -109,7 +108,7 @@ const Sms = (props) => {
             setSmsData(data)
             setTotalSms(response.data.count)
         } catch (err) {
-            console.error('Something went wron', err)
+            console.error('Something went wrong', err)
         } finally {
             setLoading(false)
         }
