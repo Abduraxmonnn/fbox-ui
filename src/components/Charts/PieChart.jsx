@@ -1,13 +1,50 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Pie} from '@ant-design/plots';
+import {APIv1} from "../../api";
 
 const PieChart = () => {
-    const data = [
-        {type: 'Online', value: 300},
-        {type: 'Offline', value: 100},
-    ];
+    const [userData, setUserData] = useState({});
+    const [data, setData] = useState([]);
+    const [totalUsers, setTotalUsers] = useState(0);
 
-    const totalUsers = data.reduce((acc, item) => acc + item.value, 0);
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items && items.token) {
+            setUserData(items);
+        } else {
+            console.error('Token not found in localStorage');
+        }
+    }, []);
+
+    const fetchUserData = useCallback(async () => {
+        if (!userData.token) {
+            console.error('Token is missing');
+            return;
+        }
+
+        try {
+            const response = await APIv1.get('/user/list/status', {
+                headers: {
+                    Authorization: `Token ${userData.token}`,
+                },
+            });
+            const usersData = response.data;
+
+            setData([
+                {type: 'Online', value: usersData.online},
+                {type: 'Offline', value: usersData.offline},
+            ]);
+
+            setTotalUsers(usersData.total);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    }, [userData.token]);
+
+    useEffect(() => {
+        fetchUserData()
+    }, [fetchUserData])
+
     const config = {
         data,
         angleField: 'value',
@@ -26,7 +63,7 @@ const PieChart = () => {
             {
                 type: 'text',
                 style: {
-                    text: `Online Users\nTotal: ${totalUsers}`,
+                    text: `Active Users\nTotal: ${totalUsers}`,
                     x: '50%',
                     y: '50%',
                     textAlign: 'center',
