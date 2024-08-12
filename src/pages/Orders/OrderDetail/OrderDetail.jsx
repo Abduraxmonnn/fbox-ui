@@ -137,7 +137,7 @@ const OrderDetail = () => {
                         </li>
                         <li>
                             <span>Fiscal URL: </span>
-                            <span><a href={order.result_url}>link</a></span>
+                            <span><a href={order.result_url} target="_blank">link</a></span>
                         </li>
                     </ul>
                 </div>
