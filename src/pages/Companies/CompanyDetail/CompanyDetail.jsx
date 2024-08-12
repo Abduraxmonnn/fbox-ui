@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {APIv1, baseAPI} from "../../../api";
-import {Button, Tag, Result} from "antd";
+import {Button, Tag} from "antd";
 import "./CompanyDetail.scss"
 
 const CompanyDetail = () => {

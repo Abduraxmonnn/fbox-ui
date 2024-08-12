@@ -1,4 +1,4 @@
-import { Button, DatePicker, Space, Select, Input, Checkbox, Row, Col } from 'antd'
+import { Button, DatePicker, Space, Select, Input, Checkbox } from 'antd'
 import { useNavigate } from 'react-router-dom';
 import './AddNewDeviceForm.scss'
 const { RangePicker } = DatePicker

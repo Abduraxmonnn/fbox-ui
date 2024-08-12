@@ -1,6 +1,5 @@
-import { Layout, Drawer, Affix } from 'antd';
+import { Layout } from 'antd';
 import SideBar from './SideBar';
-import { Outlet } from 'react-router-dom';
 
 const { Header: AntHeader, Content, Sider } = Layout;
 

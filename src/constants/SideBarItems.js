@@ -5,7 +5,7 @@ import {
     MessageOutlined,
     CheckCircleOutlined,
     ClusterOutlined,
-    FileDoneOutlined, RetweetOutlined, CreditCardOutlined, HistoryOutlined, MailOutlined,
+    FileDoneOutlined, RetweetOutlined, CreditCardOutlined
 } from '@ant-design/icons'
 import {Link} from 'react-router-dom'
 

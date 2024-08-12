@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
-import {LoadingOutlined} from '@ant-design/icons';
-import {Button, Tag, Spin} from 'antd'
+import {Button, Tag} from 'antd'
 
 import {APIv1} from '../../../api'
 import './SubscriptionDetail.scss'
