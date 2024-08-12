@@ -21,29 +21,10 @@ import {
     Orders,
     OrderDetail
 } from './pages'
-import {useDispatch} from "react-redux";
-import {userSignIn} from "./store/auth/user.action";
-
-function getUser() {
-    let user = localStorage.getItem('user');
-    if (user) {
-        user = JSON.parse(user);
-    } else {
-        user = null;
-    }
-    return user;
-}
+import getUser from "./store/utilits";
 
 function App() {
     const [user, setUser] = useState(getUser())
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        if (user) {
-            navigate("/analysis")
-        }
-    }, []);
 
     return (
         <div className='App'>
