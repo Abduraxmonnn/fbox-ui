@@ -6,7 +6,7 @@ import {useLocation, NavLink, Outlet} from 'react-router-dom';
 
 const {Content, Footer, Sider} = Layout;
 
-const SideBar = () => {
+const SideBar = ({ isDarkMode, toggleTheme }) => {
     const [collapsed, setCollapsed] = useState(false)
     const {
         token: {colorBgContainer, borderRadiusLG},
@@ -38,7 +38,8 @@ const SideBar = () => {
                     <Menu defaultSelectedKeys={['1']} mode='inline' items={items}/>
                 </Sider>
                 <Layout>
-                    <Header isCollapse={collapsed} searchText={searchText} setSearchText={setSearchText}/>
+                    <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} isCollapse={collapsed}
+                            searchText={searchText} setSearchText={setSearchText}/>
                     <Content style={{margin: '0 16px'}}>
                         <Breadcrumb style={{margin: '16px 0'}}>
                             <Breadcrumb.Item>

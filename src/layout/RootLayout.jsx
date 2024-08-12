@@ -4,10 +4,10 @@ import { Outlet } from 'react-router-dom';
 
 const { Header: AntHeader, Content, Sider } = Layout;
 
-const RootLayout = () => {
+const RootLayout = ({ isDarkMode, toggleTheme }) => {
 	return (
 		<Layout>
-			<SideBar />
+			<SideBar isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
 			<h1>Hello World</h1>
 		</Layout>
 	)

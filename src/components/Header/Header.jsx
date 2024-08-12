@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
-import {Avatar, Spin} from 'antd';
-import {UserOutlined, NotificationOutlined} from '@ant-design/icons';
+import {Avatar, Button, Spin} from 'antd';
+import {UserOutlined, NotificationOutlined, MoonOutlined, SunOutlined} from '@ant-design/icons';
 import {useDispatch} from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
 
@@ -9,7 +9,7 @@ import {logout} from '../../store/auth/user.action';
 import SearchComponent from '../Search/Search';
 import './Header.scss';
 
-const Header = ({isCollapse, searchText, setSearchText}) => {
+const Header = ({isCollapse, searchText, setSearchText, isDarkMode, toggleTheme}) => {
     const [isUserOptions, setIsUserOptions] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -35,6 +35,18 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
             <a href="/analysis"><img src={images.logo} alt="logo"/></a>
             <SearchComponent searchText={searchText} setSearchText={setSearchText}/>
             <div className="user_info">
+                <Button
+                    onClick={toggleTheme}
+                    style={{
+                        border: 'none',
+                        background: 'none',
+                        padding: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                    {isDarkMode ? <SunOutlined/> : <MoonOutlined/>}
+                </Button>
                 <NotificationOutlined className="header_notification"/>
                 <div className="header_user_data">
                     <span>{userData.data.username}</span>
