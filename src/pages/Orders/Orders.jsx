@@ -15,19 +15,19 @@ const columns = [
         orderIndex: "market_name",
     },
     {
-        title: 'Cashier',
-        dataIndex: 'cashier',
+        title: 'Cash desc serial',
+        dataIndex: 'cash_desc_serial',
         render: (text, record) => (
             <Link to={`/order/detail/${record.key}`}>{text}</Link>
         ),
         sorter: true,
-        orderIndex: "cashier",
+        orderIndex: "cash_desc_serial",
     },
     {
-        title: 'Cash desc serial',
-        dataIndex: 'cash_desc_serial',
+        title: 'Cashier',
+        dataIndex: 'cashier',
         sorter: true,
-        orderIndex: "cash_desc_serial",
+        orderIndex: "cashier",
     },
     {
         title: 'Received cash',

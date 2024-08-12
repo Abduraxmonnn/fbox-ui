@@ -1,18 +1,23 @@
 import React, {useEffect, useState} from "react";
 import {Table} from "antd";
-import {useOutletContext} from "react-router-dom";
+import {Link, useOutletContext} from "react-router-dom";
 import {APIv1} from "../../api";
 
 const columns = (searchText) => [
     {
         title: 'Market name',
         dataIndex: 'market_name',
-        render: title => <a>{title}</a>,
+        render: (text, record) => (
+            <Link to={`/order/detail/${record.key}`}>{text}</Link>
+        ),
         sorter: (a, b) => a.market_name - b.market_name,
     },
     {
         title: 'Cash desc serial',
         dataIndex: 'cash_desc_serial',
+        render: (text, record) => (
+            <Link to={`/order/detail/${record.key}`}>{text}</Link>
+        ),
         sorter: (a, b) => a.cash_desc_serial - b.cash_desc_serial,
     },
     {
