@@ -10,7 +10,8 @@ import AddNewCompany from './AddNewCompany'
 import Analysis from './Analysis/Analysis'
 import ZReport from './ZReports/ZReport'
 import ZReportDetail from './ZReports/ZReportDetail/ZReportDetail'
-import Orders from './Orders'
+import Orders from './Orders/Orders'
+import OrderDetail from './Orders/OrderDetail/OrderDetail'
 
 export {
 	Sms,
@@ -26,4 +27,5 @@ export {
 	ZReport,
 	ZReportDetail,
 	Orders,
+	OrderDetail,
 }

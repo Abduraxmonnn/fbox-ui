@@ -18,7 +18,8 @@ import {
     Analysis,
     ZReport,
     ZReportDetail,
-    Orders
+    Orders,
+    OrderDetail
 } from './pages'
 import {useDispatch} from "react-redux";
 import {userSignIn} from "./store/auth/user.action";
@@ -60,6 +61,7 @@ function App() {
                         <Route path='/create_device' element={<AddNewDevice/>}/>
                         <Route path='/create_company' element={<AddNewCompany/>}/>
 
+                        <Route path='/order/detail/:id' element={<OrderDetail />}/>
                         <Route path='/company/detail/:id' element={<CompanyDetail/>}/>
                         <Route path='/subscription/detail/:id' element={<SubscriptionDetail/>}/>
 

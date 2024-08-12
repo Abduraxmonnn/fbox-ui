@@ -1,21 +1,25 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {APIv1} from "../api";
+import {APIv1} from "../../api";
 import {Table} from "antd";
-import {useOutletContext} from "react-router-dom";
-import {defaultExtractDate, handleTableChange} from "../utils";
+import {Link, useOutletContext} from "react-router-dom";
+import {defaultExtractDate, handleTableChange} from "../../utils";
 
 const columns = [
     {
         title: 'Market name',
         dataIndex: 'market_name',
-        render: title => <a>{title}</a>,
+        render: (text, record) => (
+            <Link to={`/order/detail/${record.key}`}>{text}</Link>
+        ),
         sorter: true,
         orderIndex: "market_name",
     },
     {
         title: 'Cashier',
         dataIndex: 'cashier',
-        render: title => <a>{title}</a>,
+        render: (text, record) => (
+            <Link to={`/order/detail/${record.key}`}>{text}</Link>
+        ),
         sorter: true,
         orderIndex: "cashier",
     },

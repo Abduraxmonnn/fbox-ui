@@ -88,8 +88,8 @@ const CompanyDetail = () => {
                     </Button>
                 </div>
             </div>
-            <div className='device_detail_graphBox'>
-                <div className='device_detail_box'>
+            <div className='detail_graphBox'>
+                <div className='detail_box'>
                     <ul className="data_list">
                         <h1>Base information</h1>
                         <li>

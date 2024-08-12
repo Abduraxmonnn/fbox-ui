@@ -1,0 +1,17 @@
+.order_detail__title {
+  text-align: left;
+  font-size: 22px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.order_detail__cash_desc_serial {
+  font-size: 16px;
+}
+
+span > a {
+  color: #007bff;
+  text-decoration: underline;
+}

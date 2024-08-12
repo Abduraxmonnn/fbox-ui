@@ -6,7 +6,7 @@
     border-radius: 6px;
 }
 
-.device_detail_graphBox {
+.detail_graphBox {
     position: relative;
     width: 100%;
     padding: 20px;
@@ -14,7 +14,7 @@
     min-height: 200px;
 }
 
-.device_detail_box {
+.detail_box {
     display: grid;
     width: 100%;
     padding: 20px;
@@ -23,7 +23,7 @@
     min-height: 100px;
 }
 
-.device_detail_box > ul {
+.detail_box > ul {
     position: relative;
     background-color: var(--color-white);
     padding: 20px;
@@ -33,7 +33,7 @@
     border-radius: 20px;
 }
 
-.device_detail_box > ul > h1 {
+.detail_box > ul > h1 {
     font-size: 28px;
     margin-bottom: 15px;
 }
@@ -53,13 +53,18 @@
 }
 
 .data_list > li > span:first-child {
-    font-size: 18px;
+    font-size: 16px;
     margin-top: 50px;
     margin-right: 10px;
 }
 
 .data_list > li > span:last-child {
+    font-size: 18px;
     text-align: right;
+}
+
+.data_list > li > span:last-child:hover {
+    color: #235da4;
 }
 
 /*.data_list:hover {*/
