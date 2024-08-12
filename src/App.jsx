@@ -5,7 +5,7 @@ import {ConfigProvider, theme, Button} from 'antd';
 import './App.css'
 import SignIn from './components/SignIn/SignIn';
 import RootLayout from './layout/RootLayout'
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 import {
     Sms,
@@ -24,6 +24,7 @@ import {
     OrderDetail
 } from './pages'
 import getUser from "./store/utilits";
+import ThemeSwitcher from "./utils/ThemeSwitcher";
 
 function App() {
     const [user, setUser] = useState(getUser())
@@ -39,6 +40,7 @@ function App() {
                 algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
             }}
         >
+            <ThemeSwitcher isDarkMode={isDarkMode}/>
             <div className='App'>
                 {user ? (
                     <Routes>

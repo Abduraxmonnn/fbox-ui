@@ -10,7 +10,7 @@
 
 .graphBox .box {
     position: relative;
-    background-color: var(--color-white);
+    background-color: var(--box-bg-color);
     padding: 20px;
     width: 100%;
     min-height: 532px;
