@@ -19,7 +19,8 @@ import {
     ZReport,
     ZReportDetail,
     Orders,
-    OrderDetail
+    OrderDetail,
+    Logs
 } from './pages'
 import getUser from "./store/utilits";
 
@@ -36,6 +37,7 @@ function App() {
                         <Route path='/devices/subscription' element={<Subscription/>}/>
                         <Route path='/devices/version' element={<Version/>}/>
                         <Route path='/devices/status' element={<DeviceStatus/>}/>
+                        <Route path='/payments/logs' element={<Logs/>}/>
                         <Route path='/payments/sms' element={<Sms/>}/>
                         <Route path='/orders' element={<Orders/>}/>
 

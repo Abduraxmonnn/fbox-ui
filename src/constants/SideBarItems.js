@@ -5,7 +5,7 @@ import {
     MessageOutlined,
     CheckCircleOutlined,
     ClusterOutlined,
-    FileDoneOutlined, RetweetOutlined, CreditCardOutlined
+    FileDoneOutlined, RetweetOutlined, CreditCardOutlined, HistoryOutlined
 } from '@ant-design/icons'
 import {Link} from 'react-router-dom'
 
@@ -57,13 +57,13 @@ export const items = [
         ),
     ]),
     getItem('Payments', 'payments_items', <CreditCardOutlined/>, [
-        // getItem(
-        //     'Logs',
-        //     'log_payments_items',
-        //     <Link to='/payments/logs'>
-        //         <HistoryOutlined/>
-        //     </Link>
-        // ),
+        getItem(
+            'Logs',
+            'log_payments_items',
+            <Link to='/payments/logs'>
+                <HistoryOutlined/>
+            </Link>
+        ),
         // getItem(
         //     'Email',
         //     'email_payments_items',
