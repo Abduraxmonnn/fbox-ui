@@ -124,7 +124,7 @@ const Sms = (props) => {
 
     useEffect(() => {
         setCurrentPage(1) // Reset to the first page when search text changes
-    }, [searchText, filters]);
+    }, [searchText]);
 
     const onChange = (page, pageSize) => {
         setCurrentPage(page)
