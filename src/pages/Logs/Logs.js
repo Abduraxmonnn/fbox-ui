@@ -72,7 +72,7 @@ const Logs = () => {
             const response = await APIv1.get('/logs/list/', {
                 params: {
                     page,
-                    page_size: pageSize,
+                    page_size: size,
                     search,
                     ordering,
                     ...filters
