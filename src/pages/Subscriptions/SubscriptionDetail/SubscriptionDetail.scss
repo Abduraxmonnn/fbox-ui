@@ -11,8 +11,35 @@
   font-size: 16px;
 }
 
+.related_devices_grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.related_devices_row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
 .related_device {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.related_device:hover {
+  background-color: #e0e0e0;
+}
+
+.picked_device {
+  color: white;
+  background-color: #007bff;
 }
 
 .current_text {
@@ -23,4 +50,62 @@
 
 .related_device > span:hover {
   color: #007bff;
+}
+
+/* General styling for the expand icon */
+.expanded-data-list {
+  margin-bottom: 10px;
+}
+
+.expanded-data-list > h1:hover {
+  color: #007bff;
+}
+
+.expand-icon {
+  cursor: pointer;
+  color: #1890ff;
+  font-size: 18px;
+  margin-left: 8px;
+  transition: color 0.3s ease;
+}
+
+.expand-icon:hover {
+  color: #40a9ff;
+}
+
+.expanded-section {
+  margin-top: 20px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 15px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.expanded-section .data_list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.expanded-section .data_list li {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.expanded-section .data_list li:last-child {
+  border-bottom: none;
+}
+
+.expanded-section h1 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.expanded-section span {
+  display: inline-block;
+  margin-right: 10px;
 }
