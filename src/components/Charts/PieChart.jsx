@@ -23,7 +23,7 @@ const PieChart = () => {
         }
 
         try {
-            const response = await APIv1.get('/user/list/status', {
+            const response = await APIv1.get('/device/status/', {
                 headers: {
                     Authorization: `Token ${userData.token}`,
                 },

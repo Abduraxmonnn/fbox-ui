@@ -1,0 +1,10 @@
+/* styles.css */
+.connect-link {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer; /* Shows a pointer cursor on hover */
+}
+
+.connect-link:hover {
+    color: darkblue; /* Change color on hover */
+}

@@ -2,7 +2,8 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {Table, Tag} from 'antd';
 import {APIv1} from '../../api';
 import {useOutletContext} from 'react-router-dom';
-import {extractDateBySecond, handleTableChange, onFilter} from '../../utils';
+import {extractDateBySecond, handleTableChange} from '../../utils';
+import "./DeviceStatus.scss"
 
 const columns = [
     {
@@ -24,6 +25,18 @@ const columns = [
         dataIndex: 'teamviewer',
         sorter: true,
         orderIndex: 'teamviewer',
+        render: (text, record) => (
+            text === "-" ? (
+                <span>-</span>
+            ) : (
+                <a
+                    href={`https://start.teamviewer.com/${text}`}
+                    className="connect-link"
+                >
+                    {text}
+                </a>
+            )
+        )
     },
     {
         title: 'Subscription IP address',
