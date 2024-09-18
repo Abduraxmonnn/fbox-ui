@@ -4,6 +4,7 @@ import {FileAddOutlined, FileExcelOutlined, UploadOutlined} from '@ant-design/ic
 import {APIv1} from '../../api';
 import {Link, useOutletContext} from 'react-router-dom';
 import {defaultExtractDate, handleTableChange} from "../../utils";
+import Orders from "../Orders/Orders";
 
 const columns = [
     {

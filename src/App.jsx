@@ -39,7 +39,7 @@ function App() {
                         <Route path='/devices/status' element={<DeviceStatus/>}/>
                         <Route path='/payments/logs' element={<Logs/>}/>
                         <Route path='/payments/sms' element={<Sms/>}/>
-                        <Route path='/orders' element={<Orders/>}/>
+                        <Route path='/orders' element={<Orders serialNumber={null}/>}/>
 
                         <Route path='/create_device' element={<AddNewDevice/>}/>
                         <Route path='/create_company' element={<AddNewCompany/>}/>

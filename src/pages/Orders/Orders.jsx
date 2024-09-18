@@ -59,8 +59,9 @@ const rowSelection = {
     },
 }
 
-const Orders = () => {
-    let defaultPageSize = 40
+const Orders = (props) => {
+    let serialNumber = props.serialNumber !== undefined ? props.serialNumber : null;
+    let defaultPageSize = props.defaultPageSize !== undefined ? props.defaultPageSize : 40;
     const [ordersData, setOrdersData] = useState([])
     const [selectionType, setSelectionType] = useState('checkbox')
     const [loading, setLoading] = useState(true)
@@ -74,7 +75,9 @@ const Orders = () => {
     const fetchOrdersData = useCallback(async (page, size, search = '', ordering = '') => {
         setLoading(true);
         try {
-            const response = await APIv1.get(`/orders/list/`, {
+            const url = serialNumber === null ? `/orders/list/` : `/orders/list/?serial=${serialNumber}`
+            console.log(url)
+            const response = await APIv1.get(`${url}`, {
                 params: {
                     page,
                     page_size: size,

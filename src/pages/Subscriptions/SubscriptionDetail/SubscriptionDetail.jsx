@@ -5,6 +5,7 @@ import {Button, Tag} from 'antd'
 import {APIv1} from '../../../api'
 import './SubscriptionDetail.scss'
 import {ExpandAltOutlined, ShrinkOutlined} from "@ant-design/icons";
+import Orders from "../../Orders/Orders";
 
 const SubscriptionDetail = () => {
     const {id} = useParams();
@@ -337,10 +338,14 @@ const SubscriptionDetail = () => {
                             </ul>
                         </div>)}
                     <ul className="data_list">
-                        <h1>Related Devices</h1>
+                        <h1>Related devices</h1>
                         <h3>Total: {relatedDevices.length}</h3>
                         {renderRelatedDevices()}
                     </ul>
+                </div>
+                <div className="device_order">
+                    <h1 className="device_order_title">Device orders</h1>
+                    <Orders serialNumber={device.device_serial_number} defaultPageSize={10} />
                 </div>
             </div>
         </section>);
