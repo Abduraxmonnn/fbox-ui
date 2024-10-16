@@ -35,7 +35,7 @@ export const items = [
             </Link>
         ),
         getItem(
-            'Subscription',
+            'Device',
             'devices_subscription_item',
             <Link to='/devices/subscription'>
                 <RetweetOutlined/>
