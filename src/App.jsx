@@ -34,7 +34,7 @@ function App() {
                     <Route element={<RootLayout/>}>
                         <Route path='/analysis' element={<Analysis/>}/>
                         <Route path='/devices/company' element={<Company/>}/>
-                        <Route path='/devices/subscription' element={<Subscription/>}/>
+                        <Route path='/devices/device' element={<Subscription/>}/>
                         <Route path='/devices/version' element={<Version/>}/>
                         <Route path='/devices/status' element={<DeviceStatus/>}/>
                         <Route path='/payments/logs' element={<Logs/>}/>
