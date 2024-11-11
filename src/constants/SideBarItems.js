@@ -34,13 +34,13 @@ export const items = [
                 <ProfileOutlined/>
             </Link>
         ),
-        getItem(
-            'Device',
-            'devices_subscription_item',
-            <Link to='/devices/device'>
-                <RetweetOutlined/>
-            </Link>
-        ),
+        // getItem(
+        //     'Device',
+        //     'devices_subscription_item',
+        //     <Link to='/devices/device'>
+        //         <RetweetOutlined/>
+        //     </Link>
+        // ),
         getItem(
             'Status',
             'devices_status_item',

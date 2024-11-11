@@ -1,7 +1,8 @@
 import Sms from './Sms'
-import Subscription from './Subscriptions/Subscription'
-import SubscriptionDetail from './Subscriptions/SubscriptionDetail/SubscriptionDetail'
+import Device from './Devices/Device'
+import DeviceDetail from './Devices/DeviceDetail/DeviceDetail'
 import DeviceStatus from './DevicesStatus/DeviceStatus'
+import DeviceStatusDetail from "./DevicesStatus/DeviceStatusDetail/DeviceStatusDetail";
 import Company from './Companies/Company'
 import CompanyDetail from './Companies/CompanyDetail/CompanyDetail'
 import Version from './Version'
@@ -16,9 +17,10 @@ import Logs from "./Logs/Logs";
 
 export {
 	Sms,
-	Subscription,
-	SubscriptionDetail,
+	Device,
+	DeviceDetail,
 	DeviceStatus,
+	DeviceStatusDetail,
 	Company,
 	CompanyDetail,
 	Version,

@@ -6,21 +6,22 @@ import RootLayout from './layout/RootLayout'
 import {useEffect, useState} from "react";
 
 import {
-    Sms,
-    Subscription,
-    AddNewDevice,
-    SubscriptionDetail,
-    DeviceStatus,
-    Company,
-    AddNewCompany,
-    CompanyDetail,
-    Version,
-    Analysis,
-    ZReport,
-    ZReportDetail,
-    Orders,
-    OrderDetail,
-    Logs
+	Sms,
+    Device,
+	DeviceDetail,
+	AddNewDevice,
+	DeviceStatus,
+	DeviceStatusDetail,
+	Company,
+	AddNewCompany,
+	CompanyDetail,
+	Version,
+	Analysis,
+	ZReport,
+	ZReportDetail,
+	Orders,
+	OrderDetail,
+	Logs,
 } from './pages'
 import getUser from "./store/utilits";
 
@@ -34,7 +35,7 @@ function App() {
                     <Route element={<RootLayout/>}>
                         <Route path='/analysis' element={<Analysis/>}/>
                         <Route path='/devices/company' element={<Company/>}/>
-                        <Route path='/devices/device' element={<Subscription/>}/>
+                        <Route path='/devices/device' element={<Device/>}/>
                         <Route path='/devices/version' element={<Version/>}/>
                         <Route path='/devices/status' element={<DeviceStatus/>}/>
                         <Route path='/payments/logs' element={<Logs/>}/>
@@ -46,7 +47,8 @@ function App() {
 
                         <Route path='/order/detail/:id' element={<OrderDetail />}/>
                         <Route path='/company/detail/:id' element={<CompanyDetail/>}/>
-                        <Route path='/subscription/detail/:id' element={<SubscriptionDetail/>}/>
+                        <Route path='/device/detail/:id' element={<DeviceDetail/>}/>
+						<Route path='/device/status/detail/:serial_number' element={<DeviceStatusDetail/>}/>
 
                         <Route path='/z-reports' element={<ZReport/>}/>
                         <Route path='/z-reports/detail/:id' element={<ZReportDetail/>}/>

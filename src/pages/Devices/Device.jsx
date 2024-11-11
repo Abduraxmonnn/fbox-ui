@@ -13,7 +13,7 @@ const columns = [
     orderIndex: "device_serial_number",
     onFilter: (value, record) => record.device_serial_number.startsWith(value),
     render: (text, record) => (
-        <Link to={`/subscription/detail/${record.key}`}>{text}</Link>
+        <Link to={`/device/detail/${record.key}`}>{text}</Link>
     ),
     width: 300,
   },
@@ -106,7 +106,7 @@ const rowSelection = {
   },
 };
 
-const Subscription = () => {
+const Device = () => {
   const defaultPageSize = 20;
   const [subscriptionsData, setSubscriptionsData] = useState([])
   const [userData, setUserData] = useState({});
@@ -137,12 +137,12 @@ const Subscription = () => {
         },
       })
 
-      const data = response.data.results.map((subscription) => ({
-        key: subscription.id,
-        device_serial_number: subscription.device_serial_number,
-        is_multi_user: [subscription.is_multi_user],
-        start_date: subscription.start_date ? defaultExtractDate(subscription.start_date) : '----/--/--',
-        end_date: subscription.end_date ? defaultExtractDate(subscription.end_date) : '----/--/--',
+      const data = response.data.results.map((item) => ({
+        key: item.id,
+        device_serial_number: item.device_serial_number,
+        is_multi_user: [item.is_multi_user],
+        start_date: item.start_date ? defaultExtractDate(item.start_date) : '----/--/--',
+        end_date: item.end_date ? defaultExtractDate(item.end_date) : '----/--/--',
       }));
       setSubscriptionsData(data)
       setTotalSubscriptions(response.data.count)
@@ -227,4 +227,4 @@ const Subscription = () => {
   )
 }
 
-export default Subscription;
+export default Device;

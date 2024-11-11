@@ -1,97 +1,100 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {Table, Tag} from 'antd';
 import {APIv1} from '../../api';
-import {useOutletContext} from 'react-router-dom';
+import {Link, useOutletContext} from 'react-router-dom';
 import {extractDateBySecond, handleTableChange} from '../../utils';
 import "./DeviceStatus.scss"
 
 const columns = [
-  {
-    title: 'id',
-    dataIndex: 'status_id',
-    sorter: true,
-    orderIndex: 'id',
-    render: title => <a>{title}</a>,
-  },
-  {
-    title: 'Subscription serial number',
-    dataIndex: 'device_serial',
-    sorter: true,
-    orderIndex: 'device_serial',
-    render: title => <a>{title}</a>,
-  },
-  {
-    title: 'Teamviewer',
-    dataIndex: 'teamviewer',
-    sorter: true,
-    orderIndex: 'teamviewer',
-    render: (text, record) => (
-        text === "-" ? (
-            <span>-</span>
-        ) : (
-            <a
-                href={`https://start.teamviewer.com/${text}`}
-                className="connect-link"
-            >
-              {text}
-            </a>
-        )
-    )
-  },
-  {
-    title: 'Subscription IP address',
-    dataIndex: 'device_ip_addr',
-    sorter: true,
-    orderIndex: 'device_ip_address',
-  },
-  {
-    title: 'Terminal ID',
-    dataIndex: 'terminal_id',
-    sorter: true,
-    orderIndex: 'terminal_id',
-  },
-  {
-    title: 'Orders not sent count',
-    dataIndex: 'orders_not_sent_count',
-    sorter: true,
-    orderIndex: 'orders_not_sent_count',
-    render: (_, {orders_not_sent_count}) => (
-        <>
-          {[orders_not_sent_count].map(tag => (
-              <Tag color={tag <= 10 ? 'red' : 'green'} key={tag}>
-                {`${String(tag)}`.toUpperCase()}
-              </Tag>
-          ))}
-        </>
-    ),
-  },
-  {
-    title: 'Z report left count',
-    dataIndex: 'z_report_left_count',
-    sorter: true,
-    orderIndex: 'z_report_left_count',
-    render: (_, {z_report_left_count}) => (
-        <>
-          {[z_report_left_count].map(tag => (
-              <Tag color={tag <= 50 ? 'red' : 'green'} key={tag}>
-                {`${String(tag)}`.toUpperCase()}
-              </Tag>
-          ))}
-        </>
-    ),
-  },
-  {
-    title: 'Updated date',
-    dataIndex: 'updated_date',
-    sorter: (a, b) => new Date(a.updated_date) - new Date(b.updated_date),
-  },
-  {
-    title: 'Version number',
-    dataIndex: 'version_number',
-    sorter: true,
-    orderIndex: 'version_number',
-  },
-];
+	{
+		title: 'id',
+		dataIndex: 'status_id',
+		sorter: true,
+		orderIndex: 'id',
+        render: (text, record) => (
+            <Link to={`/device/status/detail/${record.device_serial}`}>{text}</Link>
+        ),
+	},
+	{
+		title: 'Device serial number',
+		dataIndex: 'device_serial',
+		sorter: true,
+		orderIndex: 'device_serial',
+		render: (text, record) => (
+			<Link to={`/device/status/detail/${record.device_serial}`}>{text}</Link>
+		),
+	},
+	{
+		title: 'Teamviewer',
+		dataIndex: 'teamviewer',
+		sorter: true,
+		orderIndex: 'teamviewer',
+		render: (text, record) =>
+			text === '-' ? (
+				<span>-</span>
+			) : (
+				<a
+					href={`https://start.teamviewer.com/${text}`}
+					className='connect-link'
+				>
+					{text}
+				</a>
+			),
+	},
+	{
+		title: 'Device IP address',
+		dataIndex: 'device_ip_addr',
+		sorter: true,
+		orderIndex: 'device_ip_address',
+	},
+	{
+		title: 'Terminal ID',
+		dataIndex: 'terminal_id',
+		sorter: true,
+		orderIndex: 'terminal_id',
+	},
+	{
+		title: 'Orders not sent count',
+		dataIndex: 'orders_not_sent_count',
+		sorter: true,
+		orderIndex: 'orders_not_sent_count',
+		render: (_, { orders_not_sent_count }) => (
+			<>
+				{[orders_not_sent_count].map(tag => (
+					<Tag color={tag <= 10 ? 'red' : 'green'} key={tag}>
+						{`${String(tag)}`.toUpperCase()}
+					</Tag>
+				))}
+			</>
+		),
+	},
+	{
+		title: 'Z report left count',
+		dataIndex: 'z_report_left_count',
+		sorter: true,
+		orderIndex: 'z_report_left_count',
+		render: (_, { z_report_left_count }) => (
+			<>
+				{[z_report_left_count].map(tag => (
+					<Tag color={tag <= 50 ? 'red' : 'green'} key={tag}>
+						{`${String(tag)}`.toUpperCase()}
+					</Tag>
+				))}
+			</>
+		),
+	},
+	{
+		title: 'Updated date',
+		dataIndex: 'updated_date',
+		sorter: (a, b) => new Date(a.updated_date) - new Date(b.updated_date),
+	},
+	{
+		title: 'Version number',
+		dataIndex: 'version_number',
+		sorter: true,
+		orderIndex: 'version_number',
+	},
+]
 
 // rowSelection object indicates the need for row selection
 const rowSelection = {
