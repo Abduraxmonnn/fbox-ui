@@ -1,24 +1,26 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {Link, useOutletContext} from "react-router-dom";
 import {APIv1} from "../../api";
-import {defaultExtractDate, handleTableChange} from "../../utils";
+import {extractDateBySecond, handleTableChange} from "../../utils";
 import {Table, Tag} from "antd";
 import {log_types} from "../../utils/log_types";
 
 const columns = [
     {
         title: 'Device serial number',
-        dataIndex: 'device_serial',
-        render: (text, record) => <a>{text}</a>,
+        dataIndex: 'deviceSerial',
+        render: (text, record) => (
+            <Link to={`/payments/logs/detail/${record.key}`}>{text}</Link>
+        ),
         sorter: true,
-        orderIndex: "device_serial",
+        orderIndex: "deviceSerial",
     },
     {
         title: 'Is success',
-        dataIndex: 'is_success',
-        render: (_, {is_success}) => (
+        dataIndex: 'isSuccess',
+        render: (_, {isSuccess}) => (
             <>
-                {[is_success].map(tag => (
+                {[isSuccess].map(tag => (
                     <Tag color={tag === true ? 'green' : 'volcano'} key={tag}>
                         {`${String(tag)}`.toUpperCase()}
                     </Tag>
@@ -26,20 +28,20 @@ const columns = [
             </>
         ),
         sorter: true,
-        orderIndex: "is_success",
+        orderIndex: "isSuccess",
     },
     {
         title: 'Payment Provider',
-        dataIndex: 'log_type',
+        dataIndex: 'logType',
         filters: log_types,
         sorter: true,
-        orderIndex: "log_type",
+        orderIndex: "logType",
     },
     {
         title: 'Created date',
-        dataIndex: 'created_date',
+        dataIndex: 'createdDate',
         sorter: true,
-        orderIndex: "created_date",
+        orderIndex: "createdDate",
     },
 ]
 
@@ -84,10 +86,11 @@ const Logs = () => {
             console.log(response)
             const data = response.data.results.map((log) => ({
                 key: log.id,
-                device_serial: log.device_serial === 'None' ? '-' : log.device_serial,
-                is_success: log.is_success,
-                log_type: log.log_type,
-                created_date: defaultExtractDate(log.created_date)
+                deviceSerial: log.device_serial === 'None' ? '-' : log.device_serial,
+                transactionId: log.transaction_id === 'None' ? '-' : log.transaction_id,
+                isSuccess: log.is_success,
+                logType: log.log_type,
+                createdDate: extractDateBySecond(log.created_date)
             }));
             setLogsData(data)
             setTotalLogs(response.data.count)

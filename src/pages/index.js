@@ -14,6 +14,7 @@ import ZReportDetail from './ZReports/ZReportDetail/ZReportDetail'
 import Orders from './Orders/Orders'
 import OrderDetail from './Orders/OrderDetail/OrderDetail'
 import Logs from "./Logs/Logs";
+import LogsDetail from "./Logs/LogsDetail/LogsDetail";
 
 export {
 	Sms,
@@ -31,5 +32,6 @@ export {
 	ZReportDetail,
 	Orders,
 	OrderDetail,
-	Logs
+	Logs,
+	LogsDetail
 }

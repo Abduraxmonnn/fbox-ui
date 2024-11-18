@@ -130,7 +130,6 @@ const DeviceStatus = () => {
           Authorization: `Token ${userData.token}`,
         },
       });
-      console.log(response)
       const data = response.data.results.map(device_status => ({
         key: device_status.id,
         status_id: device_status.id,
