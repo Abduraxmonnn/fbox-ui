@@ -16,6 +16,15 @@ const columns = [
         orderIndex: "deviceSerial",
     },
     {
+        title: 'Transaction ID',
+        dataIndex: 'transactionId',
+        render: (text, record) => (
+            <Link to={`/payments/logs/detail/${record.key}`}>{text}</Link>
+        ),
+        sorter: true,
+        orderIndex: "transactionId",
+    },
+    {
         title: 'Is success',
         dataIndex: 'isSuccess',
         render: (_, {isSuccess}) => (
