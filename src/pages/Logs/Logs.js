@@ -95,7 +95,7 @@ const Logs = () => {
             const data = response.data.results.map((log) => ({
                 key: log.id,
                 deviceSerial: log.device_serial === 'None' ? '-' : log.device_serial,
-                transactionId: log.transaction_id === 'None' ? '-' : log.transaction_id,
+                transactionId: log.transaction_id === null ? '-' : log.transaction_id,
                 isSuccess: log.is_success,
                 logType: log.log_type,
                 createdDate: extractDateBySecond(log.created_date)
