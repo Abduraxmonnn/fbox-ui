@@ -94,16 +94,6 @@ const LogsDetail = () => {
                         <span className="payment-log__status-text">{logsData.status}</span>
                     </div>
                 </div>
-
-                {/*<div className="payment-log__field">*/}
-                {/*    <span className="payment-log__label">Token:</span>*/}
-                {/*    <span className="payment-log__value payment-log__value--mono">{logsData.token}</span>*/}
-                {/*</div>*/}
-
-                {/*<div className="payment-log__field">*/}
-                {/*    <span className="payment-log__label">Token life time (in minutes):</span>*/}
-                {/*    <span className="payment-log__value">{logsData.tokenLifeTime}</span>*/}
-                {/*</div>*/}
             </div>
         </div>
     );
