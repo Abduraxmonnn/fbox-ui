@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {APIv1} from "../../../api";
 import {StatusIcon} from "../../../utils/statusIcons";
-import "./LogsDetail.scss"
+import "../../../styles/BaseLogsStyle.scss"
 import {useParams} from "react-router-dom";
 import {extractDateBySecond} from "../../../utils";
 

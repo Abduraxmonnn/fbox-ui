@@ -1,4 +1,5 @@
-import Sms from './Sms'
+import Sms from './Sms/Sms'
+import SmsDetail from "./Sms/SmsDetail/SmsDetail";
 import Device from './Devices/Device'
 import DeviceDetail from './Devices/DeviceDetail/DeviceDetail'
 import DeviceStatus from './DevicesStatus/DeviceStatus'
@@ -18,6 +19,7 @@ import LogsDetail from "./Logs/LogsDetail/LogsDetail";
 
 export {
 	Sms,
+	SmsDetail,
 	Device,
 	DeviceDetail,
 	DeviceStatus,

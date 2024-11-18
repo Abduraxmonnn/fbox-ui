@@ -7,6 +7,7 @@ import {useState} from "react";
 
 import {
 	Sms,
+	SmsDetail,
     Device,
 	DeviceDetail,
 	AddNewDevice,
@@ -51,6 +52,7 @@ function App() {
                         <Route path='/device/detail/:id' element={<DeviceDetail/>}/>
 						<Route path='/device/status/detail/:serial_number' element={<DeviceStatusDetail/>}/>
 						<Route path='/payments/logs/detail/:id' element={<LogsDetail/>}/>
+						<Route path='/payments/sms/detail/:id' element={<SmsDetail/>}/>
 
                         <Route path='/z-reports' element={<ZReport/>}/>
                         <Route path='/z-reports/detail/:id' element={<ZReportDetail/>}/>

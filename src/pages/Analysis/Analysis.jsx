@@ -4,7 +4,7 @@ import './Analysis.css'
 import PieChart from '../../components/Charts/PieChart'
 import BarChart from '../../components/Charts/BarChart'
 import Subscription from '../../components/Analysis/Subscription'
-import Sms from "../../pages/Sms";
+import Sms from "../Sms/Sms";
 import {useNavigate} from "react-router-dom";
 import Orders from "../../components/Analysis/Orders";
 

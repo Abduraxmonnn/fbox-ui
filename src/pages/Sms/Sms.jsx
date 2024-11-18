@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import {Table, Tag} from 'antd'
-import {APIv1} from '../api'
-import {useOutletContext} from "react-router-dom";
-import {defaultExtractDate, handleTableChange} from "../utils";
+import {APIv1} from '../../api'
+import {Link, useOutletContext} from "react-router-dom";
+import {defaultExtractDate, handleTableChange} from "../../utils";
 
 const columns = [
     {
@@ -10,8 +10,9 @@ const columns = [
         dataIndex: 'sms_id',
         sorter: true,
         orderIndex: "id",
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        render: title => <a>{title}</a>,
+        render: (text, record) => (
+            <Link to={`/payments/sms/detail/${record.key}`}>{text}</Link>
+        ),
         width: 300,
     },
     {
