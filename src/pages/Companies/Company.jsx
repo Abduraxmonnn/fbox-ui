@@ -57,6 +57,7 @@ const rowSelection = {
     },
 };
 const Company = () => {
+    const [userData, setUserData] = useState({});
     const [companies, setCompanies] = useState([]);
     const [selectionType] = useState('checkbox');
     const [loading, setLoading] = useState(true);
@@ -67,10 +68,13 @@ const Company = () => {
     const fetchCompanies = useCallback(async (search = '', ordering = '') => {
         setLoading(true);
         try {
-            const response = await APIv1.get(`/company/`, {
+            const response = await APIv1.get(`/company/get_by_user/`, {
                 params: {
                     search,
                     ordering
+                },
+                headers: {
+                    Authorization: `Token ${userData.token}`,
                 }
             });
             const companiesData = response.data.map((company) => ({
@@ -87,7 +91,14 @@ const Company = () => {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [userData.token]);
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setUserData(items);
+        }
+    }, [userData.token]);
 
     useEffect(() => {
         let ordering = '';
