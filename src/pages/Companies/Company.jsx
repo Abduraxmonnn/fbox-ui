@@ -25,6 +25,7 @@ const columns = [
         dataIndex: 'company_inn',
         sorter: true,
         orderIndex: "inn",
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
         render: title => <a>{title}</a>,
     },
     {

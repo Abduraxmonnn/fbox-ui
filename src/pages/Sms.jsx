@@ -10,12 +10,14 @@ const columns = [
         dataIndex: 'sms_id',
         sorter: true,
         orderIndex: "id",
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
         render: title => <a>{title}</a>,
         width: 300,
     },
     {
         title: 'Inn',
         dataIndex: 'inn',
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
         render: title => <a>{title}</a>,
         sorter: true,
         orderIndex: "inn",

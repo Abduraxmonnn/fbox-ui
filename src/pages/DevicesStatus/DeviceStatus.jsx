@@ -29,7 +29,7 @@ const columns = [
 		dataIndex: 'teamviewer',
 		sorter: true,
 		orderIndex: 'teamviewer',
-		render: (text, record) =>
+		render: (text) =>
 			text === '-' ? (
 				<span>-</span>
 			) : (
