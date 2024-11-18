@@ -18,7 +18,6 @@ const columns = [
     {
         title: 'Inn',
         dataIndex: 'inn',
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
         render: (text, record) => (
             <Link to={`/payments/sms/detail/${record.key}`}>{text}</Link>
         ),
