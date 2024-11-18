@@ -1,4 +1,4 @@
-// export const log_types = [
+// export const filters = [
 //     {
 //         text: 'Payme payment',
 //         value: 'PAYME_PAYMENT',
@@ -130,4 +130,16 @@ export const log_types = [
             }
         ]
     },
+]
+
+
+export const status_types = [
+    {
+        text: 'Success',
+        value: true
+    },
+    {
+        text: 'Failure',
+        value: false
+    }
 ]

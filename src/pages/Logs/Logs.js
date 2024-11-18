@@ -3,7 +3,7 @@ import {Link, useOutletContext} from "react-router-dom";
 import {APIv1} from "../../api";
 import {extractDateBySecond, handleTableChange} from "../../utils";
 import {Table, Tag} from "antd";
-import {log_types} from "../../utils/log_types";
+import {log_types, status_types} from "../../utils/filters";
 
 const columns = [
     {
@@ -36,11 +36,12 @@ const columns = [
                 ))}
             </>
         ),
+        filters: status_types,
         sorter: true,
         orderIndex: "isSuccess",
     },
     {
-        title: 'Payment Provider',
+        title: 'Provider type',
         dataIndex: 'logType',
         filters: log_types,
         sorter: true,
