@@ -74,6 +74,7 @@ const rowSelection = {
 
 const Sms = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
+    const [userData, setUserData] = useState({});
     const [smsData, setSmsData] = useState([])
     const [loading, setLoading] = useState(true)
     const [selectionType, setSelectionType] = useState('checkbox')
@@ -88,13 +89,16 @@ const Sms = (props) => {
     const fetchSmsData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
         try {
-            const response = await APIv1.get(`/list_sms/`, {
+            const response = await APIv1.get(`/list_sms_by_user/`, {
                 params: {
                     page,
                     page_size: size,
                     search,
                     ordering,
                     ...filters,
+                },
+                headers: {
+                    Authorization: `Token ${userData.token}`,
                 }
             })
             const data = response.data.results.map(sms => ({
@@ -112,7 +116,14 @@ const Sms = (props) => {
         } finally {
             setLoading(false)
         }
-    }, []);
+    }, [userData.token]);
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setUserData(items);
+        }
+    }, [userData.token]);
 
     useEffect(() => {
         let ordering = ''
