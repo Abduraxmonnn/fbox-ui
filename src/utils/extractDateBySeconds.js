@@ -18,7 +18,7 @@ export function extractDateBySecond(dateString) {
         hour12: false,
     };
 
-    return tashkentDate.toLocaleString([], options);
+    return tashkentDate.toLocaleString('en-GB', options);
 }
 
 export const defaultExtractDate = (dateString) => {
