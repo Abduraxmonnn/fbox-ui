@@ -45,6 +45,7 @@
     cursor: pointer;
     font-size: 0.875rem;
     transition: all 0.2s;
+    border-radius: 0.5rem;
 
     &--secondary {
       background-color: transparent;
@@ -53,6 +54,8 @@
 
       &:hover {
         background-color: #f8fafc;
+        color: #007bff;
+        border-color: #007bff;
       }
     }
   }
