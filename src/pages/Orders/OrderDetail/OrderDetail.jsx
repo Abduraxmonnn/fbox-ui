@@ -101,7 +101,7 @@ const OrderDetail = () => {
                             <span className="detail-view__label">Fiscal URL:</span>
                             <span className="detail-view__value">
                   <a href={order.result_url} target="_blank" rel="noopener noreferrer"
-                     className="detail-view__link">link</a>
+                     className="detail-view__link">Open URL</a>
                 </span>
                         </li>
                     </ul>
