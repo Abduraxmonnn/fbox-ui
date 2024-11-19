@@ -20,7 +20,6 @@ const OrderDetail = () => {
             try {
                 const response = await APIv1.get(`orders/get/${id}`);
                 setOrder(response.data)
-                console.log(response.data.received_cash);
             } catch (err) {
                 console.error('Something went wrong:', err);
             }
