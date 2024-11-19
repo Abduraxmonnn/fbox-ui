@@ -39,7 +39,7 @@ const SmsDetail = () => {
     }
 
     return (
-        <div className="content_container">
+        <div className="detail-view">
             <h1 className="payment-log__title">Payment Log</h1>
 
             <div className="payment-log__grid">

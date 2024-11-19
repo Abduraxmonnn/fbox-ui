@@ -1,17 +1,9 @@
 // PaymentLog.scss
 .payment-log {
   min-height: 100vh;
-  background: #f5f7fa;
+  background: var(--color-white);
   padding: 2rem;
-
-  &__container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background: var(--color-white);
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  }
+  border-radius: 6px;
 
   &__title {
     font-size: 1.75rem;
