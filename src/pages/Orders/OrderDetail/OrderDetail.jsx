@@ -33,7 +33,7 @@ const OrderDetail = () => {
     }
 
     return (
-        <section className="content_container">
+        <section className="detail-view">
             <div className="detail-view__header">
                 <div className="detail-view__title">
                     <h1 className="detail-view__main-title">{order.market_name}</h1>
@@ -108,7 +108,6 @@ const OrderDetail = () => {
                 </div>
             </div>
         </section>
-
     );
 }
 

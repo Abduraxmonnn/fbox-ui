@@ -67,12 +67,6 @@
     color: #235da4;
 }
 
-/*.data_list:hover {*/
-/*    transform: scale(1.03);*/
-/*    border-bottom: 2px dashed lightblue;*/
-/*    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
-/*}*/
-
 .data_list:hover h1 {
     color: #007bff;
 }

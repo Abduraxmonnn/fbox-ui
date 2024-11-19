@@ -3,6 +3,8 @@ import React, {useEffect, useState} from "react";
 import {APIv1, baseAPI} from "../../../api";
 import {Button, Tag} from "antd";
 import "./CompanyDetail.scss"
+import CurrencyFormatted from "../../../utils/costFormatter";
+import {extractDateBySecond} from "../../../utils";
 
 const CompanyDetail = () => {
     const {id} = useParams()
@@ -52,134 +54,82 @@ const CompanyDetail = () => {
     }
 
     return (
-        <section className='content_container'>
-            <div className='company_detail__title'>
-                <div>
-                    <h1>{company.name}</h1>
-                    <span>
-						<span className='company_detail__inn'>
-							Company inn:{' '}
-						</span>
+        <section className="detail-view">
+            <div className="detail-view__header">
+                <div className="detail-view__title">
+                    <h1 className="detail-view__main-title">{company.name}</h1>
+                    <span className="detail-view__subtitle">
+              <span className="detail-view__subtitle-label">INN: </span>
                         {company.inn}
-					</span>
+            </span>
                 </div>
-                <div className="action_buttons">
-                    <Button
-                        style={{
-                            width: '15%',
-                            display: 'inline-block',
-                            marginRight: '1%',
-                        }}
-                        type='dashed'
-                        disabled={!userData.data || !userData.data.is_superuser}
-                        onClick={handleClick}>
-                        Edit
-                    </Button>
-                    <Button
-                        style={{
-                            width: '15%',
-                            display: 'inline-block',
-                            marginRight: '1%',
-                        }}
-                        type='dashed'
-                        onClick={() => navigate(-1)}
-                    >
-                        Back
-                    </Button>
-                </div>
+                <button
+                    className="detail-view__action-button detail-view__action-button--secondary"
+                    onClick={() => navigate(-1)}
+                >
+                    Back
+                </button>
             </div>
-            <div className='detail_graphBox'>
-                <div className='detail_box'>
-                    <ul className="data_list">
-                        <h1>Base information</h1>
-                        <li>
-                            <span>Address:</span>
-                            <span>
-								{company.address ? company.address :
-                                    <Tag color={!company.address && 'lightgray'}>
-                                        {company.address || 'empty'}
-                                    </Tag>}
-							</span>
-                        </li>
-                        <li>
-                            <span>Phone number:</span>
-                            <span>{company.phone_number}</span>
-                        </li>
-                        <li>
-                            <span>Start date:</span>
-                            <span>
-								{company.start_date
-                                    ? extractDate(company.start_date)
-                                    : '----/--/--'}
-							</span>
-                        </li>
-                        <li>
-                            <span>End date:</span>
-                            <span>
-								{company.end_date
-                                    ? extractDate(company.end_date)
-                                    : '----/--/--'}
-							</span>
-                        </li>
-                    </ul>
-                    <ul className="data_list">
-                        <h1>Payment permissions</h1>
-                        <li>
-                            <span>Click:</span>
-                            <span>
-								<Tag color={company.click ? 'green' : 'volcano'}>
-									{company.click ? 'TRUE' : 'FALSE'}
-								</Tag>
-							</span>
-                        </li>
-                        <li>
-                            <span>PayMe:</span>
-                            <span>
-								<Tag color={company.pay_me ? 'green' : 'volcano'}>
-									{company.pay_me ? 'TRUE' : 'FALSE'}
-								</Tag>
-							</span>
-                        </li>
-                        <li>
-                            <span>Uzum:</span>
-                            <span>
-								<Tag color={company.apelsin ? 'green' : 'volcano'}>
-									{company.apelsin ? 'TRUE' : 'FALSE'}
-								</Tag>
-							</span>
-                        </li>
-                        <li>
-                            <span>Anor:</span>
-                            <span>
-								<Tag color={company.anor ? 'green' : 'volcano'}>
-									{company.anor ? 'TRUE' : 'FALSE'}
-								</Tag>
-							</span>
-                        </li>
-                    </ul>
-                    <ul className="data_list">
-                        <h1>SMS information</h1>
-                        <li>
-                            <span>Sent SMS:</span>
-                            <span>
-								<Tag color={company.send_sms ? 'green' : 'volcano'}>
-									{company.send_sms ? 'TRUE' : 'FALSE'}
-								</Tag>
-							</span>
-                        </li>
-                        <li>
-                            <span>Sent sms:</span>
-                            <span>{company.count_sent_sms}</span>
-                        </li>
-                        <li>
-                            <span>Last month sent sms:</span>
-                            <span>{company.last_month_sms_count}</span>
-                        </li>
+
+            <div className="detail-view__content">
+                <div className="detail-view__section">
+                    <h2 className="detail-view__section-title">Base information</h2>
+                    <ul className="detail-view__list">
+                        {[
+                            {label: "Address", value: company.address},
+                            {label: "Phone number", value: company.phone_number},
+                            {label: "Start date", value: extractDateBySecond(company.start_date)},
+                            {label: "End date", value: extractDateBySecond(company.end_date)},
+                        ].map(({label, value}) => (
+                            <li key={label} className="detail-view__item">
+                                <span className="detail-view__label">{label}:</span>
+                                <span className="detail-view__value">{value}</span>
+                            </li>
+                        ))}
                     </ul>
                 </div>
+
+                <div className="detail-view__section">
+                    <h2 className="detail-view__section-title">Payment permissions</h2>
+                    <ul className="detail-view__list">
+                        {[
+                            {label: "Click", value: company.click},
+                            {label: "PayMe", value: company.payme},
+                            {label: "Uzum", value: company.sms_phone_number},
+                            {label: "Anor", value: company.sync_sms},
+                        ].map(({label, value}) => (
+                            <li key={label} className="detail-view__item">
+                                <span className="detail-view__label">{label}:</span>
+                                <span
+                                    className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
+                    {value ? 'TRUE' : 'FALSE'}
+                  </span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="detail-view__section">
+                    <h2 className="detail-view__section-title">SMS information</h2>
+                    <ul className="detail-view__list">
+                        {[
+                            {label: "Sens sms status", value: company.send_sms},
+                            {label: "Sent sms", value: company.count_sent_sms},
+                            {label: "Last month sent sms", value: company.last_month_sms_count},
+                        ].map(({label, value}) => (
+                            <li key={label} className="detail-view__item">
+                                <span className="detail-view__label">{label}:</span>
+                                <span
+                                    className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
+                    {value ? 'TRUE' : 'FALSE'}
+                  </span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
             </div>
         </section>
-    )
+    );
 }
 
 export default CompanyDetail;
