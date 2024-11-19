@@ -54,9 +54,9 @@
       color: var(--color-blue-grey);
 
       &:hover {
-        background-color: #f8fafc;
-        color: #007bff;
-        border-color: #007bff;
+        background-color: var(--color-white2);
+        color: var(--color-blue);
+        border-color: var(--color-blue);
       }
     }
   }
@@ -68,7 +68,7 @@
   }
 
   &__section {
-    background: #f8fafc;
+    background: var(--color-white2);
     border-radius: 8px;
     padding: 1.5rem;
   }
