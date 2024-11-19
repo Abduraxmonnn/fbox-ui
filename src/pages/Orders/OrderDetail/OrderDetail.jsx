@@ -2,7 +2,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {APIv1} from "../../../api";
 
-import './OrderDetail.scss'
+import '../../../styles/BaseDetailStyle.scss'
 import CurrencyFormatted from "../../../utils/costFormatter";
 
 const OrderDetail = () => {
