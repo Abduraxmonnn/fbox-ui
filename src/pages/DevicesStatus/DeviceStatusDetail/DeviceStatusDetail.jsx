@@ -52,7 +52,7 @@ const DeviceStatusDetail = () => {
                         <div
                             key={item.device_serial_number || Math.random()}
                             className={`detail-view__related-device ${Number(serial_number) === Number(item.id) ? 'detail-view__related-device--active' : ''}`}
-                            onClick={() => navigate(`/device/status/detail/${item.device_serial_number}`)}
+                            onClick={() => onRelatedDevices(item)}
                         >
                             <span>{item.device_serial_number}</span>
                         </div>
@@ -61,6 +61,15 @@ const DeviceStatusDetail = () => {
             );
         }
     };
+
+    const onScrollToTop = () => {
+        window.scrollTo(0, 0)
+    }
+
+    const onRelatedDevices = (item) => {
+        navigate(`/device/status/detail/${item.device_serial_number}`);
+        onScrollToTop()
+    }
 
     return (
         <div className="detail-view">
