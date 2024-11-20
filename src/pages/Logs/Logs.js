@@ -13,7 +13,7 @@ const columns = [
             <Link to={`/payments/logs/detail/${record.key}`}>{text}</Link>
         ),
         sorter: true,
-        orderIndex: "deviceSerial",
+        orderIndex: "device_serial",
     },
     {
         title: 'Transaction ID',
@@ -22,7 +22,7 @@ const columns = [
             <Link to={`/payments/logs/detail/${record.key}`}>{text}</Link>
         ),
         sorter: true,
-        orderIndex: "transactionId",
+        orderIndex: "transaction_id",
     },
     {
         title: 'Is success',
@@ -38,20 +38,20 @@ const columns = [
         ),
         filters: status_types,
         sorter: true,
-        orderIndex: "isSuccess",
+        orderIndex: "is_success",
     },
     {
         title: 'Provider type',
         dataIndex: 'logType',
         filters: log_types,
         sorter: true,
-        orderIndex: "logType",
+        orderIndex: "log_type",
     },
     {
         title: 'Created date',
         dataIndex: 'createdDate',
         sorter: true,
-        orderIndex: "createdDate",
+        orderIndex: "created_date",
     },
 ]
 
@@ -93,6 +93,7 @@ const Logs = () => {
                     Authorization: `Token ${userData.token}`,
                 }
             });
+            console.log('url: ', response)
             const data = response.data.results.map((log) => ({
                 key: log.id,
                 deviceSerial: log.device_serial === 'None' ? '-' : log.device_serial,

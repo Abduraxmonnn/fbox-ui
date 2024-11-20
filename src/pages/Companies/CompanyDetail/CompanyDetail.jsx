@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {APIv1} from "../../../api";
 import "../../../styles/BaseDetailStyle.scss"
 import {extractDateBySecond} from "../../../utils";
+import {Button} from "antd";
 
 const CompanyDetail = () => {
     const {id} = useParams()
@@ -32,6 +33,11 @@ const CompanyDetail = () => {
         }
         fetchCompanyDetail()
     }, [id])
+
+    const handleRedirect = (provider) => {
+        // Replace this with your actual redirection logic
+        navigate(`/payment-details/${provider.toLowerCase()}`)
+    }
 
     if (!company) {
         return <div>Company not found</div>
@@ -84,10 +90,21 @@ const CompanyDetail = () => {
                         ].map(({label, value}) => (
                             <li key={label} className="detail-view__item">
                                 <span className="detail-view__label">{label}:</span>
-                                <span
-                                    className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                    {value ? 'ACCESS' : 'DECLINE'}
-                  </span>
+                                <div className="detail-view__value-group">
+                                    <Button
+                                        onClick={() => handleRedirect(label)}
+                                        variant="outline"
+                                        size="sm"
+                                        className="detail-view__redirect-button"
+                                    >
+                                        More
+                                    </Button>
+                                    <span
+                                        className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}
+                                    >
+                {value ? 'ACCESS' : 'DECLINE'}
+              </span>
+                                </div>
                             </li>
                         ))}
                     </ul>
