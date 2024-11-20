@@ -104,14 +104,14 @@ const DeviceStatusDetail = () => {
                                         <span className="detail-view__label">Multiple user:</span>
                                         <span
                                             className={`detail-view__tag ${device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                      {device.is_multi_user ? 'TRUE' : 'FALSE'}
+                      {device.is_multi_user ? 'ACCESS' : 'DECLINE'}
                     </span>
                                     </li>
                                     <li className="detail-view__item">
                                         <span className="detail-view__label">Updated Available:</span>
                                         <span
                                             className={`detail-view__tag ${device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                      {device.is_multi_user ? 'TRUE' : 'FALSE'}
+                      {device.is_multi_user ? 'ACCESS' : 'DECLINE'}
                     </span>
                                     </li>
                                     <li className="detail-view__item">
@@ -160,7 +160,7 @@ const DeviceStatusDetail = () => {
                                             <span>Click access:</span>
                                             <span>
                                               <Tag color={device.click ? 'green' : 'volcano'}>
-                                                {device.click ? 'TRUE' : 'FALSE'}
+                                                {device.click ? 'ACCESS' : 'DECLINE'}
                                               </Tag>
                                             </span>
                                         </li>
@@ -198,7 +198,7 @@ const DeviceStatusDetail = () => {
                                             <span>PayMe access:</span>
                                             <span>
                         <Tag color={device.pay_me ? 'green' : 'volcano'}>
-                          {device.pay_me ? 'TRUE' : 'FALSE'}
+                          {device.pay_me ? 'ACCESS' : 'DECLINE'}
                         </Tag>
                       </span>
                                         </li>
@@ -227,7 +227,7 @@ const DeviceStatusDetail = () => {
                                             <span>Uzum access:</span>
                                             <span>
                         <Tag color={device.apelsin ? 'green' : 'volcano'}>
-                                        {device.apelsin ? 'TRUE' : 'FALSE'}
+                                        {device.apelsin ? 'ACCESS' : 'DECLINE'}
                                     </Tag>
                       </span>
                                         </li>
@@ -274,7 +274,7 @@ const DeviceStatusDetail = () => {
                                             <span>Anor access:</span>
                                             <span>
                         <Tag color={device.anor ? 'green' : 'volcano'}>
-                          {device.anor ? 'TRUE' : 'FALSE'}
+                          {device.anor ? 'ACCESS' : 'DECLINE'}
                         </Tag>
                       </span>
                                         </li>

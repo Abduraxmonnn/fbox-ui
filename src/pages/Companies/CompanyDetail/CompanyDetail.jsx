@@ -1,6 +1,6 @@
 import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {APIv1, baseAPI} from "../../../api";
+import {APIv1} from "../../../api";
 import "../../../styles/BaseDetailStyle.scss"
 import {extractDateBySecond} from "../../../utils";
 
@@ -11,26 +11,12 @@ const CompanyDetail = () => {
     const [userData, setUserData] = useState({});
     const navigate = useNavigate()
 
-    const handleClick = () => {
-        if (userData.data && userData.data.is_superuser) {
-            const url = `${baseAPI}admin/device/company/${id}/change/`;
-            window.open(url, '_blank', 'noopener,noreferrer');
-        } else {
-            console.warn('Insufficient permissions to access the target URL.');
-        }
-    };
-
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
         if (items) {
             setUserData(items);
         }
     }, [userData.token]);
-
-    const extractDate = dateString => {
-        const date = new Date(dateString)
-        return date.toISOString().slice(0, 10)
-    }
 
     useEffect(() => {
         const fetchCompanyDetail = async () => {
@@ -93,14 +79,14 @@ const CompanyDetail = () => {
                         {[
                             {label: "Click", value: company.click},
                             {label: "PayMe", value: company.payme},
-                            {label: "Uzum", value: company.sms_phone_number},
-                            {label: "Anor", value: company.sync_sms},
+                            {label: "Uzum", value: company.uzum},
+                            {label: "Anor", value: company.anor},
                         ].map(({label, value}) => (
                             <li key={label} className="detail-view__item">
                                 <span className="detail-view__label">{label}:</span>
                                 <span
                                     className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                    {value ? 'TRUE' : 'FALSE'}
+                    {value ? 'ACCESS' : 'DECLINE'}
                   </span>
                             </li>
                         ))}
@@ -118,7 +104,7 @@ const CompanyDetail = () => {
                                 <span className="detail-view__label">{label}:</span>
                                 <span
                                     className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                    {value ? 'TRUE' : 'FALSE'}
+                    {value ? 'ACCESS' : 'DECLINE'}
                   </span>
                             </li>
                         ))}

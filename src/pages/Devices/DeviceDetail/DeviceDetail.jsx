@@ -111,7 +111,7 @@
 //                             <span>Multiple user:</span>
 //                             <span>
 //                             <Tag color={device.is_multi_user ? 'green' : 'volcano'}>
-//                                 {device.is_multi_user ? 'TRUE' : 'FALSE'}
+//                                 {device.is_multi_user ? 'ACCESS' : 'DECLINE'}
 //                             </Tag>
 //                         </span>
 //                         </li>
@@ -119,7 +119,7 @@
 //                             <span>Updated Available:</span>
 //                             <span>
 //                             <Tag color={device.is_multi_user ? 'green' : 'volcano'}>
-//                                 {device.is_multi_user ? 'TRUE' : 'FALSE'}
+//                                 {device.is_multi_user ? 'ACCESS' : 'DECLINE'}
 //                             </Tag>
 //                         </span>
 //                         </li>
@@ -198,7 +198,7 @@
 //                                     <span>Click access:</span>
 //                                     <span>
 //                                     <Tag color={device.click ? 'green' : 'volcano'}>
-//                                         {device.click ? 'TRUE' : 'FALSE'}
+//                                         {device.click ? 'ACCESS' : 'DECLINE'}
 //                                     </Tag>
 //                                 </span>
 //                                 </li>
@@ -236,7 +236,7 @@
 //                                     <span>PayMe access:</span>
 //                                     <span>
 //                                     <Tag color={device.pay_me ? 'green' : 'volcano'}>
-//                                         {device.pay_me ? 'TRUE' : 'FALSE'}
+//                                         {device.pay_me ? 'ACCESS' : 'DECLINE'}
 //                                     </Tag>
 //                                 </span>
 //                                 </li>
@@ -265,7 +265,7 @@
 //                                     <span>Uzum access:</span>
 //                                     <span>
 //                                     <Tag color={device.apelsin ? 'green' : 'volcano'}>
-//                                         {device.apelsin ? 'TRUE' : 'FALSE'}
+//                                         {device.apelsin ? 'ACCESS' : 'DECLINE'}
 //                                     </Tag>
 //                                 </span>
 //                                 </li>
@@ -312,7 +312,7 @@
 //                                     <span>Anor access:</span>
 //                                     <span>
 //                                     <Tag color={device.anor ? 'green' : 'volcano'}>
-//                                         {device.anor ? 'TRUE' : 'FALSE'}
+//                                         {device.anor ? 'ACCESS' : 'DECLINE'}
 //                                     </Tag>
 //                                 </span>
 //                                 </li>

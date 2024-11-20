@@ -93,7 +93,7 @@ const OrderDetail = () => {
                                 <span className="detail-view__label">{label}:</span>
                                 <span
                                     className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                    {value ? 'TRUE' : 'FALSE'}
+                    {value ? 'ACCESS' : 'DECLINE'}
                   </span>
                             </li>
                         ))}
