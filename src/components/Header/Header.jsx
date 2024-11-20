@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {Avatar, Spin} from 'antd';
 import {UserOutlined, NotificationOutlined} from '@ant-design/icons';
 import {useDispatch} from 'react-redux';
@@ -11,6 +11,8 @@ import './Header.scss';
 
 const Header = ({isCollapse, searchText, setSearchText}) => {
     const [isUserOptions, setIsUserOptions] = useState(false)
+    const formRef = useRef()
+    const avatarRef = useRef()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [userData, setUserData] = useState({})
@@ -22,8 +24,28 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
         }
     }, [userData.token])
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                formRef.current && !formRef.current.contains(event.target) &&
+                avatarRef.current && !avatarRef.current.contains(event.target)
+            ) {
+                setIsUserOptions(false)
+            }
+        };
+
+        document.body.addEventListener('click', handleClickOutside)
+        return () => {
+            document.body.removeEventListener('click', handleClickOutside)
+        };
+    }, []);
+
     const handleLogout = () => {
         dispatch(logout(navigate))
+    }
+
+    const toggleUserOptions = () => {
+        setIsUserOptions((prevState) => !prevState)
     };
 
     if (!userData.token) {
@@ -44,10 +66,11 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                     size={30}
                     icon={<UserOutlined/>}
                     className="user_avatar"
-                    onClick={() => setIsUserOptions((prev) => !prev)}
+                    onClick={toggleUserOptions}
+                    ref={avatarRef}
                 />
                 {isUserOptions && (
-                    <div className={`header-menu${isUserOptions ? ' show-menu' : ''}`}>
+                    <div ref={formRef} className={`header-menu${isUserOptions ? ' show-menu' : ''}`}>
                         <ul>
                             <li>
                                 <img src={images.manage_account} alt="manage"/>
@@ -70,7 +93,7 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                 )}
             </div>
         </section>
-    )
-}
+    );
+};
 
 export default Header;
