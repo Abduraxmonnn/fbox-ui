@@ -93,7 +93,6 @@ const Logs = () => {
                     Authorization: `Token ${userData.token}`,
                 }
             });
-            console.log('url: ', response)
             const data = response.data.results.map((log) => ({
                 key: log.id,
                 deviceSerial: log.device_serial === 'None' ? '-' : log.device_serial,
