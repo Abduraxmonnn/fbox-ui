@@ -109,6 +109,7 @@ const CompanyDetail = () => {
                         ))}
                     </ul>
                 </div>
+
                 <div className="detail-view__section">
                     <h2 className="detail-view__section-title">SMS information</h2>
                     <ul className="detail-view__list">
