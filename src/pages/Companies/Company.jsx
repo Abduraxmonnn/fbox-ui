@@ -35,13 +35,13 @@ const columns = [
         orderIndex: "address",
     },
     {
-        title: 'Sent SMS',
+        title: 'Sent sms count',
         dataIndex: 'company_count_sent_sms',
         sorter: true,
         orderIndex: "send_sms",
     },
     {
-        title: 'Phone Number',
+        title: 'Phone number',
         dataIndex: 'company_phone_number',
         sorter: true,
         orderIndex: "phone_number",
