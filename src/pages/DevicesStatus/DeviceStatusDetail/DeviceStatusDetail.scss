@@ -34,7 +34,7 @@
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: var(--color-hover);
+      background-color: #82b6ff;;
     }
 
     &-text {
@@ -107,6 +107,7 @@
   &__subtitle {
     font-size: 16px;
     color: var(--color-blue-grey);
+    margin-bottom: 0.5rem;
   }
 
   &__subtitle-label {

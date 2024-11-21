@@ -24,6 +24,7 @@ const CompanyDetail = () => {
             setLoading(true)
             try {
                 const response = await APIv1.get(`/company/${id}`)
+                console.log(response.data)
                 setCompany(response.data)
             } catch (err) {
                 console.error('Something went wrong:', err)
@@ -134,6 +135,9 @@ const CompanyDetail = () => {
                     </ul>
                 </div>
 
+                {/*<div className="detail-view__orders">*/}
+                {/*    <Orders serialNumber={company.device_serial_number} defaultPageSize={10}/>*/}
+                {/*</div>*/}
             </div>
         </section>
     );

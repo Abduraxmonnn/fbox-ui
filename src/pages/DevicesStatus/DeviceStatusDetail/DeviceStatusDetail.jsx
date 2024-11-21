@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
-import {Tag} from 'antd'
 
 import {APIv1} from '../../../api'
 import Orders from "../../Orders/Orders";
 import './DeviceStatusDetail.scss'
-import {images} from "../../../constants";
+import {DeviceStatusProviders, DeviceStatusQRProviders} from "../../../components";
 
 const DeviceStatusDetail = () => {
     const {serial_number} = useParams();
-    const [device, setDevice] = useState(null);
+    const [deviceData, setDeviceData] = useState(null);
     const [relatedDevices, setRelatedDevices] = useState([]);
     const navigate = useNavigate();
     const [expandedSection, setExpandedSection] = useState(null);
+    const [expandedSecondSection, setExpandedSecondSection] = useState(null);
 
     const extractDate = (dateString) => {
         return dateString ? new Date(dateString).toISOString().slice(0, 10) : '----/--/--';
@@ -22,13 +22,19 @@ const DeviceStatusDetail = () => {
         setExpandedSection(prevSection => prevSection === section ? null : section);
     };
 
+    const toggleSecondSection = (section) => {
+        setExpandedSecondSection(prevSection => prevSection === section ? null : section);
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const deviceResponse = await APIv1.get(`/devices/${serial_number}`);
+                const deviceResponse = await APIv1.get(`/device/status/${serial_number}`);
                 const relatedDevicesResponse = await APIv1.get(`/devices/get_related_devices/?serial=${deviceResponse.data.device_serial_number}`);
 
-                setDevice(deviceResponse.data);
+                console.log(deviceResponse.data)
+
+                setDeviceData(deviceResponse.data);
                 setRelatedDevices(relatedDevicesResponse.data);
             } catch (err) {
                 console.error('Something went wrong:', err);
@@ -38,7 +44,7 @@ const DeviceStatusDetail = () => {
         fetchData();
     }, [serial_number]);
 
-    if (!device) {
+    if (!deviceData) {
         return <div>Device not found</div>;
     }
 
@@ -76,10 +82,10 @@ const DeviceStatusDetail = () => {
             <div className="detail-view__container">
                 <div className="detail-view__header">
                     <div className="detail-view__title">
-                        <h1 className="detail-view__main-title">{device.company.name}</h1>
+                        <h1 className="detail-view__main-title">{deviceData.company.name}</h1>
                         <span className="detail-view__subtitle">
               <span className="detail-view__subtitle-label">Device serial number: </span>
-                            {device.device_serial_number}
+                            {deviceData.device_serial_number}
             </span>
                     </div>
                     <button
@@ -93,47 +99,67 @@ const DeviceStatusDetail = () => {
                 <div className="detail-view__content">
                     <div className="detail-view__main-info">
                         <div className="detail-view__row">
+
                             <div className="detail-view__section detail-view__section--half">
-                                <h2 className="detail-view__section-title">Base information</h2>
+                                <h2 className="detail-view__section-title">Base</h2>
                                 <ul className="detail-view__list">
                                     <li className="detail-view__item">
                                         <span className="detail-view__label">User:</span>
-                                        <span className="detail-view__value">{device.company.name}</span>
+                                        <span className="detail-view__value">{deviceData.device.user__username}</span>
                                     </li>
                                     <li className="detail-view__item">
                                         <span className="detail-view__label">Multiple user:</span>
                                         <span
-                                            className={`detail-view__tag ${device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                      {device.is_multi_user ? 'ACCESS' : 'DECLINE'}
+                                            className={`detail-view__tag ${deviceData.device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
+                      {deviceData.device.is_multi_user ? 'ACCESS' : 'DECLINE'}
                     </span>
                                     </li>
                                     <li className="detail-view__item">
                                         <span className="detail-view__label">Updated Available:</span>
                                         <span
-                                            className={`detail-view__tag ${device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                      {device.is_multi_user ? 'ACCESS' : 'DECLINE'}
+                                            className={`detail-view__tag ${deviceData.device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
+                      {deviceData.device.is_multi_user ? 'ACCESS' : 'DECLINE'}
                     </span>
                                     </li>
                                     <li className="detail-view__item">
                                         <span className="detail-view__label">Start date:</span>
-                                        <span className="detail-view__value">{extractDate(device.start_date)}</span>
+                                        <span
+                                            className="detail-view__value">{extractDate(deviceData.device.start_date)}</span>
                                     </li>
                                     <li className="detail-view__item">
                                         <span className="detail-view__label">End date:</span>
-                                        <span className="detail-view__value">{extractDate(device.end_date)}</span>
+                                        <span
+                                            className="detail-view__value">{extractDate(deviceData.device.end_date)}</span>
                                     </li>
                                 </ul>
                             </div>
 
                             <div className="detail-view__section detail-view__section--half">
-                                <h2 className="detail-view__section-title">Printer information</h2>
+                                <h2 className="detail-view__section-title">Status</h2>
+                                <ul className="detail-view__list">
+                                    {['z_report_left_count', 'device_ip_address', 'orders_not_sent_count', 'version_number', 'teamviewer', 'terminal_id'].map(field => (
+                                        <li key={field} className="detail-view__item">
+                                            <span
+                                                className="detail-view__label">{field.replace(/_/g, ' ').charAt(0).toUpperCase() + field.replace(/_/g, ' ').slice(1).toLowerCase()}:</span>
+                                            <span className="detail-view__value">
+                        {deviceData[field] ||
+                            <span className="detail-view__tag detail-view__tag--empty">empty</span>}
+                      </span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            <div className="detail-view__section detail-view__section--half">
+                                <h2 className="detail-view__section-title">Printer</h2>
                                 <ul className="detail-view__list">
                                     {['version', 'mac_address', 'printer_name', 'printer_model', 'printer_number', 'printer_type'].map(field => (
                                         <li key={field} className="detail-view__item">
                                             <span
-                                                className="detail-view__label">{field.replace('_', ' ').charAt(0).toUpperCase() + field.slice(1)}:</span>
+                                                className="detail-view__label">{field.replace(/_/g, ' ').charAt(0).toUpperCase() + field.replace(/_/g, ' ').slice(1).toLowerCase()}:</span>
                                             <span className="detail-view__value">
-                        {device[field] || <span className="detail-view__tag detail-view__tag--empty">empty</span>}
+                        {deviceData.device[field] ||
+                            <span className="detail-view__tag detail-view__tag--empty">empty</span>}
                       </span>
                                         </li>
                                     ))}
@@ -142,163 +168,12 @@ const DeviceStatusDetail = () => {
                         </div>
 
                         <div className="detail-view__section">
-                            <button
-                                className="detail-view__expand-button"
-                                onClick={() => toggleSection('payment')}
-                                aria-expanded={expandedSection === 'payment'}
-                            >
-                                <span className="detail-view__expand-button-text">Payment providers</span>
-                                {expandedSection === 'payment' ? <img src={images.collapse} alt="collapse"/> :
-                                    <img src={images.expand} alt="expand"/>}
-                            </button>
-
-                            {expandedSection === 'payment' && (
-                                <div className="detail-view__expanded-content">
-                                    <ul className="expanded-data-list">
-                                        <h3 className="expanded-data-list__title">Click</h3>
-                                        <li>
-                                            <span>Click access:</span>
-                                            <span>
-                                              <Tag color={device.click ? 'green' : 'volcano'}>
-                                                {device.click ? 'ACCESS' : 'DECLINE'}
-                                              </Tag>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span>Click service id:</span>
-                                            <span>
-                        {device.click_service_id ? device.click_service_id :
-                            <Tag color={!device.click_service_id && 'lightgray'}>
-                                {device.click_service_id || 'empty'}
-                            </Tag>}
-                      </span>
-                                        </li>
-                                        <li>
-                                            <span>Click merchant user id:</span>
-                                            <span>
-                        {device.click_merchant_user_id ? device.click_merchant_user_id :
-                            <Tag color={!device.click_merchant_user_id && 'lightgray'}>
-                                {device.click_merchant_user_id || 'empty'}
-                            </Tag>}
-                      </span>
-                                        </li>
-                                        <li>
-                                            <span>Click secret key:</span>
-                                            <span>
-                        {device.click_secret_key ? device.click_secret_key :
-                            <Tag color={!device.click_secret_key && 'lightgray'}>
-                                {device.click_secret_key || 'empty'}
-                            </Tag>}
-                      </span>
-                                        </li>
-                                    </ul>
-                                    <ul className="expanded-data-list">
-                                        <h3 className="expanded-data-list__title">PayMe</h3>
-                                        <li>
-                                            <span>PayMe access:</span>
-                                            <span>
-                        <Tag color={device.pay_me ? 'green' : 'volcano'}>
-                          {device.pay_me ? 'ACCESS' : 'DECLINE'}
-                        </Tag>
-                      </span>
-                                        </li>
-                                        <li>
-                                            <span>PayMe merchant user id:</span>
-                                            <span>
-                        {device.payme_merchant_id ? device.payme_merchant_id :
-                            <Tag color={!device.payme_merchant_id && 'lightgray'}>
-                                {device.payme_merchant_id || 'empty'}
-                            </Tag>}
-                      </span>
-                                        </li>
-                                        <li>
-                                            <span>PayMe secret key:</span>
-                                            <span>
-                        {device.payme_token ? device.payme_token :
-                            <Tag color={!device.payme_token && 'lightgray'}>
-                                {device.payme_token || 'empty'}
-                            </Tag>}
-                      </span>
-                                        </li>
-                                    </ul>
-                                    <ul className="expanded-data-list">
-                                        <h3 className="expanded-data-list__title">Uzum</h3>
-                                        <li>
-                                            <span>Uzum access:</span>
-                                            <span>
-                        <Tag color={device.apelsin ? 'green' : 'volcano'}>
-                                        {device.apelsin ? 'ACCESS' : 'DECLINE'}
-                                    </Tag>
-                      </span>
-                                        </li>
-                                        <li>
-                                            <span>Uzum service id:</span>
-                                            <span>
-                        {device.apelsin_merchant_service_id ? device.apelsin_merchant_service_id :
-                            <Tag color={!device.apelsin_merchant_service_id && 'lightgray'}>
-                                {device.apelsin_merchant_service_id || 'empty'}
-                            </Tag>}
-                      </span>
-                                        </li>
-                                        <li>
-                                            <span>Uzum merchant id:</span>
-                                            <span>
-                        {device.apelsin_merchant_id ? device.apelsin_merchant_id :
-                            <Tag color={!device.apelsin_merchant_id && 'lightgray'}>
-                                {device.apelsin_merchant_id || 'empty'}
-                            </Tag>}
-                      </span>
-                                        </li>
-                                        <li>
-                                            <span>Uzum secret key:</span>
-                                            <span>
-                        {device.apelsin_merchant_secret_key ? device.apelsin_merchant_secret_key :
-                            <Tag color={!device.apelsin_merchant_secret_key && 'lightgray'}>
-                                {device.apelsin_merchant_secret_key || 'empty'}
-                            </Tag>}
-                      </span>
-                                        </li>
-                                        <li>
-                                            <span>Uzum user id:</span>
-                                            <span>
-                        {device.apelsin_merchant_user_id ? device.apelsin_merchant_user_id :
-                            <Tag color={!device.apelsin_merchant_user_id && 'lightgray'}>
-                                {device.apelsin_merchant_user_id || 'empty'}
-                            </Tag>}
-                      </span>
-                                        </li>
-                                    </ul>
-                                    <ul className="expanded-data-list">
-                                        <h3 className="expanded-data-list__title">Anor</h3>
-                                        <li>
-                                            <span>Anor access:</span>
-                                            <span>
-                        <Tag color={device.anor ? 'green' : 'volcano'}>
-                          {device.anor ? 'ACCESS' : 'DECLINE'}
-                        </Tag>
-                      </span>
-                                        </li>
-                                        <li>
-                                            <span>Anor branch id:</span>
-                                            <span>
-                        {device.anor_branch_id ? device.anor_branch_id :
-                            <Tag color={!device.anor_branch_id && 'lightgray'}>
-                                {device.anor_branch_id || 'empty'}
-                            </Tag>}
-                      </span>
-                                        </li>
-                                        <li>
-                                            <span>PayMe secret key:</span>
-                                            <span>
-                        {device.anor_secret_key ? device.anor_secret_key :
-                            <Tag color={!device.anor_secret_key && 'lightgray'}>
-                                {device.anor_secret_key || 'empty'}
-                            </Tag>}
-                      </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            )}
+                            <DeviceStatusProviders expandedSection={expandedSection} deviceData={deviceData}
+                                                   toggleSection={toggleSection}/>
+                        </div>
+                        <div className="detail-view__section">
+                            <DeviceStatusQRProviders expandedSection={expandedSecondSection} deviceData={deviceData}
+                                                     toggleSection={toggleSecondSection}/>
                         </div>
 
                         <div className="detail-view__section">
@@ -310,7 +185,7 @@ const DeviceStatusDetail = () => {
                 </div>
 
                 <div className="detail-view__orders">
-                    <Orders serialNumber={device.device_serial_number} defaultPageSize={10}/>
+                    <Orders serialNumber={deviceData.device_serial_number} defaultPageSize={10}/>
                 </div>
             </div>
         </div>
