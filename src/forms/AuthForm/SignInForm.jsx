@@ -41,7 +41,7 @@ const SignInForm = props => {
             onSubmitCapture={handleSubmit}
         >
             <Form.Item
-                label='Username'
+                label={<label style={{color: "white"}}>Username</label>}
                 name='email'
                 rules={[
                     {
@@ -59,7 +59,8 @@ const SignInForm = props => {
             </Form.Item>
 
             <Form.Item
-                label='Password'
+                // label='Password'
+                label={<label style={{ color: "white" }}>Password</label>}
                 name='password'
                 rules={[
                     {
@@ -82,7 +83,7 @@ const SignInForm = props => {
                     span: 16,
                 }}
             >
-                <Checkbox>Remember me</Checkbox>
+                <Checkbox style={{color: "white"}}>Remember me</Checkbox>
             </Form.Item>
             <Form.Item
                 wrapperCol={{

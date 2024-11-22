@@ -69,3 +69,7 @@
 .data_list:hover h1 {
     color: #007bff;
 }
+
+.ant-form-item .ant-form-item-label >label::after {
+    color: white;
+}
