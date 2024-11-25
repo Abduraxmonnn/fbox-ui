@@ -24,7 +24,7 @@ const columns = [
         render: (_, {is_active}) => (
             <>
                 {[is_active].map(tag => (
-                    tag ? <MonitorCheck size={18} color={'#1cb344'} /> : <MonitorDot size={18} color={'#de0733'} />
+                    tag ? <MonitorCheck size={20} color={'#1cb344'} /> : <MonitorDot size={18} color={'#de0733'} />
                 ))}
             </>
         ),

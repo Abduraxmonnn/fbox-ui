@@ -1,6 +1,8 @@
-import {useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {ChevronDown, ChevronUp} from 'lucide-react';
 import './Feedbacks.scss'
+import {APIv1} from "../../api";
+import {defaultExtractDate} from "../../utils";
 
 const Feedbacks = (props) => {
     const [feedbackHistory, setFeedbackHistory] = useState([
@@ -38,6 +40,8 @@ const Feedbacks = (props) => {
             expanded: false
         }
     ]);
+    const [userData, setUserData] = useState({});
+    const [feedbackData, setFeedbackData] = useState({})
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -51,6 +55,36 @@ const Feedbacks = (props) => {
             )
         );
     };
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setUserData(items);
+        }
+    }, [userData.token]);
+
+    // const fetchfeedbacksData = useCallback(async (page, size, search = '', ordering = '') => {
+    //     try {
+    //         const response = await APIv1.get('/feedback/', {
+    //             headers: {
+    //                 Authorization: `Token ${userData.token}`,
+    //             }
+    //         });
+    //         const data = response.data.results.map((report) => ({
+    //             key: report.id,
+    //             name: report.name,
+    //             email: report.email,
+    //             cash_desc_serial: report.cash_desc_serial,
+    //             received_cash: report.received_cash,
+    //             received_card: report.received_card,
+    //             time: report.time ? defaultExtractDate(report.time) : '----/--/--'
+    //         }));
+    //         setOrdersData(data)
+    //         setTotalOrders(response.data.count)
+    //     } catch (err) {
+    //         console.error('Something went wrong:', err)
+    //     }
+    // })
 
     return (
         <div className="feedback-page">
