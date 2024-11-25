@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
+import {MonitorCheck, MonitorDot} from 'lucide-react';
 
 import {APIv1} from '../../../api'
 import Orders from "../../Orders/Orders";
@@ -119,6 +120,14 @@ const DeviceStatusDetail = () => {
                                             className={`detail-view__tag ${deviceData.device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
                       {deviceData.device.is_multi_user ? 'ACCESS' : 'DECLINE'}
                     </span>
+                                    </li>
+                                    <li className="detail-view__item">
+                                        <span className="detail-view__label">Active:</span>
+                                        <span
+                                            className="detail-view__value">{deviceData.is_active ?
+                                           <MonitorCheck size={18} color={'#1cb344'}/> :
+                                            <MonitorDot size={18} color={'#de0733'}/>}
+                                        </span>
                                     </li>
                                     <li className="detail-view__item">
                                         <span className="detail-view__label">Start date:</span>
