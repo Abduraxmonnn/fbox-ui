@@ -32,14 +32,14 @@ const Analysis = () => {
                     <h1 onClick={() => handleNavigate("/orders")}>Orders</h1>
                     <Orders />
                 </div>
-                <div className='subscription'>
-                    <h1 onClick={() => handleNavigate("/subscription")}>Subscription</h1>
-                    <Subscription/>
-                </div>
-                <div className='sms'>
-                    <h1 onClick={() => handleNavigate("/sms")}>SMS</h1>
-                    <Sms defaultPaginationSize={10} />
-                </div>
+                {/*<div className='subscription'>*/}
+                {/*    <h1 onClick={() => handleNavigate("/subscription")}>Subscription</h1>*/}
+                {/*    <Subscription/>*/}
+                {/*</div>*/}
+                {/*<div className='sms'>*/}
+                {/*    <h1 onClick={() => handleNavigate("/sms")}>SMS</h1>*/}
+                {/*    <Sms defaultPaginationSize={10} />*/}
+                {/*</div>*/}
             </div>
         </section>
     )
