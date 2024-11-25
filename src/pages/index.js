@@ -16,6 +16,7 @@ import Orders from './Orders/Orders'
 import OrderDetail from './Orders/OrderDetail/OrderDetail'
 import Logs from "./Logs/Logs";
 import LogsDetail from "./Logs/LogsDetail/LogsDetail";
+import Feedbacks from "./Feedbacks/Feedbacks";
 
 export {
 	Sms,
@@ -35,5 +36,6 @@ export {
 	Orders,
 	OrderDetail,
 	Logs,
-	LogsDetail
+	LogsDetail,
+	Feedbacks
 }

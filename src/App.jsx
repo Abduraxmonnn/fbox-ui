@@ -23,6 +23,7 @@ import {
 	Orders,
 	OrderDetail,
 	Logs,
+	Feedbacks
 } from './pages'
 import getUser from "./store/utilits";
 import LogsDetail from "./pages/Logs/LogsDetail/LogsDetail";
@@ -43,6 +44,7 @@ function App() {
                         <Route path='/payments/logs' element={<Logs/>}/>
                         <Route path='/payments/sms' element={<Sms/>}/>
                         <Route path='/orders' element={<Orders serialNumber={null}/>}/>
+						<Route path='/feedback' element={<Feedbacks/>}/>
 
                         <Route path='/create_device' element={<AddNewDevice/>}/>
                         <Route path='/create_company' element={<AddNewCompany/>}/>

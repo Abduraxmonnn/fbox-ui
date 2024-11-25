@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Avatar, Spin} from 'antd';
 import {UserOutlined, NotificationOutlined} from '@ant-design/icons';
 import {useDispatch} from 'react-redux';
@@ -79,7 +79,7 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                             <hr/>
                             <li>
                                 <img src={images.activity_log} alt="activity"/>
-                                <span>Activity Log</span>
+                                <span><Link to={`/feedback/`}>Feedback</Link></span>
                             </li>
                             <hr/>
                             <Link to="/">
