@@ -89,6 +89,14 @@
     &:last-child {
       border-bottom: none;
     }
+
+    &--highlighted {
+      background-color: rgba(72, 187, 120, 0.1);
+      border: 1px solid rgba(72, 187, 120, 0.2);
+      border-radius: 4px;
+      padding: 0.5rem;
+      margin: 0.5rem -0.5rem;
+    }
   }
 
   &__label {
@@ -105,6 +113,15 @@
 
   &__redirect-button {
     min-width: 40px;
+  }
+
+  &__value {
+    color: #2d3748;
+
+    &--highlighted {
+      font-weight: 600;
+      color: #2f855a;
+    }
   }
 
   &__tag {
