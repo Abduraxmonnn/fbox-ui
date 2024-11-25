@@ -32,8 +32,6 @@ const DeviceStatusDetail = () => {
                 const deviceResponse = await APIv1.get(`/device/status/${serial_number}`);
                 const relatedDevicesResponse = await APIv1.get(`/devices/get_related_devices/?serial=${deviceResponse.data.device_serial_number}`);
 
-                console.log(deviceResponse.data)
-
                 setDeviceData(deviceResponse.data);
                 setRelatedDevices(relatedDevicesResponse.data);
             } catch (err) {
