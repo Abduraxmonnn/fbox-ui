@@ -1,6 +1,6 @@
-import {images} from "../../../constants";
 import {Tag} from "antd";
 import React from "react";
+import {ChevronDown, ChevronUp} from "lucide-react";
 
 
 export default function DeviceStatusQRProviders(props) {
@@ -16,8 +16,10 @@ export default function DeviceStatusQRProviders(props) {
                 aria-expanded={expandedSection === 'payment'}
             >
                 <span className="detail-view__expand-button-text">Payment providers - QR Pay</span>
-                {expandedSection === 'payment' ? <img src={images.collapse} alt="collapse"/> :
-                    <img src={images.expand} alt="expand"/>}
+                {/*{expandedSection === 'payment' ? <img src={images.collapse} alt="collapse"/> :*/}
+                {/*    <img src={images.expand} alt="expand"/>}*/}
+                {expandedSection === 'payment' ? <ChevronUp size={22}/> :
+                    <ChevronDown size={22}/>}
             </button>
 
             {expandedSection === 'payment' && (

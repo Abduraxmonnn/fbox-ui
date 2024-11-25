@@ -1,4 +1,4 @@
-import {images} from "../../../constants";
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import {Tag} from "antd";
 import React from "react";
 
@@ -16,8 +16,10 @@ export default function DeviceStatusProviders(props) {
                 aria-expanded={expandedSection === 'payment'}
             >
                 <span className="detail-view__expand-button-text">Payment providers</span>
-                {expandedSection === 'payment' ? <img src={images.collapse} alt="collapse"/> :
-                    <img src={images.expand} alt="expand"/>}
+                {/*{expandedSection === 'payment' ? <img src={images.collapse} alt="collapse"/> :*/}
+                {/*    <img src={images.expand} alt="expand"/>}*/}
+                {expandedSection === 'payment' ? <ChevronUp size={22}/> :
+                    <ChevronDown size={22}/>}
             </button>
 
             {expandedSection === 'payment' && (
