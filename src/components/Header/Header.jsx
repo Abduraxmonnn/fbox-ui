@@ -1,16 +1,16 @@
-import React, {useState, useEffect, useRef, useCallback} from 'react';
-import {Avatar, Spin} from 'antd';
-import {UserOutlined, NotificationOutlined} from '@ant-design/icons';
-import {useDispatch} from 'react-redux';
-import {Link, useNavigate} from 'react-router-dom';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Avatar, Spin } from 'antd';
+import { UserOutlined, NotificationOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
-import {images} from '../../constants';
-import {logout} from '../../store/auth/user.action';
+import { images } from '../../constants';
+import { logout } from '../../store/auth/user.action';
 import SearchComponent from '../Search/Search';
 import './Header.scss';
-import {APIv1} from "../../api";
+import { APIv1 } from "../../api";
 
-const Header = ({isCollapse, searchText, setSearchText}) => {
+const Header = ({ isCollapse, searchText, setSearchText }) => {
     const [isUserOptions, setIsUserOptions] = useState(false)
     const formRef = useRef()
     const avatarRef = useRef()
@@ -18,7 +18,7 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
     const navigate = useNavigate()
     const [userData, setUserData] = useState({})
     const [isActive, setIsActive] = useState(true)
-    const [expireDeviceData, setExpireDeviceData] = useState({}); // Store as an object
+    const [expireDeviceData, setExpireDeviceData] = useState({});
 
     const fetchExpireDeviceData = useCallback(async () => {
         try {
@@ -27,7 +27,7 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                     Authorization: `Token ${userData.token}`,
                 }
             })
-            const {min_day_to_expire, min_day_to_expire_serial_number} = response.data;
+            const { min_day_to_expire, min_day_to_expire_serial_number } = response.data;
 
             const expireDeviceData = {
                 min_day_to_expire: min_day_to_expire,
@@ -36,7 +36,6 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
 
             setIsActive(response.data.is_active)
             setExpireDeviceData(expireDeviceData)
-            console.log(expireDeviceData)
         } catch (err) {
             console.error('Something went wrong:', err)
         }
@@ -78,20 +77,24 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
     };
 
     if (!userData.token) {
-        return <Spin size="large"/>
+        return <Spin size="large" />
     }
 
+    const isExpiredSoon = expireDeviceData.min_day_to_expire <= 5; // E.g., expires in 5 or fewer days
+    const isWarning = expireDeviceData.min_day_to_expire <= 10; // E.g., expires in 10 or fewer days
+
     return (
-        // <section className={`header${isCollapse ? ' close' : ''}`}>
         <section className={`header${isCollapse ? ' close' : ''}${isActive ? '' : ' inactive'}`}>
             <a href="/analysis"><img src={images.logo} alt="logo"/></a>
 
-            <span className="aler-message">
-                {expireDeviceData?.min_day_to_expire} - {expireDeviceData?.min_day_to_expire_serial_number}
+            {/* Custom Message Display */}
+            <span
+                className={`expiration ${isExpiredSoon ? 'alert' : isWarning ? 'warning' : ''}`}
+            >
+                {expireDeviceData.min_day_to_expire} day(s) left to turn off the device {expireDeviceData.min_day_to_expire_serial_number}.
             </span>
 
             <SearchComponent searchText={searchText} setSearchText={setSearchText}/>
-
             <div className="user_info">
                 <NotificationOutlined className="header_notification"/>
                 <div className="header_user_data">
@@ -100,7 +103,7 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                 </div>
                 <Avatar
                     size={30}
-                    icon={<UserOutlined />}
+                    icon={<UserOutlined/>}
                     className="user_avatar"
                     onClick={toggleUserOptions}
                     ref={avatarRef}
