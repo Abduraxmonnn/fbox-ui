@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons';
 import {APIv1} from '../../api';
 import {Link, useOutletContext} from 'react-router-dom';
-import {handleTableChange} from "../../utils";
+import {handleTableChange, useRowNavigation} from "../../utils";
 
 const columns = [
     {
@@ -111,6 +111,11 @@ const Company = () => {
 
     const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns);
 
+    const onRowClick = useRowNavigation({
+        routePrefix: '/company/detail',
+        idField: 'key'
+    });
+
     return (
         <div className="content_container">
             <Table
@@ -121,6 +126,7 @@ const Company = () => {
                 columns={columns}
                 dataSource={companies}
                 onChange={tableChangeHandler}
+                onRow={onRowClick}
                 loading={loading}
                 pagination={{
                     defaultPageSize: 20,

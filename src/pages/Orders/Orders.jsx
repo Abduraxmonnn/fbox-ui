@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {APIv1} from "../../api";
 import {Table} from "antd";
 import {Link, useOutletContext} from "react-router-dom";
-import {defaultExtractDate, handleTableChange} from "../../utils";
+import {defaultExtractDate, handleTableChange, useRowNavigation} from "../../utils";
 
 const columns = [
     {
@@ -122,6 +122,11 @@ const Orders = (props) => {
 
     const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns);
 
+    const onRowClick = useRowNavigation({
+        routePrefix: '/order/detail',
+        idField: 'key'
+    });
+
     return (
         <>
             <div className='content_container'>
@@ -134,6 +139,7 @@ const Orders = (props) => {
                     dataSource={ordersData}
                     loading={loading}
                     onChange={tableChangeHandler}
+                    onRow={onRowClick}
                     pagination={{
                         total: totalOrders,
                         current: currentPage,

@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {Link, useOutletContext} from "react-router-dom";
 import {APIv1} from "../../api";
-import {extractDateBySecond, handleTableChange} from "../../utils";
+import {extractDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
 import {Table, Tag} from "antd";
 import {log_types, status_types} from "../../utils/filters";
 
@@ -138,6 +138,11 @@ const Logs = () => {
 
     const tableChangeHandler = handleTableChange(setSortField, setSortLog, columns, setFilters, 'log_type');
 
+    const onRowClick = useRowNavigation({
+        routePrefix: '/payments/logs/detail',
+        idField: 'key'
+    });
+
     return (
         <>
             <div className="content_container">
@@ -149,6 +154,7 @@ const Logs = () => {
                     dataSource={logsData}
                     loading={loading}
                     onChange={tableChangeHandler}
+                    onRow={onRowClick}
                     pagination={{
                         total: totalLogs,
                         current: currentPage,

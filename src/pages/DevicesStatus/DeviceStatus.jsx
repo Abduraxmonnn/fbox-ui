@@ -2,20 +2,11 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {Table, Tag} from 'antd';
 import {APIv1} from '../../api';
 import {MonitorCheck, MonitorDot} from 'lucide-react';
-import {Link, useOutletContext} from 'react-router-dom';
-import {deviceStatusInactiveTime, extractDateBySecond, handleTableChange} from '../../utils';
+import {Link, useNavigate, useOutletContext} from 'react-router-dom';
+import {deviceStatusInactiveTime, extractDateBySecond, handleTableChange, useRowNavigation} from '../../utils';
 import "./DeviceStatus.scss"
 
 const columns = [
-    {
-        title: 'id',
-        dataIndex: 'status_id',
-        sorter: true,
-        orderIndex: 'id',
-        render: (text, record) => (
-            <Link to={`/device/status/detail/${record.device_serial}`}>{text}</Link>
-        ),
-    },
     {
         title: 'Status',
         dataIndex: 'updated_date',
@@ -51,6 +42,8 @@ const columns = [
                 <a
                     href={`https://start.teamviewer.com/${text}`}
                     className='connect-link'
+                    onClick={(e) => e.stopPropagation()}
+                    target={`_blank`}
                 >
                     {text}
                 </a>
@@ -197,6 +190,11 @@ const DeviceStatus = () => {
 
     const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns);
 
+    const onRowClick = useRowNavigation({
+        routePrefix: '/device/status/detail',
+        idField: 'device_serial'
+    });
+
     return (
         <div className='content_container'>
             <Table
@@ -208,6 +206,7 @@ const DeviceStatus = () => {
                 dataSource={deviceStatusData}
                 loading={loading}
                 onChange={tableChangeHandler}
+                onRow={onRowClick}
                 pagination={{
                     total: totalDevices,
                     current: currentPage,
@@ -221,7 +220,7 @@ const DeviceStatus = () => {
                 }}
             />
         </div>
-    )
+    );
 }
 
 export default DeviceStatus;

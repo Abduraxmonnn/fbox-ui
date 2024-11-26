@@ -2,7 +2,7 @@ import {handleTableChange} from "./handleTableChangeUtils";
 import {extractDateBySecond} from "./extractDateBySeconds";
 import {defaultExtractDate} from "./extractDateBySeconds";
 import {onFilter} from "./dateFilters";
-import {isBoolean} from "./baseUtils";
+import {isBoolean, useRowNavigation} from "./baseUtils";
 import {deviceStatusInactiveTime, deviceStatusInactiveTimeToText} from "./deviceUtils";
 
 export {
@@ -11,6 +11,7 @@ export {
     defaultExtractDate,
     onFilter,
     isBoolean,
+    useRowNavigation,
     deviceStatusInactiveTime,
     deviceStatusInactiveTimeToText
 }

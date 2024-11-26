@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Table} from "antd";
 import {Link, useOutletContext} from "react-router-dom";
 import {APIv1} from "../../api";
+import {useRowNavigation} from "../../utils";
 
 const columns = (searchText) => [
     {
@@ -88,6 +89,11 @@ const Orders = () => {
         order.received_card.toString().includes(searchText.toLowerCase())
     )
 
+    const onRowClick = useRowNavigation({
+        routePrefix: '/order/detail',
+        idField: 'key'
+    });
+
     return (
         <>
             <div className='content_container'>
@@ -97,6 +103,7 @@ const Orders = () => {
                     }}
                     columns={columns(searchText)}
                     dataSource={filteredOrders}
+                    onRow={onRowClick}
                     loading={loading}
                     pagination={{
                         total: totalOrders,

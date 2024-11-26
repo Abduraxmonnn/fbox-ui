@@ -2,7 +2,7 @@ import React, {useState, useEffect, useCallback} from 'react'
 import {Table, Tag} from 'antd'
 import {APIv1} from '../../api'
 import {Link, useOutletContext} from "react-router-dom";
-import {defaultExtractDate, handleTableChange} from "../../utils";
+import {defaultExtractDate, handleTableChange, useRowNavigation} from "../../utils";
 
 const columns = [
     {
@@ -148,6 +148,11 @@ const Sms = (props) => {
 
     const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns, setFilters, 'is_success');
 
+    const onRowClick = useRowNavigation({
+        routePrefix: '/payments/sms/detail',
+        idField: 'key'
+    });
+
     return (
         <>
             <div className='content_container'>
@@ -160,6 +165,7 @@ const Sms = (props) => {
                     dataSource={smsData}
                     loading={loading}
                     onChange={tableChangeHandler}
+                    onRow={onRowClick}
                     pagination={{
                         total: totalSms,
                         current: currentPage,
