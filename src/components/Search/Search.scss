@@ -1,6 +1,16 @@
 .search {
   display: flex;
   justify-content: center;
-  flex: 1;
   align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.search .ant-input-search {
+  width: 100% !important;
 }

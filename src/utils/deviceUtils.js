@@ -1,3 +1,5 @@
+import {APIv1} from "../api";
+
 export const deviceStatusInactiveTime = {
     'day': '#de0733',
     'hour': '#f2a900',

@@ -13,5 +13,5 @@ export {
     isBoolean,
     useRowNavigation,
     deviceStatusInactiveTime,
-    deviceStatusInactiveTimeToText
+    deviceStatusInactiveTimeToText,
 }
