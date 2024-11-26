@@ -8,3 +8,19 @@
 .connect-link:hover {
     color: darkblue; /* Change color on hover */
 }
+
+.version-number {
+    color: inherit;
+    cursor: default;
+}
+
+.version-number-link {
+    color: inherit;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: #1890ff;
+        text-decoration: underline;
+    }
+}

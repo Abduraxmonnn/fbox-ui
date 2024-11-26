@@ -31,25 +31,6 @@ const columns = [
         ),
     },
     {
-        title: 'DNS',
-        dataIndex: 'teamviewer',
-        sorter: true,
-        orderIndex: 'teamviewer',
-        render: (text) =>
-            text === '-' ? (
-                <span>-</span>
-            ) : (
-                <a
-                    href={`https://start.teamviewer.com/${text}`}
-                    className='connect-link'
-                    onClick={(e) => e.stopPropagation()}
-                    target={`_blank`}
-                >
-                    {text}
-                </a>
-            ),
-    },
-    {
         title: 'Device IP address',
         dataIndex: 'device_ip_addr',
         sorter: true,
@@ -101,6 +82,23 @@ const columns = [
         dataIndex: 'version_number',
         sorter: true,
         orderIndex: 'version_number',
+        render: (text: string, record: DeviceStatusRecord) => {
+            if (!record.teamviewer || record.teamviewer === '-') {
+                return <span className="version-number">{text}</span>;
+            } else {
+                return (
+                    <a
+                        href={`https://start.teamviewer.com/${record.teamviewer}`}
+                        onClick={(e) => e.stopPropagation()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="version-number-link"
+                    >
+                        {text}
+                    </a>
+                );
+            }
+        },
     },
 ]
 
