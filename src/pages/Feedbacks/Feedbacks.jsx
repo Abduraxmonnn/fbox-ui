@@ -1,47 +1,75 @@
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {ChevronDown, ChevronUp} from 'lucide-react';
 import './Feedbacks.scss'
 import {APIv1} from "../../api";
 import {defaultExtractDate} from "../../utils";
 
+const feedbacksStatus = {
+    'IN_PROGRESS': 'In Progress',
+    'PENDING': 'Pending',
+    'RESOLVED': 'Resolving',
+}
+
 const Feedbacks = (props) => {
-    const [feedbackHistory, setFeedbackHistory] = useState([
-        {
-            id: 1,
-            name: "John Doe",
-            email: "john@example.com",
-            subject: "Great Service",
-            message: "Great service! Really impressed with the quick response.",
-            date: "2024-01-15",
-            status: "Resolved",
-            response: "Thank you for your positive feedback! We're glad you had a great experience.",
-            expanded: false
-        },
-        {
-            id: 2,
-            name: "Sarah Smith",
-            email: "sarah@example.com",
-            subject: "New Features",
-            message: "The new features are amazing. Keep up the good work!",
-            date: "2024-01-14",
-            status: "Pending",
-            response: "",
-            expanded: false
-        },
-        {
-            id: 3,
-            name: "Mike Johnson",
-            email: "mike@example.com",
-            subject: "Initial Issues",
-            message: "Had some initial issues but support team was very helpful.",
-            date: "2024-01-13",
-            status: "In Progress",
-            response: "We're working on resolving the issues you encountered. We'll update you soon.",
-            expanded: false
-        }
-    ]);
+    // const [feedbackHistory, setFeedbackHistory] = useState([
+    //     {
+    //         id: 1,
+    //         name: "John Doe",
+    //         email: "john@example.com",
+    //         subject: "Great Service",
+    //         message: "Great service! Really impressed with the quick response.",
+    //         date: "2024-01-15",
+    //         status: "Resolved",
+    //         response: "Thank you for your positive feedback! We're glad you had a great experience.",
+    //         expanded: false
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Sarah Smith",
+    //         email: "sarah@example.com",
+    //         subject: "New Features",
+    //         message: "The new features are amazing. Keep up the good work!",
+    //         date: "2024-01-14",
+    //         status: "Pending",
+    //         response: "",
+    //         expanded: false
+    //     },
+    //     {
+    //         id: 3,
+    //         name: "Mike Johnson",
+    //         email: "mike@example.com",
+    //         subject: "Initial Issues",
+    //         message: "Had some initial issues but support team was very helpful.",
+    //         date: "2024-01-13",
+    //         status: "In Progress",
+    //         response: "We're working on resolving the issues you encountered. We'll update you soon.",
+    //         expanded: false
+    //     },
+    //     {
+    //         id: 4,
+    //         name: "Mike Johnson",
+    //         email: "mike@example.com",
+    //         subject: "Initial Issues",
+    //         message: "Had some initial issues but support team was very helpful.",
+    //         date: "2024-01-13",
+    //         status: "In Progress",
+    //         response: "We're working on resolving the issues you encountered. We'll update you soon.",
+    //         expanded: false
+    //     },
+    //     {
+    //         id: 5,
+    //         name: "Mike Johnson",
+    //         email: "mike@example.com",
+    //         subject: "Initial Issues",
+    //         message: "Had some initial issues but support team was very helpful.",
+    //         date: "2024-01-13",
+    //         status: "In Progress",
+    //         response: "We're working on resolving the issues you encountered. We'll update you soon.",
+    //         expanded: false
+    //     }
+    // ]);
     const [userData, setUserData] = useState({});
-    const [feedbackData, setFeedbackData] = useState({})
+    const [feedbackHistory, setFeedbackHistory] = useState([])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -63,28 +91,33 @@ const Feedbacks = (props) => {
         }
     }, [userData.token]);
 
-    // const fetchfeedbacksData = useCallback(async (page, size, search = '', ordering = '') => {
-    //     try {
-    //         const response = await APIv1.get('/feedback/', {
-    //             headers: {
-    //                 Authorization: `Token ${userData.token}`,
-    //             }
-    //         });
-    //         const data = response.data.results.map((report) => ({
-    //             key: report.id,
-    //             name: report.name,
-    //             email: report.email,
-    //             cash_desc_serial: report.cash_desc_serial,
-    //             received_cash: report.received_cash,
-    //             received_card: report.received_card,
-    //             time: report.time ? defaultExtractDate(report.time) : '----/--/--'
-    //         }));
-    //         setOrdersData(data)
-    //         setTotalOrders(response.data.count)
-    //     } catch (err) {
-    //         console.error('Something went wrong:', err)
-    //     }
-    // })
+    useEffect(() => {
+        const fetchFeedbacksData = async () => {
+            try {
+                const response = await APIv1.get('/feedback/', {
+                    headers: {
+                        Authorization: `Token ${userData.token}`,
+                    }
+                });
+                const data = response.data.results.map((report) => ({
+                    key: report.id,
+                    name: report.name,
+                    email: report.email,
+                    subject: report.subject,
+                    message: report.message,
+                    status: feedbacksStatus[report.status],
+                    response: report.response,
+                    date: report.created_date ? defaultExtractDate(report.created_date) : '--/--/----'
+                }));
+
+                setFeedbackHistory(data)
+            } catch (err) {
+                // console.error('Something went wrong:', err)
+            }
+        };
+
+        fetchFeedbacksData();
+    }, [userData.token])
 
     return (
         <div className="feedback-page">
