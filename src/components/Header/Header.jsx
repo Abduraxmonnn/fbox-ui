@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {Avatar, Spin} from 'antd';
 import {UserOutlined, NotificationOutlined} from '@ant-design/icons';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
 
 import {images} from '../../constants';
@@ -18,7 +18,7 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
     const navigate = useNavigate()
     const [userData, setUserData] = useState({})
     const [isActive, setIsActive] = useState(true)
-    const [expireDeviceData, setExpireDeviceData] = useState(null);
+    const [expireDeviceData, setExpireDeviceData] = useState({}); // Store as an object
 
     const fetchExpireDeviceData = useCallback(async () => {
         try {
@@ -27,18 +27,20 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                     Authorization: `Token ${userData.token}`,
                 }
             })
-            const data = response.data.map((item) => ({
-                isActive: item.is_active,
-                dayToExpire: item.min_day_to_expire,
-                ExpireSerialNumber: item.min_day_to_expire_serial_number
-            }));
+            const {min_day_to_expire, min_day_to_expire_serial_number} = response.data;
 
-            setExpireDeviceData(data)
+            const expireDeviceData = {
+                min_day_to_expire: min_day_to_expire,
+                min_day_to_expire_serial_number: min_day_to_expire_serial_number
+            };
+
+            setIsActive(response.data.is_active)
+            setExpireDeviceData(expireDeviceData)
             console.log(expireDeviceData)
         } catch (err) {
             console.error('Something went wrong:', err)
         }
-    }, [userData.token])
+    }, [userData.token, isActive])
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'))
@@ -83,7 +85,13 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
         // <section className={`header${isCollapse ? ' close' : ''}`}>
         <section className={`header${isCollapse ? ' close' : ''}${isActive ? '' : ' inactive'}`}>
             <a href="/analysis"><img src={images.logo} alt="logo"/></a>
+
+            <span className="aler-message">
+                {expireDeviceData?.min_day_to_expire} - {expireDeviceData?.min_day_to_expire_serial_number}
+            </span>
+
             <SearchComponent searchText={searchText} setSearchText={setSearchText}/>
+
             <div className="user_info">
                 <NotificationOutlined className="header_notification"/>
                 <div className="header_user_data">
@@ -92,7 +100,7 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                 </div>
                 <Avatar
                     size={30}
-                    icon={<UserOutlined/>}
+                    icon={<UserOutlined />}
                     className="user_avatar"
                     onClick={toggleUserOptions}
                     ref={avatarRef}
