@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {Avatar, Spin} from 'antd';
 import {UserOutlined, NotificationOutlined} from '@ant-design/icons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -8,7 +8,7 @@ import {images} from '../../constants';
 import {logout} from '../../store/auth/user.action';
 import SearchComponent from '../Search/Search';
 import './Header.scss';
-import {fetchExpireDeviceData} from "../../utils";
+import {APIv1} from "../../api";
 
 const Header = ({isCollapse, searchText, setSearchText}) => {
     const [isUserOptions, setIsUserOptions] = useState(false)
@@ -17,19 +17,39 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [userData, setUserData] = useState({})
-    // const [isActive, setIsActive] = useState({})
-    // const [userData, setUserData] = useState({})
+    const [isActive, setIsActive] = useState(true)
+    const [expireDeviceData, setExpireDeviceData] = useState(null);
 
-    const isActive = useSelector((state) => state.isActive);
-    const expireDeviceData = useSelector((state) => state.expireDeviceData);
+    const fetchExpireDeviceData = useCallback(async () => {
+        try {
+            const response = await APIv1.get('subscription/expire/devices/', {
+                headers: {
+                    Authorization: `Token ${userData.token}`,
+                }
+            })
+            const data = response.data.map((item) => ({
+                isActive: item.is_active,
+                dayToExpire: item.min_day_to_expire,
+                ExpireSerialNumber: item.min_day_to_expire_serial_number
+            }));
+
+            setExpireDeviceData(data)
+            console.log(expireDeviceData)
+        } catch (err) {
+            console.error('Something went wrong:', err)
+        }
+    }, [userData.token])
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'))
         if (items) {
             setUserData(items)
         }
-        fetchExpireDeviceData(items.data.username, userData.token, dispatch);
-    }, [dispatch, userData.token, isActive])
+    }, [userData.token])
+
+    useEffect(() => {
+        fetchExpireDeviceData()
+    }, [fetchExpireDeviceData]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
