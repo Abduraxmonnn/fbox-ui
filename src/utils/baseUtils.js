@@ -1,28 +1,44 @@
 import {useCallback} from 'react';
 import {useNavigate} from 'react-router-dom';
 
+type RowData = {
+    [key: string]: any;
+};
+
+type NavigationConfig = {
+    routePrefix: string;
+    idField: string;
+};
+
 export const useRowNavigation = ({routePrefix, idField}: NavigationConfig) => {
-
-    type RowData = {
-        [key: string]: any;
-    };
-
-    type NavigationConfig = {
-        routePrefix: string;
-        idField: string;
-    };
-
     const navigate = useNavigate();
 
     return useCallback((record: RowData) => {
+        let clickTimer: NodeJS.Timeout | null = null;
+
+        const handleNavigation = () => {
+            navigate(`${routePrefix}/${record[idField]}`);
+        };
+
         return {
+            onDoubleClick: () => {
+                if (clickTimer) {
+                    clearTimeout(clickTimer);
+                }
+                handleNavigation();
+            },
             onClick: () => {
-                navigate(`${routePrefix}/${record[idField]}`);
+                if (clickTimer) {
+                    clearTimeout(clickTimer);
+                }
+                clickTimer = setTimeout(() => {
+                    // Single click action (if needed)
+                }, 250);
             },
             onKeyDown: (e: React.KeyboardEvent) => {
-                if (e.key === 'Enter' || e.key === ' ') {
+                if (e.key === 'Enter') {
                     e.preventDefault();
-                    navigate(`${routePrefix}/${record[idField]}`);
+                    handleNavigation();
                 }
             },
             role: 'button',
@@ -30,7 +46,6 @@ export const useRowNavigation = ({routePrefix, idField}: NavigationConfig) => {
         };
     }, [navigate, routePrefix, idField]);
 };
-
 
 export function isBoolean(n) {
     return !!n === n;
