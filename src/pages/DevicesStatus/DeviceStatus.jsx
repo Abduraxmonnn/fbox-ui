@@ -2,7 +2,7 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {Table, Tag} from 'antd';
 import {APIv1} from '../../api';
 import {MonitorCheck, MonitorDot} from 'lucide-react';
-import {Link, useNavigate, useOutletContext} from 'react-router-dom';
+import {Link, useOutletContext} from 'react-router-dom';
 import {deviceStatusInactiveTime, extractDateBySecond, handleTableChange, useRowNavigation} from '../../utils';
 import "./DeviceStatus.scss"
 
