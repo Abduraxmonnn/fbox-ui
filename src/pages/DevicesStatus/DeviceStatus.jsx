@@ -3,14 +3,8 @@ import {Table, Tag} from 'antd';
 import {APIv1} from '../../api';
 import {MonitorCheck, MonitorDot} from 'lucide-react';
 import {Link, useOutletContext} from 'react-router-dom';
-import {extractDateBySecond, handleTableChange} from '../../utils';
+import {deviceStatusInactiveTime, extractDateBySecond, handleTableChange} from '../../utils';
 import "./DeviceStatus.scss"
-
-const deviceStatusInactiveTime = {
-    'day': '#de0733',
-    'hour': '#f2a900',
-    'minute': '#7815ac',
-}
 
 const columns = [
     {
@@ -46,7 +40,7 @@ const columns = [
         ),
     },
     {
-        title: 'Teamviewer',
+        title: 'DNS',
         dataIndex: 'teamviewer',
         sorter: true,
         orderIndex: 'teamviewer',

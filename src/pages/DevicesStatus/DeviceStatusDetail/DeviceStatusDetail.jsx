@@ -6,6 +6,7 @@ import {APIv1} from '../../../api'
 import Orders from "../../Orders/Orders";
 import './DeviceStatusDetail.scss'
 import {DeviceStatusProviders, DeviceStatusQRProviders} from "../../../components";
+import {deviceStatusInactiveTime, deviceStatusInactiveTimeToText} from "../../../utils";
 
 const DeviceStatusDetail = () => {
     const {serial_number} = useParams();
@@ -122,11 +123,12 @@ const DeviceStatusDetail = () => {
                     </span>
                                     </li>
                                     <li className="detail-view__item">
-                                        <span className="detail-view__label">Active:</span>
+                                        <span className="detail-view__label">Activity:</span>
                                         <span
-                                            className="detail-view__value">{deviceData.is_active ?
-                                           <MonitorCheck size={18} color={'#1cb344'}/> :
-                                            <MonitorDot size={18} color={'#de0733'}/>}
+                                            className="detail-view__value">{deviceStatusInactiveTimeToText[deviceData.is_active_time]} ... {deviceData.is_active ?
+                                            <MonitorCheck size={18} color={'#1cb344'}/> :
+                                            <MonitorDot size={18}
+                                                        color={deviceStatusInactiveTime[deviceData.is_active_time]}/>}
                                         </span>
                                     </li>
                                     <li className="detail-view__item">
