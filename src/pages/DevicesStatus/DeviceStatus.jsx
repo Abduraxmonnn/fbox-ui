@@ -6,6 +6,12 @@ import {Link, useOutletContext} from 'react-router-dom';
 import {extractDateBySecond, handleTableChange} from '../../utils';
 import "./DeviceStatus.scss"
 
+const deviceStatusInactiveTime = {
+    'day': '#de0733',
+    'hour': '#f2a900',
+    'minute': '#7815ac',
+}
+
 const columns = [
     {
         title: 'id',
@@ -21,10 +27,11 @@ const columns = [
         dataIndex: 'updated_date',
         sorter: true,
         orderIndex: 'updated_date',
-        render: (_, {is_active}) => (
+        render: (text, record) => (
             <>
-                {[is_active].map(tag => (
-                    tag ? <MonitorCheck size={20} color={'#1cb344'} /> : <MonitorDot size={18} color={'#de0733'} />
+                {[record.is_active].map(tag => (
+                    tag ? <MonitorCheck size={18} color={'#1cb344'}/> :
+                        <MonitorDot size={18} color={deviceStatusInactiveTime[record.is_active_time]}/>
                 ))}
             </>
         ),
@@ -149,6 +156,7 @@ const DeviceStatus = () => {
                 status_id: device_status.id,
                 device_serial: device_status.device_serial,
                 is_active: device_status.is_active,
+                is_active_time: device_status.is_active_time,
                 teamviewer: device_status.teamviewer === null ? '-' : device_status.teamviewer,
                 device_ip_addr: device_status.device_ip_address === null ? '-' : device_status.device_ip_address,
                 terminal_id: device_status.terminal_id === null ? '-' : device_status.terminal_id,
