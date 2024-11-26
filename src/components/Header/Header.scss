@@ -9,7 +9,12 @@
 	height: 50px;
 	margin: 10px 20px 0 20px;
 	border-radius: 10px;
-	transition: max-width 0.3s ease-in-out; // Smoothly change size when collapse is opening or closing
+	transition: max-width 0.3s ease-in-out;
+}
+
+.header.inactive {
+	background-color: #ef7f7f;
+	border: 1px solid #fc1c1c;
 }
 
 .header.close {

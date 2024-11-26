@@ -1,13 +1,14 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {Avatar, Spin} from 'antd';
 import {UserOutlined, NotificationOutlined} from '@ant-design/icons';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
 
 import {images} from '../../constants';
 import {logout} from '../../store/auth/user.action';
 import SearchComponent from '../Search/Search';
 import './Header.scss';
+import {fetchExpireDeviceData} from "../../utils";
 
 const Header = ({isCollapse, searchText, setSearchText}) => {
     const [isUserOptions, setIsUserOptions] = useState(false)
@@ -16,13 +17,19 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [userData, setUserData] = useState({})
+    // const [isActive, setIsActive] = useState({})
+    // const [userData, setUserData] = useState({})
+
+    const isActive = useSelector((state) => state.isActive);
+    const expireDeviceData = useSelector((state) => state.expireDeviceData);
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'))
         if (items) {
             setUserData(items)
         }
-    }, [userData.token])
+        fetchExpireDeviceData(items.data.username, userData.token, dispatch);
+    }, [dispatch, userData.token, isActive])
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -53,7 +60,8 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
     }
 
     return (
-        <section className={`header${isCollapse ? ' close' : ''}`}>
+        // <section className={`header${isCollapse ? ' close' : ''}`}>
+        <section className={`header${isCollapse ? ' close' : ''}${isActive ? '' : ' inactive'}`}>
             <a href="/analysis"><img src={images.logo} alt="logo"/></a>
             <SearchComponent searchText={searchText} setSearchText={setSearchText}/>
             <div className="user_info">
