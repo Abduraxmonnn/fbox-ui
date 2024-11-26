@@ -9,8 +9,8 @@ export const API = axios.create({
 
 
 export const APIv1 = axios.create({
-        // baseURL: process.env.REACT_APP_BASE_URL_PRODV1,
-        baseURL: process.env.REACT_APP_BASE_URLV1,
+        baseURL: process.env.REACT_APP_BASE_URL_PRODV1,
+        // baseURL: process.env.REACT_APP_BASE_URLV1,
 })
 
 export const SIGN_IN = (formData) => APIv1.post("/login/", formData);
