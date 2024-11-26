@@ -76,7 +76,6 @@ const Orders = (props) => {
         setLoading(true);
         try {
             const url = serialNumber === null ? `/orders/list/` : `/orders/list/?serial=${serialNumber}`
-            console.log(url)
             const response = await APIv1.get(`${url}`, {
                 params: {
                     page,
