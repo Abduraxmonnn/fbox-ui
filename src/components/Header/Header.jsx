@@ -93,7 +93,7 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                     </a>
                     {expireDeviceData.min_day_to_expire !== null && (
                         <span className={`expiration ${isExpiredSoon ? 'alert' : isWarning ? 'warning' : ''}`}>
-                            - {expireDeviceData.min_day_to_expire} - day(s) left to turn off the device {expireDeviceData.min_day_to_expire_serial_number}
+                            {expireDeviceData.min_day_to_expire} day(s) left to turn off the device {expireDeviceData.min_day_to_expire_serial_number}
                         </span>
                     )}
                 </div>
@@ -129,10 +129,12 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                                         <span><Link to={`/feedback/`}>Feedback</Link></span>
                                     </li>
                                     <hr/>
-                                    <li onClick={handleLogout} role="button" tabIndex={0}>
-                                        <img src={images.logout} alt="log out"/>
-                                        <span>Log out</span>
-                                    </li>
+                                    <Link to="/">
+                                        <li onClick={handleLogout} role="button" tabIndex={0}>
+                                            <img src={images.logout} alt="log out"/>
+                                            <span>Log out</span>
+                                        </li>
+                                    </Link>
                                 </ul>
                             </div>
                         )}
