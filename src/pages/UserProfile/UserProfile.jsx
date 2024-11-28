@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Input, Select, Button, DatePicker, message} from 'antd';
-import {X, Save} from 'lucide-react';
+import {Input, Select, Button, DatePicker, message, Modal} from 'antd';
+import {X, Save, Eye, EyeOff} from 'lucide-react';
 import './UserProfile.scss';
 import {images} from "../../constants";
 
@@ -8,10 +8,11 @@ const {Option} = Select;
 
 const defaultProfileData = {
     username: 'arthur_nancy',
-    firstName: 'Arthur',
-    lastName: 'Nancy',
+    companyName: 'TEST_FBOX_COMPANY',
+    inn: '0000001',
     email: 'bradley.ortiz@gmail.com',
     phone: '477-046-1827',
+    password: "123456789",
     address: '136 Jaskolski Stravenue Suite 883',
     nation: 'Colombia',
     gender: 'Male',
@@ -26,6 +27,10 @@ const defaultProfileData = {
 const UserProfile = () => {
     const [profileData, setProfileData] = useState(defaultProfileData);
     const [initialData, setInitialData] = useState(defaultProfileData);
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [isChangePasswordModalVisible, setIsChangePasswordModalVisible] = useState(false);
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     useEffect(() => {
         // Simulating data fetch from an API
@@ -81,6 +86,26 @@ const UserProfile = () => {
         message.info('Changes discarded');
     };
 
+    const showChangePasswordModal = () => {
+        setIsChangePasswordModalVisible(true);
+    };
+
+    const handleChangePassword = () => {
+        if (newPassword !== confirmPassword) {
+            message.error('Passwords do not match');
+            return;
+        }
+        // In a real application, you would send the new password to an API here
+        setProfileData(prevData => ({
+            ...prevData,
+            password: newPassword
+        }));
+        setIsChangePasswordModalVisible(false);
+        setNewPassword('');
+        setConfirmPassword('');
+        message.success('Password changed successfully');
+    };
+
     return (
         <section className="user-profile">
             <h1 className='profile-title'>Manage profile</h1>
@@ -113,35 +138,44 @@ const UserProfile = () => {
                     <div className="form-column">
                         <div className="form-row">
                             <div className="form-group">
-                                <label htmlFor="firstName">First Name</label>
+                                <label htmlFor="companyName">Name</label>
                                 <Input
-                                    id="firstName"
-                                    name="firstName"
-                                    value={profileData.firstName}
+                                    id="companyName"
+                                    name="companyName"
+                                    value={profileData.companyName}
                                     onChange={handleInputChange}
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="lastName">Last Name</label>
+                                <label htmlFor="inn">Inn</label>
                                 <Input
-                                    id="lastName"
-                                    name="lastName"
-                                    value={profileData.lastName}
+                                    id="inn"
+                                    name="inn"
+                                    value={profileData.inn}
                                     onChange={handleInputChange}
+                                    disabled={true}
                                 />
                             </div>
                         </div>
 
-                        <div className="form-group">
+                        <div className="form-group password-group">
                             <label htmlFor="password">Password</label>
                             <div className="password-input">
-                                <Input
+                                <Input.Password
                                     id="password"
-                                    type="password"
-                                    value="••••••••••"
-                                    readOnly
+                                    name="password"
+                                    placeholder="Enter password"
+                                    value={profileData.password}
+                                    onChange={handleInputChange}
+                                    visibilityToggle={{
+                                        visible: passwordVisible,
+                                        onVisibleChange: setPasswordVisible,
+                                    }}
+                                    iconRender={(visible) => (visible ? <Eye size={16}/> : <EyeOff size={16}/>)}
                                 />
-                                <button className="change-password">CHANGE PASSWORD</button>
+                                <Button className="change-password-btn" onClick={showChangePasswordModal}>
+                                    Change
+                                </Button>
                             </div>
                         </div>
 
@@ -270,6 +304,29 @@ const UserProfile = () => {
                     </div>
                 </div>
             </div>
+            <Modal
+                title="Change Password"
+                visible={isChangePasswordModalVisible}
+                onOk={handleChangePassword}
+                onCancel={() => setIsChangePasswordModalVisible(false)}
+            >
+                <div className="form-group">
+                    <label htmlFor="newPassword">New Password</label>
+                    <Input.Password
+                        id="newPassword"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <Input.Password
+                        id="confirmPassword"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                </div>
+            </Modal>
         </section>
     );
 };

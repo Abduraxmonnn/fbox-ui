@@ -104,6 +104,12 @@
     .form-row {
       display: flex;
       gap: 1rem;
+      width: 100%;
+
+      .form-group {
+        flex: 1;
+        width: 50%;
+      }
     }
 
     .form-group {
@@ -114,6 +120,59 @@
         margin-bottom: 0.5rem;
         font-weight: 500;
         color: #333;
+      }
+
+      //&.password-group {
+      //  .password-input {
+      //    display: flex;
+      //    align-items: center;
+      //    gap: 10px;
+      //
+      //    .ant-input-password {
+      //      flex-grow: 1;
+      //    }
+      //
+      //    .ant-btn {
+      //      flex-shrink: 0;
+      //    }
+      //
+      //    .change-password {
+      //      flex-shrink: 0;
+      //      background: none;
+      //      border: none;
+      //      color: #4caf50;
+      //      font-size: 0.8rem;
+      //      cursor: pointer;
+      //      padding: 0 10px;
+      //      white-space: nowrap;
+      //    }
+      //  }
+      //}
+      &.password-group {
+        .password-input {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          .ant-input-password {
+            flex-grow: 1;
+          }
+
+          .change-password-btn {
+            flex-shrink: 0;
+            min-width: 80px;
+            height: 32px;
+            padding: 4px 15px;
+            border-radius: 6px;
+            background: #fff;
+            border: 1px solid #d9d9d9;
+
+            &:hover {
+              border-color: #4096ff;
+              color: #4096ff;
+            }
+          }
+        }
       }
     }
 
@@ -138,6 +197,10 @@
 // Responsive styles
 @media (max-width: 768px) {
   .user-profile {
+    .profile-title {
+      font-size: 1.75rem;
+    }
+
     .profile-header {
       flex-direction: column;
       align-items: stretch;
@@ -159,6 +222,14 @@
       .profile-actions {
         justify-content: flex-end;
       }
+    }
+
+    .profile-form {
+      flex-direction: column;
+    }
+
+    .form-row {
+      flex-direction: column;
     }
   }
 }
