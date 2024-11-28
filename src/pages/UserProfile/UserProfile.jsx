@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Input, Select, Button, DatePicker, message, Modal} from 'antd';
-import {X, Save, Eye, EyeOff} from 'lucide-react';
+import {X, Save} from 'lucide-react';
 import './UserProfile.scss';
 import {images} from "../../constants";
 
@@ -43,21 +43,6 @@ const UserProfile = () => {
 
         fetchData();
     }, []);
-
-    // const handleInputChange = (e) => {
-    //     const {name, value} = e.target;
-    //     setProfileData(prevData => ({
-    //         ...prevData,
-    //         [name]: value
-    //     }));
-    // };
-    //
-    // const handleSelectChange = (value, name) => {
-    //     setProfileData(prevData => ({
-    //         ...prevData,
-    //         [name]: value
-    //     }));
-    // };
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
@@ -171,7 +156,6 @@ const UserProfile = () => {
                                         visible: passwordVisible,
                                         onVisibleChange: setPasswordVisible,
                                     }}
-                                    iconRender={(visible) => (visible ? <Eye size={16}/> : <EyeOff size={16}/>)}
                                 />
                                 <Button className="change-password-btn" onClick={showChangePasswordModal}>
                                     Change
