@@ -23,7 +23,8 @@ import {
 	Orders,
 	OrderDetail,
 	Logs,
-	Feedbacks
+	Feedbacks,
+	UserProfile
 } from './pages'
 import getUser from "./store/utilits";
 import LogsDetail from "./pages/Logs/LogsDetail/LogsDetail";
@@ -37,6 +38,7 @@ function App() {
                 <Routes>
                     <Route element={<RootLayout/>}>
                         <Route path='/analysis' element={<Analysis/>}/>
+						<Route path='/profile' element={<UserProfile/>}/>
                         <Route path='/devices/company' element={<Company/>}/>
                         <Route path='/devices/device' element={<Device/>}/>
                         <Route path='/devices/version' element={<Version/>}/>

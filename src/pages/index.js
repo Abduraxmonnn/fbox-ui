@@ -17,6 +17,7 @@ import OrderDetail from './Orders/OrderDetail/OrderDetail'
 import Logs from "./Logs/Logs";
 import LogsDetail from "./Logs/LogsDetail/LogsDetail";
 import Feedbacks from "./Feedbacks/Feedbacks";
+import UserProfile from "./UserProfile/UserProfile";
 
 export {
 	Sms,
@@ -37,5 +38,6 @@ export {
 	OrderDetail,
 	Logs,
 	LogsDetail,
-	Feedbacks
+	Feedbacks,
+	UserProfile
 }

@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {Avatar, Spin, Drawer} from 'antd';
-import {UserOutlined, NotificationOutlined, MenuOutlined} from '@ant-design/icons';
+import {UserOutlined, NotificationOutlined} from '@ant-design/icons';
 import {useDispatch} from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
 
@@ -73,6 +73,10 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
         dispatch(logout(navigate))
     }
 
+    const navigateUserProfile = () => {
+        navigate('/profile')
+    }
+
     const toggleUserOptions = () => {
         setIsUserOptions((prevState) => !prevState)
     };
@@ -119,7 +123,7 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                         {isUserOptions && (
                             <div ref={formRef} className={`header-menu${isUserOptions ? ' show-menu' : ''}`}>
                                 <ul className="user-menu">
-                                    <li>
+                                    <li onClick={navigateUserProfile}>
                                         <img src={images.manage_account} alt="manage"/>
                                         <span>Manage Account</span>
                                     </li>

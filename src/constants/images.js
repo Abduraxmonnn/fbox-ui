@@ -7,6 +7,7 @@ import activity_log from '../assets/icons/activity-log-icon.svg'
 import logout from '../assets/icons/log-out-icon.svg'
 import expand from '../assets/icons/expand.png'
 import collapse from '../assets/icons/collapse.png'
+import defaultAvatar from '../assets/images/default-user-avatar.png';
 
 export const images = {
     sig_in_bg,
@@ -17,5 +18,6 @@ export const images = {
     activity_log,
     logout,
 	collapse,
-	expand
+	expand,
+    defaultAvatar
 }
