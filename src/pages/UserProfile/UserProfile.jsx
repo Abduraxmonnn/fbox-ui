@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Input, Button, DatePicker, message, Modal, Badge, Space, Switch} from 'antd';
 import {X, Save, Maximize, CircleX} from 'lucide-react';
 import * as moment from "dayjs";
-import {getSmsBadgeCount} from "../../utils";
+import {getSmsClockBadgeColor} from "../../utils";
 import {images} from "../../constants";
 import './UserProfile.scss';
 
@@ -21,6 +21,7 @@ const defaultProfileData = {
     phone: '+998 99 471 00 07',
     password: "123456789",
     address: '136 Jaskolski Stravenue Suite 883',
+    isSendSms: true,
     nation: 'Colombia',
     gender: 'Male',
     language: 'English',
@@ -70,7 +71,7 @@ const UserProfile = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [fullscreenImage, setFullscreenImage] = useState(null);
-    const [isSmsShow, setIsSmsShow] = useState(true);
+    const [isSmsShow, setIsSmsShow] = useState(profileData.isSendSms);
 
     useEffect(() => {
         // Simulating data fetch from an API
@@ -89,9 +90,9 @@ const UserProfile = () => {
             // Simulate API request to fetch new badge counts
             // You would replace this with your actual API request logic
             const apiBadgeData = {
-                badge1: 42, // Replace with real API data
-                badge2: 56, // Replace with real API data
-                badge3: 999, // Replace with real API data
+                totalSms: 250,
+                successSms: 56,
+                errorSms: 999,
             };
 
             // Update the badge counts state with fetched data
@@ -103,13 +104,6 @@ const UserProfile = () => {
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
-        setProfileData(prevData => ({
-            ...prevData,
-            [name]: value
-        }));
-    };
-
-    const handleSelectChange = (value, name) => {
         setProfileData(prevData => ({
             ...prevData,
             [name]: value
@@ -315,19 +309,17 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="twitter">Send SMS</label>
+                            <label htmlFor="sms">Send SMS</label>
                             <Space>
-                                <Switch checked={isSmsShow} onChange={() => setIsSmsShow(!isSmsShow)}/>
-                                <Badge count={getSmsBadgeCount(isSmsShow, badgeCounts.badge1)} showZero
-                                       color="#faad14"/>
-                                <Badge count={getSmsBadgeCount(isSmsShow, badgeCounts.badge2)}/>
-                                <Badge count={getSmsBadgeCount(isSmsShow, 'clock')}/>
+                                <Switch value={isSmsShow} onChange={() => setIsSmsShow(!isSmsShow)}/>
+                                <Badge count={badgeCounts.totalSms} color={isSmsShow ? "#faad14" : "gray"} overflowCount={Infinity}/>
+                                <Badge count={badgeCounts.successSms} color={isSmsShow ? "#f5222d" : "gray"} overflowCount={Infinity}/>
+                                <Badge count={getSmsClockBadgeColor(isSmsShow, 'clock')} overflowCount={Infinity}/>
                                 <Badge
                                     className="site-badge-count-109"
-                                    count={getSmsBadgeCount(isSmsShow, badgeCounts.badge3)}
-                                    style={{
-                                        backgroundColor: '#52c41a',
-                                    }}
+                                    count={badgeCounts.errorSms}
+                                    color={isSmsShow ? "#52c41a" : "gray"}
+                                    overflowCount={Infinity}
                                 />
                             </Space>
                         </div>
