@@ -1,14 +1,24 @@
 .user-profile {
   min-height: 100vh;
-  background: rgb(182, 211, 241);
-  background: linear-gradient(90deg, rgba(182, 211, 241, 1) 0%, rgba(185, 212, 241, 1) 10%, rgba(191, 215, 243, 1) 20%, rgba(205, 221, 237, 1) 32%, rgba(224, 227, 232, 1) 43%, rgba(242, 235, 230, 1) 53%, rgba(249, 241, 228, 1) 62%, rgba(251, 244, 226, 1) 71%, rgba(252, 245, 226, 1) 80%, rgba(253, 247, 225, 1) 90%);
+  //background: rgb(182, 211, 241);
+  //background: linear-gradient(90deg, rgba(182, 211, 241, 1) 0%, rgba(185, 212, 241, 1) 10%, rgba(191, 215, 243, 1) 20%, rgba(205, 221, 237, 1) 32%, rgba(224, 227, 232, 1) 43%, rgba(242, 235, 230, 1) 53%, rgba(249, 241, 228, 1) 62%, rgba(251, 244, 226, 1) 71%, rgba(252, 245, 226, 1) 80%, rgba(253, 247, 225, 1) 90%);
+  /*
+  * Created with https://www.css-gradient.com
+  //background: #31DDAE;
+  //background: conic-gradient(from 315deg, #31DDAE, #CB6BEC);
+  //background: #AC01FF;
+  //background: conic-gradient(from 315deg, #AC01FF, #FF5D01);
+  */
+  background: #820C4F;
+  background: conic-gradient(from 315deg, #820C4F, #CF77A7);
   border-radius: 15px;
   padding: 1rem;
 
   .profile-title {
     font-size: 2rem;
     font-weight: 600;
-    color: #333;
+    //color: #333;
+    color: var(--color-white);
     margin-bottom: 1.5rem;
     text-align: center;
     backdrop-filter: blur(10px);

@@ -1,17 +1,24 @@
 import React, {useEffect, useState} from 'react';
-import {Input, Select, Button, DatePicker, message, Modal} from 'antd';
+import {Input, Select, Button, DatePicker, message, Modal, Badge, Space, Switch} from 'antd';
 import {X, Save, Maximize, CircleX, Maximize2} from 'lucide-react';
-import './UserProfile.scss';
+import * as moment from "dayjs";
+import {getDefaultDateRange, getSmsBadgeCount} from "../../utils";
 import {images} from "../../constants";
+import './UserProfile.scss';
 
-const {Option} = Select;
+const {RangePicker} = DatePicker;
+
+const dayjs = require('dayjs')
+const utc = require('dayjs/plugin/utc')
+
+dayjs.extend(utc)
 
 const defaultProfileData = {
     username: 'arthur_nancy',
     companyName: 'TEST_FBOX_COMPANY',
     inn: '0000001',
     email: 'bradley.ortiz@gmail.com',
-    phone: '477-046-1827',
+    phone: '+998 99 471 00 07',
     password: "123456789",
     address: '136 Jaskolski Stravenue Suite 883',
     nation: 'Colombia',
@@ -21,43 +28,49 @@ const defaultProfileData = {
     linkedin: 'linked.in/envato',
     facebook: 'facebook.com/envato',
     google: 'zachary Ruiz',
-    slogan: 'Land acquisition Specialist'
+    slogan: 'Land acquisition Specialist',
+    startDate: moment.utc('2024-08-19T17:00:49.785517', 'YYYY-MM-DD[T]HH:mm[Z]'),
+    endDate: moment.utc('2025-08-19T17:00:49.785517', 'YYYY-MM-DD[T]HH:mm[Z]'),
 };
+
+const defaultProfilePictures = [
+    {
+        id: 'billing',
+        divClassName: 'billing-picture',
+        srcClassName: 'billing-img',
+        src: images.defaultAvatar2,
+        alt: 'Billing',
+        label: 'Billing image'
+    },
+    {
+        id: 'qrLogo',
+        divClassName: 'qr-logo',
+        srcClassName: null,
+        src: images.defaultAvatar,
+        alt: 'scan2pay logo',
+        label: 'scan2pay logo'
+    },
+    {
+        id: 'qrBanner',
+        divClassName: 'qr-banner',
+        srcClassName: null,
+        src: images.testAvatar,
+        alt: 'scan2pay banner',
+        label: 'scan2pay banner'
+    },
+]
 
 const UserProfile = () => {
     const [profileData, setProfileData] = useState(defaultProfileData);
-    const [profilePicturesData, setProfilePicturesData] = useState([
-        {
-            id: 'billing',
-            divClassName: 'billing-picture',
-            srcClassName: 'billing-img',
-            src: images.defaultAvatar2,
-            alt: 'Billing',
-            label: 'Billing image'
-        },
-        {
-            id: 'qrLogo',
-            divClassName: 'qr-logo',
-            srcClassName: null,
-            src: images.defaultAvatar,
-            alt: 'scan2pay logo',
-            label: 'scan2pay logo'
-        },
-        {
-            id: 'qrBanner',
-            divClassName: 'qr-banner',
-            srcClassName: null,
-            src: images.testAvatar,
-            alt: 'scan2pay banner',
-            label: 'scan2pay banner'
-        },
-    ]);
+    const [profilePicturesData, setProfilePicturesData] = useState(defaultProfilePictures);
     const [initialData, setInitialData] = useState(defaultProfileData);
+    const [badgeCounts, setBadgeCounts] = useState({});
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [isChangePasswordModalVisible, setIsChangePasswordModalVisible] = useState(false);
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [fullscreenImage, setFullscreenImage] = useState(null);
+    const [isSmsShow, setIsSmsShow] = useState(true);
 
     useEffect(() => {
         // Simulating data fetch from an API
@@ -69,6 +82,23 @@ const UserProfile = () => {
         };
 
         fetchData();
+    }, []);
+
+    useEffect(() => {
+        const fetchBadgeCounts = async () => {
+            // Simulate API request to fetch new badge counts
+            // You would replace this with your actual API request logic
+            const apiBadgeData = {
+                badge1: 42, // Replace with real API data
+                badge2: 56, // Replace with real API data
+                badge3: 999, // Replace with real API data
+            };
+
+            // Update the badge counts state with fetched data
+            setBadgeCounts(apiBadgeData);
+        };
+
+        fetchBadgeCounts();
     }, []);
 
     const handleInputChange = (e) => {
@@ -211,6 +241,17 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group">
+                            <label htmlFor="username">Username</label>
+                            <Input
+                                id="email"
+                                name="email"
+                                type="email"
+                                value={profileData.username}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+
+                        <div className="form-group">
                             <label htmlFor="email">Email</label>
                             <Input
                                 id="email"
@@ -232,16 +273,6 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="address">Address</label>
-                            <Input
-                                id="address"
-                                name="address"
-                                value={profileData.address}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
                             <label htmlFor="nation">Nation</label>
                             <Input
                                 id="nation"
@@ -253,44 +284,52 @@ const UserProfile = () => {
                     </div>
 
                     <div className="form-column">
-                        <div className="form-row">
-                            <div className="form-group">
-                                <label>Gender</label>
-                                <Select
-                                    value={profileData.gender}
-                                    onChange={(value) => handleSelectChange(value, 'gender')}
-                                >
-                                    <Option value="Male">Male</Option>
-                                    <Option value="Female">Female</Option>
-                                    <Option value="Other">Other</Option>
-                                </Select>
-                            </div>
-                            <div className="form-group">
-                                <label>Language</label>
-                                <Select
-                                    value={profileData.language}
-                                    onChange={(value) => handleSelectChange(value, 'language')}
-                                >
-                                    <Option value="English">English</Option>
-                                    <Option value="Spanish">Spanish</Option>
-                                    <Option value="French">French</Option>
-                                </Select>
-                            </div>
-                        </div>
-
                         <div className="form-group">
-                            <label>Date of Birth</label>
-                            <DatePicker.YearPicker/>
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="twitter">Twitter</label>
+                            <label htmlFor="address">Address</label>
                             <Input
-                                id="twitter"
-                                name="twitter"
-                                value={profileData.twitter}
+                                id="address"
+                                name="address"
+                                value={profileData.address}
                                 onChange={handleInputChange}
                             />
+                        </div>
+
+                        <div className="form-group">
+                            <label>Subscription Active Period</label>
+                            <RangePicker
+                                picker="date"
+                                id={{
+                                    start: 'startInput',
+                                    end: 'endInput',
+                                }}
+                                value={[profileData.startDate, profileData.endDate]}
+                                disabled={true}
+                                showTime
+                                onFocus={(_, info) => {
+                                    console.log('Focus:');
+                                }}
+                                onBlur={(_, info) => {
+                                    console.log('Blur:');
+                                }}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="twitter">Send SMS</label>
+                            <Space>
+                                <Switch checked={isSmsShow} onChange={() => setIsSmsShow(!isSmsShow)}/>
+                                <Badge count={getSmsBadgeCount(isSmsShow, badgeCounts.badge1)} showZero
+                                       color="#faad14"/>
+                                <Badge count={getSmsBadgeCount(isSmsShow, badgeCounts.badge2)}/>
+                                <Badge count={getSmsBadgeCount(isSmsShow, 'clock')}/>
+                                <Badge
+                                    className="site-badge-count-109"
+                                    count={getSmsBadgeCount(isSmsShow, badgeCounts.badge3)}
+                                    style={{
+                                        backgroundColor: '#52c41a',
+                                    }}
+                                />
+                            </Space>
                         </div>
 
                         <div className="form-group">
