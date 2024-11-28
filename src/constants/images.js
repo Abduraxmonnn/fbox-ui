@@ -8,6 +8,8 @@ import logout from '../assets/icons/log-out-icon.svg'
 import expand from '../assets/icons/expand.png'
 import collapse from '../assets/icons/collapse.png'
 import defaultAvatar from '../assets/images/default-user-avatar.png';
+import defaultAvatar2 from '../assets/images/default-user-avatar-1.png';
+import testAvatar from '../assets/images/test-avatar.jpg';
 
 export const images = {
     sig_in_bg,
@@ -19,5 +21,7 @@ export const images = {
     logout,
 	collapse,
 	expand,
-    defaultAvatar
+    defaultAvatar,
+    defaultAvatar2,
+    testAvatar
 }

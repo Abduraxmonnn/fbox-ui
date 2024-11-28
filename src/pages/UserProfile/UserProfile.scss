@@ -15,7 +15,6 @@
   }
 
   .profile-container {
-    //max-width: 1200px;
     margin: 0 auto;
     background-color: #ffffff;
     border-radius: 8px;
@@ -36,17 +35,67 @@
     }
 
     .profile-picture {
-      position: relative;
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      overflow: hidden;
-      background-color: #00ffa8;
+      display: flex;
+      justify-content: left;
+      align-items: flex-start;
+      gap: 50px;
+      width: 100%;
+      height: auto;
+      border-radius: 0;
+      overflow: visible;
+      background-color: transparent;
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+      .billing-picture,
+      .qr-logo,
+      .qr-banner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 64px;
+        position: relative;
+        cursor: pointer;
+
+        .hover-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 64px;
+          height: 64px;
+          display: flex;
+          border-radius: 8px;
+          justify-content: center;
+          align-items: center;
+          background-color: rgba(0, 0, 0, 0.7);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+
+          svg {
+            color: white;
+          }
+        }
+
+        &:hover .hover-overlay {
+          opacity: 1;
+        }
+
+        img {
+          width: 100%;
+          height: 64px;
+          object-fit: cover;
+          border-radius: 8px;
+          margin-bottom: 0.5rem;
+          user-select: none;
+        }
+
+        &:hover img {
+          opacity: 0.7;
+        }
+
+        span {
+          font-size: 0.75rem;
+          color: #666;
+          text-align: center;
+        }
       }
     }
 
@@ -165,6 +214,34 @@
       }
     }
   }
+
+  .fullscreen-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+    }
+  }
 }
 
 // Responsive styles
@@ -194,6 +271,18 @@
 
       .profile-actions {
         justify-content: flex-end;
+      }
+
+      .profile-picture {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px; // Reduce the gap for mobile view
+
+        .billing-picture,
+        .qr-logo,
+        .qr-banner {
+          margin-bottom: 0; // Remove bottom margin as we're using gap
+        }
       }
     }
 
