@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Input, Select, Button, DatePicker, message, Modal, Badge, Space, Switch} from 'antd';
-import {X, Save, Maximize, CircleX, Maximize2} from 'lucide-react';
+import {Input, Button, DatePicker, message, Modal, Badge, Space, Switch} from 'antd';
+import {X, Save, Maximize, CircleX} from 'lucide-react';
 import * as moment from "dayjs";
-import {getDefaultDateRange, getSmsBadgeCount} from "../../utils";
+import {getSmsBadgeCount} from "../../utils";
 import {images} from "../../constants";
 import './UserProfile.scss';
 
