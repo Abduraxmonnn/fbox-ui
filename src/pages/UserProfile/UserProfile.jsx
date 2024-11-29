@@ -65,6 +65,7 @@ const defaultProfilePictures = [
 
 const UserProfile = () => {
     const [profileData, setProfileData] = useState(defaultProfileData);
+    const [hasChanges, setHasChanges] = useState(false);
     const [profilePicturesData, setProfilePicturesData] = useState(defaultProfilePictures);
     const [initialData, setInitialData] = useState(defaultProfileData);
     const [badgeCounts, setBadgeCounts] = useState({});
@@ -109,6 +110,17 @@ const UserProfile = () => {
         fetchBadgeCounts();
     }, []);
 
+    useEffect(() => {
+        // Check for changes whenever profileData is updated
+        const hasChanges = Object.keys(profileData).some(key => {
+            if (dayjs.isDayjs(profileData[key])) {
+                return !profileData[key].isSame(defaultProfileData[key]);
+            }
+            return profileData[key] !== defaultProfileData[key];
+        });
+        setHasChanges(hasChanges);
+    }, [profileData]);
+
     const handleInputChange = (e) => {
         const {name, value} = e.target;
         setProfileData(prevData => ({
@@ -121,11 +133,13 @@ const UserProfile = () => {
         // In a real application, you would send the updated data to an API here
         console.log('Saving profile data:', profileData);
         setInitialData(profileData);
+        setHasChanges(false);
         message.success('Profile updated successfully');
     };
 
     const handleCancel = () => {
         setProfileData(initialData);
+        setHasChanges(false);
         message.info('Changes discarded');
     };
 
@@ -188,8 +202,9 @@ const UserProfile = () => {
                         <Button
                             icon={<Save size={16}/>}
                             type="primary"
-                            className="save-button"
+                            className={`save-button ${hasChanges ? '' : 'no-changes'}`}
                             onClick={handleSave}
+                            disabled={!hasChanges}
                         >
                             Save
                         </Button>
@@ -198,6 +213,7 @@ const UserProfile = () => {
                             type="text"
                             className="cancel-button"
                             onClick={handleCancel}
+                            disabled={!hasChanges}
                         >
                             Cancel
                         </Button>
@@ -251,9 +267,9 @@ const UserProfile = () => {
                         <div className="form-group">
                             <label htmlFor="username">Username</label>
                             <Input
-                                id="email"
-                                name="email"
-                                type="email"
+                                id="username"
+                                name="username"
+                                type="username"
                                 value={profileData.username}
                                 onChange={handleInputChange}
                             />

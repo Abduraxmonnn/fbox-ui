@@ -127,24 +127,51 @@
     .profile-actions {
       display: flex;
       gap: 0.5rem;
-    }
 
-    .save-button {
-      background-color: #4caf50;
-      border-color: #4caf50;
+      .save-button {
+        background-color: #4caf50;
+        border-color: #4caf50;
 
-      &:hover, &:focus {
-        background-color: #45a049;
-        border-color: #45a049;
+        &:hover, &:focus {
+          background-color: #45a049;
+          border-color: #45a049;
+        }
+
+        &.no-changes {
+          background-color: #2e7d32;
+          border-color: #2e7d32;
+
+          &:hover, &:focus {
+            background-color: #1b5e20;
+            border-color: #1b5e20;
+          }
+        }
+
+        &:disabled {
+          background-color: #a5d6a7;
+          border-color: #a5d6a7;
+          color: #ffffff;
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
       }
-    }
 
-    .cancel-button {
-      color: #999;
+      .cancel-button {
+        color: #999;
 
-      &:hover {
-        color: var(--color-white);
-        background-color: var(--color-dark-red);
+        &:hover {
+          color: var(--color-white);
+          background-color: var(--color-dark-red);
+        }
+
+        &:disabled {
+          color: #cccccc;
+          cursor: not-allowed;
+
+          &:hover {
+            background-color: transparent;
+          }
+        }
       }
     }
   }
