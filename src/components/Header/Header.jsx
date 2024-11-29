@@ -11,7 +11,6 @@ import './Header.scss';
 import {APIv1} from "../../api";
 
 const Header = ({isCollapse, searchText, setSearchText}) => {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isUserOptions, setIsUserOptions] = useState(false)
     const formRef = useRef()
     const avatarRef = useRef()

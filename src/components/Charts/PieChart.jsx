@@ -63,7 +63,7 @@ const PieChart = () => {
             {
                 type: 'text',
                 style: {
-                    text: `Active Users\nTotal: ${totalUsers}`,
+                    text: `Active Devices\nTotal: ${totalUsers}`,
                     x: '50%',
                     y: '50%',
                     textAlign: 'center',

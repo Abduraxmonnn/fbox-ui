@@ -19,7 +19,7 @@ const Analysis = () => {
         <section className='content_container'>
             <div className='graphBox'>
                 <div className='box'>
-                    <h1>Active Users</h1>
+                    <h1>Active Devices</h1>
                     <PieChart/>
                 </div>
                 <div className='box'>
