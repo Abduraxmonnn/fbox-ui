@@ -267,9 +267,9 @@ const UserProfile = () => {
                         <div className="form-group">
                             <label htmlFor="username">Username</label>
                             <Input
-                                id="email"
-                                name="email"
-                                type="email"
+                                id="username"
+                                name="username"
+                                type="username"
                                 value={profileData.username}
                                 onChange={handleInputChange}
                             />
