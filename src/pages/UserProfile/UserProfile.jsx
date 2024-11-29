@@ -5,6 +5,7 @@ import * as moment from "dayjs";
 import {getSmsClockBadgeColor} from "../../utils";
 import {images} from "../../constants";
 import './UserProfile.scss';
+import {UploadUserProfile} from "../../components";
 
 const {RangePicker} = DatePicker;
 const CheckboxGroup = Checkbox.Group;
@@ -325,7 +326,8 @@ const UserProfile = () => {
                             <label htmlFor="sms">Send SMS</label>
                             <Space>
                                 <Switch value={isSmsShow} onChange={() => setIsSmsShow(!isSmsShow)}
-                                        checkedChildren="On" unCheckedChildren="Off" style={{backgroundColor: isSmsShow ? "var(--color-status-on)" : "var(--color-status-off"}} />
+                                        checkedChildren="On" unCheckedChildren="Off"
+                                        style={{backgroundColor: isSmsShow ? "var(--color-status-on)" : "var(--color-status-off"}}/>
                                 <Badge count={badgeCounts.totalSms} color={isSmsShow ? "#faad14" : "gray"}
                                        overflowCount={Infinity}/>
                                 <Badge count={badgeCounts.successSms} color={isSmsShow ? "#f5222d" : "gray"}
@@ -344,7 +346,8 @@ const UserProfile = () => {
                         <div className="form-group-providers">
                             <label htmlFor="linkedin">Providers Permission</label>
                             <>
-                                <Checkbox indeterminate={indeterminateProvidersPermission} onChange={onCheckAllProviderPermissionChange}
+                                <Checkbox indeterminate={indeterminateProvidersPermission}
+                                          onChange={onCheckAllProviderPermissionChange}
                                           checked={checkAllProvidersPermissions}>
                                     Full Permission
                                 </Checkbox>
@@ -354,33 +357,8 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="facebook">Facebook</label>
-                            <Input
-                                id="facebook"
-                                name="facebook"
-                                value={profileData.facebook}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="google">Google</label>
-                            <Input
-                                id="google"
-                                name="google"
-                                value={profileData.google}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="slogan">Slogan</label>
-                            <Input
-                                id="slogan"
-                                name="slogan"
-                                value={profileData.slogan}
-                                onChange={handleInputChange}
-                            />
+                            <label htmlFor="userPicture">Upload Picture</label>
+                            <UploadUserProfile/>
                         </div>
                     </div>
                 </div>
