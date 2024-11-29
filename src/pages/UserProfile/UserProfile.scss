@@ -208,6 +208,19 @@
       }
     }
 
+    .form-group-providers {
+      flex: 1;
+      width: 50%;
+      margin-bottom: 1.5rem;
+
+      label {
+        display: flex;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #333;
+      }
+    }
+
     .password-input {
       position: relative;
 

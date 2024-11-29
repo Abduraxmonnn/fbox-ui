@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Input, Button, DatePicker, message, Modal, Badge, Space, Switch} from 'antd';
+import {Input, Button, DatePicker, message, Modal, Badge, Space, Switch, Checkbox, Divider} from 'antd';
 import {X, Save, Maximize, CircleX} from 'lucide-react';
 import * as moment from "dayjs";
 import {getSmsClockBadgeColor} from "../../utils";
@@ -7,6 +7,7 @@ import {images} from "../../constants";
 import './UserProfile.scss';
 
 const {RangePicker} = DatePicker;
+const CheckboxGroup = Checkbox.Group;
 
 const dayjs = require('dayjs')
 const utc = require('dayjs/plugin/utc')
@@ -72,6 +73,11 @@ const UserProfile = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [fullscreenImage, setFullscreenImage] = useState(null);
     const [isSmsShow, setIsSmsShow] = useState(profileData.isSendSms);
+
+    const [checkedProvidersPermissionList, setCheckedProvidersPermissionList] = useState(['PayMe', 'Click', 'Uzum', 'Anor']);
+    const plainOptions = ['PayMe', 'Click', 'Uzum', 'Anor'];
+    const checkAllProvidersPermissions = plainOptions.length === checkedProvidersPermissionList.length;
+    const indeterminateProvidersPermission = checkedProvidersPermissionList.length > 0 && checkedProvidersPermissionList.length < plainOptions.length;
 
     useEffect(() => {
         // Simulating data fetch from an API
@@ -148,6 +154,13 @@ const UserProfile = () => {
 
     const closeFullscreen = () => {
         setFullscreenImage(null);
+    };
+
+    const onProviderPermissionChange = (list) => {
+        setCheckedProvidersPermissionList(list);
+    };
+    const onCheckAllProviderPermissionChange = (e) => {
+        setCheckedProvidersPermissionList(e.target.checked ? plainOptions : []);
     };
 
     return (
@@ -311,10 +324,14 @@ const UserProfile = () => {
                         <div className="form-group">
                             <label htmlFor="sms">Send SMS</label>
                             <Space>
-                                <Switch value={isSmsShow} onChange={() => setIsSmsShow(!isSmsShow)}/>
-                                <Badge count={badgeCounts.totalSms} color={isSmsShow ? "#faad14" : "gray"} overflowCount={Infinity}/>
-                                <Badge count={badgeCounts.successSms} color={isSmsShow ? "#f5222d" : "gray"} overflowCount={Infinity}/>
-                                <Badge count={getSmsClockBadgeColor(isSmsShow, 'clock')} overflowCount={Infinity}/>
+                                <Switch value={isSmsShow} onChange={() => setIsSmsShow(!isSmsShow)}
+                                        checkedChildren="On" unCheckedChildren="Off" style={{backgroundColor: isSmsShow ? "var(--color-status-on)" : "var(--color-status-off"}} />
+                                <Badge count={badgeCounts.totalSms} color={isSmsShow ? "#faad14" : "gray"}
+                                       overflowCount={Infinity}/>
+                                <Badge count={badgeCounts.successSms} color={isSmsShow ? "#f5222d" : "gray"}
+                                       overflowCount={Infinity}/>
+                                <Badge count={getSmsClockBadgeColor(isSmsShow, 'clock')}
+                                       overflowCount={Infinity}/>
                                 <Badge
                                     className="site-badge-count-109"
                                     count={badgeCounts.errorSms}
@@ -324,14 +341,16 @@ const UserProfile = () => {
                             </Space>
                         </div>
 
-                        <div className="form-group">
-                            <label htmlFor="linkedin">Linked In</label>
-                            <Input
-                                id="linkedin"
-                                name="linkedin"
-                                value={profileData.linkedin}
-                                onChange={handleInputChange}
-                            />
+                        <div className="form-group-providers">
+                            <label htmlFor="linkedin">Providers Permission</label>
+                            <>
+                                <Checkbox indeterminate={indeterminateProvidersPermission} onChange={onCheckAllProviderPermissionChange}
+                                          checked={checkAllProvidersPermissions}>
+                                    Full Permission
+                                </Checkbox>
+                                <CheckboxGroup options={plainOptions} value={checkedProvidersPermissionList}
+                                               onChange={onProviderPermissionChange}/>
+                            </>
                         </div>
 
                         <div className="form-group">
