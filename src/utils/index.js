@@ -4,6 +4,7 @@ import {defaultExtractDate} from "./extractDateBySeconds";
 import {onFilter} from "./dateFilters";
 import {isBoolean, useRowNavigation} from "./baseUtils";
 import {deviceStatusInactiveTime, deviceStatusInactiveTimeToText} from "./deviceUtils";
+import {getSmsClockBadgeColor} from "./userUtils";
 
 export {
     handleTableChange,
@@ -14,4 +15,5 @@ export {
     useRowNavigation,
     deviceStatusInactiveTime,
     deviceStatusInactiveTimeToText,
+    getSmsClockBadgeColor
 }

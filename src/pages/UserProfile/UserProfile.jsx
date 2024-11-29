@@ -1,19 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import {Input, Select, Button, DatePicker, message, Modal} from 'antd';
-import {X, Save, Maximize, CircleX, Maximize2} from 'lucide-react';
-import './UserProfile.scss';
+import {Input, Button, DatePicker, message, Modal, Badge, Space, Switch, Checkbox, Divider} from 'antd';
+import {X, Save, Maximize, CircleX} from 'lucide-react';
+import * as moment from "dayjs";
+import {getSmsClockBadgeColor} from "../../utils";
 import {images} from "../../constants";
+import './UserProfile.scss';
+import {UploadUserProfile} from "../../components";
 
-const {Option} = Select;
+const {RangePicker} = DatePicker;
+const CheckboxGroup = Checkbox.Group;
+
+const dayjs = require('dayjs')
+const utc = require('dayjs/plugin/utc')
+
+dayjs.extend(utc)
 
 const defaultProfileData = {
     username: 'arthur_nancy',
     companyName: 'TEST_FBOX_COMPANY',
     inn: '0000001',
     email: 'bradley.ortiz@gmail.com',
-    phone: '477-046-1827',
+    phone: '+998 99 471 00 07',
     password: "123456789",
     address: '136 Jaskolski Stravenue Suite 883',
+    isSendSms: true,
     nation: 'Colombia',
     gender: 'Male',
     language: 'English',
@@ -21,43 +31,54 @@ const defaultProfileData = {
     linkedin: 'linked.in/envato',
     facebook: 'facebook.com/envato',
     google: 'zachary Ruiz',
-    slogan: 'Land acquisition Specialist'
+    slogan: 'Land acquisition Specialist',
+    startDate: moment.utc('2024-08-19T17:00:49.785517', 'YYYY-MM-DD[T]HH:mm[Z]'),
+    endDate: moment.utc('2025-08-19T17:00:49.785517', 'YYYY-MM-DD[T]HH:mm[Z]'),
 };
+
+const defaultProfilePictures = [
+    {
+        id: 'billing',
+        divClassName: 'billing-picture',
+        srcClassName: 'billing-img',
+        src: images.defaultAvatar2,
+        alt: 'Billing',
+        label: 'Billing image'
+    },
+    {
+        id: 'qrLogo',
+        divClassName: 'qr-logo',
+        srcClassName: null,
+        src: images.defaultAvatar,
+        alt: 'scan2pay logo',
+        label: 'scan2pay logo'
+    },
+    {
+        id: 'qrBanner',
+        divClassName: 'qr-banner',
+        srcClassName: null,
+        src: images.testAvatar,
+        alt: 'scan2pay banner',
+        label: 'scan2pay banner'
+    },
+]
 
 const UserProfile = () => {
     const [profileData, setProfileData] = useState(defaultProfileData);
-    const [profilePicturesData, setProfilePicturesData] = useState([
-        {
-            id: 'billing',
-            divClassName: 'billing-picture',
-            srcClassName: 'billing-img',
-            src: images.defaultAvatar2,
-            alt: 'Billing',
-            label: 'Billing image'
-        },
-        {
-            id: 'qrLogo',
-            divClassName: 'qr-logo',
-            srcClassName: null,
-            src: images.defaultAvatar,
-            alt: 'scan2pay logo',
-            label: 'scan2pay logo'
-        },
-        {
-            id: 'qrBanner',
-            divClassName: 'qr-banner',
-            srcClassName: null,
-            src: images.testAvatar,
-            alt: 'scan2pay banner',
-            label: 'scan2pay banner'
-        },
-    ]);
+    const [profilePicturesData, setProfilePicturesData] = useState(defaultProfilePictures);
     const [initialData, setInitialData] = useState(defaultProfileData);
+    const [badgeCounts, setBadgeCounts] = useState({});
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [isChangePasswordModalVisible, setIsChangePasswordModalVisible] = useState(false);
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [fullscreenImage, setFullscreenImage] = useState(null);
+    const [isSmsShow, setIsSmsShow] = useState(profileData.isSendSms);
+
+    const [checkedProvidersPermissionList, setCheckedProvidersPermissionList] = useState(['PayMe', 'Click', 'Uzum', 'Anor']);
+    const plainOptions = ['PayMe', 'Click', 'Uzum', 'Anor'];
+    const checkAllProvidersPermissions = plainOptions.length === checkedProvidersPermissionList.length;
+    const indeterminateProvidersPermission = checkedProvidersPermissionList.length > 0 && checkedProvidersPermissionList.length < plainOptions.length;
 
     useEffect(() => {
         // Simulating data fetch from an API
@@ -71,15 +92,25 @@ const UserProfile = () => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        const fetchBadgeCounts = async () => {
+            // Simulate API request to fetch new badge counts
+            // You would replace this with your actual API request logic
+            const apiBadgeData = {
+                totalSms: 250,
+                successSms: 56,
+                errorSms: 999,
+            };
+
+            // Update the badge counts state with fetched data
+            setBadgeCounts(apiBadgeData);
+        };
+
+        fetchBadgeCounts();
+    }, []);
+
     const handleInputChange = (e) => {
         const {name, value} = e.target;
-        setProfileData(prevData => ({
-            ...prevData,
-            [name]: value
-        }));
-    };
-
-    const handleSelectChange = (value, name) => {
         setProfileData(prevData => ({
             ...prevData,
             [name]: value
@@ -124,6 +155,13 @@ const UserProfile = () => {
 
     const closeFullscreen = () => {
         setFullscreenImage(null);
+    };
+
+    const onProviderPermissionChange = (list) => {
+        setCheckedProvidersPermissionList(list);
+    };
+    const onCheckAllProviderPermissionChange = (e) => {
+        setCheckedProvidersPermissionList(e.target.checked ? plainOptions : []);
     };
 
     return (
@@ -211,6 +249,17 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group">
+                            <label htmlFor="username">Username</label>
+                            <Input
+                                id="email"
+                                name="email"
+                                type="email"
+                                value={profileData.username}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+
+                        <div className="form-group">
                             <label htmlFor="email">Email</label>
                             <Input
                                 id="email"
@@ -232,16 +281,6 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="address">Address</label>
-                            <Input
-                                id="address"
-                                name="address"
-                                value={profileData.address}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
                             <label htmlFor="nation">Nation</label>
                             <Input
                                 id="nation"
@@ -253,84 +292,73 @@ const UserProfile = () => {
                     </div>
 
                     <div className="form-column">
-                        <div className="form-row">
-                            <div className="form-group">
-                                <label>Gender</label>
-                                <Select
-                                    value={profileData.gender}
-                                    onChange={(value) => handleSelectChange(value, 'gender')}
-                                >
-                                    <Option value="Male">Male</Option>
-                                    <Option value="Female">Female</Option>
-                                    <Option value="Other">Other</Option>
-                                </Select>
-                            </div>
-                            <div className="form-group">
-                                <label>Language</label>
-                                <Select
-                                    value={profileData.language}
-                                    onChange={(value) => handleSelectChange(value, 'language')}
-                                >
-                                    <Option value="English">English</Option>
-                                    <Option value="Spanish">Spanish</Option>
-                                    <Option value="French">French</Option>
-                                </Select>
-                            </div>
-                        </div>
-
                         <div className="form-group">
-                            <label>Date of Birth</label>
-                            <DatePicker.YearPicker/>
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="twitter">Twitter</label>
+                            <label htmlFor="address">Address</label>
                             <Input
-                                id="twitter"
-                                name="twitter"
-                                value={profileData.twitter}
+                                id="address"
+                                name="address"
+                                value={profileData.address}
                                 onChange={handleInputChange}
                             />
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="linkedin">Linked In</label>
-                            <Input
-                                id="linkedin"
-                                name="linkedin"
-                                value={profileData.linkedin}
-                                onChange={handleInputChange}
+                            <label>Subscription Active Period</label>
+                            <RangePicker
+                                picker="date"
+                                id={{
+                                    start: 'startInput',
+                                    end: 'endInput',
+                                }}
+                                value={[profileData.startDate, profileData.endDate]}
+                                disabled={true}
+                                showTime
+                                onFocus={(_, info) => {
+                                    console.log('Focus:');
+                                }}
+                                onBlur={(_, info) => {
+                                    console.log('Blur:');
+                                }}
                             />
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="facebook">Facebook</label>
-                            <Input
-                                id="facebook"
-                                name="facebook"
-                                value={profileData.facebook}
-                                onChange={handleInputChange}
-                            />
+                            <label htmlFor="sms">Send SMS</label>
+                            <Space>
+                                <Switch value={isSmsShow} onChange={() => setIsSmsShow(!isSmsShow)}
+                                        checkedChildren="On" unCheckedChildren="Off"
+                                        style={{backgroundColor: isSmsShow ? "var(--color-status-on)" : "var(--color-status-off"}}/>
+                                <Badge count={badgeCounts.totalSms} color={isSmsShow ? "#faad14" : "gray"}
+                                       overflowCount={Infinity}/>
+                                <Badge count={badgeCounts.successSms} color={isSmsShow ? "#f5222d" : "gray"}
+                                       overflowCount={Infinity}/>
+                                <Badge count={getSmsClockBadgeColor(isSmsShow, 'clock')}
+                                       overflowCount={Infinity}/>
+                                <Badge
+                                    className="site-badge-count-109"
+                                    count={badgeCounts.errorSms}
+                                    color={isSmsShow ? "#52c41a" : "gray"}
+                                    overflowCount={Infinity}
+                                />
+                            </Space>
+                        </div>
+
+                        <div className="form-group-providers">
+                            <label htmlFor="linkedin">Providers Permission</label>
+                            <>
+                                <Checkbox indeterminate={indeterminateProvidersPermission}
+                                          onChange={onCheckAllProviderPermissionChange}
+                                          checked={checkAllProvidersPermissions}>
+                                    Full Permission
+                                </Checkbox>
+                                <CheckboxGroup options={plainOptions} value={checkedProvidersPermissionList}
+                                               onChange={onProviderPermissionChange}/>
+                            </>
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="google">Google</label>
-                            <Input
-                                id="google"
-                                name="google"
-                                value={profileData.google}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="slogan">Slogan</label>
-                            <Input
-                                id="slogan"
-                                name="slogan"
-                                value={profileData.slogan}
-                                onChange={handleInputChange}
-                            />
+                            <label htmlFor="userPicture">Upload Picture</label>
+                            <UploadUserProfile/>
                         </div>
                     </div>
                 </div>

@@ -17,6 +17,9 @@
     --color-light-blue: #4299e1;
     --color-blue-grey: #4a5568;
     --color-dark-blue-grey: #2d3748;
+
+    --color-status-on: #1675fa;
+    --color-status-off: #f5222d;
 }
 
 * {
