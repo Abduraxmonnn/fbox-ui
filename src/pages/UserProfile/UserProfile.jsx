@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Input, Button, DatePicker, message, Modal, Badge, Space, Switch, Checkbox, Divider} from 'antd';
+import {Input, Button, DatePicker, message, Modal, Badge, Space, Switch, Checkbox} from 'antd';
 import {X, Save, Maximize, CircleX} from 'lucide-react';
 import * as moment from "dayjs";
 import {getSmsClockBadgeColor} from "../../utils";
@@ -25,13 +25,7 @@ const defaultProfileData = {
     address: '136 Jaskolski Stravenue Suite 883',
     isSendSms: true,
     nation: 'Colombia',
-    gender: 'Male',
     language: 'English',
-    twitter: 'twitter.com/envato',
-    linkedin: 'linked.in/envato',
-    facebook: 'facebook.com/envato',
-    google: 'zachary Ruiz',
-    slogan: 'Land acquisition Specialist',
     startDate: moment.utc('2024-08-19T17:00:49.785517', 'YYYY-MM-DD[T]HH:mm[Z]'),
     endDate: moment.utc('2025-08-19T17:00:49.785517', 'YYYY-MM-DD[T]HH:mm[Z]'),
 };
@@ -330,10 +324,10 @@ const UserProfile = () => {
                                 disabled={true}
                                 showTime
                                 onFocus={(_, info) => {
-                                    console.log('Focus:');
+                                    console.log('Focus:', info);
                                 }}
                                 onBlur={(_, info) => {
-                                    console.log('Blur:');
+                                    console.log('Blur:', info);
                                 }}
                             />
                         </div>
