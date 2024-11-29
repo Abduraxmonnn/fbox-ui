@@ -93,8 +93,8 @@ const UserProfile = () => {
             // You would replace this with your actual API request logic
             const apiBadgeData = {
                 totalSms: 250,
-                successSms: 56,
-                errorSms: 999,
+                successSms: 242,
+                errorSms: 3,
             };
 
             // Update the badge counts state with fetched data
@@ -340,14 +340,14 @@ const UserProfile = () => {
                                         style={{backgroundColor: isSmsShow ? "var(--color-status-on)" : "var(--color-status-off"}}/>
                                 <Badge count={badgeCounts.totalSms} color={isSmsShow ? "#faad14" : "gray"}
                                        overflowCount={Infinity}/>
-                                <Badge count={badgeCounts.successSms} color={isSmsShow ? "#f5222d" : "gray"}
+                                <Badge count={badgeCounts.successSms} color={isSmsShow ? "#52c41a" : "gray"}
                                        overflowCount={Infinity}/>
                                 <Badge count={getSmsClockBadgeColor(isSmsShow, 'clock')}
                                        overflowCount={Infinity}/>
                                 <Badge
                                     className="site-badge-count-109"
                                     count={badgeCounts.errorSms}
-                                    color={isSmsShow ? "#52c41a" : "gray"}
+                                    color={isSmsShow ? "#f5222d" : "gray"}
                                     overflowCount={Infinity}
                                 />
                             </Space>
