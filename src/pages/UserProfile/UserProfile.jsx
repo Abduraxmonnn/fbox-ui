@@ -6,6 +6,8 @@ import {getSmsClockBadgeColor} from "../../utils";
 import {images} from "../../constants";
 import './UserProfile.scss';
 import {UploadUserProfile} from "../../components";
+import {APIv1} from "../../api";
+import ShowUserPicture from "../../components/UserProfileCom/ShowUserPicture";
 
 const {RangePicker} = DatePicker;
 const CheckboxGroup = Checkbox.Group;
@@ -26,83 +28,78 @@ const defaultProfileData = {
     isSendSms: true,
     nation: 'Colombia',
     language: 'English',
+    totalSms: 250,
+    successSms: 242,
+    errorSms: 3,
     startDate: moment.utc('2024-08-19T17:00:49.785517', 'YYYY-MM-DD[T]HH:mm[Z]'),
     endDate: moment.utc('2025-08-19T17:00:49.785517', 'YYYY-MM-DD[T]HH:mm[Z]'),
 };
 
-const defaultProfilePictures = [
-    {
-        id: 'billing',
-        divClassName: 'billing-picture',
-        srcClassName: 'billing-img',
-        src: images.defaultAvatar2,
-        alt: 'Billing',
-        label: 'Billing image'
-    },
-    {
-        id: 'qrLogo',
-        divClassName: 'qr-logo',
-        srcClassName: null,
-        src: images.defaultAvatar,
-        alt: 'scan2pay logo',
-        label: 'scan2pay logo'
-    },
-    {
-        id: 'qrBanner',
-        divClassName: 'qr-banner',
-        srcClassName: null,
-        src: images.testAvatar,
-        alt: 'scan2pay banner',
-        label: 'scan2pay banner'
-    },
-]
-
 const UserProfile = () => {
-    const [profileData, setProfileData] = useState(defaultProfileData);
+    const [profileData, setProfileData] = useState([]);
+    const [initialData, setInitialData] = useState([]);
+    const [userData, setUserData] = useState({});
     const [hasChanges, setHasChanges] = useState(false);
-    const [profilePicturesData, setProfilePicturesData] = useState(defaultProfilePictures);
-    const [initialData, setInitialData] = useState(defaultProfileData);
-    const [badgeCounts, setBadgeCounts] = useState({});
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [isChangePasswordModalVisible, setIsChangePasswordModalVisible] = useState(false);
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [fullscreenImage, setFullscreenImage] = useState(null);
-    const [isSmsShow, setIsSmsShow] = useState(profileData.isSendSms);
+    const [isSmsShow, setIsSmsShow] = useState(true);
 
-    const [checkedProvidersPermissionList, setCheckedProvidersPermissionList] = useState(['PayMe', 'Click', 'Uzum', 'Anor']);
-    const plainOptions = ['PayMe', 'Click', 'Uzum', 'Anor'];
+    const [checkedProvidersPermissionList, setCheckedProvidersPermissionList] = useState(['click', 'uzum', 'anor']);
+    const plainOptions = ['payme', 'click', 'uzum', 'anor'];
     const checkAllProvidersPermissions = plainOptions.length === checkedProvidersPermissionList.length;
     const indeterminateProvidersPermission = checkedProvidersPermissionList.length > 0 && checkedProvidersPermissionList.length < plainOptions.length;
 
     useEffect(() => {
-        // Simulating data fetch from an API
         const fetchData = async () => {
-            // In a real application, you would fetch data from an API here
-            // For now, we'll just use the default data
-            setInitialData(defaultProfileData);
-            setProfileData(defaultProfileData);
+            try {
+                const response = await APIv1.get('/company/profile/', {
+                    headers: {
+                        Authorization: `Token ${userData.token}`
+                    }
+                });
+
+                const data = {
+                    key: response.data.id,
+                    companyName: response.data.name,
+                    inn: response.data.inn,
+                    username: response.data.user.username,
+                    email: response.data.user.email,
+                    phone: response.data.phone_number,
+                    address: response.data.address,
+                    isSendSms: response.data.send_sms,
+                    totalSms: response.data.count_sent_sms,
+                    successSms: response.data.count_sent_sms - Math.floor(response.data.count_sent_sms * 0.9),
+                    errorSms: response.data.count_sent_sms - Math.floor(response.data.count_sent_sms * 0.1),
+                    nation: 'Uzbek',
+                    logo: response.data.logo,
+                    banner: response.data.banner,
+                    payme: response.data.pay_me,
+                    click: response.data.click,
+                    uzum: response.data.apelsin,
+                    anor: response.data.anor,
+                    startDate:  moment.utc(response.data.start_date),
+                    endDate:  moment.utc(response.data.end_date),
+                };
+
+                setProfileData(data);
+                setInitialData(data);
+                setIsSmsShow(data.isSendSms)
+            } catch (err) {
+                console.error('Something went wrong', err);
+            }
         };
 
         fetchData();
-    }, []);
+    }, [userData.token]);
 
     useEffect(() => {
-        const fetchBadgeCounts = async () => {
-            // Simulate API request to fetch new badge counts
-            // You would replace this with your actual API request logic
-            const apiBadgeData = {
-                totalSms: 250,
-                successSms: 242,
-                errorSms: 3,
-            };
-
-            // Update the badge counts state with fetched data
-            setBadgeCounts(apiBadgeData);
-        };
-
-        fetchBadgeCounts();
-    }, []);
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setUserData(items);
+        }
+    }, [userData.token]);
 
     useEffect(() => {
         // Check for changes whenever profileData is updated
@@ -157,14 +154,6 @@ const UserProfile = () => {
         message.success('Password changed successfully');
     };
 
-    const openFullscreen = (imageSrc: string) => {
-        setFullscreenImage(imageSrc);
-    };
-
-    const closeFullscreen = () => {
-        setFullscreenImage(null);
-    };
-
     const onProviderPermissionChange = (list) => {
         setCheckedProvidersPermissionList(list);
     };
@@ -178,19 +167,7 @@ const UserProfile = () => {
             <div className="profile-container">
                 <div className="profile-header">
                     <div className="profile-picture">
-                        {profilePicturesData.map((picture) => (
-                            <div
-                                key={picture.id}
-                                className={picture.divClassName}
-                                onClick={() => openFullscreen(picture.src)}
-                            >
-                                <img className={picture.srcClassName} src={picture.src} alt={picture.alt}/>
-                                <span>{picture.label}</span>
-                                <div className="hover-overlay">
-                                    <Maximize size={24} color={'#3f96ff'}/>
-                                </div>
-                            </div>
-                        ))}
+                        <ShowUserPicture data={{logo: profileData.logo, banner: profileData.banner}} />
                     </div>
                     <div className="profile-actions">
                         <Button
@@ -244,13 +221,10 @@ const UserProfile = () => {
                                 <Input.Password
                                     id="password"
                                     name="password"
-                                    placeholder="Enter password"
+                                    placeholder="Password"
                                     value={profileData.password}
                                     onChange={handleInputChange}
-                                    visibilityToggle={{
-                                        visible: passwordVisible,
-                                        onVisibleChange: setPasswordVisible,
-                                    }}
+                                    disabled={true}
                                 />
                                 <Button className="change-password-btn" onClick={showChangePasswordModal}>
                                     Change
@@ -338,15 +312,15 @@ const UserProfile = () => {
                                 <Switch value={isSmsShow} onChange={() => setIsSmsShow(!isSmsShow)}
                                         checkedChildren="On" unCheckedChildren="Off"
                                         style={{backgroundColor: isSmsShow ? "var(--color-status-on)" : "var(--color-status-off"}}/>
-                                <Badge count={badgeCounts.totalSms} color={isSmsShow ? "#faad14" : "gray"}
+                                <Badge count={profileData.totalSms} color={isSmsShow ? "#faad14" : "gray"}
                                        overflowCount={Infinity}/>
-                                <Badge count={badgeCounts.successSms} color={isSmsShow ? "#52c41a" : "gray"}
+                                <Badge count={profileData.successSms} color={isSmsShow ? "#52c41a" : "gray"}
                                        overflowCount={Infinity}/>
                                 <Badge count={getSmsClockBadgeColor(isSmsShow, 'clock')}
                                        overflowCount={Infinity}/>
                                 <Badge
                                     className="site-badge-count-109"
-                                    count={badgeCounts.errorSms}
+                                    count={profileData.errorSms}
                                     color={isSmsShow ? "#f5222d" : "gray"}
                                     overflowCount={Infinity}
                                 />
@@ -373,17 +347,6 @@ const UserProfile = () => {
                     </div>
                 </div>
             </div>
-            {fullscreenImage && (
-                <div className="fullscreen-image" onClick={closeFullscreen}>
-                    <img src={fullscreenImage} alt="Full-screen view"/>
-                    <div className="close-button" onClick={(e) => {
-                        e.stopPropagation();
-                        closeFullscreen();
-                    }}>
-                        <CircleX size={26}/>
-                    </div>
-                </div>
-            )}
 
             <Modal
                 title="Change Password"
