@@ -24,7 +24,6 @@ const CompanyDetail = () => {
             setLoading(true)
             try {
                 const response = await APIv1.get(`/company/${id}`)
-                console.log(response.data)
                 setCompany(response.data)
             } catch (err) {
                 console.error('Something went wrong:', err)
