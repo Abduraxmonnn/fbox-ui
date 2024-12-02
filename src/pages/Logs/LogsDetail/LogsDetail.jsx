@@ -7,12 +7,17 @@ import {extractDateBySecond} from "../../../utils";
 
 const LogsDetail = () => {
     const {id} = useParams();
+    const [userData, setUserData] = useState({});
     const [logsData, setLogsData] = useState({});
 
     useEffect(() => {
         const fetchLogs = async () => {
             try {
-                const {data: {message}} = await APIv1(`logs/list/${id}`);
+                const {data: {message}} = await APIv1(`logs/list/${id}`, {
+                    headers: {
+                        Authorization: `Token ${userData.token}`,
+                    }
+                });
 
                 const logData = {
                     key: message.id,
@@ -34,7 +39,14 @@ const LogsDetail = () => {
         };
 
         fetchLogs();
-    }, [id, setLogsData]);
+    }, [userData.token, id, setLogsData]);
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setUserData(items);
+        }
+    }, [userData.token]);
 
     if (!logsData) {
         return <div>Log not found</div>;

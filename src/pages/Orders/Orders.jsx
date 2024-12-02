@@ -62,6 +62,7 @@ const rowSelection = {
 const Orders = (props) => {
     let serialNumber = props.serialNumber !== undefined ? props.serialNumber : null;
     let defaultPageSize = props.defaultPageSize !== undefined ? props.defaultPageSize : 40;
+    const [userData, setUserData] = useState({});
     const [ordersData, setOrdersData] = useState([])
     const [selectionType, setSelectionType] = useState('checkbox')
     const [loading, setLoading] = useState(true)
@@ -75,13 +76,16 @@ const Orders = (props) => {
     const fetchOrdersData = useCallback(async (page, size, search = '', ordering = '') => {
         setLoading(true);
         try {
-            const url = serialNumber === null ? `/orders/list/` : `/orders/list/?serial=${serialNumber}`
+            const url = serialNumber === null ? `/orders/list/by_user/` : `/orders/list/?serial=${serialNumber}`
             const response = await APIv1.get(`${url}`, {
                 params: {
                     page,
                     page_size: size,
                     search,
                     ordering
+                },
+                headers: {
+                    Authorization: `Token ${userData.token}`,
                 }
             });
             const data = response.data.results.map((report) => ({
@@ -100,15 +104,24 @@ const Orders = (props) => {
         } finally {
             setLoading(false)
         }
-    })
+    }, [userData.token])
 
     useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setUserData(items);
+        }
+    }, [userData.token]);
+
+    useEffect(() => {
+        if (!userData.token) return;
+
         let ordering = ''
         if (sortField) {
             ordering = sortOrder === 'ascend' ? sortField : `-${sortField}`
         }
         fetchOrdersData(currentPage, pageSize, searchText, ordering)
-    }, [currentPage, pageSize, searchText, sortOrder, sortField])
+    }, [currentPage, pageSize, searchText, sortOrder, sortField, userData.token])
 
     useEffect(() => {
         setCurrentPage(1) // Reset to the first page when search text changes
