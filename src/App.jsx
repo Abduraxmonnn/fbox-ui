@@ -8,7 +8,7 @@ import {useState} from "react";
 import {
 	Sms,
 	SmsDetail,
-    Device,
+    	Device,
 	DeviceDetail,
 	AddNewDevice,
 	DeviceStatus,
