@@ -1,4 +1,4 @@
-import {Radius} from 'lucide-react';
+import {CircleCheck, Ban, CircleX, Clock4, HandCoins} from 'lucide-react';
 
 export function StatusIcon({status}) {
     switch (status) {
@@ -57,23 +57,23 @@ export function LogsStatusIcon({size, status}) {
     switch (status) {
         case 'PROCESSING':
             return (
-                <Radius size={size} color={'#FFEB3B'}/>
+                <Clock4 size={size} color={'#FFEB3B'}/>
             );
         case 'PAID':
             return (
-                <Radius size={size} color={'#2196F3'}/>
+                <HandCoins size={size} color={'#2196F3'}/>
             );
         case 'FISCALIZED':
             return (
-                <Radius size={size} color={'#4CAF50'}/>
+                <CircleCheck size={size} color={'#4CAF50'}/>
             );
         case 'FAILED':
             return (
-                <Radius size={size} color={'#F44336'}/>
+                <CircleX size={size} color={'#F44336'}/>
             );
         case 'CANCELED':
             return (
-                <Radius size={size} color={'#9E9E9E'}/>
+                <Ban size={size} color={'#9E9E9E'}/>
             );
         default:
             return null;
