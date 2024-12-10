@@ -112,15 +112,15 @@ const DeviceStatusDetail = () => {
                                         <span className="detail-view__label">Multiple user:</span>
                                         <span
                                             className={`detail-view__tag ${deviceData.device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                      {deviceData.device.is_multi_user ? 'ACCESS' : 'DECLINE'}
-                    </span>
+                                          {deviceData.device.is_multi_user ? 'ACCESS' : 'DECLINE'}
+                                        </span>
                                     </li>
                                     <li className="detail-view__item">
                                         <span className="detail-view__label">Updated Available:</span>
                                         <span
                                             className={`detail-view__tag ${deviceData.device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                      {deviceData.device.is_multi_user ? 'ACCESS' : 'DECLINE'}
-                    </span>
+                                          {deviceData.device.is_multi_user ? 'ACCESS' : 'DECLINE'}
+                                        </span>
                                     </li>
                                     <li className="detail-view__item">
                                         <span className="detail-view__label">Activity:</span>
@@ -152,9 +152,10 @@ const DeviceStatusDetail = () => {
                                             <span
                                                 className="detail-view__label">{field.replace(/_/g, ' ').charAt(0).toUpperCase() + field.replace(/_/g, ' ').slice(1).toLowerCase()}:</span>
                                             <span className="detail-view__value">
-                        {deviceData[field] ||
-                            <span className="detail-view__tag detail-view__tag--empty">empty</span>}
-                      </span>
+                                                {deviceData[field] ||
+                                                    <span
+                                                        className="detail-view__tag detail-view__tag--empty">empty</span>}
+                                              </span>
                                         </li>
                                     ))}
                                 </ul>
@@ -168,9 +169,11 @@ const DeviceStatusDetail = () => {
                                             <span
                                                 className="detail-view__label">{field.replace(/_/g, ' ').charAt(0).toUpperCase() + field.replace(/_/g, ' ').slice(1).toLowerCase()}:</span>
                                             <span className="detail-view__value">
-                        {deviceData.device[field] ||
-                            <span className="detail-view__tag detail-view__tag--empty">empty</span>}
-                      </span>
+                                                {deviceData.device[field] ||
+                                                    <span className="detail-view__tag detail-view__tag--empty">
+                                                        empty
+                                                    </span>}
+                                            </span>
                                         </li>
                                     ))}
                                 </ul>

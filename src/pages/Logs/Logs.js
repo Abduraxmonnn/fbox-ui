@@ -4,8 +4,21 @@ import {APIv1} from "../../api";
 import {extractDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
 import {Table, Tag} from "antd";
 import {log_types, status_types} from "../../utils/filters";
+import {LogsStatusIcon} from "../../utils/statusIcons";
 
 const columns = [
+    {
+        title: 'Status',
+        dataIndex: 'status',
+        render: (text, record) => (
+            <>
+                {[record.status].map(tag => (
+                    <LogsStatusIcon size={18} status={tag.toUpperCase()}/>
+                ))}
+            </>
+        ),
+        orderIndex: "status",
+    },
     {
         title: 'Device serial number',
         dataIndex: 'deviceSerial',
@@ -98,6 +111,7 @@ const Logs = () => {
                 deviceSerial: log.device_serial === 'None' ? '-' : log.device_serial,
                 transactionId: log.transaction_id === null ? '-' : log.transaction_id,
                 isSuccess: log.is_success,
+                status: log.status,
                 logType: log.log_type,
                 createdDate: extractDateBySecond(log.created_date)
             }));

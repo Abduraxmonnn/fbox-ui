@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Input, Button, DatePicker, message, Modal, Badge, Space, Switch, Checkbox} from 'antd';
-import {X, Save, Maximize, CircleX} from 'lucide-react';
+import {X, Save} from 'lucide-react';
 import * as moment from "dayjs";
 import {getSmsClockBadgeColor} from "../../utils";
-import {images} from "../../constants";
 import './UserProfile.scss';
 import {UploadUserProfile} from "../../components";
 import {APIv1} from "../../api";

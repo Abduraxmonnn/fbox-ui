@@ -1,3 +1,5 @@
+import {Radius} from 'lucide-react';
+
 export function StatusIcon({status}) {
     switch (status) {
         case true:
@@ -45,6 +47,34 @@ export function StatusIcon({status}) {
                     <circle cx="12" cy="12" r="10"/>
                     <polyline points="12 6 12 12 16 14"/>
                 </svg>
+            );
+        default:
+            return null;
+    }
+}
+
+export function LogsStatusIcon({size, status}) {
+    console.log(status);
+    switch (status) {
+        case 'PROCESSING':
+            return (
+                <Radius size={size} color={'#FFEB3B'}/>
+            );
+        case 'PAID':
+            return (
+                <Radius size={size} color={'#2196F3'}/>
+            );
+        case 'FISCALIZED':
+            return (
+                <Radius size={size} color={'#4CAF50'}/>
+            );
+        case 'FAILED':
+            return (
+                <Radius size={size} color={'#F44336'}/>
+            );
+        case 'CANCELED':
+            return (
+                <Radius size={size} color={'#9E9E9E'}/>
             );
         default:
             return null;
