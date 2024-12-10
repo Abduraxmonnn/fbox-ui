@@ -22,16 +22,19 @@ export default function LogsPaymentContent(props) {
                 <div>
                     <div className="payment-log__field payment-log__field--full">
                         <span className="payment-log__label">Headers:</span>
+                        {/*<TextArea rows={1} value={logsData.paymentHeaders} />*/}
                         <pre className="payment-log__pre">{logsData.paymentHeaders}</pre>
                     </div>
 
                     <div className="payment-log__field payment-log__field--full">
                         <span className="payment-log__label">Request:</span>
+                        {/*<TextArea rows={4} value={logsData.paymentRequest} />*/}
                         <pre className="payment-log__pre">{logsData.paymentRequest}</pre>
                     </div>
 
                     <div className="payment-log__field payment-log__field--full">
                         <span className="payment-log__label">Response:</span>
+                        {/*<TextArea rows={6} value={logsData.paymentResponse} />*/}
                         <pre className="payment-log__pre">{logsData.paymentResponse}</pre>
                     </div>
                 </div>
