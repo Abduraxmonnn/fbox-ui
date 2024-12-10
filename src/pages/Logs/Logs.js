@@ -2,9 +2,9 @@ import React, {useCallback, useEffect, useState} from "react";
 import {Link, useOutletContext} from "react-router-dom";
 import {APIv1} from "../../api";
 import {extractDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
-import {Table, Tag} from "antd";
-import {status_types} from "../../utils/filters";
+import {Table} from "antd";
 import {LogsStatusIcon} from "../../utils/statusIcons";
+import {ConvertLogsPaymentProvider} from "../../utils/logsUtils";
 
 const columns = [
     {
@@ -44,21 +44,27 @@ const columns = [
         orderIndex: "amount",
     },
     {
-        title: 'Is success',
-        dataIndex: 'isSuccess',
-        render: (_, {isSuccess}) => (
-            <>
-                {[isSuccess].map(tag => (
-                    <Tag color={tag === true ? 'green' : 'volcano'} key={tag}>
-                        {`${String(tag)}`.toUpperCase()}
-                    </Tag>
-                ))}
-            </>
-        ),
-        filters: status_types,
+        title: 'Provider',
+        dataIndex: 'logType',
         sorter: true,
-        orderIndex: "is_success",
+        orderIndex: "log_type",
     },
+    // {
+    //     title: 'Is success',
+    //     dataIndex: 'isSuccess',
+    //     render: (_, {isSuccess}) => (
+    //         <>
+    //             {[isSuccess].map(tag => (
+    //                 <Tag color={tag === true ? 'green' : 'volcano'} key={tag}>
+    //                     {`${String(tag)}`.toUpperCase()}
+    //                 </Tag>
+    //             ))}
+    //         </>
+    //     ),
+    //     filters: status_types,
+    //     sorter: true,
+    //     orderIndex: "is_success",
+    // },
     {
         title: 'Created date',
         dataIndex: 'createdDate',
@@ -112,7 +118,7 @@ const Logs = () => {
                 amount: log.amount,
                 isSuccess: log.is_success,
                 status: log.status,
-                logType: log.log_type,
+                logType: ConvertLogsPaymentProvider(log.log_type),
                 createdDate: extractDateBySecond(log.created_date)
             }));
             setLogsData(data)
