@@ -54,7 +54,6 @@ export function StatusIcon({status}) {
 }
 
 export function LogsStatusIcon({size, status}) {
-    console.log(status);
     switch (status) {
         case 'PROCESSING':
             return (
