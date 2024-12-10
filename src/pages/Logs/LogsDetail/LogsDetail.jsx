@@ -5,6 +5,7 @@ import {useParams} from "react-router-dom";
 import {extractDateBySecond} from "../../../utils";
 import {LogsConfirmContent, LogsPaymentContent} from "../../../components";
 import "../../../styles/BaseLogsStyle.scss"
+import {ConvertLogsPaymentProvider} from "../../../utils/logsUtils";
 
 const LogsDetail = () => {
     const {id} = useParams();
@@ -47,7 +48,7 @@ const LogsDetail = () => {
                     confirmResponse: message.content.confirm.response,
                     isSuccess: message.is_success,
                     status: message.status,
-                    logType: message.log_type,
+                    logType: ConvertLogsPaymentProvider(message.log_type),
                     createdDate: extractDateBySecond(message.created_date)
                 };
 

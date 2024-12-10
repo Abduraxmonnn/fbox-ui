@@ -3,7 +3,7 @@ import {Link, useOutletContext} from "react-router-dom";
 import {APIv1} from "../../api";
 import {extractDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
 import {Table, Tag} from "antd";
-import {log_types, status_types} from "../../utils/filters";
+import {status_types} from "../../utils/filters";
 import {LogsStatusIcon} from "../../utils/statusIcons";
 
 const columns = [
@@ -38,6 +38,12 @@ const columns = [
         orderIndex: "transaction_id",
     },
     {
+        title: 'Amount',
+        dataIndex: 'amount',
+        sorter: true,
+        orderIndex: "amount",
+    },
+    {
         title: 'Is success',
         dataIndex: 'isSuccess',
         render: (_, {isSuccess}) => (
@@ -52,13 +58,6 @@ const columns = [
         filters: status_types,
         sorter: true,
         orderIndex: "is_success",
-    },
-    {
-        title: 'Provider type',
-        dataIndex: 'logType',
-        filters: log_types,
-        sorter: true,
-        orderIndex: "log_type",
     },
     {
         title: 'Created date',
@@ -110,6 +109,7 @@ const Logs = () => {
                 key: log.id,
                 deviceSerial: log.device_serial === 'None' ? '-' : log.device_serial,
                 transactionId: log.transaction_id === null ? '-' : log.transaction_id,
+                amount: log.amount,
                 isSuccess: log.is_success,
                 status: log.status,
                 logType: log.log_type,
