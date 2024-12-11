@@ -8,7 +8,6 @@ import {Button} from "antd";
 const CompanyDetail = () => {
     const {id} = useParams()
     const [company, setCompany] = useState({})
-    const [loading, setLoading] = useState(true)
     const [userData, setUserData] = useState({});
     const navigate = useNavigate()
 
@@ -21,14 +20,11 @@ const CompanyDetail = () => {
 
     useEffect(() => {
         const fetchCompanyDetail = async () => {
-            setLoading(true)
             try {
                 const response = await APIv1.get(`/company/${id}`)
                 setCompany(response.data)
             } catch (err) {
                 console.error('Something went wrong:', err)
-            } finally {
-                setLoading(false)
             }
         }
         fetchCompanyDetail()
