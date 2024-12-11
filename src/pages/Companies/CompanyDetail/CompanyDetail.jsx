@@ -138,7 +138,7 @@ const CompanyDetail = () => {
             </div>
 
             <div className="detail-view__orders">
-                <h2>Company Devices</h2>
+                <h2 className="related-device-title">Company Devices</h2>
                 <RelatedDeviceStatus companyInn={company.inn}/>
             </div>
         </section>

@@ -4,7 +4,7 @@ import {X, Save} from 'lucide-react';
 import * as moment from "dayjs";
 import {getSmsClockBadgeColor} from "../../utils";
 import './UserProfile.scss';
-import {UploadUserProfile} from "../../components";
+import {RelatedDeviceStatus, UploadUserProfile} from "../../components";
 import {APIv1} from "../../api";
 import ShowUserPicture from "../../components/UserProfileCom/ShowUserPicture";
 
@@ -15,24 +15,6 @@ const dayjs = require('dayjs')
 const utc = require('dayjs/plugin/utc')
 
 dayjs.extend(utc)
-
-const defaultProfileData = {
-    username: 'arthur_nancy',
-    companyName: 'TEST_FBOX_COMPANY',
-    inn: '0000001',
-    email: 'bradley.ortiz@gmail.com',
-    phone: '+998 99 471 00 07',
-    password: "123456789",
-    address: '136 Jaskolski Stravenue Suite 883',
-    isSendSms: true,
-    nation: 'Colombia',
-    language: 'English',
-    totalSms: 250,
-    successSms: 242,
-    errorSms: 3,
-    startDate: moment.utc('2024-08-19T17:00:49.785517', 'YYYY-MM-DD[T]HH:mm[Z]'),
-    endDate: moment.utc('2025-08-19T17:00:49.785517', 'YYYY-MM-DD[T]HH:mm[Z]'),
-};
 
 const UserProfile = () => {
     const [profileData, setProfileData] = useState([]);
@@ -78,8 +60,8 @@ const UserProfile = () => {
                     click: response.data.click,
                     uzum: response.data.apelsin,
                     anor: response.data.anor,
-                    startDate:  moment.utc(response.data.start_date),
-                    endDate:  moment.utc(response.data.end_date),
+                    startDate: moment.utc(response.data.start_date),
+                    endDate: moment.utc(response.data.end_date),
                 };
 
                 setProfileData(data);
@@ -104,9 +86,9 @@ const UserProfile = () => {
         // Check for changes whenever profileData is updated
         const hasChanges = Object.keys(profileData).some(key => {
             if (dayjs.isDayjs(profileData[key])) {
-                return !profileData[key].isSame(defaultProfileData[key]);
+                return !profileData[key].isSame(initialData[key]);
             }
-            return profileData[key] !== defaultProfileData[key];
+            return profileData[key] !== initialData[key];
         });
         setHasChanges(hasChanges);
     }, [profileData]);
@@ -166,7 +148,7 @@ const UserProfile = () => {
             <div className="profile-container">
                 <div className="profile-header">
                     <div className="profile-picture">
-                        <ShowUserPicture data={{logo: profileData.logo, banner: profileData.banner}} />
+                        <ShowUserPicture data={{logo: profileData.logo, banner: profileData.banner}}/>
                     </div>
                     <div className="profile-actions">
                         <Button
@@ -296,6 +278,7 @@ const UserProfile = () => {
                                 value={[profileData.startDate, profileData.endDate]}
                                 disabled={true}
                                 showTime
+                                format='DD-MM-YYYY   HH:mm:ss'
                                 onFocus={(_, info) => {
                                     console.log('Focus:', info);
                                 }}
@@ -344,6 +327,11 @@ const UserProfile = () => {
                             <UploadUserProfile/>
                         </div>
                     </div>
+                </div>
+
+                <div>
+                    <h2 className="related-device-title">User Devices</h2>
+                    <RelatedDeviceStatus companyInn={profileData.inn}/>
                 </div>
             </div>
 
