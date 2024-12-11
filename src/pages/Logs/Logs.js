@@ -85,6 +85,7 @@ const rowSelection = {
 
 const Logs = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
+    let companyInn = props.companyInn;
     const [userData, setUserData] = useState({});
     const [logsData, setLogsData] = useState([]);
     const [selectionType, setSelectionType] = useState('checkbox');
@@ -100,7 +101,8 @@ const Logs = (props) => {
     const fetchLogsData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
         try {
-            const response = await APIv1.get('/logs/list/', {
+            let url = companyInn !== undefined ? `logs/list/get_related_logs/?company_inn=${companyInn}` : 'logs/list';
+            const response = await APIv1.get(url, {
                 params: {
                     page,
                     page_size: size,
@@ -129,7 +131,7 @@ const Logs = (props) => {
         } finally {
             setLoading(false)
         }
-    }, [userData.token])
+    }, [companyInn, userData.token])
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));

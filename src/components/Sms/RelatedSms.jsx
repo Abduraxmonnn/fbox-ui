@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import {Table, Tag} from 'antd'
 import {APIv1} from '../../api'
 import {Link, useOutletContext} from "react-router-dom";
@@ -55,24 +55,12 @@ const columns = [
     },
 ]
 
-// rowSelection object indicates the need for row selection
-const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-        console.log(
-            `selectedRowKeys: ${selectedRowKeys}`,
-            'selectedRows: ',
-            selectedRows
-        )
-    },
-}
-
-const Sms = (props) => {
+const RelatedSms = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
-    let companyInn = props.companyInn;
+    let companyInn = props.companyInn
     const [userData, setUserData] = useState({});
     const [smsData, setSmsData] = useState([])
     const [loading, setLoading] = useState(true)
-    const [selectionType, setSelectionType] = useState('checkbox')
     const [totalSms, setTotalSms] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPaginationSize)
@@ -84,8 +72,7 @@ const Sms = (props) => {
     const fetchSmsData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
         try {
-            let url = companyInn !== undefined ? `/sms/list/get_related_sms/?company_inn=${companyInn}` : '/sms/list/';
-            const response = await APIv1.get(url, {
+            const response = await APIv1.get(`/sms/list/get_related_sms/?company_inn=${companyInn}`, {
                 params: {
                     page,
                     page_size: size,
@@ -149,10 +136,6 @@ const Sms = (props) => {
         <>
             <div className='content_container'>
                 <Table
-                    rowSelection={{
-                        type: selectionType,
-                        ...rowSelection,
-                    }}
                     columns={columns}
                     dataSource={smsData}
                     loading={loading}
@@ -176,4 +159,4 @@ const Sms = (props) => {
     )
 }
 
-export default Sms;
+export default RelatedSms;

@@ -8,11 +8,16 @@ import {extractDateBySecond} from "../../../utils";
 const SmsDetail = () => {
     const {id} = useParams();
     const [smsData, setSmsData] = useState({});
+    const [userData, setUserData] = useState({});
 
     useEffect(() => {
         const fetchLogs = async () => {
             try {
-                const {data} = await APIv1(`list_sms_by_user/${id}`);
+                const {data} = await APIv1(`sms/list/${id}`, {
+                    headers: {
+                        Authorization: `Token ${userData.token}`,
+                    }
+                });
 
                 const logData = {
                     inn: data.inn,
@@ -32,7 +37,14 @@ const SmsDetail = () => {
         };
 
         fetchLogs();
-    }, [id]);
+    }, [id, userData.token]);
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setUserData(items);
+        }
+    }, [userData.token]);
 
     if (!smsData) {
         return <div>Sms not found</div>;

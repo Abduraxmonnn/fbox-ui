@@ -4,9 +4,9 @@ import {APIv1} from "../../../api";
 import "../../../styles/BaseDetailStyle.scss"
 import {extractDateBySecond, isBoolean} from "../../../utils";
 import {Button} from "antd";
-import {RelatedDeviceStatus} from "../../../components";
+import {RelatedDeviceStatus, RelatedSms} from "../../../components";
 import Logs from "../../Logs/Logs";
-import Sms from "../../Sms/Sms";
+import {Sms} from "../../index";
 
 const CompanyDetail = () => {
     const {id} = useParams()
@@ -143,11 +143,11 @@ const CompanyDetail = () => {
             </div>
             <div>
                 <h2 className="related-device-title">Logs</h2>
-                <Logs defaultPaginationSize={10}/>
+                <Logs defaultPaginationSize={10} companyInn={company.inn}/>
             </div>
             <div>
                 <h2 className="related-device-title">Sms</h2>
-                <Sms defaultPaginationSize={10}/>
+                <Sms defaultPaginationSize={10} companyInn={company.inn}/>
             </div>
         </section>
     );

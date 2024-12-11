@@ -8,6 +8,7 @@ import ShowUserPicture from "./UserProfileCom/ShowUserPicture";
 import LogsPaymentContent from "./PaymentLogs/LogsPaymentContent";
 import LogsConfirmContent from "./PaymentLogs/LogsConfirmContent";
 import RelatedDeviceStatus from "./DeviceStatus/RelatedDevice";
+import RelatedSms from "./Sms/RelatedSms";
 
 export {
     Header,
@@ -20,4 +21,5 @@ export {
     LogsPaymentContent,
     LogsConfirmContent,
     RelatedDeviceStatus,
+    RelatedSms
 }
