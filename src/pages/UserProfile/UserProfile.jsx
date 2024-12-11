@@ -4,7 +4,7 @@ import {X, Save} from 'lucide-react';
 import * as moment from "dayjs";
 import {getSmsClockBadgeColor} from "../../utils";
 import './UserProfile.scss';
-import {UploadUserProfile} from "../../components";
+import {RelatedDeviceStatus, UploadUserProfile} from "../../components";
 import {APIv1} from "../../api";
 import ShowUserPicture from "../../components/UserProfileCom/ShowUserPicture";
 
@@ -327,6 +327,11 @@ const UserProfile = () => {
                             <UploadUserProfile/>
                         </div>
                     </div>
+                </div>
+
+                <div>
+                    <h2 className="related-device-title">User Devices</h2>
+                    <RelatedDeviceStatus companyInn={profileData.inn}/>
                 </div>
             </div>
 
