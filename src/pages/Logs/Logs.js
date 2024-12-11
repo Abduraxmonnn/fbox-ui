@@ -83,14 +83,15 @@ const rowSelection = {
     },
 }
 
-const Logs = () => {
+const Logs = (props) => {
+    let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
     const [userData, setUserData] = useState({});
     const [logsData, setLogsData] = useState([]);
     const [selectionType, setSelectionType] = useState('checkbox');
     const [loading, setLoading] = useState(true);
     const [totalLogs, setTotalLogs] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(20);
+    const [pageSize, setPageSize] = useState(defaultPaginationSize);
     const [sortField, setSortField] = useState('');
     const [sortLog, setSortLog] = useState('');
     const [filters, setFilters] = useState({})
@@ -180,7 +181,7 @@ const Logs = () => {
                         current: currentPage,
                         pageSize: pageSize,
                         onChange: onChange,
-                        defaultPageSize: 20,
+                        defaultPageSize: defaultPaginationSize,
                         showSizeChanger: true,
                         defaultCurrent: 1,
                         showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,

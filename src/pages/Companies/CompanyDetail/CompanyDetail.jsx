@@ -5,6 +5,8 @@ import "../../../styles/BaseDetailStyle.scss"
 import {extractDateBySecond, isBoolean} from "../../../utils";
 import {Button} from "antd";
 import {RelatedDeviceStatus} from "../../../components";
+import Logs from "../../Logs/Logs";
+import Sms from "../../Sms/Sms";
 
 const CompanyDetail = () => {
     const {id} = useParams()
@@ -130,16 +132,22 @@ const CompanyDetail = () => {
                         ))}
                     </ul>
                 </div>
-
                 {/*<div className="detail-view__orders">*/}
                 {/*    <Orders serialNumber={company.device_serial_number} defaultPageSize={10}/>*/}
                 {/*</div>*/}
-
             </div>
 
-            <div className="detail-view__orders">
-                <h2 className="related-device-title">Company Devices</h2>
+            <div>
+                <h2 className="related-device-title">Devices</h2>
                 <RelatedDeviceStatus companyInn={company.inn}/>
+            </div>
+            <div>
+                <h2 className="related-device-title">Logs</h2>
+                <Logs defaultPaginationSize={10}/>
+            </div>
+            <div>
+                <h2 className="related-device-title">Sms</h2>
+                <Sms defaultPaginationSize={10}/>
             </div>
         </section>
     );
