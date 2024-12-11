@@ -1,26 +1,10 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {Table, Tag} from 'antd';
 import {APIv1} from '../../api';
-import {MonitorCheck, MonitorDot} from 'lucide-react';
 import {Link, useOutletContext} from 'react-router-dom';
-import {deviceStatusInactiveTime, extractDateBySecond, handleTableChange, useRowNavigation} from '../../utils';
-import "./DeviceStatus.scss"
+import {extractDateBySecond, handleTableChange, useRowNavigation} from '../../utils';
 
 const columns = [
-    {
-        title: 'Status',
-        dataIndex: 'updated_date',
-        sorter: true,
-        orderIndex: 'updated_date',
-        render: (text, record) => (
-            <>
-                {[record.is_active].map(tag => (
-                    tag ? <MonitorCheck size={18} color={'#1cb344'}/> :
-                        <MonitorDot size={18} color={deviceStatusInactiveTime[record.is_active_time]}/>
-                ))}
-            </>
-        ),
-    },
     {
         title: 'Device serial number',
         dataIndex: 'device_serial',
@@ -109,15 +93,11 @@ const rowSelection = {
     },
 };
 
-const DeviceStatus = () => {
-    const defaultPageSize = 20;
+const RelatedDeviceStatus = ({companyInn}) => {
     const [deviceStatusData, setDeviceStatusData] = useState([]);
     const [selectionType, setSelectionType] = useState('checkbox');
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState({});
-    const [totalDevices, setTotalDevices] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(defaultPageSize);
     const [sortField, setSortField] = useState('');
     const [sortOrder, setSortOrder] = useState('');
     const {searchText} = useOutletContext();
@@ -125,7 +105,7 @@ const DeviceStatus = () => {
     const fetchDeviceStatusData = useCallback(async (page, size, search = '', ordering = '') => {
         setLoading(true);
         try {
-            const response = await APIv1.get(`/device_status/`, {
+            const response = await APIv1.get(`/company/related/devices/${companyInn}/`, {
                 params: {
                     page,
                     page_size: size,
@@ -136,7 +116,7 @@ const DeviceStatus = () => {
                     Authorization: `Token ${userData.token}`,
                 },
             });
-            const data = response.data.results.map(device_status => ({
+            const data = response.data.map(device_status => ({
                 key: device_status.id,
                 device_serial: device_status.device_serial,
                 is_active: device_status.is_active,
@@ -149,14 +129,14 @@ const DeviceStatus = () => {
                 updated_date: extractDateBySecond(device_status.updated_date),
                 version_number: device_status.version_number === null ? '-' : device_status.version_number,
             }));
+
             setDeviceStatusData(data);
-            setTotalDevices(response.data.count);
         } catch (err) {
             console.error('Something went wrong:', err);
         } finally {
             setLoading(false);
         }
-    }, [userData.token]);
+    }, [companyInn, userData.token]);
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
@@ -173,17 +153,9 @@ const DeviceStatus = () => {
             ordering = sortOrder === 'ascend' ? sortField : `-${sortField}`;
         }
 
-        fetchDeviceStatusData(currentPage, pageSize, searchText, ordering);
-    }, [currentPage, pageSize, searchText, sortOrder, sortField, userData.token, fetchDeviceStatusData]);
+        fetchDeviceStatusData(searchText, ordering);
+    }, [searchText, sortOrder, sortField, userData.token, fetchDeviceStatusData]);
 
-    useEffect(() => {
-        setCurrentPage(1);  // Reset to the first page when search text changes
-    }, [searchText]);
-
-    const onChange = (page, pageSize) => {
-        setCurrentPage(page);
-        setPageSize(pageSize);
-    };
 
     const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns);
 
@@ -204,20 +176,10 @@ const DeviceStatus = () => {
                 loading={loading}
                 onChange={tableChangeHandler}
                 onRow={onRowClick}
-                pagination={{
-                    total: totalDevices,
-                    current: currentPage,
-                    pageSize: pageSize,
-                    onChange: onChange,
-                    defaultPageSize: defaultPageSize,
-                    showSizeChanger: true,
-                    defaultCurrent: 1,
-                    showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,
-                    pageSizeOptions: ['10', '20', '50', '100'],
-                }}
+                pagination={false}
             />
         </div>
     );
 }
 
-export default DeviceStatus;
+export default RelatedDeviceStatus;
