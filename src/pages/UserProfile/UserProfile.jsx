@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Input, Button, DatePicker, message, Modal, Badge, Space, Switch, Checkbox} from 'antd';
-import {X, Save, Maximize, CircleX} from 'lucide-react';
+import {X, Save} from 'lucide-react';
 import * as moment from "dayjs";
 import {getSmsClockBadgeColor} from "../../utils";
-import {images} from "../../constants";
 import './UserProfile.scss';
 import {UploadUserProfile} from "../../components";
 import {APIv1} from "../../api";
@@ -31,8 +30,8 @@ const defaultProfileData = {
     totalSms: 250,
     successSms: 242,
     errorSms: 3,
-    startDate: moment.utc('2024-08-19T17:00:49.785517', 'YYYY-MM-DD[T]HH:mm[Z]'),
-    endDate: moment.utc('2025-08-19T17:00:49.785517', 'YYYY-MM-DD[T]HH:mm[Z]'),
+    startDate: moment.utc('2024-08-19T17:00:49.785517', 'DD-MM-YYYY[T]HH:mm[Z]'),
+    endDate: moment.utc('2025-08-19T17:00:49.785517', 'DD-MM-YYYY[T]HH:mm[Z]'),
 };
 
 const UserProfile = () => {
@@ -297,6 +296,7 @@ const UserProfile = () => {
                                 value={[profileData.startDate, profileData.endDate]}
                                 disabled={true}
                                 showTime
+                                format='DD-MM-YYYY   HH:mm:ss'
                                 onFocus={(_, info) => {
                                     console.log('Focus:', info);
                                 }}
