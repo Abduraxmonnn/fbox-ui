@@ -172,7 +172,7 @@ const Device = () => {
   }, [currentPage, pageSize, searchText, sortOrder, sortField, userData.token, fetchSubscriptions]);
 
   useEffect(() => {
-    setCurrentPage(1) // Reset to the first page when search text changes
+    setCurrentPage(1)
   }, [searchText])
 
   const onChange = (page, pageSize) => {

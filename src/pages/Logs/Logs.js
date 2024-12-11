@@ -2,10 +2,23 @@ import React, {useCallback, useEffect, useState} from "react";
 import {Link, useOutletContext} from "react-router-dom";
 import {APIv1} from "../../api";
 import {extractDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
-import {Table, Tag} from "antd";
-import {log_types, status_types} from "../../utils/filters";
+import {Table} from "antd";
+import {LogsStatusIcon} from "../../utils/statusIcons";
+import {ConvertLogsPaymentProvider} from "../../utils/logsUtils";
 
 const columns = [
+    {
+        title: 'Status',
+        dataIndex: 'status',
+        render: (text, record) => (
+            <>
+                {[record.status].map(tag => (
+                    <LogsStatusIcon size={18} status={tag.toUpperCase()}/>
+                ))}
+            </>
+        ),
+        orderIndex: "status",
+    },
     {
         title: 'Device serial number',
         dataIndex: 'deviceSerial',
@@ -25,28 +38,33 @@ const columns = [
         orderIndex: "transaction_id",
     },
     {
-        title: 'Is success',
-        dataIndex: 'isSuccess',
-        render: (_, {isSuccess}) => (
-            <>
-                {[isSuccess].map(tag => (
-                    <Tag color={tag === true ? 'green' : 'volcano'} key={tag}>
-                        {`${String(tag)}`.toUpperCase()}
-                    </Tag>
-                ))}
-            </>
-        ),
-        filters: status_types,
+        title: 'Amount',
+        dataIndex: 'amount',
         sorter: true,
-        orderIndex: "is_success",
+        orderIndex: "amount",
     },
     {
-        title: 'Provider type',
+        title: 'Provider',
         dataIndex: 'logType',
-        filters: log_types,
         sorter: true,
         orderIndex: "log_type",
     },
+    // {
+    //     title: 'Is success',
+    //     dataIndex: 'isSuccess',
+    //     render: (_, {isSuccess}) => (
+    //         <>
+    //             {[isSuccess].map(tag => (
+    //                 <Tag color={tag === true ? 'green' : 'volcano'} key={tag}>
+    //                     {`${String(tag)}`.toUpperCase()}
+    //                 </Tag>
+    //             ))}
+    //         </>
+    //     ),
+    //     filters: status_types,
+    //     sorter: true,
+    //     orderIndex: "is_success",
+    // },
     {
         title: 'Created date',
         dataIndex: 'createdDate',
@@ -97,8 +115,10 @@ const Logs = () => {
                 key: log.id,
                 deviceSerial: log.device_serial === 'None' ? '-' : log.device_serial,
                 transactionId: log.transaction_id === null ? '-' : log.transaction_id,
+                amount: log.amount,
                 isSuccess: log.is_success,
-                logType: log.log_type,
+                status: log.status,
+                logType: ConvertLogsPaymentProvider(log.log_type),
                 createdDate: extractDateBySecond(log.created_date)
             }));
             setLogsData(data)

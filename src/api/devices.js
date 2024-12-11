@@ -7,7 +7,6 @@ function extractDate(dateString) {
 }
 
 async function getDevicesData() {
-
 	try {
 		const response = await API.get('/devices')
 		const devicesData = response.data.map(device => ({

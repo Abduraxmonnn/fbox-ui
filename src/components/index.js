@@ -5,6 +5,9 @@ import DeviceStatusProviders from './DeviceStatus/DeviceStatusProviders/DeviceSt
 import DeviceStatusQRProviders from "./DeviceStatus/DeviceStatusProviders/DeviceStatusQRProviders";
 import UploadUserProfile from "./UserProfileCom/UploadUserPicture";
 import ShowUserPicture from "./UserProfileCom/ShowUserPicture";
+import LogsPaymentContent from "./PaymentLogs/LogsPaymentContent";
+import LogsConfirmContent from "./PaymentLogs/LogsConfirmContent";
+import RelatedDeviceStatus from "./DeviceStatus/RelatedDevice";
 
 export {
     Header,
@@ -13,5 +16,8 @@ export {
     DeviceStatusProviders,
     DeviceStatusQRProviders,
     UploadUserProfile,
-    ShowUserPicture
+    ShowUserPicture,
+    LogsPaymentContent,
+    LogsConfirmContent,
+    RelatedDeviceStatus,
 }

@@ -4,11 +4,11 @@ import {APIv1} from "../../../api";
 import "../../../styles/BaseDetailStyle.scss"
 import {extractDateBySecond, isBoolean} from "../../../utils";
 import {Button} from "antd";
+import {RelatedDeviceStatus} from "../../../components";
 
 const CompanyDetail = () => {
     const {id} = useParams()
     const [company, setCompany] = useState({})
-    const [loading, setLoading] = useState(true)
     const [userData, setUserData] = useState({});
     const navigate = useNavigate()
 
@@ -21,14 +21,11 @@ const CompanyDetail = () => {
 
     useEffect(() => {
         const fetchCompanyDetail = async () => {
-            setLoading(true)
             try {
                 const response = await APIv1.get(`/company/${id}`)
                 setCompany(response.data)
             } catch (err) {
                 console.error('Something went wrong:', err)
-            } finally {
-                setLoading(false)
             }
         }
         fetchCompanyDetail()
@@ -137,6 +134,12 @@ const CompanyDetail = () => {
                 {/*<div className="detail-view__orders">*/}
                 {/*    <Orders serialNumber={company.device_serial_number} defaultPageSize={10}/>*/}
                 {/*</div>*/}
+
+            </div>
+
+            <div className="detail-view__orders">
+                <h2>Company Devices</h2>
+                <RelatedDeviceStatus companyInn={company.inn}/>
             </div>
         </section>
     );
