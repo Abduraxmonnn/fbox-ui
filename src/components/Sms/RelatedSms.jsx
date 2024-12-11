@@ -1,24 +1,19 @@
-import {useState, useEffect, useCallback} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import {Table, Tag} from 'antd'
 import {APIv1} from '../../api'
 import {Link, useOutletContext} from "react-router-dom";
 import {defaultExtractDate, handleTableChange, useRowNavigation} from "../../utils";
+import {ChevronDown, ChevronUp} from "lucide-react";
 
 const columns = [
-    {
-        title: 'Inn',
-        dataIndex: 'inn',
-        render: (text, record) => (
-            <Link to={`/payments/sms/detail/${record.key}`}>{text}</Link>
-        ),
-        sorter: true,
-        orderIndex: "inn",
-    },
     {
         title: 'Recipient',
         dataIndex: 'recipient',
         sorter: true,
         orderIndex: "recipient",
+        render: (text, record) => (
+            <Link to={`/payments/sms/detail/${record.key}`}>{text}</Link>
+        ),
     },
     {
         title: 'Is Success',
@@ -57,7 +52,9 @@ const columns = [
 
 const RelatedSms = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
-    let companyInn = props.companyInn
+    let companyInn = props.companyInn;
+    let expandedSection = props.expandedSection;
+    let toggleSection = props.toggleSection;
     const [userData, setUserData] = useState({});
     const [smsData, setSmsData] = useState([])
     const [loading, setLoading] = useState(true)
@@ -134,27 +131,39 @@ const RelatedSms = (props) => {
 
     return (
         <>
-            <div className='content_container'>
-                <Table
-                    columns={columns}
-                    dataSource={smsData}
-                    loading={loading}
-                    onChange={tableChangeHandler}
-                    onRow={onRowClick}
-                    pagination={{
-                        total: totalSms,
-                        current: currentPage,
-                        pageSize: pageSize,
-                        onChange: onChange,
-                        defaultPageSize: defaultPaginationSize,
-                        showSizeChanger: true,
-                        defaultCurrent: 1,
-                        showTotal: (total, range) =>
-                            `${range[0]} - ${range[1]} / ${smsData.length}`,
-                        pageSizeOptions: ['10', '20', '50', '100'],
-                    }}
-                />
-            </div>
+            <button
+                className="detail-view__expand-button"
+                onClick={() => toggleSection('related-sms')}
+                aria-expanded={expandedSection === 'related-sms'}
+            >
+                <span className="related-device-title">Sms</span>
+                {expandedSection === 'related-sms' ? <ChevronUp size={22}/> :
+                    <ChevronDown size={22}/>}
+            </button>
+
+            {expandedSection === 'related-sms' && (
+                <div className='content_container'>
+                    <Table
+                        columns={columns}
+                        dataSource={smsData}
+                        loading={loading}
+                        onChange={tableChangeHandler}
+                        onRow={onRowClick}
+                        pagination={{
+                            total: totalSms,
+                            current: currentPage,
+                            pageSize: pageSize,
+                            onChange: onChange,
+                            defaultPageSize: defaultPaginationSize,
+                            showSizeChanger: true,
+                            defaultCurrent: 1,
+                            showTotal: (total, range) =>
+                                `${range[0]} - ${range[1]} / ${smsData.length}`,
+                            pageSizeOptions: ['10', '20', '50', '100'],
+                        }}
+                    />
+                </div>
+            )}
         </>
     )
 }

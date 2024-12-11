@@ -53,7 +53,7 @@ export function StatusIcon({status}) {
     }
 }
 
-export function LogsStatusIcon({size, status}) {
+export function LogsStatusIcon({index, size, status}) {
     switch (status) {
         case 'PROCESSING':
             return (

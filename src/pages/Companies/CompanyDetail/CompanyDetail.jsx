@@ -4,14 +4,15 @@ import {APIv1} from "../../../api";
 import "../../../styles/BaseDetailStyle.scss"
 import {extractDateBySecond, isBoolean} from "../../../utils";
 import {Button} from "antd";
-import {RelatedDeviceStatus, RelatedSms} from "../../../components";
-import Logs from "../../Logs/Logs";
-import {Sms} from "../../index";
+import {RelatedDeviceStatus, RelatedLogs, RelatedSms} from "../../../components";
 
 const CompanyDetail = () => {
     const {id} = useParams()
     const [company, setCompany] = useState({})
     const [userData, setUserData] = useState({});
+    const [expandedSection, setExpandedSection] = useState(null);
+    const [expandedSecondSection, setExpandedSecondSection] = useState(null);
+    const [expandedThirdSection, setExpandedThirdSection] = useState(null);
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -40,6 +41,18 @@ const CompanyDetail = () => {
     if (!company) {
         return <div>Company not found</div>
     }
+
+    const toggleSection = (section) => {
+        setExpandedSection(prevSection => prevSection === section ? null : section);
+    };
+
+    const toggleSecondSection = (section) => {
+        setExpandedSecondSection(prevSection => prevSection === section ? null : section);
+    };
+
+    const toggleThirdSection = (section) => {
+        setExpandedThirdSection(prevSection => prevSection === section ? null : section);
+    };
 
     return (
         <section className="detail-view">
@@ -137,17 +150,24 @@ const CompanyDetail = () => {
                 {/*</div>*/}
             </div>
 
-            <div>
-                <h2 className="related-device-title">Devices</h2>
-                <RelatedDeviceStatus companyInn={company.inn}/>
-            </div>
-            <div>
-                <h2 className="related-device-title">Logs</h2>
-                <Logs defaultPaginationSize={10} companyInn={company.inn}/>
-            </div>
-            <div>
-                <h2 className="related-device-title">Sms</h2>
-                <Sms defaultPaginationSize={10} companyInn={company.inn}/>
+            <div className="detail-view__section">
+                <div className="detail-view__section">
+                    {/*<h2 className="related-device-title">Devices</h2>*/}
+                    <RelatedDeviceStatus expandedSection={expandedSection} toggleSection={toggleSection}
+                                         companyInn={company.inn}/>
+                </div>
+                <div className="detail-view__section">
+                    {/*<h2 className="related-device-title">Logs</h2>*/}
+                    <RelatedLogs defaultPaginationSize={10} companyInn={company.inn}
+                                 expandedSection={expandedSecondSection}
+                                 toggleSection={toggleSecondSection}/>
+                </div>
+                <div className="detail-view__section">
+                    {/*<h2 className="related-device-title">Sms</h2>*/}
+                    <RelatedSms defaultPaginationSize={10} companyInn={company.inn}
+                                expandedSection={expandedThirdSection}
+                                toggleSection={toggleThirdSection}/>
+                </div>
             </div>
         </section>
     );

@@ -101,7 +101,7 @@ const Logs = (props) => {
     const fetchLogsData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
         try {
-            let url = companyInn !== undefined ? `logs/list/get_related_logs/?company_inn=${companyInn}` : 'logs/list';
+            let url = companyInn !== undefined ? `/logs/list/get_related_logs/?company_inn=${companyInn}` : '/logs/list/';
             const response = await APIv1.get(url, {
                 params: {
                     page,

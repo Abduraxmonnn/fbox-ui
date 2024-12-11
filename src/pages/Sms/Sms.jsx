@@ -68,7 +68,6 @@ const rowSelection = {
 
 const Sms = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
-    let companyInn = props.companyInn;
     const [userData, setUserData] = useState({});
     const [smsData, setSmsData] = useState([])
     const [loading, setLoading] = useState(true)
@@ -84,8 +83,7 @@ const Sms = (props) => {
     const fetchSmsData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
         try {
-            let url = companyInn !== undefined ? `/sms/list/get_related_sms/?company_inn=${companyInn}` : '/sms/list/';
-            const response = await APIv1.get(url, {
+            const response = await APIv1.get('/sms/list/', {
                 params: {
                     page,
                     page_size: size,
@@ -112,7 +110,7 @@ const Sms = (props) => {
         } finally {
             setLoading(false)
         }
-    }, [companyInn, userData.token]);
+    }, [userData.token]);
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));

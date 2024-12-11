@@ -2,7 +2,7 @@ export function extractDateBySecond(dateString) {
     const utcDate = new Date(dateString);
 
     if (isNaN(utcDate.getTime())) {
-        console.error('Invalid date string:', dateString);
+        // console.error('Invalid date string:', dateString);
         return 'Invalid Date';
     }
 

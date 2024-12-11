@@ -9,6 +9,7 @@ import LogsPaymentContent from "./PaymentLogs/LogsPaymentContent";
 import LogsConfirmContent from "./PaymentLogs/LogsConfirmContent";
 import RelatedDeviceStatus from "./DeviceStatus/RelatedDevice";
 import RelatedSms from "./Sms/RelatedSms";
+import RelatedLogs from "./Logs/RelatedLogs";
 
 export {
     Header,
@@ -21,5 +22,6 @@ export {
     LogsPaymentContent,
     LogsConfirmContent,
     RelatedDeviceStatus,
-    RelatedSms
+    RelatedSms,
+    RelatedLogs
 }
