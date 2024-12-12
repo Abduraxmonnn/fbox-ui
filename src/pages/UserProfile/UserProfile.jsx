@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Input, Button, DatePicker, message, Modal, Badge, Space, Switch, Checkbox} from 'antd';
+import {Input, Button, DatePicker, message, Modal, Badge, Space, Switch} from 'antd';
 import {X, Save} from 'lucide-react';
 import * as moment from "dayjs";
 import {getSmsClockBadgeColor} from "../../utils";
@@ -7,7 +7,8 @@ import './UserProfile.scss';
 import {RelatedDeviceStatus, UploadUserProfile} from "../../components";
 import {APIv1} from "../../api";
 import ShowUserPicture from "../../components/UserProfileCom/ShowUserPicture";
-import PaymentProvidersPermissionCheckBox from "../../components/UserProfileCom/PaymentProvidersPermissions/PaymentProvidersPermission";
+import PaymentProvidersPermissionCheckBox
+    from "../../components/UserProfileCom/PaymentProvidersPermissions/PaymentProvidersPermission";
 
 const {RangePicker} = DatePicker;
 
@@ -21,7 +22,6 @@ const UserProfile = () => {
     const [initialData, setInitialData] = useState([]);
     const [userData, setUserData] = useState({});
     const [hasChanges, setHasChanges] = useState(false);
-    const [passwordVisible, setPasswordVisible] = useState(false);
     const [isChangePasswordModalVisible, setIsChangePasswordModalVisible] = useState(false);
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -102,8 +102,17 @@ const UserProfile = () => {
         }));
     };
 
+    const handleSwitchChange = (checked, name) => { // Added for switch
+        setProfileData(prevData => ({
+            ...prevData,
+            [name]: checked
+        }));
+    };
+
     const handleSave = () => {
         // In a real application, you would send the updated data to an API here
+        console.log(initialData)
+        // console.log(profileData)
         console.log('Saving profile data:', profileData);
         setInitialData(profileData);
         setHasChanges(false);
@@ -137,16 +146,13 @@ const UserProfile = () => {
     };
 
     const handleProviderPermissionChange = (newCheckedList) => {
-        const updatedPermissions = {
+        setProfileData(prevData => ({
+            ...prevData,
             payme: newCheckedList.includes('payme'),
             click: newCheckedList.includes('click'),
             uzum: newCheckedList.includes('uzum'),
             anor: newCheckedList.includes('anor'),
-        };
-        setProviderPermissions(updatedPermissions);
-
-        // Here you might want to update the API with the new permissions
-        // This is just a placeholder for where you'd put that logic
+        }));
     };
 
     return (
@@ -213,6 +219,7 @@ const UserProfile = () => {
                                     value={profileData.password}
                                     onChange={handleInputChange}
                                     disabled={true}
+                                    visibilityToggle={false}
                                 />
                                 <Button className="change-password-btn" onClick={showChangePasswordModal}>
                                     Change
@@ -286,11 +293,16 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="sms">Send SMS</label>
+                            <label htmlFor="sms">Send SMS Notifications</label>
                             <Space>
-                                <Switch value={isSmsShow} onChange={() => setIsSmsShow(!isSmsShow)}
-                                        checkedChildren="On" unCheckedChildren="Off"
-                                        style={{backgroundColor: isSmsShow ? "var(--color-status-on)" : "var(--color-status-off"}}/>
+                                <Switch
+                                    value={isSmsShow}
+                                    onChange={(checked) => {
+                                        setIsSmsShow(checked);
+                                        handleSwitchChange(checked, 'isSendSms');
+                                    }}
+                                    checkedChildren="On" unCheckedChildren="Off"
+                                    style={{backgroundColor: isSmsShow ? "var(--color-status-on)" : "var(--color-status-off"}}/>
                                 <Badge count={profileData.totalSms} color={isSmsShow ? "#faad14" : "gray"}
                                        overflowCount={Infinity}/>
                                 <Badge count={profileData.successSms} color={isSmsShow ? "#52c41a" : "gray"}

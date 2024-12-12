@@ -17,25 +17,24 @@ const PaymentProvidersPermissionCheckBox = ({
     useEffect(() => {
         const initialCheckedList = options.filter(provider => providerPermissions[provider]);
         setCheckedList(initialCheckedList);
+        updateCheckAllStatus(initialCheckedList);
     }, [providerPermissions]);
 
-    useEffect(() => {
-        updateCheckAllStatus();
-    }, [checkedList]);
-
-    const updateCheckAllStatus = () => {
-        setIndeterminate(checkedList.length > 0 && checkedList.length < options.length);
-        setCheckAll(checkedList.length === options.length);
+    const updateCheckAllStatus = (list) => {
+        setIndeterminate(list.length > 0 && list.length < options.length);
+        setCheckAll(list.length === options.length);
     };
 
     const onCheckAllChange = (e) => {
         const newCheckedList = e.target.checked ? options : [];
         setCheckedList(newCheckedList);
+        updateCheckAllStatus(newCheckedList);
         onChange(newCheckedList);
     };
 
     const onGroupChange = (list) => {
         setCheckedList(list);
+        updateCheckAllStatus(list);
         onChange(list);
     };
 
@@ -63,3 +62,4 @@ const PaymentProvidersPermissionCheckBox = ({
 };
 
 export default PaymentProvidersPermissionCheckBox;
+
