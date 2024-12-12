@@ -307,7 +307,6 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group-providers">
-                            <label htmlFor="linkedin">Providers Permission</label>
                             <PaymentProvidersPermissionCheckBox
                                 providerPermissions={providerPermissions}
                                 onChange={handleProviderPermissionChange}
