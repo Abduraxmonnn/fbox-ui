@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef, useCallback} from 'react';
-import {Avatar, Spin, Drawer} from 'antd';
+import {Avatar, Spin} from 'antd';
+import {UserRoundCog, MessageCircleMore, LogOut} from "lucide-react";
 import {UserOutlined, NotificationOutlined} from '@ant-design/icons';
 import {useDispatch} from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
@@ -123,18 +124,20 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                             <div ref={formRef} className={`header-menu${isUserOptions ? ' show-menu' : ''}`}>
                                 <ul className="user-menu">
                                     <li onClick={navigateUserProfile}>
-                                        <img src={images.manage_account} alt="manage"/>
+                                        <UserRoundCog size={18} color="#6cb4fc"/>
                                         <span>Manage Account</span>
                                     </li>
                                     <hr/>
                                     <li>
-                                        <img src={images.activity_log} alt="activity"/>
+                                        {/*<img src={images.activity_log} alt="activity"/>*/}
+                                        <MessageCircleMore size={18} color="#ac9cfc"/>
                                         <span><Link to={`/feedback/`}>Feedback</Link></span>
                                     </li>
                                     <hr/>
                                     <Link to="/">
                                         <li onClick={handleLogout} role="button" tabIndex={0}>
-                                            <img src={images.logout} alt="log out"/>
+                                            {/*<img src={images.logout} alt="log out"/>*/}
+                                            <LogOut size={18} color="#fc9c9c"/>
                                             <span>Log out</span>
                                         </li>
                                     </Link>
