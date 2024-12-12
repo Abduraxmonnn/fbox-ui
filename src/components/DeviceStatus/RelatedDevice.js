@@ -96,8 +96,6 @@ const rowSelection = {
 
 const RelatedDeviceStatus = (props) => {
     let companyInn = props.companyInn;
-    let expandedSection = props.expandedSection;
-    let toggleSection = props.toggleSection;
     const [deviceStatusData, setDeviceStatusData] = useState([]);
     const [selectionType, setSelectionType] = useState('checkbox');
     const [loading, setLoading] = useState(true);
@@ -170,32 +168,20 @@ const RelatedDeviceStatus = (props) => {
 
     return (
         <>
-            <button
-                className="detail-view__expand-button"
-                onClick={() => toggleSection('related-device')}
-                aria-expanded={expandedSection === 'related-device'}
-            >
-                <span className="related-device-title">Device</span>
-                {expandedSection === 'related-device' ? <ChevronUp size={22}/> :
-                    <ChevronDown size={22}/>}
-            </button>
-
-            {expandedSection === 'related-device' && (
-                <div className='content_container'>
-                    <Table
-                        rowSelection={{
-                            type: selectionType,
-                            ...rowSelection,
-                        }}
-                        columns={columns}
-                        dataSource={deviceStatusData}
-                        loading={loading}
-                        onChange={tableChangeHandler}
-                        onRow={onRowClick}
-                        pagination={false}
-                    />
-                </div>
-            )}
+            <div className='content_container'>
+                <Table
+                    rowSelection={{
+                        type: selectionType,
+                        ...rowSelection,
+                    }}
+                    columns={columns}
+                    dataSource={deviceStatusData}
+                    loading={loading}
+                    onChange={tableChangeHandler}
+                    onRow={onRowClick}
+                    pagination={false}
+                />
+            </div>
         </>
     );
 }

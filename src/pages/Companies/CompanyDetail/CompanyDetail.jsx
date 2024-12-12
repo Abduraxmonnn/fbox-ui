@@ -7,43 +7,38 @@ import {Button} from "antd";
 import {RelatedDeviceStatus, RelatedLogs, RelatedSms} from "../../../components";
 
 const CompanyDetail = () => {
-    const {id} = useParams()
-    const [company, setCompany] = useState({})
+    const {id} = useParams();
+    const navigate = useNavigate();
+    const [company, setCompany] = useState({});
     const [userData, setUserData] = useState({});
-    const [expandedSection, setExpandedSection] = useState(null);
     const [expandedSecondSection, setExpandedSecondSection] = useState(null);
     const [expandedThirdSection, setExpandedThirdSection] = useState(null);
-    const navigate = useNavigate()
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
         if (items) {
             setUserData(items);
         }
-    }, [userData.token]);
+    }, []);
 
     useEffect(() => {
         const fetchCompanyDetail = async () => {
             try {
-                const response = await APIv1.get(`/company/${id}`)
-                setCompany(response.data)
+                const response = await APIv1.get(`/company/${id}`);
+                setCompany(response.data);
             } catch (err) {
-                console.error('Something went wrong:', err)
+                console.error('Something went wrong:', err);
             }
-        }
-        fetchCompanyDetail()
-    }, [id, userData.token])
-
-    const handleRedirect = (provider) => {
-        navigate(`/payments/logs/`)
-    }
+        };
+        fetchCompanyDetail();
+    }, [id, userData.token]);
 
     if (!company) {
-        return <div>Company not found</div>
+        return <div>Company not found</div>;
     }
 
-    const toggleSection = (section) => {
-        setExpandedSection(prevSection => prevSection === section ? null : section);
+    const handleRedirect = (provider) => {
+        navigate(`/payments/logs/`);
     };
 
     const toggleSecondSection = (section) => {
@@ -54,15 +49,41 @@ const CompanyDetail = () => {
         setExpandedThirdSection(prevSection => prevSection === section ? null : section);
     };
 
+    const renderListItem = (label, value, isPayment = false) => (
+        <li key={label} className="detail-view__item">
+            <span className="detail-view__label">{label}:</span>
+            {isPayment ? (
+                <div className="detail-view__value-group">
+                    <Button
+                        onClick={() => handleRedirect(label)}
+                        className="detail-view__redirect-button"
+                    >
+                        More
+                    </Button>
+                    <span
+                        className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
+                        {value ? 'ACCESS' : 'DECLINE'}
+                    </span>
+                </div>
+            ) : isBoolean(value) ? (
+                <span className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
+                    {value ? 'ACCESS' : 'DECLINE'}
+                </span>
+            ) : (
+                <span className="detail-view__value">{value}</span>
+            )}
+        </li>
+    );
+
     return (
         <section className="detail-view">
             <div className="detail-view__header">
                 <div className="detail-view__title">
                     <h1 className="detail-view__main-title">{company.name}</h1>
                     <span className="detail-view__subtitle">
-              <span className="detail-view__subtitle-label">INN: </span>
+                        <span className="detail-view__subtitle-label">INN: </span>
                         {company.inn}
-            </span>
+                    </span>
                 </div>
                 <button
                     className="detail-view__action-button detail-view__action-button--secondary"
@@ -76,99 +97,54 @@ const CompanyDetail = () => {
                 <div className="detail-view__section">
                     <h2 className="detail-view__section-title">Base information</h2>
                     <ul className="detail-view__list">
-                        {[
-                            {label: "Address", value: company.address},
-                            {label: "Phone number", value: company.phone_number},
-                            {label: "Start date", value: extractDateBySecond(company.start_date)},
-                            {label: "End date", value: extractDateBySecond(company.end_date)},
-                        ].map(({label, value}) => (
-                            <li key={label} className="detail-view__item">
-                                <span className="detail-view__label">{label}:</span>
-                                <span className="detail-view__value">{value}</span>
-                            </li>
-                        ))}
+                        {renderListItem("Address", company.address)}
+                        {renderListItem("Phone number", company.phone_number)}
+                        {renderListItem("Start date", extractDateBySecond(company.start_date))}
+                        {renderListItem("End date", extractDateBySecond(company.end_date))}
                     </ul>
                 </div>
 
                 <div className="detail-view__section">
                     <h2 className="detail-view__section-title">Payment permissions</h2>
                     <ul className="detail-view__list">
-                        {[
-                            {label: "Click", value: company.click},
-                            {label: "PayMe", value: company.pay_me},
-                            {label: "Uzum", value: company.apelsin},
-                            {label: "Anor", value: company.anor},
-                        ].map(({label, value}) => (
-                            <li key={label} className="detail-view__item">
-                                <span className="detail-view__label">{label}:</span>
-                                <div className="detail-view__value-group">
-                                    <Button
-                                        onClick={() => handleRedirect(label)}
-                                        variant="outline"
-                                        size="sm"
-                                        className="detail-view__redirect-button"
-                                    >
-                                        More
-                                    </Button>
-                                    <span
-                                        className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}
-                                    >
-                {value ? 'ACCESS' : 'DECLINE'}
-              </span>
-                                </div>
-                            </li>
-                        ))}
+                        {renderListItem("Click", company.click, true)}
+                        {renderListItem("PayMe", company.pay_me, true)}
+                        {renderListItem("Uzum", company.apelsin, true)}
+                        {renderListItem("Anor", company.anor, true)}
                     </ul>
                 </div>
 
                 <div className="detail-view__section">
                     <h2 className="detail-view__section-title">SMS information</h2>
                     <ul className="detail-view__list">
-                        {[
-                            {label: "Sens sms status", value: company.send_sms},
-                            {label: "Sent sms", value: company.count_sent_sms},
-                            {label: "Last month sent sms", value: company.last_month_sms_count},
-                        ].map(({label, value}) => (
-                            <li key={label} className="detail-view__item">
-                                <span className="detail-view__label">{label}:</span>
-                                {
-                                    isBoolean(value) ? (
-                                        <span
-                                            className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                                            {value ? 'ACCESS' : 'DECLINE'}
-                                        </span>
-                                    ) : (
-                                        <span className="detail-view__value">{value}</span>
-                                    )
-                                }
-                            </li>
-                        ))}
+                        {renderListItem("Send sms status", company.send_sms)}
+                        {renderListItem("Sent sms", company.count_sent_sms)}
+                        {renderListItem("Last month sent sms", company.last_month_sms_count)}
                     </ul>
                 </div>
-                {/*<div className="detail-view__orders">*/}
-                {/*    <Orders serialNumber={company.device_serial_number} defaultPageSize={10}/>*/}
-                {/*</div>*/}
             </div>
 
-            <div className="detail-view__section">
-                <div className="detail-view__section">
-                    {/*<h2 className="related-device-title">Devices</h2>*/}
-                    <RelatedDeviceStatus expandedSection={expandedSection} toggleSection={toggleSection}
-                                         companyInn={company.inn}/>
-                </div>
-                <div className="detail-view__section">
-                    {/*<h2 className="related-device-title">Logs</h2>*/}
-                    <RelatedLogs defaultPaginationSize={10} companyInn={company.inn}
-                                 expandedSection={expandedSecondSection}
-                                 toggleSection={toggleSecondSection}/>
-                </div>
-                <div className="detail-view__section">
-                    {/*<h2 className="related-device-title">Sms</h2>*/}
-                    <RelatedSms defaultPaginationSize={10} companyInn={company.inn}
-                                expandedSection={expandedThirdSection}
-                                toggleSection={toggleThirdSection}/>
-                </div>
+            <div>
+                <h2 className="related-device-title">Devices</h2>
+                <RelatedDeviceStatus companyInn={company.inn}/>
             </div>
+            <div className="detail-view__section">
+                <RelatedLogs
+                    defaultPaginationSize={10}
+                    companyInn={company.inn}
+                    expandedSection={expandedSecondSection}
+                    toggleSection={toggleSecondSection}
+                />
+            </div>
+            <div className="detail-view__section">
+                <RelatedSms
+                    defaultPaginationSize={10}
+                    companyInn={company.inn}
+                    expandedSection={expandedThirdSection}
+                    toggleSection={toggleThirdSection}
+                />
+            </div>
+
         </section>
     );
 }

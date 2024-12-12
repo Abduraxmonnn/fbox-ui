@@ -85,9 +85,9 @@ const DeviceStatusDetail = () => {
                     <div className="detail-view__title">
                         <h1 className="detail-view__main-title">{deviceData.company.name}</h1>
                         <span className="detail-view__subtitle">
-              <span className="detail-view__subtitle-label">Device serial number: </span>
-                            {deviceData.device_serial_number}
-            </span>
+                        <span className="detail-view__subtitle-label">Device serial number: </span>
+                                    {deviceData.device_serial_number}
+                        </span>
                     </div>
                     <button
                         className="detail-view__action-button detail-view__action-button--secondary"
