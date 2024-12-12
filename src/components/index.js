@@ -10,6 +10,7 @@ import LogsConfirmContent from "./PaymentLogs/LogsConfirmContent";
 import RelatedDeviceStatus from "./DeviceStatus/RelatedDevice";
 import RelatedSms from "./Sms/RelatedSms";
 import RelatedLogs from "./Logs/RelatedLogs";
+import PaymentProvidersPermissionCheckBox from "./UserProfileCom/PaymentProvidersPermissions/PaymentProvidersPermission";
 
 export {
     Header,
@@ -23,5 +24,6 @@ export {
     LogsConfirmContent,
     RelatedDeviceStatus,
     RelatedSms,
-    RelatedLogs
+    RelatedLogs,
+    PaymentProvidersPermissionCheckBox,
 }

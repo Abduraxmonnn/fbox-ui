@@ -7,9 +7,9 @@ import './UserProfile.scss';
 import {RelatedDeviceStatus, UploadUserProfile} from "../../components";
 import {APIv1} from "../../api";
 import ShowUserPicture from "../../components/UserProfileCom/ShowUserPicture";
+import PaymentProvidersPermissionCheckBox from "../../components/UserProfileCom/PaymentProvidersPermissions/PaymentProvidersPermission";
 
 const {RangePicker} = DatePicker;
-const CheckboxGroup = Checkbox.Group;
 
 const dayjs = require('dayjs')
 const utc = require('dayjs/plugin/utc')
@@ -26,11 +26,7 @@ const UserProfile = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isSmsShow, setIsSmsShow] = useState(true);
-
-    const [checkedProvidersPermissionList, setCheckedProvidersPermissionList] = useState(['click', 'uzum', 'anor']);
-    const plainOptions = ['payme', 'click', 'uzum', 'anor'];
-    const checkAllProvidersPermissions = plainOptions.length === checkedProvidersPermissionList.length;
-    const indeterminateProvidersPermission = checkedProvidersPermissionList.length > 0 && checkedProvidersPermissionList.length < plainOptions.length;
+    const [providerPermissions, setProviderPermissions] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,7 +49,6 @@ const UserProfile = () => {
                     totalSms: response.data.count_sent_sms,
                     successSms: response.data.count_sent_sms - Math.floor(response.data.count_sent_sms * 0.9),
                     errorSms: response.data.count_sent_sms - Math.floor(response.data.count_sent_sms * 0.1),
-                    nation: 'Uzbek',
                     logo: response.data.logo,
                     banner: response.data.banner,
                     payme: response.data.pay_me,
@@ -67,6 +62,12 @@ const UserProfile = () => {
                 setProfileData(data);
                 setInitialData(data);
                 setIsSmsShow(data.isSendSms)
+                setProviderPermissions({
+                    payme: data.payme,
+                    click: data.click,
+                    uzum: data.uzum,
+                    anor: data.anor,
+                });
             } catch (err) {
                 console.error('Something went wrong', err);
             }
@@ -135,11 +136,17 @@ const UserProfile = () => {
         message.success('Password changed successfully');
     };
 
-    const onProviderPermissionChange = (list) => {
-        setCheckedProvidersPermissionList(list);
-    };
-    const onCheckAllProviderPermissionChange = (e) => {
-        setCheckedProvidersPermissionList(e.target.checked ? plainOptions : []);
+    const handleProviderPermissionChange = (newCheckedList) => {
+        const updatedPermissions = {
+            payme: newCheckedList.includes('payme'),
+            click: newCheckedList.includes('click'),
+            uzum: newCheckedList.includes('uzum'),
+            anor: newCheckedList.includes('anor'),
+        };
+        setProviderPermissions(updatedPermissions);
+
+        // Here you might want to update the API with the new permissions
+        // This is just a placeholder for where you'd put that logic
     };
 
     return (
@@ -244,16 +251,6 @@ const UserProfile = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-
-                        <div className="form-group">
-                            <label htmlFor="nation">Nation</label>
-                            <Input
-                                id="nation"
-                                name="nation"
-                                value={profileData.nation}
-                                onChange={handleInputChange}
-                            />
-                        </div>
                     </div>
 
                     <div className="form-column">
@@ -311,15 +308,10 @@ const UserProfile = () => {
 
                         <div className="form-group-providers">
                             <label htmlFor="linkedin">Providers Permission</label>
-                            <>
-                                <Checkbox indeterminate={indeterminateProvidersPermission}
-                                          onChange={onCheckAllProviderPermissionChange}
-                                          checked={checkAllProvidersPermissions}>
-                                    Full Permission
-                                </Checkbox>
-                                <CheckboxGroup options={plainOptions} value={checkedProvidersPermissionList}
-                                               onChange={onProviderPermissionChange}/>
-                            </>
+                            <PaymentProvidersPermissionCheckBox
+                                providerPermissions={providerPermissions}
+                                onChange={handleProviderPermissionChange}
+                            />
                         </div>
 
                         <div className="form-group">
