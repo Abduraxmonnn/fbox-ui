@@ -87,14 +87,14 @@
 .analysis__orders-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--color-text-primary, #1a1a1a);
+    color: #1a1a1a;
     margin: 0 0 16px 0;
     cursor: pointer;
     transition: color 0.2s ease;
 }
 
 .analysis__orders-title:hover {
-    color: var(--color-primary, #0066ff);
+    color: #0066ff;
 }
 
 /* Responsive Styles */

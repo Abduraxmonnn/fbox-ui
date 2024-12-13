@@ -23,6 +23,11 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+.transaction-metrics__card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+
 .transaction-metrics__label {
     display: block;
     font-size: 18px;
@@ -31,9 +36,25 @@
 }
 
 .transaction-metrics__count {
+    display: flex;
+    align-items: center;
     font-size: 36px;
     font-weight: 600;
     color: #1a1a1a;
+}
+
+.transaction-metrics__icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+}
+
+.transaction-metrics__icon--success {
+    color: #4CAF50;
+}
+
+.transaction-metrics__icon--failure {
+    color: #f44336;
 }
 
 @media (max-width: 768px) {

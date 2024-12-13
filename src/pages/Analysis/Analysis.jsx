@@ -24,8 +24,10 @@ const Analysis = () => {
             <div className="analysis__metrics">
                 <div className='analysis__metric-card'>
                     <TransactionFinancialCard/>
+                    <TransactionCountCard/>
                 </div>
                 <div className='analysis__metric-card'>
+                    <TransactionFinancialCard/>
                     <TransactionCountCard/>
                 </div>
             </div>

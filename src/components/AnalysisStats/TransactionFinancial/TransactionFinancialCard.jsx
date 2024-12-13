@@ -1,4 +1,4 @@
-import React from 'react';
+import {ArrowUpRight, ArrowDownRight} from 'lucide-react';
 import './TransactionFinancial.css';
 
 const TransactionFinancialCard = ({successAmount = "2,546,000", failureAmount = "791,020"}) => {
@@ -10,7 +10,7 @@ const TransactionFinancialCard = ({successAmount = "2,546,000", failureAmount = 
                 <div className="payment-income__card">
                     <span className="payment-income__label">Success</span>
                     <div className="payment-income__amount success">
-                        <span className="payment-income__arrow">↑</span>
+                        <span className="payment-income__arrow"><ArrowUpRight/></span>
                         <span className="payment-income__value">{successAmount} UZS</span>
                     </div>
                 </div>
@@ -18,7 +18,7 @@ const TransactionFinancialCard = ({successAmount = "2,546,000", failureAmount = 
                 <div className="payment-income__card">
                     <span className="payment-income__label">Failure</span>
                     <div className="payment-income__amount failure">
-                        <span className="payment-income__arrow">↓</span>
+                        <span className="payment-income__arrow"><ArrowDownRight/></span>
                         <span className="payment-income__value">{failureAmount} UZS</span>
                     </div>
                 </div>
