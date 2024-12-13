@@ -1,5 +1,5 @@
 import {
-    DesktopOutlined,
+    ShopOutlined,
     ProfileOutlined,
     PieChartOutlined,
     MessageOutlined,
@@ -8,6 +8,7 @@ import {
     FileDoneOutlined, RetweetOutlined, CreditCardOutlined, HistoryOutlined
 } from '@ant-design/icons'
 import {Link} from 'react-router-dom'
+import {Landmark} from 'lucide-react';
 
 export function getItem(label, key, icon, children) {
     return {
@@ -30,7 +31,7 @@ export const items = [
         'Company',
         'devices_company_item',
         <Link to='/devices/company'>
-            <ProfileOutlined/>
+            <Landmark size={14}/>
         </Link>
     ),
     getItem(
