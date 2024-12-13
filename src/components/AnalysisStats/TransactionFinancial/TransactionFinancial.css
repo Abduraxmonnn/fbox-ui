@@ -1,0 +1,65 @@
+.payment-income {
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.payment-income__title {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 24px 0;
+    color: #1a1a1a;
+}
+
+.payment-income__metrics {
+    display: flex;
+    gap: 24px;
+}
+
+.payment-income__card {
+    flex: 1;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.payment-income__label {
+    display: block;
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.payment-income__amount {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.payment-income__amount.success {
+    color: #4CAF50;
+}
+
+.payment-income__amount.failure {
+    color: #f44336;
+}
+
+.payment-income__arrow {
+    font-size: 20px;
+}
+
+.payment-income__value {
+    font-size: 28px;
+}
+
+@media (max-width: 768px) {
+    .payment-income__metrics {
+        flex-direction: column;
+    }
+
+    .payment-income__card {
+        width: 100%;
+    }
+}

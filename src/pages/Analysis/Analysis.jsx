@@ -1,12 +1,13 @@
 import React from 'react'
 
-import './Analysis.css'
-import PieChart from '../../components/Charts/PieChart'
-import BarChart from '../../components/Charts/BarChart'
-import Subscription from '../../components/Analysis/Subscription'
-import Sms from "../Sms/Sms";
+import PieChart from '../../components/AnalysisStats/PieChart'
+import BarChart from '../../components/AnalysisStats/BarChart'
 import {useNavigate} from "react-router-dom";
 import Orders from "../../components/Analysis/Orders";
+import TransactionFinancialCard from "../../components/AnalysisStats/TransactionFinancial/TransactionFinancialCard";
+import Period from "../../components/AnalysisStats/Period";
+import TransactionCountCard from "../../components/AnalysisStats/TransactionCount/TransactionCountCard";
+import './Analysis.css'
 
 const Analysis = () => {
     const navigate = useNavigate();
@@ -17,6 +18,17 @@ const Analysis = () => {
 
     return (
         <section className='content_container'>
+            <div className='box'>
+                <Period/>
+            </div>
+            <div className="upper-container">
+                <div className='box'>
+                    <TransactionFinancialCard/>
+                </div>
+                <div className='box'>
+                    <TransactionCountCard/>
+                </div>
+            </div>
             <div className='graphBox'>
                 <div className='box'>
                     <h1>Active Devices</h1>
@@ -30,16 +42,8 @@ const Analysis = () => {
             <div className='content'>
                 <div className='orders'>
                     <h1 onClick={() => handleNavigate("/orders")}>Orders</h1>
-                    <Orders />
+                    <Orders/>
                 </div>
-                {/*<div className='subscription'>*/}
-                {/*    <h1 onClick={() => handleNavigate("/subscription")}>Subscription</h1>*/}
-                {/*    <Subscription/>*/}
-                {/*</div>*/}
-                {/*<div className='sms'>*/}
-                {/*    <h1 onClick={() => handleNavigate("/sms")}>SMS</h1>*/}
-                {/*    <Sms defaultPaginationSize={10} />*/}
-                {/*</div>*/}
             </div>
         </section>
     )
