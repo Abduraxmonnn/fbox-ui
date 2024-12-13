@@ -7,21 +7,7 @@ const PieChart = () => {
     const [data, setData] = useState([]);
     const [totalUsers, setTotalUsers] = useState(0);
 
-    useEffect(() => {
-        const items = JSON.parse(localStorage.getItem('user'));
-        if (items && items.token) {
-            setUserData(items);
-        } else {
-            console.error('Token not found in localStorage');
-        }
-    }, []);
-
     const fetchUserData = useCallback(async () => {
-        if (!userData.token) {
-            console.error('Token is missing');
-            return;
-        }
-
         try {
             const response = await APIv1.get('/device/status/', {
                 headers: {
@@ -42,8 +28,18 @@ const PieChart = () => {
     }, [userData.token]);
 
     useEffect(() => {
+        if (!userData.token) return;
+
         fetchUserData()
-    }, [fetchUserData])
+    }, [userData.token])
+
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setUserData(items);
+        }
+    }, [userData.token]);
 
     const config = {
         data,

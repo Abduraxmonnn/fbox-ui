@@ -51,14 +51,14 @@ const BarChart = () => {
                 });
 
                 setYAxisMax(newYAxisMax);
-                setLoading(false); // Set loading to false once data is fetched
+                setLoading(false);
             } catch (err) {
                 console.error('Error fetching data:', err);
             }
         };
 
         fetchData();
-    }, []);
+    }, [chartData]);
 
     const placeholderData = {
         labels: ['PayMe', 'Click', 'Uzum', 'Anor'],
