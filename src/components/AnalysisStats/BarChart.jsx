@@ -7,39 +7,46 @@ import {APIv1} from '../../api';
 Chart.register(...registerables, ChartDataLabels);
 
 const BarChart = () => {
-    const chartRef = useRef(null); // Reference to the canvas element
+    const chartRef = useRef(null);
     const [chartData, setChartData] = useState({
         labels: ['PayMe', 'Click', 'Uzum', 'Anor'],
         maxBarThickness: 8,
         datasets: [],
     });
-    const [yAxisMax, setYAxisMax] = useState(4000); // Default max value
-    const [loading, setLoading] = useState(true); // Loading state
+    const [yAxisMax, setYAxisMax] = useState(4000);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true);
+
                 const response = await APIv1.get('/statistics/all-days-payments/');
                 const apiData = response.data;
 
+                const payme = apiData?.PAYME_PAYMENT || {};
+                const click = apiData?.CLICK_PAYMENT || {};
+                const uzum = apiData?.APELSIN_PAYMENT || {};
+                const anor = apiData?.ANOR_PAYMENT || {};
+
+                const successData = [
+                    payme.success || 0,
+                    click.success || 0,
+                    uzum.success || 0,
+                    anor.success || 0,
+                ];
+                const failureData = [
+                    payme.failure || 0,
+                    click.failure || 0,
+                    uzum.failure || 0,
+                    anor.failure || 0,
+                ];
+
                 const maxDataValue = Math.max(
-                    ...Object.values(apiData).map((payment) => payment.success)
+                    ...successData
                 );
 
                 const newYAxisMax = Math.ceil(maxDataValue * 1.1);
-
-                const successData = [
-                    apiData.PAYME_PAYMENT.success,
-                    apiData.CLICK_PAYMENT.success,
-                    apiData.APELSIN_PAYMENT.success,
-                    apiData.ANOR_PAYMENT.success,
-                ];
-                const failureData = [
-                    apiData.PAYME_PAYMENT.failure,
-                    apiData.CLICK_PAYMENT.failure,
-                    apiData.APELSIN_PAYMENT.failure,
-                    apiData.ANOR_PAYMENT.failure,
-                ];
 
                 setChartData({
                     labels: ['PayMe', 'Click', 'Uzum', 'Anor'],
@@ -51,14 +58,16 @@ const BarChart = () => {
                 });
 
                 setYAxisMax(newYAxisMax);
+
                 setLoading(false);
             } catch (err) {
                 console.error('Error fetching data:', err);
+                setLoading(false);
             }
         };
 
         fetchData();
-    }, [chartData]);
+    }, []);
 
     const placeholderData = {
         labels: ['PayMe', 'Click', 'Uzum', 'Anor'],
@@ -66,8 +75,8 @@ const BarChart = () => {
         datasets: [
             {
                 label: 'Loading...',
-                data: [yAxisMax, yAxisMax, yAxisMax, yAxisMax], // Full columns
-                backgroundColor: '#d3d3d3', // Gray color for loading
+                data: [yAxisMax, yAxisMax, yAxisMax, yAxisMax],
+                backgroundColor: '#d3d3d3',
             },
         ],
     };
@@ -87,12 +96,12 @@ const BarChart = () => {
                         color: 'black',
                         anchor: 'end',
                         align: 'end',
-                        offset: 10, // Move labels outside the bar
+                        offset: 10,
                         formatter: (value) => value.toLocaleString(),
                     },
                 },
                 animation: {
-                    duration: loading ? 0 : 1000, // No animation for loading state
+                    duration: loading ? 0 : 1000,
                 },
             }}
             ref={chartRef}
