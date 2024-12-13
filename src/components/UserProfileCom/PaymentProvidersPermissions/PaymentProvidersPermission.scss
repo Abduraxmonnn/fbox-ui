@@ -1,0 +1,44 @@
+.providers-permission {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.providers-permission__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.providers-permission__full {
+  margin-bottom: 8px;
+}
+
+.providers-permission__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.providers-permission__grid .ant-checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* Style for the checkbox items */
+.ant-checkbox-wrapper {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+/* Style for the checked state */
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #4096ff;
+  border-color: #4096ff;
+}
+
+/* Hover effect for checkboxes */
+.ant-checkbox-wrapper:hover .ant-checkbox-inner {
+  border-color: #4096ff;
+}

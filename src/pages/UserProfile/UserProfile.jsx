@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Input, Button, DatePicker, message, Modal, Badge, Space, Switch, Checkbox} from 'antd';
+import {Input, Button, DatePicker, message, Modal, Badge, Space, Switch} from 'antd';
 import {X, Save} from 'lucide-react';
 import * as moment from "dayjs";
 import {getSmsClockBadgeColor} from "../../utils";
@@ -7,9 +7,11 @@ import './UserProfile.scss';
 import {RelatedDeviceStatus, UploadUserProfile} from "../../components";
 import {APIv1} from "../../api";
 import ShowUserPicture from "../../components/UserProfileCom/ShowUserPicture";
+import PaymentProvidersPermissionCheckBox
+    from "../../components/UserProfileCom/PaymentProvidersPermissions/PaymentProvidersPermission";
+import {updateUserData} from "../../components/UserProfileCom/updateUserData";
 
 const {RangePicker} = DatePicker;
-const CheckboxGroup = Checkbox.Group;
 
 const dayjs = require('dayjs')
 const utc = require('dayjs/plugin/utc')
@@ -21,16 +23,11 @@ const UserProfile = () => {
     const [initialData, setInitialData] = useState([]);
     const [userData, setUserData] = useState({});
     const [hasChanges, setHasChanges] = useState(false);
-    const [passwordVisible, setPasswordVisible] = useState(false);
     const [isChangePasswordModalVisible, setIsChangePasswordModalVisible] = useState(false);
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isSmsShow, setIsSmsShow] = useState(true);
-
-    const [checkedProvidersPermissionList, setCheckedProvidersPermissionList] = useState(['click', 'uzum', 'anor']);
-    const plainOptions = ['payme', 'click', 'uzum', 'anor'];
-    const checkAllProvidersPermissions = plainOptions.length === checkedProvidersPermissionList.length;
-    const indeterminateProvidersPermission = checkedProvidersPermissionList.length > 0 && checkedProvidersPermissionList.length < plainOptions.length;
+    const [providerPermissions, setProviderPermissions] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,7 +50,6 @@ const UserProfile = () => {
                     totalSms: response.data.count_sent_sms,
                     successSms: response.data.count_sent_sms - Math.floor(response.data.count_sent_sms * 0.9),
                     errorSms: response.data.count_sent_sms - Math.floor(response.data.count_sent_sms * 0.1),
-                    nation: 'Uzbek',
                     logo: response.data.logo,
                     banner: response.data.banner,
                     payme: response.data.pay_me,
@@ -67,6 +63,12 @@ const UserProfile = () => {
                 setProfileData(data);
                 setInitialData(data);
                 setIsSmsShow(data.isSendSms)
+                setProviderPermissions({
+                    payme: data.payme,
+                    click: data.click,
+                    uzum: data.uzum,
+                    anor: data.anor,
+                });
             } catch (err) {
                 console.error('Something went wrong', err);
             }
@@ -101,12 +103,25 @@ const UserProfile = () => {
         }));
     };
 
-    const handleSave = () => {
-        // In a real application, you would send the updated data to an API here
+    const handleSwitchChange = (checked, name) => { // Added for switch
+        setProfileData(prevData => ({
+            ...prevData,
+            [name]: checked
+        }));
+    };
+
+    const handleSave = async (profileData, companyInn, token, setInitialData, setHasChanges) => {
         console.log('Saving profile data:', profileData);
-        setInitialData(profileData);
-        setHasChanges(false);
-        message.success('Profile updated successfully');
+        companyInn = profileData.inn
+        const isUpdateSuccessful = await updateUserData({data: profileData, companyInn, token});
+
+        if (isUpdateSuccessful) {
+            setInitialData(profileData);
+            setHasChanges(false);
+            message.success('Profile updated successfully');
+        } else {
+            message.error('Failed to update profile');
+        }
     };
 
     const handleCancel = () => {
@@ -135,11 +150,14 @@ const UserProfile = () => {
         message.success('Password changed successfully');
     };
 
-    const onProviderPermissionChange = (list) => {
-        setCheckedProvidersPermissionList(list);
-    };
-    const onCheckAllProviderPermissionChange = (e) => {
-        setCheckedProvidersPermissionList(e.target.checked ? plainOptions : []);
+    const handleProviderPermissionChange = (newCheckedList) => {
+        setProfileData(prevData => ({
+            ...prevData,
+            payme: newCheckedList.includes('payme'),
+            click: newCheckedList.includes('click'),
+            uzum: newCheckedList.includes('uzum'),
+            anor: newCheckedList.includes('anor'),
+        }));
     };
 
     return (
@@ -155,7 +173,15 @@ const UserProfile = () => {
                             icon={<Save size={16}/>}
                             type="primary"
                             className={`save-button ${hasChanges ? '' : 'no-changes'}`}
-                            onClick={handleSave}
+                            // onClick={handleSave}
+                            onClick={() =>
+                                handleSave(
+                                    profileData,
+                                    profileData.inn,
+                                    userData.token,
+                                    setInitialData,
+                                    setHasChanges
+                                )}
                             disabled={!hasChanges}
                         >
                             Save
@@ -206,6 +232,7 @@ const UserProfile = () => {
                                     value={profileData.password}
                                     onChange={handleInputChange}
                                     disabled={true}
+                                    visibilityToggle={false}
                                 />
                                 <Button className="change-password-btn" onClick={showChangePasswordModal}>
                                     Change
@@ -244,16 +271,6 @@ const UserProfile = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-
-                        <div className="form-group">
-                            <label htmlFor="nation">Nation</label>
-                            <Input
-                                id="nation"
-                                name="nation"
-                                value={profileData.nation}
-                                onChange={handleInputChange}
-                            />
-                        </div>
                     </div>
 
                     <div className="form-column">
@@ -289,11 +306,16 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="sms">Send SMS</label>
+                            <label htmlFor="sms">Send SMS Notifications</label>
                             <Space>
-                                <Switch value={isSmsShow} onChange={() => setIsSmsShow(!isSmsShow)}
-                                        checkedChildren="On" unCheckedChildren="Off"
-                                        style={{backgroundColor: isSmsShow ? "var(--color-status-on)" : "var(--color-status-off"}}/>
+                                <Switch
+                                    value={isSmsShow}
+                                    onChange={(checked) => {
+                                        setIsSmsShow(checked);
+                                        handleSwitchChange(checked, 'isSendSms');
+                                    }}
+                                    checkedChildren="On" unCheckedChildren="Off"
+                                    style={{backgroundColor: isSmsShow ? "var(--color-status-on)" : "var(--color-status-off"}}/>
                                 <Badge count={profileData.totalSms} color={isSmsShow ? "#faad14" : "gray"}
                                        overflowCount={Infinity}/>
                                 <Badge count={profileData.successSms} color={isSmsShow ? "#52c41a" : "gray"}
@@ -310,16 +332,10 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group-providers">
-                            <label htmlFor="linkedin">Providers Permission</label>
-                            <>
-                                <Checkbox indeterminate={indeterminateProvidersPermission}
-                                          onChange={onCheckAllProviderPermissionChange}
-                                          checked={checkAllProvidersPermissions}>
-                                    Full Permission
-                                </Checkbox>
-                                <CheckboxGroup options={plainOptions} value={checkedProvidersPermissionList}
-                                               onChange={onProviderPermissionChange}/>
-                            </>
+                            <PaymentProvidersPermissionCheckBox
+                                providerPermissions={providerPermissions}
+                                onChange={handleProviderPermissionChange}
+                            />
                         </div>
 
                         <div className="form-group">
