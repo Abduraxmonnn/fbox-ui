@@ -4,7 +4,7 @@ import './TransactionCount.css'
 const TransactionCountCard = ({successCount = "528", failureCount = "169"}) => {
     return (
         <div className="transaction-metrics">
-            <h2 className="transaction-metrics__title">No. of Transactions</h2>
+            <h2 className="transaction-metrics__title">No. of Payments</h2>
 
             <div className="transaction-metrics__container">
                 <div className="transaction-metrics__card">

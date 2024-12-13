@@ -14,6 +14,10 @@ const options = [
         value: 'week',
         label: 'Last week',
     },
+    {
+        value: 'total',
+        label: 'All time',
+    },
 ]
 
 const Period = () => {

@@ -26,42 +26,26 @@ export const items = [
             <PieChartOutlined/>
         </Link>
     ),
-    getItem('Devices', 'devices_item', <DesktopOutlined/>, [
+    getItem(
+        'Company',
+        'devices_company_item',
+        <Link to='/devices/company'>
+            <ProfileOutlined/>
+        </Link>
+    ),
+    getItem(
+        'Devices',
+        'devices_status_item',
+        <Link to='/devices/status'>
+            <CheckCircleOutlined/>
+        </Link>
+    ),
+    getItem('Logs', 'payments_items', <HistoryOutlined/>, [
         getItem(
-            'Company',
-            'devices_company_item',
-            <Link to='/devices/company'>
-                <ProfileOutlined/>
-            </Link>
-        ),
-        // getItem(
-        //     'Device',
-        //     'devices_subscription_item',
-        //     <Link to='/devices/device'>
-        //         <RetweetOutlined/>
-        //     </Link>
-        // ),
-        getItem(
-            'Status',
-            'devices_status_item',
-            <Link to='/devices/status'>
-                <CheckCircleOutlined/>
-            </Link>
-        ),
-        getItem(
-            'Versions',
-            'devices_versions_item',
-            <Link to='/devices/version'>
-                <ClusterOutlined/>
-            </Link>
-        ),
-    ]),
-    getItem('Payments', 'payments_items', <CreditCardOutlined/>, [
-        getItem(
-            'Logs',
+            'Payment Logs',
             'log_payments_items',
             <Link to='/payments/logs'>
-                <HistoryOutlined/>
+                <CreditCardOutlined/>
             </Link>
         ),
         // getItem(
@@ -84,6 +68,13 @@ export const items = [
         'orders_orders_item',
         <Link to='/orders'>
             <FileDoneOutlined/>
+        </Link>
+    ),
+    getItem(
+        'Versions',
+        'devices_versions_item',
+        <Link to='/devices/version'>
+            <ClusterOutlined/>
         </Link>
     ),
     // getItem(
