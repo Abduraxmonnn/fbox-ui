@@ -9,6 +9,7 @@ import {APIv1} from "../../api";
 import ShowUserPicture from "../../components/UserProfileCom/ShowUserPicture";
 import PaymentProvidersPermissionCheckBox
     from "../../components/UserProfileCom/PaymentProvidersPermissions/PaymentProvidersPermission";
+import {updateUserData} from "../../components/UserProfileCom/updateUserData";
 
 const {RangePicker} = DatePicker;
 
@@ -109,14 +110,18 @@ const UserProfile = () => {
         }));
     };
 
-    const handleSave = () => {
-        // In a real application, you would send the updated data to an API here
-        console.log(initialData)
-        // console.log(profileData)
+    const handleSave = async (profileData, companyInn, token, setInitialData, setHasChanges) => {
         console.log('Saving profile data:', profileData);
-        setInitialData(profileData);
-        setHasChanges(false);
-        message.success('Profile updated successfully');
+        companyInn = profileData.inn
+        const isUpdateSuccessful = await updateUserData({data: profileData, companyInn, token});
+
+        if (isUpdateSuccessful) {
+            setInitialData(profileData);
+            setHasChanges(false);
+            message.success('Profile updated successfully');
+        } else {
+            message.error('Failed to update profile');
+        }
     };
 
     const handleCancel = () => {
@@ -168,7 +173,15 @@ const UserProfile = () => {
                             icon={<Save size={16}/>}
                             type="primary"
                             className={`save-button ${hasChanges ? '' : 'no-changes'}`}
-                            onClick={handleSave}
+                            // onClick={handleSave}
+                            onClick={() =>
+                                handleSave(
+                                    profileData,
+                                    profileData.inn,
+                                    userData.token,
+                                    setInitialData,
+                                    setHasChanges
+                                )}
                             disabled={!hasChanges}
                         >
                             Save
