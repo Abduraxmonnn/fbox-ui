@@ -17,7 +17,6 @@
 .analysis__header {
     margin-bottom: 24px;
     padding: 16px;
-    border-radius: 12px;
 }
 
 .analysis__metrics {
@@ -28,7 +27,6 @@
 }
 
 .analysis__metric-card {
-    border-radius: 12px;
     padding: 24px;
     transition: transform 0.2s ease;
 }
@@ -46,7 +44,6 @@
 }
 
 .analysis__chart-card {
-    border-radius: 12px;
     padding: 24px;
     min-height: 400px;
     display: flex;
@@ -60,7 +57,7 @@
 .analysis__chart-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--color-text-primary, #1a1a1a);
+    color: #1a1a1a;
     margin: 0 0 16px 0;
 }
 
@@ -76,7 +73,6 @@
 }
 
 .analysis__orders-card {
-    border-radius: 12px;
     padding: 24px;
 }
 
@@ -108,18 +104,46 @@
     }
 }
 
+@media (max-width: 992px) {
+    .analysis__metrics {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 768px) {
     .analysis {
         padding: 16px;
     }
 
-    .analysis__metrics {
-        grid-template-columns: 1fr;
-    }
-
+    .analysis__header,
     .analysis__metric-card,
     .analysis__chart-card,
     .analysis__orders-card {
         padding: 16px;
+    }
+
+    .analysis__chart-title {
+        font-size: 1.1rem;
+    }
+
+    .analysis__orders-title {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .analysis {
+        padding: 12px;
+    }
+
+    .analysis__header,
+    .analysis__metric-card,
+    .analysis__chart-card,
+    .analysis__orders-card {
+        padding: 12px;
+    }
+
+    .analysis__chart-card {
+        min-height: 300px;
     }
 }
