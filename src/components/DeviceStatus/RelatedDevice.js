@@ -2,10 +2,24 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {Table, Tag} from 'antd';
 import {APIv1} from '../../api';
 import {Link, useOutletContext} from 'react-router-dom';
-import {extractDateBySecond, handleTableChange, useRowNavigation} from '../../utils';
-import {ChevronDown, ChevronUp} from "lucide-react";
+import {deviceStatusInactiveTime, extractDateBySecond, handleTableChange, useRowNavigation} from '../../utils';
+import {MonitorCheck, MonitorDot} from "lucide-react";
 
 const columns = [
+    {
+        title: 'Status',
+        dataIndex: 'updated_date',
+        sorter: true,
+        orderIndex: 'updated_date',
+        render: (text, record) => (
+            <>
+                {[record.is_active].map(tag => (
+                    tag ? <MonitorCheck key={record.key} size={18} color={'#1cb344'}/> :
+                        <MonitorDot key={record.key} size={18} color={deviceStatusInactiveTime[record.is_active_time]}/>
+                ))}
+            </>
+        ),
+    },
     {
         title: 'Device serial number',
         dataIndex: 'device_serial',
