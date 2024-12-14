@@ -1,13 +1,13 @@
 import CountUp from "react-countup";
 import {CheckCircle, XCircle} from 'lucide-react';
-import './TransactionCount.css'
+import './BaseNumberCardStyle.css'
 
 interface TransactionCountCardProps {
     successAmount?: number;
     failureAmount?: number;
 }
 
-const TransactionCountCard: React.FC<TransactionCountCardProps> = ({
+const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({
                                                                        successCount = 528,
                                                                        failureCount = 169
                                                                    }) => {
@@ -44,4 +44,4 @@ const TransactionCountCard: React.FC<TransactionCountCardProps> = ({
     );
 }
 
-export default TransactionCountCard;
+export default TransactionNumberCard;

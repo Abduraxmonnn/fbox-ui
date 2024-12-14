@@ -1,0 +1,15 @@
+.transaction-metrics__icon--active {
+    color: #34A853;
+}
+
+.transaction-metrics__icon--active:hover {
+    color: #388E3C;
+}
+
+.transaction-metrics__icon--inactive {
+    color: #F44336;
+}
+
+.transaction-metrics__icon--inactive:hover {
+    color: #D32F2F;
+}

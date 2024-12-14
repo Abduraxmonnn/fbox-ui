@@ -1,0 +1,15 @@
+.transaction-metrics__icon--sms {
+    color: #34A853;
+}
+
+.transaction-metrics__icon--sms:hover {
+    color: #1B8A38;
+}
+
+.transaction-metrics__icon--email {
+    color: #1E90FF;
+}
+
+.transaction-metrics__icon--email:hover {
+    color: #3367D6;
+}

@@ -50,11 +50,19 @@
 }
 
 .transaction-metrics__icon--success {
-    color: #4CAF50;
+    color: #34A853;
+}
+
+.transaction-metrics__icon--success:hover {
+    color: #388E3C;
 }
 
 .transaction-metrics__icon--failure {
-    color: #f44336;
+    color: #F44336;
+}
+
+.transaction-metrics__icon--failure:hover {
+    color: #D32F2F;
 }
 
 @media (max-width: 768px) {

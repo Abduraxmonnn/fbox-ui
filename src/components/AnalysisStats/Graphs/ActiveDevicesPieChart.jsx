@@ -1,8 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Pie} from '@ant-design/plots';
-import {APIv1} from "../../api";
+import {APIv1} from "../../../api";
 
-const PieChart = () => {
+const ActiveDevicesPieChart = () => {
     const [userData, setUserData] = useState({});
     const [data, setData] = useState([]);
     const [totalUsers, setTotalUsers] = useState(0);
@@ -73,4 +73,4 @@ const PieChart = () => {
     return <Pie {...config} />;
 };
 
-export default PieChart;
+export default ActiveDevicesPieChart;
