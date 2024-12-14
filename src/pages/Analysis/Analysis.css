@@ -31,11 +31,6 @@
     transition: transform 0.2s ease;
 }
 
-.analysis__metric-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-}
-
 .analysis__charts {
     margin-bottom: 24px;
 }
@@ -43,10 +38,6 @@
 .analysis__chart-card {
     padding: 24px;
     overflow: hidden; /* Add this to contain the absolutely positioned children */
-}
-
-.analysis__chart-card:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
 }
 
 .analysis__chart-grid {
@@ -105,10 +96,6 @@
     padding: 24px;
 }
 
-.analysis__orders-card:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-}
-
 .analysis__orders-title {
     font-size: 1.25rem;
     font-weight: 600;
@@ -120,6 +107,18 @@
 
 .analysis__orders-title:hover {
     color: #0066ff;
+}
+
+.analysis__chart-card:hover,
+.analysis__orders-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+
+.analysis__metric-card:hover,
+.analysis__charts:hover,
+.analysis__orders-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
 }
 
 /* Responsive Styles */
