@@ -93,7 +93,7 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
             <div className="header-content">
                 <div className="header-left">
                     <a href="/analysis" className="logo">
-                        <img src={images.logo} alt="logo"/>
+                        <img src={images.logo_hat} alt="logo"/>
                     </a>
                     {expireDeviceData.min_day_to_expire !== null && (
                         <span className={`expiration ${isExpiredSoon ? 'alert' : isWarning ? 'warning' : ''}`}>
@@ -113,13 +113,14 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                             <span>{userData.data.username}</span>
                             <span>{userData.data.is_superuser ? 'Admin' : 'Client'}</span>
                         </div>
-                        <Avatar
-                            size={30}
-                            icon={<UserOutlined/>}
-                            className="user_avatar"
-                            onClick={toggleUserOptions}
-                            ref={avatarRef}
-                        />
+                        {/*<Avatar*/}
+                        {/*    size={30}*/}
+                        {/*    icon={<UserOutlined/>}*/}
+                        {/*    className="user_avatar"*/}
+                        {/*    onClick={toggleUserOptions}*/}
+                        {/*    ref={avatarRef}*/}
+                        {/*/>*/}
+                        <img src={images.greyAvatar} className="user_avatar" onClick={toggleUserOptions} ref={avatarRef} alt="avatar" />
                         {isUserOptions && (
                             <div ref={formRef} className={`header-menu${isUserOptions ? ' show-menu' : ''}`}>
                                 <ul className="user-menu">
