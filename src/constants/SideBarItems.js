@@ -1,12 +1,22 @@
 import {
-    ShopOutlined,
-    ProfileOutlined,
     PieChartOutlined,
     MessageOutlined,
     CheckCircleOutlined,
     ClusterOutlined,
-    FileDoneOutlined, RetweetOutlined, CreditCardOutlined, HistoryOutlined
+    FileDoneOutlined,
+    CreditCardOutlined,
+    HistoryOutlined
 } from '@ant-design/icons'
+import {
+    IoGiftOutline,
+    IoSnowOutline,
+    IoCloudOutline,
+    IoStarOutline,
+    IoHomeOutline,
+    IoPeopleOutline,
+    IoMoonOutline,
+    IoCalendarOutline
+} from 'react-icons/io5';
 import {Link} from 'react-router-dom'
 import {Landmark} from 'lucide-react';
 
@@ -24,29 +34,34 @@ export const items = [
         'Analysis',
         'analysis_item',
         <Link to='/analysis'>
-            <PieChartOutlined/>
+            {/*<PieChartOutlined/>*/}
+            <IoSnowOutline/>
         </Link>
     ),
     getItem(
         'Company',
         'devices_company_item',
         <Link to='/devices/company'>
-            <Landmark size={14}/>
+            {/*<Landmark size={14}/>*/}
+            <IoHomeOutline/>
         </Link>
     ),
     getItem(
         'Devices',
         'devices_status_item',
         <Link to='/devices/status'>
-            <CheckCircleOutlined/>
+            {/*<CheckCircleOutlined/>*/}
+            <IoStarOutline/>
         </Link>
     ),
-    getItem('Logs', 'payments_items', <HistoryOutlined/>, [
+    // <HistoryOutlined/>
+    getItem('Logs', 'payments_items', <IoCalendarOutline/>, [
         getItem(
             'Payment Logs',
             'log_payments_items',
             <Link to='/payments/logs'>
-                <CreditCardOutlined/>
+                {/*<CreditCardOutlined/>*/}
+                <IoMoonOutline />
             </Link>
         ),
         // getItem(
@@ -60,7 +75,8 @@ export const items = [
             'SMS',
             'sms_payments_items',
             <Link to='/payments/sms'>
-                <MessageOutlined/>
+                {/*<MessageOutlined/>*/}
+                <IoPeopleOutline />
             </Link>
         ),
     ]),
@@ -68,14 +84,16 @@ export const items = [
         'Orders',
         'orders_orders_item',
         <Link to='/orders'>
-            <FileDoneOutlined/>
+            {/*<FileDoneOutlined/>*/}
+            <IoGiftOutline/>
         </Link>
     ),
     getItem(
         'Versions',
         'devices_versions_item',
         <Link to='/devices/version'>
-            <ClusterOutlined/>
+            {/*<ClusterOutlined/>*/}
+            <IoCloudOutline/>
         </Link>
     ),
     // getItem(
