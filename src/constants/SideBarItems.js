@@ -1,12 +1,12 @@
-import {
-    PieChartOutlined,
-    MessageOutlined,
-    CheckCircleOutlined,
-    ClusterOutlined,
-    FileDoneOutlined,
-    CreditCardOutlined,
-    HistoryOutlined
-} from '@ant-design/icons'
+// import {
+//     PieChartOutlined,
+//     MessageOutlined,
+//     CheckCircleOutlined,
+//     ClusterOutlined,
+//     FileDoneOutlined,
+//     CreditCardOutlined,
+//     HistoryOutlined
+// } from '@ant-design/icons'
 import {
     IoGiftOutline,
     IoSnowOutline,
