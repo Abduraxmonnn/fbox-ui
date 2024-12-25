@@ -1,16 +1,50 @@
 import CountUp from 'react-countup';
 import {ArrowUpRight, ArrowDownRight} from 'lucide-react';
 import './TransactionFinancial.css';
+import {useCallback, useEffect, useState} from "react";
+import {APIv1} from "../../../../api";
 
 interface TransactionFinancialCardProps {
     successAmount?: number;
     failureAmount?: number;
 }
 
-const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({
-                                                                               successAmount = 2546000,
-                                                                               failureAmount = 791020
-                                                                           }) => {
+const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = () => {
+    const [userData, setUserData] = useState({});
+    const [fetchedData, setFetchedData] = useState([]);
+
+    const fetchData = useCallback(async () => {
+        try {
+            const response = await APIv1.get('/analysis/transactions/amount/', {
+                headers: {
+                    Authorization: `Token ${userData.token}`,
+                },
+            });
+            const responseData = response.data;
+
+            setFetchedData({
+                'successAmount': responseData.success,
+                'failureAmount': responseData.failure,
+            });
+
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    }, [userData.token]);
+
+    useEffect(() => {
+        if (!userData.token) return;
+
+        fetchData()
+    }, [userData.token])
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setUserData(items);
+        }
+    }, [userData.token]);
+
     return (
         <div className="payment-income">
             <h2 className="payment-income__title">Payment Income</h2>
@@ -22,7 +56,7 @@ const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({
                         <span className="payment-income__arrow"><ArrowUpRight/></span>
                         {/*<span className="payment-income__value">{successAmount} UZS</span>*/}
                         <CountUp
-                            end={successAmount}
+                            end={fetchedData.successAmount}
                             duration={2.5}
                             separator=","
                             suffix=" UZS"
@@ -37,7 +71,7 @@ const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({
                         <span className="payment-income__arrow"><ArrowDownRight/></span>
                         {/*<span className="payment-income__value">{failureAmount} UZS</span>*/}
                         <CountUp
-                            end={failureAmount}
+                            end={fetchedData.failureAmount}
                             duration={2.5}
                             separator=","
                             suffix=" UZS"
