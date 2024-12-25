@@ -6,7 +6,11 @@ import {APIv1} from '../../../api'
 import Orders from "../../Orders/Orders";
 import './DeviceStatusDetail.scss'
 import {DeviceStatusProviders, DeviceStatusQRProviders} from "../../../components";
-import {deviceStatusInactiveTime, deviceStatusInactiveTimeToText} from "../../../utils";
+import {
+    deviceStatusInactiveTime,
+    deviceStatusInactiveTimeToText,
+    extractDateBySecond
+} from "../../../utils";
 
 const DeviceStatusDetail = () => {
     const {serial_number} = useParams();
@@ -125,10 +129,16 @@ const DeviceStatusDetail = () => {
                                     <li className="detail-view__item">
                                         <span className="detail-view__label">Activity:</span>
                                         <span
-                                            className="detail-view__value">{deviceStatusInactiveTimeToText[deviceData.is_active_time]} ... {deviceData.is_active ?
+                                            className="detail-view__value">({deviceStatusInactiveTimeToText[deviceData.is_active_time]}) ... {deviceData.is_active ?
                                             <MonitorCheck size={18} color={'#1cb344'}/> :
                                             <MonitorDot size={18}
                                                         color={deviceStatusInactiveTime[deviceData.is_active_time]}/>}
+                                        </span>
+                                    </li>
+                                    <li className="detail-view__item">
+                                        <span className="detail-view__label">Last update date:</span>
+                                        <span
+                                            className="detail-view__value">{extractDateBySecond(deviceData.updated_date)}
                                         </span>
                                     </li>
                                     <li className="detail-view__item">
