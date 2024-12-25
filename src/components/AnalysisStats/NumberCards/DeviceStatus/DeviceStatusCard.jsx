@@ -14,7 +14,7 @@ const DeviceStatusCard: React.FC<TransactionCountCardProps> = () => {
     const [userData, setUserData] = useState({});
     const [data, setData] = useState([]);
 
-    const fetchUserData = useCallback(async () => {
+    const fetchDeviceData = useCallback(async () => {
         try {
             const response = await APIv1.get('/device/status/', {
                 headers: {
@@ -36,7 +36,7 @@ const DeviceStatusCard: React.FC<TransactionCountCardProps> = () => {
     useEffect(() => {
         if (!userData.token) return;
 
-        fetchUserData()
+        fetchDeviceData()
     }, [userData.token])
 
 
