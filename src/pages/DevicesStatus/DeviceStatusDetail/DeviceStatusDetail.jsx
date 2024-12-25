@@ -129,7 +129,7 @@ const DeviceStatusDetail = () => {
                                     <li className="detail-view__item">
                                         <span className="detail-view__label">Activity:</span>
                                         <span
-                                            className="detail-view__value">({deviceStatusInactiveTimeToText[deviceData.is_active_time]}) ... {deviceData.is_active ?
+                                            className="detail-view__value">{deviceStatusInactiveTimeToText[deviceData.is_active_time]} ... {deviceData.is_active ?
                                             <MonitorCheck size={18} color={'#1cb344'}/> :
                                             <MonitorDot size={18}
                                                         color={deviceStatusInactiveTime[deviceData.is_active_time]}/>}
