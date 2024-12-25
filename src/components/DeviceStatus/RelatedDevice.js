@@ -7,6 +7,13 @@ import {MonitorCheck, MonitorDot} from "lucide-react";
 
 const columns = [
     {
+        title: 'ID',
+        dataIndex: 'id',
+        key: 'id',
+        width: '5%',
+        render: (item, record, index) => (<>{index + 1}</>)
+    },
+    {
         title: 'Status',
         dataIndex: 'updated_date',
         sorter: true,
