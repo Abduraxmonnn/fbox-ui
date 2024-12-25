@@ -11,7 +11,7 @@ const PieChart = () => {
         datasets: [
             {
                 label: '# of Votes',
-                data: [12722, 381],
+                data: [250, 43],
                 borderWidth: 3,
             },
         ],
