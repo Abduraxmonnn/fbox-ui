@@ -122,6 +122,8 @@ const Logs = (props) => {
                 isSuccess: log.is_success,
                 status: log.status,
                 logType: ConvertLogsPaymentProvider(log.log_type),
+                paymentResponse: log.payment_response,
+                confirmResponse: log.confirm_response,
                 createdDate: extractDateBySecond(log.created_date)
             }));
             setLogsData(data)
@@ -170,8 +172,20 @@ const Logs = (props) => {
         <>
             <div className="content_container">
                 <Table
-                    rowSelection={{
-                        type: selectionType, ...rowSelection
+                    // rowSelection={{
+                    //     type: selectionType, ...rowSelection
+                    // }}
+                    expandable={{
+                        expandedRowRender: (record) => (
+                            <p
+                                style={{
+                                    margin: 0,
+                                }}
+                            >
+                                {record.paymentResponse ?? record.confirmResponse}
+                            </p>
+                        ),
+                        rowExpandable: (record) => record.name !== 'Not Expandable',
                     }}
                     columns={columns}
                     dataSource={logsData}
