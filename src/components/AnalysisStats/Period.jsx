@@ -11,8 +11,8 @@ const options = [
         label: 'Last day',
     },
     {
-        value: 'week',
-        label: 'Last week',
+        value: 'month',
+        label: 'Last 30 days',
     },
     {
         value: 'total',
@@ -30,9 +30,9 @@ const Period = () => {
             <Space wrap>
                 <span>Group By</span>
                 <Select
-                    defaultValue="hour"
+                    defaultValue="month"
                     style={{
-                        width: 120,
+                        width: "max-content",
                     }}
                     allowClear
                     onChange={handleChange}

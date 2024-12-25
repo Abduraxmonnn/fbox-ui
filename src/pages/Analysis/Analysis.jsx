@@ -1,7 +1,7 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
 // import ActiveDevicesPieChart from '../../components/AnalysisStats/ActiveDevicesPieChart';
-import PieChart from '../../components/AnalysisStats/Graphs/TransactionsPieChart';
+import PayMeTransactionsPieChart from '../../components/AnalysisStats/Graphs/TransactionPieCharts/PayMe';
 import Orders from "../../components/Analysis/Orders";
 import TransactionFinancialCard
     from '../../components/AnalysisStats/NumberCards/TransactionFinancial/TransactionFinancialCard';
@@ -10,6 +10,9 @@ import TransactionNumberCard from '../../components/AnalysisStats/NumberCards/Tr
 import './Analysis.css';
 import DeviceStatusCard from "../../components/AnalysisStats/NumberCards/DeviceStatus/DeviceStatusCard";
 import NotifyNumberCard from "../../components/AnalysisStats/NumberCards/NotifyNumber/NotifyNumberCard";
+import ClickTransactionsPieChart from "../../components/AnalysisStats/Graphs/TransactionPieCharts/Click";
+import UzumTransactionsPieChart from "../../components/AnalysisStats/Graphs/TransactionPieCharts/Uzum";
+import AnorTransactionsPieChart from "../../components/AnalysisStats/Graphs/TransactionPieCharts/Anor";
 
 const Analysis = () => {
     const navigate = useNavigate();
@@ -41,19 +44,19 @@ const Analysis = () => {
                     <div className='analysis__chart-grid'>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>PayMe</h3>
-                            <PieChart offset="up"/>
+                            <PayMeTransactionsPieChart offset="up"/>
                         </div>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>Click</h3>
-                            <PieChart offset="down"/>
+                            <ClickTransactionsPieChart offset="down"/>
                         </div>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>Uzum</h3>
-                            <PieChart offset="up"/>
+                            <UzumTransactionsPieChart offset="up"/>
                         </div>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>Anor</h3>
-                            <PieChart offset="down"/>
+                            <AnorTransactionsPieChart offset="down"/>
                         </div>
                     </div>
                 </div>
