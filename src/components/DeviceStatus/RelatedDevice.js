@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {Table, Tag} from 'antd';
 import {APIv1} from '../../api';
-import {Link, useOutletContext} from 'react-router-dom';
-import {deviceStatusInactiveTime, extractDateBySecond, handleTableChange, useRowNavigation} from '../../utils';
+import {Link} from 'react-router-dom';
+import {deviceStatusInactiveTime, extractDateBySecond, useRowNavigation} from '../../utils';
 import {MonitorCheck, MonitorDot} from "lucide-react";
 
 const columns = [
@@ -117,24 +117,19 @@ const rowSelection = {
 
 const RelatedDeviceStatus = (props) => {
     let companyInn = props.companyInn;
+    const defaultPageSize = 10;
     const [deviceStatusData, setDeviceStatusData] = useState([]);
     const [selectionType, setSelectionType] = useState('checkbox');
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState({});
-    const [sortField, setSortField] = useState('');
-    const [sortOrder, setSortOrder] = useState('');
-    const {searchText} = useOutletContext();
+    const [totalDevices, setTotalDevices] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(defaultPageSize);
 
     const fetchDeviceStatusData = useCallback(async (page, size, search = '', ordering = '') => {
         setLoading(true);
         try {
             const response = await APIv1.get(`/company/related/devices/${companyInn}/`, {
-                params: {
-                    page,
-                    page_size: size,
-                    search,
-                    ordering,
-                },
                 headers: {
                     Authorization: `Token ${userData.token}`,
                 },
@@ -154,6 +149,7 @@ const RelatedDeviceStatus = (props) => {
             }));
 
             setDeviceStatusData(data);
+            setTotalDevices(response.data.count);
         } catch (err) {
             console.error('Something went wrong:', err);
         } finally {
@@ -171,16 +167,13 @@ const RelatedDeviceStatus = (props) => {
     useEffect(() => {
         if (!userData.token) return;
 
-        let ordering = '';
-        if (sortField) {
-            ordering = sortOrder === 'ascend' ? sortField : `-${sortField}`;
-        }
+        fetchDeviceStatusData();
+    }, [userData.token, fetchDeviceStatusData]);
 
-        fetchDeviceStatusData(searchText, ordering);
-    }, [searchText, sortOrder, sortField, userData.token, fetchDeviceStatusData]);
-
-
-    const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns);
+    const onPaginationChange = (page, pageSize) => {
+        setCurrentPage(page);
+        setPageSize(pageSize);
+    };
 
     const onRowClick = useRowNavigation({
         routePrefix: '/device/status/detail',
@@ -198,9 +191,17 @@ const RelatedDeviceStatus = (props) => {
                     columns={columns}
                     dataSource={deviceStatusData}
                     loading={loading}
-                    onChange={tableChangeHandler}
                     onRow={onRowClick}
-                    pagination={false}
+                    pagination={{
+                        total: totalDevices,
+                        current: currentPage,
+                        pageSize: pageSize,
+                        onChange: onPaginationChange,
+                        defaultPageSize: defaultPageSize,
+                        defaultCurrent: 1,
+                        showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,
+                        pageSizeOptions: ['10'],
+                    }}
                 />
             </div>
         </>
