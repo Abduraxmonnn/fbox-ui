@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {Button} from 'antd'
 import {useNavigate} from 'react-router-dom';
 import PaymentProvidersComponent from "./NewDeviceFormComponents/PaymentProvidersComponent";
@@ -7,6 +8,11 @@ import './AddNewDeviceForm.scss'
 
 const AddNewDeviceForm = () => {
     const navigate = useNavigate();
+    const [expandAdditionalSection, setExpandAdditionalSection] = useState(null);
+
+    const toggleAdditionalSection = (section) => {
+        setExpandAdditionalSection(prevSection => prevSection === section ? null : section);
+    };
 
     return (
         <>
@@ -34,8 +40,9 @@ const AddNewDeviceForm = () => {
                         <PaymentProvidersComponent/>
                     </div>
                     <div className="create-device__forms-container">
-                        <h2 className="create-device__forms-title">Additional Fields</h2>
-                        <AdditionalFieldsComponent/>
+                        {/*<h2 className="create-device__forms-title">Additional Fields</h2>*/}
+                        <AdditionalFieldsComponent expandedSection={expandAdditionalSection}
+                                                   toggleSection={toggleAdditionalSection}/>
                     </div>
                 </div>
                 <div className='create-device__footer'>

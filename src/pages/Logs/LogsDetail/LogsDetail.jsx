@@ -4,8 +4,8 @@ import {StatusIcon, LogsStatusIcon} from "../../../utils/statusIcons";
 import {useParams} from "react-router-dom";
 import {extractDateBySecond} from "../../../utils";
 import {LogsConfirmContent, LogsPaymentContent} from "../../../components";
-import "../../../styles/BaseLogsStyle.scss"
 import {ConvertLogsPaymentProvider} from "../../../utils/logsUtils";
+import "../../../styles/BaseLogsStyle.scss"
 
 const LogsDetail = () => {
     const {id} = useParams();
