@@ -162,11 +162,6 @@ const Logs = (props) => {
 
     const tableChangeHandler = handleTableChange(setSortField, setSortLog, columns, setFilters, 'log_type');
 
-    const onRowClick = useRowNavigation({
-        routePrefix: '/payments/logs/detail',
-        idField: 'key'
-    });
-
     return (
         <>
             <div className="content_container">
@@ -190,7 +185,6 @@ const Logs = (props) => {
                     dataSource={logsData}
                     loading={loading}
                     onChange={tableChangeHandler}
-                    onRow={onRowClick}
                     pagination={{
                         total: totalLogs,
                         current: currentPage,
