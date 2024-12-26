@@ -1,10 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {Table, FloatButton} from 'antd';
-import {
-    FileAddOutlined,
-    FileExcelOutlined,
-    UploadOutlined,
-} from '@ant-design/icons';
+import {FileAddOutlined} from '@ant-design/icons';
 import {APIv1} from '../../api';
 import {Link, useOutletContext} from 'react-router-dom';
 import {handleTableChange, useRowNavigation} from "../../utils";
@@ -162,24 +158,6 @@ const Company = () => {
                     tooltip={<div>Add Company</div>}
                 />
             </Link>
-            {/*<FloatButton.Group*/}
-            {/*    trigger="click"*/}
-            {/*    type="primary"*/}
-            {/*    style={{right: 24}}*/}
-            {/*    icon={<UploadOutlined/>}*/}
-            {/*>*/}
-            {/*    <FloatButton*/}
-            {/*        icon={<FileExcelOutlined/>}*/}
-            {/*        tooltip={<div>Delete Company</div>}*/}
-            {/*    />*/}
-            {/*    <Link to="/create_company">*/}
-            {/*        <FloatButton*/}
-            {/*            type="primary"*/}
-            {/*            icon={<FileAddOutlined/>}*/}
-            {/*            tooltip={<div>Add Company</div>}*/}
-            {/*        />*/}
-            {/*    </Link>*/}
-            {/*</FloatButton.Group>*/}
         </div>
     )
 }
