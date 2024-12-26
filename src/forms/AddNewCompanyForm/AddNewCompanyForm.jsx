@@ -1,19 +1,20 @@
-import {Button, Checkbox, DatePicker, Flex, Input, Select, Space} from "antd";
+import {Button, Checkbox, DatePicker, Flex, Input, Select, Space, Modal, message} from "antd";
 import {useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {APIv1} from "../../api";
+import {Save, X} from 'lucide-react';
 import './AddNewCompanyForm.scss'
-import {Save, X} from "lucide-react";
 
 const {RangePicker} = DatePicker
 
 const initialFormData = {
-    startDate: "",
-    endDate: "",
+    startDate: null,
+    endDate: null,
     name: "",
     address: "",
     inn: "",
     phoneNumber: "",
+    user: [],
     status: {
         sentSms: false,
         permClick: false,
@@ -21,13 +22,13 @@ const initialFormData = {
         permUzum: false,
         permAnor: false,
     },
-}
+};
 
 const AddNewCompanyForm = () => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState(initialFormData);
     const [userData, setUserData] = useState([]);
-    const [initialData, setInitialData] = useState({});
+    const [savedData, setSavedData] = useState(null);
 
     const getUsersData = async () => {
         try {
@@ -48,69 +49,44 @@ const AddNewCompanyForm = () => {
         getUsersData();
     }, []);
 
-    useEffect(() => {
-        // Fetch user data
-        const fetchUsers = async () => {
-            try {
-                const response = await APIv1.getUsers();
-                setUserData(response.data.map(user => ({
-                    value: user.id,
-                    label: user.name,
-                    desc: user.email,
-                    emoji: '👤'
-                })));
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
-        };
-
-        fetchUsers();
-    }, []);
-
     const handleInputChange = (e) => {
         const {name, value, type, checked} = e.target;
-        setFormData(prev => {
-            return {
-                ...prev,
-                [name]: type === 'checkbox' ? checked : value
-            };
-        });
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
     };
 
     const handleDateChange = (dates) => {
-        setFormData(prev => {
-            return {
-                ...prev,
-                startDate: dates[0],
-                endDate: dates[1]
-            };
-        });
+        setFormData(prev => ({
+            ...prev,
+            startDate: dates[0],
+            endDate: dates[1]
+        }));
     };
 
-    const handleSelectChange = (value, options) => {
-        if (options?.length === 0 || options?.length === 1) {
-            setFormData(prev => {
-                return {
-                    ...prev,
-                    user: value
-                }
-            })
-        }
+    const handleSelectChange = (value) => {
+        setFormData(prev => ({
+            ...prev,
+            user: value
+        }));
     };
 
-    const handleSave = async () => {
+    const handleSubmit = async () => {
         try {
-            // Implement your save logic here
-            // For example: await APIv1.saveCompany(formData);
-            setInitialData(formData);
-            console.log(formData);
+            console.log('Company data saved:', formData);
+            setSavedData(formData);
+            setFormData(initialFormData);
+            message.success('Profile updated successfully');
         } catch (error) {
             console.error('Error saving company data:', error);
         }
     };
 
     const handleClear = () => {
-        setFormData(initialData);
+        setFormData(initialFormData);
+        setSavedData(null);
+        message.info('Changes discarded');
     };
 
     return (
@@ -139,6 +115,7 @@ const AddNewCompanyForm = () => {
                                 }}
                                 format='YYYY-MM-DD HH:mm'
                                 onChange={handleDateChange}
+                                value={[formData.startDate, formData.endDate]}
                             />
                         </Space>
                     </li>
@@ -152,6 +129,7 @@ const AddNewCompanyForm = () => {
                             }}
                             placeholder="Company Name"
                             name="name"
+                            value={formData.name}
                             onChange={handleInputChange}
                         />
                     </li>
@@ -165,6 +143,7 @@ const AddNewCompanyForm = () => {
                             }}
                             placeholder="Company Address"
                             name="address"
+                            value={formData.address}
                             onChange={handleInputChange}
                         />
                     </li>
@@ -178,6 +157,7 @@ const AddNewCompanyForm = () => {
                             }}
                             placeholder="Company INN"
                             name="inn"
+                            value={formData.inn}
                             onChange={handleInputChange}
                         />
                     </li>
@@ -185,7 +165,11 @@ const AddNewCompanyForm = () => {
                         <p>Sent sms</p>
                         <Checkbox
                             name="sentSms"
-                            onChange={handleInputChange}
+                            checked={formData.status.sentSms}
+                            onChange={(e) => setFormData(prev => ({
+                                ...prev,
+                                status: {...prev.status, sentSms: e.target.checked}
+                            }))}
                         />
                     </li>
                     <li>
@@ -204,6 +188,7 @@ const AddNewCompanyForm = () => {
                                 }}
                                 type="number"
                                 name="phoneNumber"
+                                value={formData.phoneNumber}
                                 onChange={handleInputChange}
                             />
                         </Space.Compact>
@@ -216,6 +201,7 @@ const AddNewCompanyForm = () => {
                                 width: '50%',
                             }}
                             placeholder='select one USER'
+                            value={formData.user}
                             onChange={handleSelectChange}
                             optionLabelProp='label'
                             options={userData}
@@ -235,28 +221,32 @@ const AddNewCompanyForm = () => {
                     <li className='not_required_field'>
                         <p>Permission to PayMe</p>
                         <Checkbox
-                            name="parmPayme"
+                            name="permPayme"
+                            checked={formData.status.permPayme}
                             onChange={handleInputChange}
                         />
                     </li>
                     <li className='not_required_field'>
                         <p>Permission to Click</p>
                         <Checkbox
-                            name="parmClick"
+                            name="permClick"
+                            checked={formData.status.permClick}
                             onChange={handleInputChange}
                         />
                     </li>
                     <li className='not_required_field'>
                         <p>Permission to Uzum</p>
                         <Checkbox
-                            name="parmUzum"
+                            name="permUzum"
+                            checked={formData.status.permUzum}
                             onChange={handleInputChange}
                         />
                     </li>
                     <li className='not_required_field'>
                         <p>Permission to Anor</p>
                         <Checkbox
-                            name="parmAnor"
+                            name="permAnor"
+                            checked={formData.status.permAnor}
                             onChange={handleInputChange}
                         />
                     </li>
@@ -267,7 +257,7 @@ const AddNewCompanyForm = () => {
                     <Button
                         icon={<Save size={16}/>}
                         type="primary"
-                        onClick={handleSave}
+                        onClick={handleSubmit}
                         className="save-button"
                         style={{
                             backgroundColor: '#4caf50',
