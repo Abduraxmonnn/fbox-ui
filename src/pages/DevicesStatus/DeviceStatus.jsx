@@ -1,10 +1,11 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {Table, Tag} from 'antd';
+import {FloatButton, Table, Tag} from 'antd';
 import {APIv1} from '../../api';
 import {MonitorCheck, MonitorDot} from 'lucide-react';
 import {Link, useOutletContext} from 'react-router-dom';
 import {deviceStatusInactiveTime, extractDateBySecond, handleTableChange, useRowNavigation} from '../../utils';
 import "./DeviceStatus.scss"
+import {FileAddOutlined} from "@ant-design/icons";
 
 const columns = [
     {
@@ -216,6 +217,13 @@ const DeviceStatus = () => {
                     pageSizeOptions: ['10', '20', '50', '100'],
                 }}
             />
+            <Link to="/create/device">
+                <FloatButton
+                    type="primary"
+                    icon={<FileAddOutlined/>}
+                    tooltip={<div>Add Company</div>}
+                />
+            </Link>
         </div>
     );
 }

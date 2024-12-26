@@ -48,7 +48,7 @@ function App() {
                         <Route path='/orders' element={<Orders serialNumber={null}/>}/>
 						<Route path='/feedback' element={<Feedbacks/>}/>
 
-                        <Route path='/create_device' element={<AddNewDevice/>}/>
+                        <Route path='/create/device' element={<AddNewDevice/>}/>
                         <Route path='/create_company' element={<AddNewCompany/>}/>
 
                         <Route path='/order/detail/:id' element={<OrderDetail />}/>
