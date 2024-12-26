@@ -1,10 +1,11 @@
-import {useState} from "react";
-import {Button} from 'antd'
+import React, {useState} from "react";
+import {Button, message} from 'antd'
 import {useNavigate} from 'react-router-dom';
 import PaymentProvidersComponent from "./NewDeviceFormComponents/PaymentProvidersComponent";
 import AdditionalFieldsComponent from "./NewDeviceFormComponents/AdditionalFieldsComponent";
 import MainFieldsComponent from "./NewDeviceFormComponents/MainFieldsComponent";
 import './AddNewDeviceForm.scss'
+import {Save, X} from "lucide-react";
 
 const AddNewDeviceForm = () => {
     const navigate = useNavigate();
@@ -13,6 +14,19 @@ const AddNewDeviceForm = () => {
     const toggleAdditionalSection = (section) => {
         setExpandAdditionalSection(prevSection => prevSection === section ? null : section);
     };
+
+    const handleSubmit = async () => {
+        try {
+            message.success('Profile updated successfully');
+        } catch (error) {
+            console.error('Error saving company data:', error);
+        }
+    };
+
+    const handleClear = () => {
+        message.info('Changes discarded');
+    };
+
 
     return (
         <>
@@ -48,23 +62,33 @@ const AddNewDeviceForm = () => {
                 <div className='create-device__footer'>
                     <div className='create-device__footer-buttons'>
                         <Button
+                            className="create-device__save-button"
+                            icon={<Save size={16}/>}
+                            type="primary"
+                            onClick={handleSubmit}
                             style={{
-                                width: '15%',
+                                backgroundColor: '#4caf50',
+                                borderColor: '#4caf50',
                                 display: 'inline-block',
+                                width: '15%',
                                 marginRight: '1%'
                             }}
-                            type='dashed'
-                            danger>
-                            Clear
+                        >
+                            Submit
                         </Button>
                         <Button
+                            className="create-device__cancel-button"
+                            icon={<X size={16}/>}
+                            type="dashed"
+                            danger
+                            onClick={handleClear}
                             style={{
-                                width: '15%',
                                 display: 'inline-block',
+                                width: '15%',
+                                marginRight: '1%'
                             }}
-                            type="primary"
-                            size='medium'>
-                            Submit
+                        >
+                            Clear
                         </Button>
                     </div>
                 </div>
