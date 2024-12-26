@@ -8,19 +8,19 @@ import './AddNewCompanyForm.scss'
 const {RangePicker} = DatePicker
 
 const initialFormData = {
-    startDate: null,
-    endDate: null,
-    name: "",
-    address: "",
-    inn: "",
-    phoneNumber: "",
+    start_date: null,
+    end_date: null,
+    company_name: "",
+    company_address: "",
+    company_inn: "",
+    phone_number: "",
     user: [],
     status: {
         sentSms: false,
-        permClick: false,
-        permPayme: false,
-        permUzum: false,
-        permAnor: false,
+        perm_click: false,
+        perm_payme: false,
+        perm_uzum: false,
+        perm_anor: false,
     },
 };
 
@@ -51,10 +51,20 @@ const AddNewCompanyForm = () => {
 
     const handleInputChange = (e) => {
         const {name, value, type, checked} = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value
-        }));
+        if (name.startsWith('perm')) {
+            setFormData(prev => ({
+                ...prev,
+                status: {
+                    ...prev.status,
+                    [name]: checked
+                }
+            }));
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                [name]: type === 'checkbox' ? checked : value
+            }));
+        }
     };
 
     const handleDateChange = (dates) => {
