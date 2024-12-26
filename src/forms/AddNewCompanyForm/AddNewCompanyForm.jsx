@@ -87,13 +87,15 @@ const AddNewCompanyForm = () => {
         });
     };
 
-    const handleSelectChange = (value) => {
-        setFormData(prev => {
-            return {
-                ...prev,
-                selectedUser: value
-            };
-        });
+    const handleSelectChange = (value, options) => {
+        if (options?.length === 0 || options?.length === 1) {
+            setFormData(prev => {
+                return {
+                    ...prev,
+                    user: value
+                }
+            })
+        }
     };
 
     const handleSave = async () => {
@@ -209,7 +211,7 @@ const AddNewCompanyForm = () => {
                     <li className='user_list'>
                         <p>Choose user</p>
                         <Select
-                            mode='single'
+                            mode='tags'
                             style={{
                                 width: '50%',
                             }}
