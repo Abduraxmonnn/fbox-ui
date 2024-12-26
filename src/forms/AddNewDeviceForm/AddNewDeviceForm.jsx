@@ -12,7 +12,7 @@ const AddNewDeviceForm = () => {
         <>
             <div className='content_container create-device'>
                 <div className='create-device__title'>
-                    <h1>Add Device</h1>
+                    <h1>Create Device</h1>
                     <Button
                         style={{
                             width: '15%',
