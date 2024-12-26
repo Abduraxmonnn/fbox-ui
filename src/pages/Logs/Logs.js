@@ -73,16 +73,6 @@ const columns = [
     },
 ]
 
-const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-        console.log(
-            `selectedRowKeys: ${selectedRowKeys}`,
-            'selectedRows: ',
-            selectedRows
-        )
-    },
-}
-
 const Logs = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
     let companyInn = props.companyInn;
@@ -168,11 +158,7 @@ const Logs = (props) => {
                 <Table
                     expandable={{
                         expandedRowRender: (record) => (
-                            <p
-                                style={{
-                                    margin: 0,
-                                }}
-                            >
+                            <p style={{margin: 0}}>
                                 {record.paymentResponse ?? record.confirmResponse}
                             </p>
                         ),
