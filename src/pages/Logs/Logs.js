@@ -166,9 +166,6 @@ const Logs = (props) => {
         <>
             <div className="content_container">
                 <Table
-                    // rowSelection={{
-                    //     type: selectionType, ...rowSelection
-                    // }}
                     expandable={{
                         expandedRowRender: (record) => (
                             <p
