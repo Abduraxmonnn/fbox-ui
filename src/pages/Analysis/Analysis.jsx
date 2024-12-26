@@ -1,18 +1,20 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-// import ActiveDevicesPieChart from '../../components/AnalysisStats/ActiveDevicesPieChart';
-import PayMeTransactionsPieChart from '../../components/AnalysisStats/Graphs/TransactionPieCharts/PayMe';
 import Orders from "../../components/Analysis/Orders";
-import TransactionFinancialCard
-    from '../../components/AnalysisStats/NumberCards/TransactionFinancial/TransactionFinancialCard';
-import Period from '../../components/AnalysisStats/Period';
-import TransactionNumberCard from '../../components/AnalysisStats/NumberCards/TransactionNumberCard';
 import './Analysis.css';
-import DeviceStatusCard from "../../components/AnalysisStats/NumberCards/DeviceStatus/DeviceStatusCard";
-import NotifyNumberCard from "../../components/AnalysisStats/NumberCards/NotifyNumber/NotifyNumberCard";
-import ClickTransactionsPieChart from "../../components/AnalysisStats/Graphs/TransactionPieCharts/Click";
-import UzumTransactionsPieChart from "../../components/AnalysisStats/Graphs/TransactionPieCharts/Uzum";
-import AnorTransactionsPieChart from "../../components/AnalysisStats/Graphs/TransactionPieCharts/Anor";
+import {analysisStats} from "../../components/AnalysisStats";
+
+const {
+    Period,
+    TransactionFinancialCard,
+    TransactionNumberCard,
+    DeviceStatusCard,
+    NotifyNumberCard,
+    PayMeTransactionsPieChart,
+    ClickTransactionsPieChart,
+    UzumTransactionsPieChart,
+    AnorTransactionsPieChart,
+} = analysisStats;
 
 const Analysis = () => {
     const [period, setPeriod] = useState("");
