@@ -85,12 +85,20 @@ const CompanyDetail = () => {
                         {company.inn}
                     </span>
                 </div>
-                <button
-                    className="detail-view__action-button detail-view__action-button--secondary"
-                    onClick={() => navigate(-1)}
-                >
-                    Back
-                </button>
+                <div className="detail-view__action-buttons">
+                    <button
+                        className="detail-view__action-button detail-view__action-button--secondary"
+                        onClick={() => navigate(-1)}
+                    >
+                        Edit
+                    </button>
+                    <button
+                        className="detail-view__action-button detail-view__action-button--secondary"
+                        onClick={() => navigate(-1)}
+                    >
+                        Back
+                    </button>
+                </div>
             </div>
 
             <div className="detail-view__content">

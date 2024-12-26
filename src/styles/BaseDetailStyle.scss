@@ -40,24 +40,34 @@
     font-weight: 500;
   }
 
-  &__action-button {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: 0.875rem;
-    transition: all 0.2s;
-    border-radius: 0.5rem;
+  &__action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    &--secondary {
-      background-color: transparent;
-      border: 1px dashed var(--color-blue-grey);
-      color: var(--color-blue-grey);
+    &__action-button {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+      border-radius: 0.5rem;
 
-      &:hover {
-        background-color: var(--color-white2);
-        color: var(--color-blue);
-        border-color: var(--color-blue);
+      &--secondary {
+        background-color: transparent;
+        border: 1px dashed var(--color-blue-grey);
+        color: var(--color-blue-grey);
+
+        &:hover {
+          background-color: var(--color-white2);
+          color: var(--color-blue);
+          border-color: var(--color-blue);
+        }
       }
     }
+  }
+
+  .detail-view__action-button:not(:last-child) {
+    margin-right: 20px;
   }
 
   &__content {
