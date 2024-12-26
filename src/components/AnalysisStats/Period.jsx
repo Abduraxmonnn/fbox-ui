@@ -13,11 +13,7 @@ const options = [
     {
         value: 'month',
         label: 'Last 30 days',
-    },
-    {
-        value: 'total',
-        label: 'All time',
-    },
+    }
 ]
 
 const Period = () => {
