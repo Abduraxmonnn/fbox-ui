@@ -155,24 +155,31 @@ const Company = () => {
                     pageSizeOptions: ['10', '20', '50', '100'],
                 }}
             />
-            <FloatButton.Group
-                trigger="click"
-                type="primary"
-                style={{right: 24}}
-                icon={<UploadOutlined/>}
-            >
+            <Link to="/create_company">
                 <FloatButton
-                    icon={<FileExcelOutlined/>}
-                    tooltip={<div>Delete Company</div>}
+                    type="primary"
+                    icon={<FileAddOutlined/>}
+                    tooltip={<div>Add Company</div>}
                 />
-                <Link to="/create_company">
-                    <FloatButton
-                        type="primary"
-                        icon={<FileAddOutlined/>}
-                        tooltip={<div>Add Company</div>}
-                    />
-                </Link>
-            </FloatButton.Group>
+            </Link>
+            {/*<FloatButton.Group*/}
+            {/*    trigger="click"*/}
+            {/*    type="primary"*/}
+            {/*    style={{right: 24}}*/}
+            {/*    icon={<UploadOutlined/>}*/}
+            {/*>*/}
+            {/*    <FloatButton*/}
+            {/*        icon={<FileExcelOutlined/>}*/}
+            {/*        tooltip={<div>Delete Company</div>}*/}
+            {/*    />*/}
+            {/*    <Link to="/create_company">*/}
+            {/*        <FloatButton*/}
+            {/*            type="primary"*/}
+            {/*            icon={<FileAddOutlined/>}*/}
+            {/*            tooltip={<div>Add Company</div>}*/}
+            {/*        />*/}
+            {/*    </Link>*/}
+            {/*</FloatButton.Group>*/}
         </div>
     )
 }

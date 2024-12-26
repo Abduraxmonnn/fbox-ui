@@ -9,13 +9,14 @@ interface TransactionFinancialCardProps {
     failureAmount?: number;
 }
 
-const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = () => {
+const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({period}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
 
     const fetchData = useCallback(async () => {
         try {
-            const response = await APIv1.get('/analysis/transactions/amount/', {
+            let url = period ? `/analysis/transactions/amount/?period=${period}` : '/analysis/transactions/amount/'
+            const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
                 },
@@ -30,13 +31,13 @@ const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = () => 
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
-    }, [userData.token]);
+    }, [userData.token, period]);
 
     useEffect(() => {
         if (!userData.token) return;
 
         fetchData()
-    }, [userData.token])
+    }, [userData.token, period])
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));

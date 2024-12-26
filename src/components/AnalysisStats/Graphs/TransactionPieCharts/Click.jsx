@@ -6,13 +6,14 @@ import {APIv1} from "../../../../api";
 
 Chart.register(...registerables, ChartDataLabels);
 
-const ClickTransactionsPieChart = () => {
+const ClickTransactionsPieChart = ({period}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
 
     const fetchClickData = useCallback(async () => {
         try {
-            const response = await APIv1.get('/analysis/transactions/counts/click/', {
+            let url = period ? `/analysis/transactions/counts/click/?period=${period}` : '/analysis/transactions/counts/click/'
+            const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
                 },
@@ -27,13 +28,13 @@ const ClickTransactionsPieChart = () => {
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
-    }, [userData.token]);
+    }, [userData.token, period]);
 
     useEffect(() => {
         if (!userData.token) return;
 
         fetchClickData()
-    }, [userData.token])
+    }, [userData.token, period])
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));

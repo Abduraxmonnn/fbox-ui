@@ -1,4 +1,3 @@
-import React from 'react';
 import {Select, Space} from 'antd';
 
 const options = [
@@ -16,11 +15,7 @@ const options = [
     }
 ]
 
-const Period = () => {
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
-    };
-
+const Period = ({handleChangePeriod}) => {
     return (
         <>
             <Space wrap>
@@ -31,7 +26,7 @@ const Period = () => {
                         width: "max-content",
                     }}
                     allowClear
-                    onChange={handleChange}
+                    onChange={handleChangePeriod}
                     options={options}
                     placeholder="select it"
                 />

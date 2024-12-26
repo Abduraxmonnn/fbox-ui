@@ -6,13 +6,14 @@ import {APIv1} from "../../../../api";
 
 Chart.register(...registerables, ChartDataLabels);
 
-const AnorTransactionsPieChart = () => {
+const AnorTransactionsPieChart = ({period}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
 
     const fetchAnorData = useCallback(async () => {
         try {
-            const response = await APIv1.get('/analysis/transactions/counts/anor/', {
+            let url = period ? `/analysis/transactions/counts/anor/?period=${period}` : '/analysis/transactions/counts/anor/'
+            const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
                 },
@@ -27,13 +28,13 @@ const AnorTransactionsPieChart = () => {
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
-    }, [userData.token]);
+    }, [userData.token, period]);
 
     useEffect(() => {
         if (!userData.token) return;
 
         fetchAnorData()
-    }, [userData.token])
+    }, [userData.token, period])
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));

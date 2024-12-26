@@ -6,13 +6,14 @@ import {APIv1} from "../../../../api";
 
 Chart.register(...registerables, ChartDataLabels);
 
-const UzumTransactionsPieChart = () => {
+const UzumTransactionsPieChart = ({period}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
 
     const fetchUzumData = useCallback(async () => {
         try {
-            const response = await APIv1.get('/analysis/transactions/counts/uzum/', {
+            let url = period ? `/analysis/transactions/counts/uzum/?period=${period}` : '/analysis/transactions/counts/uzum/'
+            const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
                 },
@@ -27,13 +28,13 @@ const UzumTransactionsPieChart = () => {
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
-    }, [userData.token]);
+    }, [userData.token, period]);
 
     useEffect(() => {
         if (!userData.token) return;
 
         fetchUzumData()
-    }, [userData.token])
+    }, [userData.token, period])
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));

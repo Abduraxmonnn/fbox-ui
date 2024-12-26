@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 // import ActiveDevicesPieChart from '../../components/AnalysisStats/ActiveDevicesPieChart';
 import PayMeTransactionsPieChart from '../../components/AnalysisStats/Graphs/TransactionPieCharts/PayMe';
@@ -15,22 +15,25 @@ import UzumTransactionsPieChart from "../../components/AnalysisStats/Graphs/Tran
 import AnorTransactionsPieChart from "../../components/AnalysisStats/Graphs/TransactionPieCharts/Anor";
 
 const Analysis = () => {
+    const [period, setPeriod] = useState("");
     const navigate = useNavigate();
 
     const handleNavigate = (targetRoute) => {
         navigate(targetRoute);
     };
 
+    const handleChangePeriod = (value) => setPeriod(value);
+
     return (
         <div className='analysis'>
             <div className='analysis__header'>
-                <Period/>
+                <Period handleChangePeriod={handleChangePeriod}/>
             </div>
 
             <div className="analysis__metrics">
                 <div className='analysis__metric-card'>
-                    <TransactionFinancialCard/>
-                    <TransactionNumberCard/>
+                    <TransactionFinancialCard period={period}/>
+                    <TransactionNumberCard period={period}/>
                 </div>
                 <div className='analysis__metric-card'>
                     <DeviceStatusCard/>
@@ -44,19 +47,19 @@ const Analysis = () => {
                     <div className='analysis__chart-grid'>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>PayMe</h3>
-                            <PayMeTransactionsPieChart offset="up"/>
+                            <PayMeTransactionsPieChart period={period} offset="up"/>
                         </div>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>Click</h3>
-                            <ClickTransactionsPieChart offset="down"/>
+                            <ClickTransactionsPieChart period={period} offset="down"/>
                         </div>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>Uzum</h3>
-                            <UzumTransactionsPieChart offset="up"/>
+                            <UzumTransactionsPieChart period={period} offset="up"/>
                         </div>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>Anor</h3>
-                            <AnorTransactionsPieChart offset="down"/>
+                            <AnorTransactionsPieChart period={period} offset="down"/>
                         </div>
                     </div>
                 </div>
@@ -74,7 +77,8 @@ const Analysis = () => {
                 </div>
             </div>
         </div>
-    );
+    )
+        ;
 };
 
 export default Analysis;
