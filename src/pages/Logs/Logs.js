@@ -29,13 +29,13 @@ const columns = [
         orderIndex: "device_serial",
     },
     {
-        title: 'Transaction ID',
-        dataIndex: 'transactionId',
+        title: 'Payment ID',
+        dataIndex: 'paymentId',
         render: (text, record) => (
             <Link to={`/payments/logs/detail/${record.key}`}>{text}</Link>
         ),
         sorter: true,
-        orderIndex: "transaction_id",
+        orderIndex: "payment_id",
     },
     {
         title: 'Amount',
@@ -88,7 +88,6 @@ const Logs = (props) => {
     let companyInn = props.companyInn;
     const [userData, setUserData] = useState({});
     const [logsData, setLogsData] = useState([]);
-    const [selectionType, setSelectionType] = useState('checkbox');
     const [loading, setLoading] = useState(true);
     const [totalLogs, setTotalLogs] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
@@ -117,7 +116,7 @@ const Logs = (props) => {
             const data = response.data.results.map((log) => ({
                 key: log.id,
                 deviceSerial: log.device_serial === 'None' ? '-' : log.device_serial,
-                transactionId: log.transaction_id === null ? '-' : log.transaction_id,
+                paymentId: log.payment_id === null ? '-' : log.payment_id,
                 amount: log.amount,
                 isSuccess: log.is_success,
                 status: log.status,
