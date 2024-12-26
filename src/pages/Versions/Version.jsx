@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Table, Button} from 'antd'
-import {APIv1 as API} from '../api'
+import {APIv1 as API} from '../../api'
 
 const columns = [
     {

@@ -6,7 +6,7 @@ import DeviceStatus from './DevicesStatus/DeviceStatus'
 import DeviceStatusDetail from "./DevicesStatus/DeviceStatusDetail/DeviceStatusDetail";
 import Company from './Companies/Company'
 import CompanyDetail from './Companies/CompanyDetail/CompanyDetail'
-import Version from './Version'
+import Version from './Versions/Version'
 import AddNewDevice from './AddNewDevice'
 import AddNewCompany from './AddNewCompany'
 import Analysis from './Analysis/Analysis'
