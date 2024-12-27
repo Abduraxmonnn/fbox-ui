@@ -1,8 +1,9 @@
 import CountUp from "react-countup";
+import {Skeleton} from "antd";
 import {Mail, MessageSquareMore} from 'lucide-react';
 import '../BaseNumberCardStyle.css'
 import './NotifyNumberCard.css'
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {APIv1} from "../../../../api";
 
 interface TransactionCountCardProps {
@@ -13,8 +14,10 @@ interface TransactionCountCardProps {
 const NotifyNumberCard: React.FC<TransactionCountCardProps> = () => {
     const [userData, setUserData] = useState({});
     const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const fetchNotifyData = useCallback(async () => {
+        setLoading(true);
         try {
             const response = await APIv1.get('/analysis/notify/counts/', {
                 headers: {
@@ -30,6 +33,8 @@ const NotifyNumberCard: React.FC<TransactionCountCardProps> = () => {
 
         } catch (error) {
             console.error('Error fetching user data:', error);
+        } finally {
+            setLoading(false);
         }
     }, [userData.token]);
 
@@ -56,10 +61,14 @@ const NotifyNumberCard: React.FC<TransactionCountCardProps> = () => {
                     <span className="transaction-metrics__label">SMS</span>
                     <div className="transaction-metrics__count">
                         <MessageSquareMore className="transaction-metrics__icon transaction-metrics__icon--sms"/>
-                        <CountUp
-                            end={data.smsCount}
-                            duration={3}
-                        />
+                        {loading ? (
+                            <Skeleton.Button active style={{width: 150, height: 30}}/>
+                        ) : (
+                            <CountUp
+                                end={data.smsCount}
+                                duration={3}
+                            />
+                        )}
                     </div>
                 </div>
 
@@ -67,10 +76,14 @@ const NotifyNumberCard: React.FC<TransactionCountCardProps> = () => {
                     <span className="transaction-metrics__label">Email</span>
                     <div className="transaction-metrics__count">
                         <Mail className="transaction-metrics__icon transaction-metrics__icon--email"/>
-                        <CountUp
-                            end={data.emailCount}
-                            duration={3}
-                        />
+                        {loading ? (
+                            <Skeleton.Button active style={{width: 150, height: 30}}/>
+                        ) : (
+                            <CountUp
+                                end={data.emailCount}
+                                duration={3}
+                            />
+                        )}
                     </div>
                 </div>
             </div>

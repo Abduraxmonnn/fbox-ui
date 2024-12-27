@@ -59,11 +59,11 @@ const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({peri
                 <div className="payment-income__card">
                     <span className="payment-income__label">Success</span>
                     <div className="payment-income__amount success">
-            <span className="payment-income__arrow">
-              <ArrowUpRight/>
-            </span>
+                        <span className="payment-income__arrow">
+                          <ArrowUpRight/>
+                        </span>
                         {loading ? (
-                            <Skeleton.Button active style={{ width: 200, height: 30 }} />
+                            <Skeleton.Button active style={{width: 200, height: 30}}/>
                         ) : (
                             <CountUp
                                 end={fetchedData.successAmount}
@@ -79,11 +79,11 @@ const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({peri
                 <div className="payment-income__card">
                     <span className="payment-income__label">Failure</span>
                     <div className="payment-income__amount failure">
-            <span className="payment-income__arrow">
-              <ArrowDownRight/>
-            </span>
+                        <span className="payment-income__arrow">
+                          <ArrowDownRight/>
+                        </span>
                         {loading ? (
-                            <Skeleton.Button active style={{ width: 200, height: 30 }} />
+                            <Skeleton.Button active style={{width: 200, height: 30}}/>
                         ) : (
                             <CountUp
                                 end={fetchedData.failureAmount}
