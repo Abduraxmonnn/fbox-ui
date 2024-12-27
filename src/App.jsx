@@ -6,25 +6,25 @@ import RootLayout from './layout/RootLayout'
 import {useState} from "react";
 
 import {
-	Sms,
-	SmsDetail,
-    	Device,
-	DeviceDetail,
-	AddNewDevice,
-	DeviceStatus,
-	DeviceStatusDetail,
-	Company,
-	AddNewCompany,
-	CompanyDetail,
-	Version,
-	Analysis,
-	ZReport,
-	ZReportDetail,
-	Orders,
-	OrderDetail,
-	Logs,
-	Feedbacks,
-	UserProfile
+    Sms,
+    SmsDetail,
+    Device,
+    DeviceDetail,
+    AddNewDevice,
+    DeviceStatus,
+    DeviceStatusDetail,
+    Company,
+    AddNewCompany,
+    CompanyDetail,
+    Version,
+    Analysis,
+    ZReport,
+    ZReportDetail,
+    Orders,
+    OrderDetail,
+    Logs,
+    Feedbacks,
+    UserProfile
 } from './pages'
 import getUser from "./store/utilits";
 import LogsDetail from "./pages/Logs/LogsDetail/LogsDetail";
@@ -38,7 +38,7 @@ function App() {
                 <Routes>
                     <Route element={<RootLayout/>}>
                         <Route path='/analysis' element={<Analysis/>}/>
-						<Route path='/profile' element={<UserProfile/>}/>
+                        <Route path='/profile' element={<UserProfile/>}/>
                         <Route path='/devices/company' element={<Company/>}/>
                         <Route path='/devices/device' element={<Device/>}/>
                         <Route path='/devices/version' element={<Version/>}/>
@@ -46,17 +46,17 @@ function App() {
                         <Route path='/payments/logs' element={<Logs/>}/>
                         <Route path='/payments/sms' element={<Sms/>}/>
                         <Route path='/orders' element={<Orders serialNumber={null}/>}/>
-						<Route path='/feedback' element={<Feedbacks/>}/>
+                        <Route path='/feedback' element={<Feedbacks/>}/>
 
                         <Route path='/create/device' element={<AddNewDevice/>}/>
                         <Route path='/create_company' element={<AddNewCompany/>}/>
 
-                        <Route path='/order/detail/:id' element={<OrderDetail />}/>
+                        <Route path='/order/detail/:id' element={<OrderDetail/>}/>
                         <Route path='/company/detail/:id' element={<CompanyDetail/>}/>
                         <Route path='/device/detail/:id' element={<DeviceDetail/>}/>
-						<Route path='/device/status/detail/:serial_number' element={<DeviceStatusDetail/>}/>
-						<Route path='/payments/logs/detail/:id' element={<LogsDetail/>}/>
-						<Route path='/payments/sms/detail/:id' element={<SmsDetail/>}/>
+                        <Route path='/device/status/detail/:serial_number' element={<DeviceStatusDetail/>}/>
+                        <Route path='/payments/logs/detail/:id' element={<LogsDetail/>}/>
+                        <Route path='/payments/sms/detail/:id' element={<SmsDetail/>}/>
 
                         <Route path='/z-reports' element={<ZReport/>}/>
                         <Route path='/z-reports/detail/:id' element={<ZReportDetail/>}/>

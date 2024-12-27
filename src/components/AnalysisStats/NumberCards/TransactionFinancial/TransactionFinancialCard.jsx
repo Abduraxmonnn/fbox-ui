@@ -1,8 +1,9 @@
 import CountUp from 'react-countup';
 import {ArrowUpRight, ArrowDownRight} from 'lucide-react';
 import './TransactionFinancial.css';
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {APIv1} from "../../../../api";
+import {Skeleton} from "antd";
 
 interface TransactionFinancialCardProps {
     successAmount?: number;
@@ -12,8 +13,10 @@ interface TransactionFinancialCardProps {
 const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({period}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const fetchData = useCallback(async () => {
+        setLoading(true);
         try {
             let url = period ? `/analysis/transactions/amount/?period=${period}` : '/analysis/transactions/amount/'
             const response = await APIv1.get(url, {
@@ -30,6 +33,8 @@ const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({peri
 
         } catch (error) {
             console.error('Error fetching user data:', error);
+        } finally {
+            setLoading(false);
         }
     }, [userData.token, period]);
 
@@ -54,30 +59,40 @@ const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({peri
                 <div className="payment-income__card">
                     <span className="payment-income__label">Success</span>
                     <div className="payment-income__amount success">
-                        <span className="payment-income__arrow"><ArrowUpRight/></span>
-                        {/*<span className="payment-income__value">{successAmount} UZS</span>*/}
-                        <CountUp
-                            end={fetchedData.successAmount}
-                            duration={2.5}
-                            separator=","
-                            suffix=" UZS"
-                            className="transaction-financial-card__value"
-                        />
+            <span className="payment-income__arrow">
+              <ArrowUpRight/>
+            </span>
+                        {loading ? (
+                            <Skeleton.Button active style={{ width: 200, height: 30 }} />
+                        ) : (
+                            <CountUp
+                                end={fetchedData.successAmount}
+                                duration={2.5}
+                                separator=","
+                                suffix=" UZS"
+                                className="transaction-financial-card__value"
+                            />
+                        )}
                     </div>
                 </div>
 
                 <div className="payment-income__card">
                     <span className="payment-income__label">Failure</span>
                     <div className="payment-income__amount failure">
-                        <span className="payment-income__arrow"><ArrowDownRight/></span>
-                        {/*<span className="payment-income__value">{failureAmount} UZS</span>*/}
-                        <CountUp
-                            end={fetchedData.failureAmount}
-                            duration={2.5}
-                            separator=","
-                            suffix=" UZS"
-                            className="transaction-financial-card__value"
-                        />
+            <span className="payment-income__arrow">
+              <ArrowDownRight/>
+            </span>
+                        {loading ? (
+                            <Skeleton.Button active style={{ width: 200, height: 30 }} />
+                        ) : (
+                            <CountUp
+                                end={fetchedData.failureAmount}
+                                duration={2.5}
+                                separator=","
+                                suffix=" UZS"
+                                className="transaction-financial-card__value"
+                            />
+                        )}
                     </div>
                 </div>
             </div>
