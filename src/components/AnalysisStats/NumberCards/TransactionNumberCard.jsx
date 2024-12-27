@@ -1,8 +1,9 @@
 import CountUp from "react-countup";
 import {CheckCircle, XCircle} from 'lucide-react';
-import './BaseNumberCardStyle.css'
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
+import {Skeleton} from "antd";
 import {APIv1} from "../../../api";
+import './BaseNumberCardStyle.css'
 
 interface TransactionCountCardProps {
     successAmount?: number;
@@ -12,8 +13,10 @@ interface TransactionCountCardProps {
 const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({period}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const fetchData = useCallback(async () => {
+        setLoading(true);
         try {
             let url = period ? `/analysis/transactions/counts/?period=${period}` : '/analysis/transactions/counts/'
             const response = await APIv1.get(url, {
@@ -30,6 +33,8 @@ const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({period}) =>
 
         } catch (error) {
             console.error('Error fetching user data:', error);
+        } finally {
+            setLoading(false);
         }
     }, [userData.token, period]);
 
@@ -55,11 +60,14 @@ const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({period}) =>
                     <span className="transaction-metrics__label">Success</span>
                     <div className="transaction-metrics__count">
                         <CheckCircle className="transaction-metrics__icon transaction-metrics__icon--success"/>
-                        {/*{successCount}*/}
-                        <CountUp
-                            end={fetchedData.successCount}
-                            duration={5}
-                        />
+                        {loading ? (
+                            <Skeleton.Button active style={{width: 100, height: 30}}/>
+                        ) : (
+                            <CountUp
+                                end={fetchedData.successCount}
+                                duration={5}
+                            />
+                        )}
                     </div>
                 </div>
 
@@ -67,11 +75,14 @@ const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({period}) =>
                     <span className="transaction-metrics__label">Failure</span>
                     <div className="transaction-metrics__count">
                         <XCircle className="transaction-metrics__icon transaction-metrics__icon--failure"/>
-                        {/*{failureCount}*/}
-                        <CountUp
-                            end={fetchedData.failureCount}
-                            duration={5}
-                        />
+                        {loading ? (
+                            <Skeleton.Button active style={{width: 100, height: 30}}/>
+                        ) : (
+                            <CountUp
+                                end={fetchedData.failureCount}
+                                duration={5}
+                            />
+                        )}
                     </div>
                 </div>
             </div>
