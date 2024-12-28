@@ -4,6 +4,7 @@ import {Pie} from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {APIv1} from "../../../../api";
 import {Skeleton} from "antd";
+import {generatePieChartOptions} from "../../../../utils/analysisUtils";
 import '../GraphBaseStyle.scss'
 
 Chart.register(...registerables, ChartDataLabels);
@@ -67,6 +68,7 @@ const UzumTransactionsPieChart = ({period}) => {
             },
         ],
     };
+    const options = generatePieChartOptions(false);
 
     return (
         <div className="chart-container">
@@ -76,7 +78,7 @@ const UzumTransactionsPieChart = ({period}) => {
                     <Skeleton.Avatar active size={250} shape="circle"/>
                 </div>
             ) : (
-                <Pie data={data}/>
+                <Pie data={data} options={options}/>
             )}
         </div>
     );
