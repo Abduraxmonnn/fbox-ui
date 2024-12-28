@@ -7,7 +7,7 @@ const options = [
     },
     {
         value: 'day',
-        label: 'Last day',
+        label: 'Today',
     },
     {
         value: 'month',
@@ -21,7 +21,7 @@ const Period = ({handleChangePeriod}) => {
             <Space wrap>
                 <span>Group By</span>
                 <Select
-                    defaultValue="month"
+                    defaultValue="day"
                     style={{
                         width: "max-content",
                     }}

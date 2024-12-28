@@ -17,14 +17,16 @@ const {
 } = analysisStats;
 
 const Analysis = () => {
-    const [period, setPeriod] = useState("");
+    const [period, setPeriod] = useState("day");
     const navigate = useNavigate();
 
     const handleNavigate = (targetRoute) => {
         navigate(targetRoute);
     };
 
-    const handleChangePeriod = (value) => setPeriod(value);
+    const handleChangePeriod = (value) => {
+        setPeriod(value);
+    }
 
     return (
         <div className='analysis'>
