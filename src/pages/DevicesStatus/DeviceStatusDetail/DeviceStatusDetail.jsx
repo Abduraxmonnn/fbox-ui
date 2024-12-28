@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
 import {MonitorCheck, MonitorDot} from 'lucide-react';
 
@@ -14,15 +14,16 @@ import {
 
 const DeviceStatusDetail = () => {
     const {serial_number} = useParams();
+    const [userData, setUserData] = useState({});
     const [deviceData, setDeviceData] = useState(null);
     const [relatedDevices, setRelatedDevices] = useState([]);
     const navigate = useNavigate();
     const [expandedSection, setExpandedSection] = useState(null);
     const [expandedSecondSection, setExpandedSecondSection] = useState(null);
 
-    const extractDate = (dateString) => {
+    const extractDate = useCallback((dateString) => {
         return dateString ? new Date(dateString).toISOString().slice(0, 10) : '----/--/--';
-    };
+    }, []);
 
     const toggleSection = (section) => {
         setExpandedSection(prevSection => prevSection === section ? null : section);
@@ -32,45 +33,61 @@ const DeviceStatusDetail = () => {
         setExpandedSecondSection(prevSection => prevSection === section ? null : section);
     };
 
+    const fetchData = useCallback(async (serialNumber, token) => {
+        try {
+            const deviceResponse = await APIv1.get(`/device/status/${serialNumber}`, {
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+            const relatedDevicesResponse = await APIv1.get(`/devices/get_related_devices/?serial=${deviceResponse.data.device_serial_number}`, {
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+
+            setDeviceData(deviceResponse.data);
+            setRelatedDevices(relatedDevicesResponse.data);
+        } catch (err) {
+            console.error('Something went wrong:', err);
+        }
+    }, []);
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const deviceResponse = await APIv1.get(`/device/status/${serial_number}`);
-                const relatedDevicesResponse = await APIv1.get(`/devices/get_related_devices/?serial=${deviceResponse.data.device_serial_number}`);
+        const items = JSON.parse(localStorage.getItem('user'))
+        if (items) {
+            setUserData(items)
+        }
+    }, []);
 
-                console.log(deviceResponse.data)
-                setDeviceData(deviceResponse.data);
-                setRelatedDevices(relatedDevicesResponse.data);
-            } catch (err) {
-                console.error('Something went wrong:', err);
-            }
-        };
-
-        fetchData();
-    }, [serial_number]);
+    useEffect(() => {
+        if (userData.token && serial_number) {
+            fetchData(serial_number, userData.token)
+        }
+    }, [userData.token, serial_number, fetchData]);
 
     if (!deviceData) {
-        return <div>Device not found</div>;
+        return <div>Device not found</div>
     }
 
     const renderRelatedDevices = () => {
         if (relatedDevices.length === 0) {
-            return <li>No related devices found.</li>;
-        } else {
-            return (
-                <div className="detail-view__related-devices">
-                    {relatedDevices.map(item => (
-                        <div
-                            key={item.device_serial_number || Math.random()}
-                            className={`detail-view__related-device ${Number(serial_number) === Number(item.id) ? 'detail-view__related-device--active' : ''}`}
-                            onClick={() => onRelatedDevices(item)}
-                        >
-                            <span>{item.device_serial_number}</span>
-                        </div>
-                    ))}
-                </div>
-            );
+            return <li>No related devices found.</li>
         }
+
+        return (
+            <div className="detail-view__related-devices">
+                {relatedDevices.map(item => (
+                    <div
+                        key={item.device_serial_number}
+                        className={`detail-view__related-device ${Number(serial_number) === Number(item.id) ? 'detail-view__related-device--active' : ''}`}
+                        onClick={() => onRelatedDevices(item)}
+                    >
+                        <span>{item.device_serial_number}</span>
+                    </div>
+                ))}
+            </div>
+        );
     };
 
     const onScrollToTop = () => {
@@ -78,8 +95,8 @@ const DeviceStatusDetail = () => {
     }
 
     const onRelatedDevices = (item) => {
-        navigate(`/device/status/detail/${item.device_serial_number}`);
-        onScrollToTop()
+        navigate(`/device/status/detail/${item.device_serial_number}`)
+        onScrollToTop();
     }
 
     return (
