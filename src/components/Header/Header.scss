@@ -85,8 +85,11 @@
 // NEW STYLE ADDED FOR WARNING END HERE
 
 .header.inactive {
-  background-color: #ef7f7f;
-  border: 1px solid #fc1c1c;
+  background-color: white;
+  border-top: 3px solid red;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
 }
 
 .header.close {
@@ -141,13 +144,13 @@
 .user_avatar {
   cursor: pointer;
 
-  display: inline-block;       /* Allow inline display */
-  width: 40px;                 /* Default width */
-  height: 40px;                /* Default height */
-  border-radius: 50%;          /* Make it circular */
-  object-fit: cover;           /* Ensure image covers the area without distorting */
-  background-color: #f0f0f0;   /* Default background color (like Ant Design's Avatar when no image is present) */
-  border: 1px solid #d9d9d9;   /* Optional: Border to match Avatar's default */
+  display: inline-block; /* Allow inline display */
+  width: 40px; /* Default width */
+  height: 40px; /* Default height */
+  border-radius: 50%; /* Make it circular */
+  object-fit: cover; /* Ensure image covers the area without distorting */
+  background-color: #f0f0f0; /* Default background color (like Ant Design's Avatar when no image is present) */
+  border: 1px solid #d9d9d9; /* Optional: Border to match Avatar's default */
   overflow: hidden;
 }
 

@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef, useCallback} from 'react';
-import {Avatar, Spin} from 'antd';
+import {Spin} from 'antd';
 import {UserRoundCog, MessageCircleMore, LogOut} from "lucide-react";
-import {UserOutlined, NotificationOutlined} from '@ant-design/icons';
+import {NotificationOutlined} from '@ant-design/icons';
 import {useDispatch} from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
 
