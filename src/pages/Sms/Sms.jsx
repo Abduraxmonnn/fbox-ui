@@ -2,7 +2,7 @@ import React, {useState, useEffect, useCallback} from 'react'
 import {Table} from 'antd'
 import {APIv1} from '../../api'
 import {Link, useOutletContext} from "react-router-dom";
-import {defaultExtractDate, handleTableChange, useRowNavigation} from "../../utils";
+import {extractDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
 import {NotifyStatusIcon} from "../../utils/statusIcons";
 
 const columns = [
@@ -93,7 +93,7 @@ const Sms = (props) => {
                 inn: sms.inn,
                 recipient: sms.recipient,
                 is_success: sms.is_success,
-                created_date: defaultExtractDate(sms.created_date),
+                created_date: extractDateBySecond(sms.created_date),
             }))
             setSmsData(data)
             setTotalSms(response.data.count)

@@ -1,7 +1,7 @@
 import {APIv1} from '../../api'
 import React, {useState, useEffect, useCallback} from 'react'
 import {Link, useOutletContext} from "react-router-dom";
-import {defaultExtractDate, handleTableChange, useRowNavigation} from "../../utils";
+import {extractDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
 import {Table} from 'antd'
 import {NotifyStatusIcon} from "../../utils/statusIcons";
 
@@ -90,7 +90,7 @@ const Email = (props) => {
                 inn: item.inn,
                 recipient: item.recipient,
                 is_success: item.is_success,
-                created_date: defaultExtractDate(item.created_date),
+                created_date: extractDateBySecond(item.created_date),
             }))
             setEmailData(data)
             setTotalEmail(response.data.count)
