@@ -122,7 +122,7 @@ const Sms = (props) => {
     useEffect(() => {
         let ordering = ''
         if (sortField) {
-            ordering = sortOrder === 'ascend' ? sortField : `${sortOrder}`
+            ordering = sortOrder === 'ascend' ? sortField : `-${sortField}`;
         }
         fetchSmsData(currentPage, pageSize, searchText, ordering, filters)
     }, [currentPage, pageSize, searchText, sortOrder, sortField, filters, fetchSmsData])
