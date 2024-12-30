@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {Link, useOutletContext} from "react-router-dom";
 import {APIv1} from "../../api";
-import {extractDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
+import {extractDateBySecond, handleTableChange} from "../../utils";
 import {Table} from "antd";
 import {LogsStatusIcon} from "../../utils/statusIcons";
 import {ConvertLogsPaymentProvider} from "../../utils/logsUtils";
@@ -10,6 +10,29 @@ const columns = [
     {
         title: 'Status',
         dataIndex: 'status',
+
+        filters: [
+            {
+                text: 'Processing',
+                value: 'PROCESSING',
+            },
+            {
+                text: 'Paid',
+                value: 'PAID',
+            },
+            {
+                text: 'Fiscalized',
+                value: 'FISCALIZED',
+            },
+            {
+                text: 'Failed',
+                value: 'FAILED',
+            },
+            {
+                text: 'Cancelled',
+                value: 'CANCELED',
+            },
+        ],
         render: (text, record) => (
             <>
                 {[record.status].map(tag => (
@@ -49,27 +72,26 @@ const columns = [
         sorter: true,
         orderIndex: "log_type",
     },
-    // {
-    //     title: 'Is success',
-    //     dataIndex: 'isSuccess',
-    //     render: (_, {isSuccess}) => (
-    //         <>
-    //             {[isSuccess].map(tag => (
-    //                 <Tag color={tag === true ? 'green' : 'volcano'} key={tag}>
-    //                     {`${String(tag)}`.toUpperCase()}
-    //                 </Tag>
-    //             ))}
-    //         </>
-    //     ),
-    //     filters: status_types,
-    //     sorter: true,
-    //     orderIndex: "is_success",
-    // },
     {
         title: 'Created date',
         dataIndex: 'createdDate',
         sorter: true,
         orderIndex: "created_date",
+
+        filters: [
+            {
+                text: 'Today',
+                value: 'day',
+            },
+            {
+                text: 'Last hour',
+                value: 'month',
+            },
+            {
+                text: 'Last 30 days',
+                value: 'month',
+            }
+        ],
     },
 ]
 
