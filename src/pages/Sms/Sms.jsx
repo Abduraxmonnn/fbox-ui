@@ -1,10 +1,29 @@
 import React, {useState, useEffect, useCallback} from 'react'
-import {Table, Tag} from 'antd'
+import {Table} from 'antd'
 import {APIv1} from '../../api'
 import {Link, useOutletContext} from "react-router-dom";
 import {defaultExtractDate, handleTableChange, useRowNavigation} from "../../utils";
+import {NotifyStatusIcon} from "../../utils/statusIcons";
 
 const columns = [
+    {
+        title: 'Status',
+        dataIndex: 'is_success',
+        sorter: true,
+        orderIndex: "is_success",
+        onFilter: (value, record) => record.is_success === value,
+        size: "large",
+        width: 100,
+
+
+        render: (text, record) => (
+            <>
+                {[record.is_success].map(tag => (
+                    <NotifyStatusIcon size={18} status={tag}/>
+                ))}
+            </>
+        ),
+    },
     {
         title: 'Inn',
         dataIndex: 'inn',
@@ -19,33 +38,6 @@ const columns = [
         dataIndex: 'recipient',
         sorter: true,
         orderIndex: "recipient",
-    },
-    {
-        title: 'Is Success',
-        dataIndex: 'is_success',
-        filters: [
-            {
-                text: 'True',
-                value: true,
-            },
-            {
-                text: 'False',
-                value: false,
-            },
-        ],
-        sorter: true,
-        orderIndex: "is_success",
-        onFilter: (value, record) => record.is_success === value,
-
-        render: (_, {is_success}) => (
-            <>
-                {[is_success].map(tag => (
-                    <Tag color={tag === true ? 'green' : 'volcano'} key={tag}>
-                        {`${String(tag)}`.toUpperCase()}
-                    </Tag>
-                ))}
-            </>
-        ),
     },
     {
         title: 'Created date',

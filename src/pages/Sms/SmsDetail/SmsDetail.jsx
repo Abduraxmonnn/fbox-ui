@@ -20,6 +20,7 @@ const SmsDetail = () => {
                 });
 
                 const logData = {
+                    key: data.id,
                     inn: data.inn,
                     recipient: data.recipient,
                     message: data.message,
@@ -52,7 +53,7 @@ const SmsDetail = () => {
 
     return (
         <div className="detail-view">
-            <h1 className="payment-log__title">Payment Log</h1>
+            <h1 className="payment-log__title">Sms #{smsData.key}</h1>
 
             <div className="payment-log__grid">
                 <div className="payment-log__field">
