@@ -11,11 +11,9 @@ const columns = [
         title: 'Status',
         dataIndex: 'status',
         filters: [
-            {text: 'Processing', value: 'PROCESSING'},
             {text: 'Paid', value: 'PAID'},
             {text: 'Fiscalized', value: 'FISCALIZED'},
             {text: 'Failed', value: 'FAILED'},
-            {text: 'Cancelled', value: 'CANCELED'},
         ],
         render: (text, record) => (
             <>
