@@ -13,7 +13,7 @@ const columns = [
         orderIndex: "is_success",
         onFilter: (value, record) => record.is_success === value,
         size: "large",
-        width: 100,
+        width: 150,
 
 
         render: (text, record) => (
