@@ -23,6 +23,7 @@ const columns = [
             {text: 'Fiscalized', value: 'FISCALIZED'},
             {text: 'Failed', value: 'FAILED'},
         ],
+        filterMultiple: false,
         onFilter: (value, record) => record.status === value,
     },
     {
@@ -60,6 +61,7 @@ const columns = [
             {text: 'Uzum', value: 'UZUM'},
             {text: 'Anor', value: 'ANOR'},
         ],
+        filterMultiple: false,
         onFilter: (value, record) => record.status === value,
     },
     {
@@ -72,6 +74,7 @@ const columns = [
             {text: 'Last hour', value: 'hour'},
             {text: 'Last 30 days', value: 'month'},
         ],
+        filterMultiple: false,
         onFilter: (value, record) => true,
     },
 ];
@@ -124,8 +127,8 @@ const Logs = (props) => {
 
             const data = response.data.results.map((log) => ({
                 key: log.id,
-                deviceSerial: log.device_serial === 'None' ? '-' : log.device_serial,
-                paymentId: log.payment_id === null ? '-' : log.payment_id,
+                deviceSerial: log.device_serial === 'None' ? 'Unknown' : log.device_serial,
+                paymentId: log.payment_id === null ? 'Unknown' : log.payment_id,
                 amount: log.amount,
                 isSuccess: log.is_success,
                 status: log.status,
