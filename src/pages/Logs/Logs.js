@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {Link, useOutletContext, useLocation} from "react-router-dom";
+import {Link, useOutletContext} from "react-router-dom";
 import {APIv1} from "../../api";
 import {extractDateBySecond, handleTableChange} from "../../utils";
 import {Table} from "antd";
@@ -67,6 +67,7 @@ const columns = [
             {text: 'Last hour', value: 'hour'},
             {text: 'Last 30 days', value: 'month'},
         ],
+        onFilter: (value, record) => true,
     },
 ];
 
@@ -84,8 +85,6 @@ const Logs = (props) => {
     const [filters, setFilters] = useState({});
     const {searchText} = useOutletContext();
 
-    const location = useLocation();
-
     const fetchLogsData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
         try {
@@ -99,9 +98,12 @@ const Logs = (props) => {
                 ...filters
             };
 
-            // Include the status filter in the query parameters
             if (filters.status) {
                 queryParams.status = filters.status;
+            }
+
+            if (filters.period) {
+                queryParams.period = filters.period;
             }
 
             const response = await APIv1.get(url, {
@@ -170,8 +172,24 @@ const Logs = (props) => {
             url.searchParams.set('status', value);
             url.searchParams.set('page', currentPage);
             url.searchParams.set('page_size', pageSize);
-            url.searchParams.set('search', searchText);
-            url.searchParams.set('ordering', sortLog);
+            if (searchText) url.searchParams.set('search', searchText);
+            if (sortField && sortLog) url.searchParams.set('ordering', sortLog === 'ascend' ? sortField : `-${sortField}`);
+            window.history.pushState({}, '', url.toString());
+
+            return newFilters;
+        });
+    };
+
+    const handleCreatedDateChange = (value) => {
+        setFilters(prevFilters => {
+            const newFilters = {...prevFilters, period: value};
+
+            const url = new URL(window.location.href);
+            url.searchParams.set('period', value);
+            url.searchParams.set('page', currentPage);
+            url.searchParams.set('page_size', pageSize);
+            if (searchText) url.searchParams.set('search', searchText);
+            if (sortField && sortLog) url.searchParams.set('ordering', sortLog === 'ascend' ? sortField : `-${sortField}`);
             window.history.pushState({}, '', url.toString());
 
             return newFilters;
@@ -180,6 +198,10 @@ const Logs = (props) => {
 
     const handleStatusFilter = (value) => {
         handleStatusChange(value);
+    };
+
+    const handleCreatedDateFilter = (value) => {
+        handleCreatedDateChange(value);
     };
 
     return (
@@ -199,10 +221,17 @@ const Logs = (props) => {
                     loading={loading}
                     onChange={(pagination, filters, sorter) => {
                         tableChangeHandler(pagination, filters, sorter);
+
                         if (filters.status && filters.status.length > 0) {
                             handleStatusFilter(filters.status[0]);
                         } else {
                             handleStatusFilter(null);
+                        }
+
+                        if (filters.createdDate && filters.createdDate.length > 0) {
+                            handleCreatedDateFilter(filters.createdDate[0]);
+                        } else {
+                            handleCreatedDateFilter(null);
                         }
                     }}
                     pagination={{
