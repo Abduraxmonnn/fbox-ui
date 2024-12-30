@@ -41,7 +41,7 @@ const Analysis = () => {
                 </div>
                 <div className='analysis__metric-card'>
                     <DeviceStatusCard/>
-                    <NotifyNumberCard/>
+                    <NotifyNumberCard period={period}/>
                 </div>
             </div>
 

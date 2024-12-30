@@ -11,7 +11,7 @@ interface TransactionCountCardProps {
     failureAmount?: number;
 }
 
-const NotifyNumberCard: React.FC<TransactionCountCardProps> = () => {
+const NotifyNumberCard: React.FC<TransactionCountCardProps> = ({period}) => {
     const [userData, setUserData] = useState({});
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -19,7 +19,8 @@ const NotifyNumberCard: React.FC<TransactionCountCardProps> = () => {
     const fetchNotifyData = useCallback(async () => {
         setLoading(true);
         try {
-            const response = await APIv1.get('/analysis/notify/counts/', {
+            let url = period ? `/analysis/notify/counts/?period=${period}` : '/analysis/notify/counts/';
+            const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
                 },
@@ -36,13 +37,13 @@ const NotifyNumberCard: React.FC<TransactionCountCardProps> = () => {
         } finally {
             setLoading(false);
         }
-    }, [userData.token]);
+    }, [userData.token, period]);
 
     useEffect(() => {
         if (!userData.token) return;
 
         fetchNotifyData()
-    }, [userData.token])
+    }, [userData.token, period])
 
 
     useEffect(() => {
