@@ -24,7 +24,9 @@ import {
     OrderDetail,
     Logs,
     Feedbacks,
-    UserProfile
+    UserProfile,
+    Email,
+    EmailDetail
 } from './pages'
 import getUser from "./store/utilits";
 import LogsDetail from "./pages/Logs/LogsDetail/LogsDetail";
@@ -45,6 +47,7 @@ function App() {
                         <Route path='/devices/status' element={<DeviceStatus/>}/>
                         <Route path='/payments/logs' element={<Logs/>}/>
                         <Route path='/payments/sms' element={<Sms/>}/>
+                        <Route path='/email/list' element={<Email/>}/>
                         <Route path='/orders' element={<Orders serialNumber={null}/>}/>
                         <Route path='/feedback' element={<Feedbacks/>}/>
 
@@ -57,6 +60,7 @@ function App() {
                         <Route path='/device/status/detail/:serial_number' element={<DeviceStatusDetail/>}/>
                         <Route path='/payments/logs/detail/:id' element={<LogsDetail/>}/>
                         <Route path='/payments/sms/detail/:id' element={<SmsDetail/>}/>
+                        <Route path='/payments/email/detail/:id' element={<EmailDetail/>}/>
 
                         <Route path='/z-reports' element={<ZReport/>}/>
                         <Route path='/z-reports/detail/:id' element={<ZReportDetail/>}/>

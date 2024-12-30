@@ -18,6 +18,8 @@ import Logs from "./Logs/Logs";
 import LogsDetail from "./Logs/LogsDetail/LogsDetail";
 import Feedbacks from "./Feedbacks/Feedbacks";
 import UserProfile from "./UserProfile/UserProfile";
+import Email from "./Email/Email";
+import EmailDetail from "./Email/EmailDetail/EmailDetail";
 
 export {
 	Sms,
@@ -39,5 +41,7 @@ export {
 	Logs,
 	LogsDetail,
 	Feedbacks,
-	UserProfile
+	UserProfile,
+	Email,
+	EmailDetail
 }

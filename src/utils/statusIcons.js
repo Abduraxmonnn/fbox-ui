@@ -79,3 +79,20 @@ export function LogsStatusIcon({index, size, status}) {
             return null;
     }
 }
+
+
+export function NotifyStatusIcon({index, size, status}) {
+    console.log(status)
+    switch (status) {
+        case true:
+            return (
+                <CircleCheck size={size} color={'#4CAF50'}/>
+            );
+        case false:
+            return (
+                <CircleX size={size} color={'#F44336'}/>
+            );
+        default:
+            return null;
+    }
+}

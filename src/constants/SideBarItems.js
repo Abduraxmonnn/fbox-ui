@@ -19,6 +19,7 @@ import {
 } from 'react-icons/io5';
 import {Link} from 'react-router-dom'
 import {Landmark} from 'lucide-react';
+import {MailOutlined} from "@ant-design/icons";
 
 export function getItem(label, key, icon, children) {
     return {
@@ -64,19 +65,19 @@ export const items = [
                 <IoMoonOutline />
             </Link>
         ),
-        // getItem(
-        //     'Email',
-        //     'email_payments_items',
-        //     <Link to='/payments/email'>
-        //         <MailOutlined/>
-        //     </Link>
-        // ),
         getItem(
             'SMS',
             'sms_payments_items',
             <Link to='/payments/sms'>
                 {/*<MessageOutlined/>*/}
                 <IoPeopleOutline />
+            </Link>
+        ),
+        getItem(
+            'Email',
+            'email_payments_items',
+            <Link to='/email/list'>
+                <MailOutlined/>
             </Link>
         ),
     ]),
