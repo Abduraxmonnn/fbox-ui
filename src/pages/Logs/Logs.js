@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {Link, useOutletContext} from "react-router-dom";
+import {Link, useOutletContext, useLocation} from "react-router-dom";
 import {APIv1} from "../../api";
 import {extractDateBySecond, handleTableChange} from "../../utils";
 import {Table} from "antd";
@@ -10,28 +10,12 @@ const columns = [
     {
         title: 'Status',
         dataIndex: 'status',
-
         filters: [
-            {
-                text: 'Processing',
-                value: 'PROCESSING',
-            },
-            {
-                text: 'Paid',
-                value: 'PAID',
-            },
-            {
-                text: 'Fiscalized',
-                value: 'FISCALIZED',
-            },
-            {
-                text: 'Failed',
-                value: 'FAILED',
-            },
-            {
-                text: 'Cancelled',
-                value: 'CANCELED',
-            },
+            {text: 'Processing', value: 'PROCESSING'},
+            {text: 'Paid', value: 'PAID'},
+            {text: 'Fiscalized', value: 'FISCALIZED'},
+            {text: 'Failed', value: 'FAILED'},
+            {text: 'Cancelled', value: 'CANCELED'},
         ],
         render: (text, record) => (
             <>
@@ -41,6 +25,7 @@ const columns = [
             </>
         ),
         orderIndex: "status",
+        onFilter: (value, record) => record.status === value,
     },
     {
         title: 'Device serial number',
@@ -77,23 +62,13 @@ const columns = [
         dataIndex: 'createdDate',
         sorter: true,
         orderIndex: "created_date",
-
         filters: [
-            {
-                text: 'Today',
-                value: 'day',
-            },
-            {
-                text: 'Last hour',
-                value: 'month',
-            },
-            {
-                text: 'Last 30 days',
-                value: 'month',
-            }
+            {text: 'Today', value: 'day'},
+            {text: 'Last hour', value: 'hour'},
+            {text: 'Last 30 days', value: 'month'},
         ],
     },
-]
+];
 
 const Logs = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
@@ -106,25 +81,36 @@ const Logs = (props) => {
     const [pageSize, setPageSize] = useState(defaultPaginationSize);
     const [sortField, setSortField] = useState('');
     const [sortLog, setSortLog] = useState('');
-    const [filters, setFilters] = useState({})
-    const {searchText} = useOutletContext()
+    const [filters, setFilters] = useState({});
+    const {searchText} = useOutletContext();
+
+    const location = useLocation();
 
     const fetchLogsData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
         try {
             let url = companyInn !== undefined ? `/logs/list/get_related_logs/?company_inn=${companyInn}` : '/logs/list/';
+
+            const queryParams = {
+                page,
+                page_size: size,
+                search,
+                ordering,
+                ...filters
+            };
+
+            // Include the status filter in the query parameters
+            if (filters.status) {
+                queryParams.status = filters.status;
+            }
+
             const response = await APIv1.get(url, {
-                params: {
-                    page,
-                    page_size: size,
-                    search,
-                    ordering,
-                    ...filters
-                },
+                params: queryParams,
                 headers: {
                     Authorization: `Token ${userData.token}`,
                 }
             });
+
             const data = response.data.results.map((log) => ({
                 key: log.id,
                 deviceSerial: log.device_serial === 'None' ? '-' : log.device_serial,
@@ -135,16 +121,17 @@ const Logs = (props) => {
                 logType: ConvertLogsPaymentProvider(log.log_type),
                 paymentResponse: log.payment_response,
                 confirmResponse: log.confirm_response,
-                createdDate: extractDateBySecond(log.created_date)
+                createdDate: extractDateBySecond(log.created_date),
             }));
-            setLogsData(data)
-            setTotalLogs(response.data.count)
+
+            setLogsData(data);
+            setTotalLogs(response.data.count);
         } catch (err) {
-            console.error('Something went wrong:', err)
+            console.error('Something went wrong:', err);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }, [companyInn, userData.token])
+    }, [companyInn, userData.token]);
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
@@ -158,21 +145,42 @@ const Logs = (props) => {
 
         let ordering = '';
         if (sortField) {
-            ordering = sortLog === 'ascend' ? sortField : `-${sortField}`
+            ordering = sortLog === 'ascend' ? sortField : `-${sortField}`;
         }
-        fetchLogsData(currentPage, pageSize, searchText, ordering, filters)
-    }, [currentPage, pageSize, searchText, sortLog, sortField, userData.token, filters, fetchLogsData])
+
+        fetchLogsData(currentPage, pageSize, searchText, ordering, filters);
+    }, [currentPage, pageSize, searchText, sortLog, sortField, userData.token, filters, fetchLogsData]);
 
     useEffect(() => {
-        setCurrentPage(1) // Reset to the first page when search text changes
+        setCurrentPage(1);
     }, [searchText]);
 
     const onChange = (page, pageSize) => {
-        setCurrentPage(page)
-        setPageSize(pageSize)
+        setCurrentPage(page);
+        setPageSize(pageSize);
     };
 
     const tableChangeHandler = handleTableChange(setSortField, setSortLog, columns, setFilters, 'log_type');
+
+    const handleStatusChange = (value) => {
+        setFilters(prevFilters => {
+            const newFilters = {...prevFilters, status: value};
+
+            const url = new URL(window.location.href);
+            url.searchParams.set('status', value);
+            url.searchParams.set('page', currentPage);
+            url.searchParams.set('page_size', pageSize);
+            url.searchParams.set('search', searchText);
+            url.searchParams.set('ordering', sortLog);
+            window.history.pushState({}, '', url.toString());
+
+            return newFilters;
+        });
+    };
+
+    const handleStatusFilter = (value) => {
+        handleStatusChange(value);
+    };
 
     return (
         <>
@@ -189,7 +197,14 @@ const Logs = (props) => {
                     columns={columns}
                     dataSource={logsData}
                     loading={loading}
-                    onChange={tableChangeHandler}
+                    onChange={(pagination, filters, sorter) => {
+                        tableChangeHandler(pagination, filters, sorter);
+                        if (filters.status && filters.status.length > 0) {
+                            handleStatusFilter(filters.status[0]);
+                        } else {
+                            handleStatusFilter(null);
+                        }
+                    }}
                     pagination={{
                         total: totalLogs,
                         current: currentPage,
@@ -201,10 +216,12 @@ const Logs = (props) => {
                         showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,
                         pageSizeOptions: ['10', '20', '50', '100']
                     }}
+
                 />
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Logs;
+
