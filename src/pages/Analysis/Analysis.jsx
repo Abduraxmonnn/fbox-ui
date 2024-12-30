@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import Orders from "../../components/Analysis/Orders";
 import './Analysis.css';
 import {analysisStats} from "../../components/AnalysisStats";
+import {Logs} from "../index";
 
 const {
     Period,
@@ -75,9 +76,9 @@ const Analysis = () => {
                         className='analysis__orders-title'
                         onClick={() => handleNavigate("/orders")}
                     >
-                        Orders
+                        Last 10 Payments
                     </h2>
-                    <Orders/>
+                    <Logs defaultPaginationSize={10}/>
                 </div>
             </div>
         </div>
