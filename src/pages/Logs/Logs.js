@@ -36,6 +36,10 @@ const columns = [
         orderIndex: "device_serial",
     },
     {
+        title: 'Company name',
+        dataIndex: 'companyName',
+    },
+    {
         title: 'Payment ID',
         dataIndex: 'paymentId',
         render: (text, record) => (
@@ -53,8 +57,6 @@ const columns = [
     {
         title: 'Provider',
         dataIndex: 'logType',
-        sorter: true,
-        orderIndex: "log_type",
         filters: [
             {text: 'PayMe', value: 'PAYME'},
             {text: 'Click', value: 'CLICK'},
@@ -124,10 +126,11 @@ const Logs = (props) => {
                     Authorization: `Token ${userData.token}`,
                 }
             });
-
+            console.log(response);
             const data = response.data.results.map((log) => ({
                 key: log.id,
                 deviceSerial: log.device_serial === 'None' ? 'Unknown' : log.device_serial,
+                companyName: log.company_name,
                 paymentId: log.payment_id === null ? 'Unknown' : log.payment_id,
                 amount: log.amount,
                 isSuccess: log.is_success,
