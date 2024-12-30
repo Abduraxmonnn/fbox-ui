@@ -10,11 +10,6 @@ const columns = [
     {
         title: 'Status',
         dataIndex: 'status',
-        filters: [
-            {text: 'Paid', value: 'PAID'},
-            {text: 'Fiscalized', value: 'FISCALIZED'},
-            {text: 'Failed', value: 'FAILED'},
-        ],
         render: (text, record) => (
             <>
                 {[record.status].map(tag => (
@@ -23,6 +18,11 @@ const columns = [
             </>
         ),
         orderIndex: "status",
+        filters: [
+            {text: 'Paid', value: 'PAID'},
+            {text: 'Fiscalized', value: 'FISCALIZED'},
+            {text: 'Failed', value: 'FAILED'},
+        ],
         onFilter: (value, record) => record.status === value,
     },
     {
@@ -54,6 +54,13 @@ const columns = [
         dataIndex: 'logType',
         sorter: true,
         orderIndex: "log_type",
+        filters: [
+            {text: 'PayMe', value: 'PAYME'},
+            {text: 'Click', value: 'CLICK'},
+            {text: 'Uzum', value: 'UZUM'},
+            {text: 'Anor', value: 'ANOR'},
+        ],
+        onFilter: (value, record) => record.status === value,
     },
     {
         title: 'Created date',
@@ -93,7 +100,7 @@ const Logs = (props) => {
                 page_size: size,
                 search,
                 ordering,
-                ...filters
+                ...filters,
             };
 
             if (filters.status) {
@@ -102,6 +109,10 @@ const Logs = (props) => {
 
             if (filters.period) {
                 queryParams.period = filters.period;
+            }
+
+            if (filters.provider) {
+                queryParams.provider = filters.provider;
             }
 
             const response = await APIv1.get(url, {
@@ -194,12 +205,35 @@ const Logs = (props) => {
         });
     };
 
+    const handleLogTypeChange = (value) => {
+        const providerValue = value;
+
+        setFilters((prevFilters) => {
+            const newFilters = {...prevFilters, provider: providerValue};
+
+            const url = new URL(window.location.href);
+            url.searchParams.set('provider', providerValue);
+            url.searchParams.set('page', currentPage);
+            url.searchParams.set('page_size', pageSize);
+            if (filters.period) url.searchParams.set('period', filters.period);
+            if (searchText) url.searchParams.set('search', searchText);
+            if (sortField && sortLog) url.searchParams.set('ordering', sortLog === 'ascend' ? sortField : `-${sortField}`);
+            window.history.pushState({}, '', url.toString());
+
+            return newFilters;
+        });
+    };
+
     const handleStatusFilter = (value) => {
         handleStatusChange(value);
     };
 
     const handleCreatedDateFilter = (value) => {
         handleCreatedDateChange(value);
+    };
+
+    const handleLogTypeFilter = (value) => {
+        handleLogTypeChange(value);
     };
 
     return (
@@ -230,6 +264,12 @@ const Logs = (props) => {
                             handleCreatedDateFilter(filters.createdDate[0]);
                         } else {
                             handleCreatedDateFilter(null);
+                        }
+
+                        if (filters.logType && filters.logType.length > 0) {
+                            handleLogTypeFilter(filters.logType[0]);
+                        } else {
+                            handleLogTypeFilter(null);
                         }
                     }}
                     pagination={{
