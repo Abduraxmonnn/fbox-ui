@@ -4,7 +4,7 @@ import {Result, Button} from 'antd';
 import './Feedbacks.scss';
 import {APIv1} from "../../api";
 import {defaultExtractDate} from "../../utils";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const feedbacksStatus = {
     'IN_PROGRESS': 'In Progress',
