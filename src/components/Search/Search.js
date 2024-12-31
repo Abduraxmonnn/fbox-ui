@@ -1,10 +1,17 @@
-import React from 'react';
-import {Input} from 'antd';
-import './Search.scss'
+import React, { useEffect } from 'react';
+import { Input } from 'antd';
+import { useLocation } from 'react-router-dom'; // Import useLocation
+import './Search.scss';
 
-const {Search} = Input;
+const { Search } = Input;
 
-const SearchComponent = ({searchText, setSearchText}) => {
+const SearchComponent = ({ searchText, setSearchText }) => {
+    const location = useLocation(); // Track route changes
+
+    useEffect(() => {
+        setSearchText('');
+    }, [location, setSearchText]);
+
     const handleSearch = (e) => {
         setSearchText(e.target.value);
     };
@@ -17,7 +24,7 @@ const SearchComponent = ({searchText, setSearchText}) => {
                 placeholder="search..."
                 value={searchText}
                 onChange={handleSearch}
-                style={{width: 500}}
+                style={{ width: 500 }}
             />
         </div>
     );
