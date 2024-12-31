@@ -64,7 +64,7 @@ const columns = [
             {text: 'Anor', value: 'ANOR'},
         ],
         filterMultiple: false,
-        onFilter: (value, record) => record.status === value,
+        onFilter: (value, record) => true,
     },
     {
         title: 'Created date',
@@ -126,7 +126,6 @@ const Logs = (props) => {
                     Authorization: `Token ${userData.token}`,
                 }
             });
-            console.log(response);
             const data = response.data.results.map((log) => ({
                 key: log.id,
                 deviceSerial: log.device_serial === 'None' ? 'Unknown' : log.device_serial,
