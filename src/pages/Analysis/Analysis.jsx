@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import Orders from "../../components/Analysis/Orders";
 import './Analysis.css';
 import {analysisStats} from "../../components/AnalysisStats";
 import {Logs} from "../index";
