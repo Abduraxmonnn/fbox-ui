@@ -75,7 +75,7 @@ const Analysis = () => {
                         className='analysis__orders-title'
                         onClick={() => handleNavigate("/orders")}
                     >
-                        Last 10 Payments
+                        Last Payments
                     </h2>
                     <Logs defaultPaginationSize={10}/>
                 </div>
