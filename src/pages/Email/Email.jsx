@@ -42,6 +42,13 @@ const columns = [
         dataIndex: 'created_date',
         sorter: true,
         orderIndex: "created_date",
+        filters: [
+            {text: 'Today', value: 'day'},
+            {text: 'Last hour', value: 'hour'},
+            {text: 'Last 30 days', value: 'month'},
+        ],
+        filterMultiple: false,
+        onFilter: (value, record) => true,
     },
 ]
 
@@ -66,21 +73,27 @@ const Email = (props) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [pageSize, setPageSize] = useState(defaultPaginationSize)
     const [sortField, setSortField] = useState('')
-    const [sortOrder, setSortOrder] = useState('')
+    const [sortEmail, setSortEmail] = useState('')
     const [filters, setFilters] = useState({})
     const {searchText} = useOutletContext()
 
     const fetchEmailData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
         try {
+            const queryParams = {
+                page,
+                page_size: size,
+                search,
+                ordering,
+                ...filters,
+            };
+
+            if (filters.period) {
+                queryParams.period = filters.period;
+            }
+
             const response = await APIv1.get('/email/list/', {
-                params: {
-                    page,
-                    page_size: size,
-                    search,
-                    ordering,
-                    ...filters,
-                },
+                params: queryParams,
                 headers: {
                     Authorization: `Token ${userData.token}`,
                 }
@@ -111,10 +124,10 @@ const Email = (props) => {
     useEffect(() => {
         let ordering = ''
         if (sortField) {
-            ordering = sortOrder === 'ascend' ? sortField : `-${sortField}`;
+            ordering = sortEmail === 'ascend' ? sortField : `-${sortField}`;
         }
         fetchEmailData(currentPage, pageSize, searchText, ordering, filters)
-    }, [currentPage, pageSize, searchText, sortOrder, sortField, filters, fetchEmailData])
+    }, [currentPage, pageSize, searchText, sortEmail, sortField, filters, fetchEmailData])
 
     useEffect(() => {
         setCurrentPage(1) // Reset to the first page when search text changes
@@ -125,7 +138,28 @@ const Email = (props) => {
         setPageSize(pageSize)
     }
 
-    const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns, setFilters, 'is_success');
+    const tableChangeHandler = handleTableChange(setSortField, setSortEmail, columns, setFilters, 'is_success');
+
+    const handleCreatedDateChange = (value) => {
+        setFilters(prevFilters => {
+            const newFilters = {...prevFilters, period: value};
+
+            const url = new URL(window.location.href);
+            url.searchParams.set('period', value);
+            url.searchParams.set('page', currentPage);
+            url.searchParams.set('page_size', pageSize);
+            if (searchText) url.searchParams.set('search', searchText);
+            if (sortField && sortEmail) url.searchParams.set('ordering', sortEmail === 'ascend' ? sortField : `-${sortField}`);
+            window.history.pushState({}, '', url.toString());
+
+            return newFilters;
+        });
+    };
+
+    const handleCreatedDateFilter = (value) => {
+        console.log(value)
+        handleCreatedDateChange(value);
+    };
 
     const onRowClick = useRowNavigation({
         routePrefix: '/payments/email/detail',
@@ -143,7 +177,15 @@ const Email = (props) => {
                     columns={columns}
                     dataSource={EmailData}
                     loading={loading}
-                    onChange={tableChangeHandler}
+                    onChange={(pagination, filters, sorter) => {
+                        tableChangeHandler(pagination, filters, sorter);
+
+                        if (filters.created_date && filters.created_date.length > 0) {
+                            handleCreatedDateFilter(filters.created_date[0]);
+                        } else {
+                            handleCreatedDateFilter(null);
+                        }
+                    }}
                     onRow={onRowClick}
                     pagination={{
                         total: totalEmail,

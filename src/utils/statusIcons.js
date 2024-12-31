@@ -82,7 +82,6 @@ export function LogsStatusIcon({index, size, status}) {
 
 
 export function NotifyStatusIcon({index, size, status}) {
-    console.log(status)
     switch (status) {
         case true:
             return (
