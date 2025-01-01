@@ -10,6 +10,7 @@ import {logout} from '../../store/auth/user.action';
 import SearchComponent from '../Search/Search';
 import './Header.scss';
 import {APIv1} from "../../api";
+import Localization from "../Localizations/Localization";
 
 const Header = ({isCollapse, searchText, setSearchText}) => {
     const [isUserOptions, setIsUserOptions] = useState(false)
@@ -108,6 +109,7 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
 
                 <div className="header-right">
                     <div className="user_info">
+                        <Localization/>
                         <NotificationOutlined className="header_notification"/>
                         <div className="header_user_data">
                             <span>{userData.data.username}</span>
@@ -120,7 +122,8 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                         {/*    onClick={toggleUserOptions}*/}
                         {/*    ref={avatarRef}*/}
                         {/*/>*/}
-                        <img src={images.greyAvatar} className="user_avatar" onClick={toggleUserOptions} ref={avatarRef} alt="avatar" />
+                        <img src={images.greyAvatar} className="user_avatar" onClick={toggleUserOptions} ref={avatarRef}
+                             alt="avatar"/>
                         {isUserOptions && (
                             <div ref={formRef} className={`header-menu${isUserOptions ? ' show-menu' : ''}`}>
                                 <ul className="user-menu">

@@ -1,0 +1,7 @@
+{
+  "analysis": {
+    "title": "Payment Income",
+    "titleSuccess": "Success",
+    "titleFailure": "Failure"
+  }
+}

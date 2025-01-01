@@ -4,6 +4,7 @@ import './TransactionFinancial.css';
 import React, {useCallback, useEffect, useState} from "react";
 import {APIv1} from "../../../../api";
 import {Skeleton} from "antd";
+import { useTranslation } from 'react-i18next';
 
 interface TransactionFinancialCardProps {
     successAmount?: number;
@@ -11,6 +12,7 @@ interface TransactionFinancialCardProps {
 }
 
 const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({period}) => {
+    const { t } = useTranslation();
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -53,7 +55,7 @@ const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({peri
 
     return (
         <div className="payment-income">
-            <h2 className="payment-income__title">Payment Income</h2>
+            <h2 className="payment-income__title">{t('analysis.title')}</h2>
 
             <div className="payment-income__metrics">
                 <div className="payment-income__card">
