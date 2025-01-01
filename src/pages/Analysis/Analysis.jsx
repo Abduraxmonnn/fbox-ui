@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import './Analysis.css';
+import {useTranslation} from "react-i18next";
 import {analysisStats} from "../../components/AnalysisStats";
 import {Logs} from "../index";
+import './Analysis.css';
 
 const {
     Period,
@@ -17,6 +18,7 @@ const {
 } = analysisStats;
 
 const Analysis = () => {
+    const {t} = useTranslation();
     const [period, setPeriod] = useState("day");
     const navigate = useNavigate();
 
@@ -47,22 +49,22 @@ const Analysis = () => {
 
             <div className='analysis__charts'>
                 <div className='analysis__chart-card analysis__chart-card--wide'>
-                    <h2 className='analysis__chart-title'>Completed Payments</h2>
+                    <h2 className='analysis__chart-title'>{t("analysis.numbersStats.charts.title")}</h2>
                     <div className='analysis__chart-grid'>
                         <div className='analysis__chart-content'>
-                            <h3 className='analysis__chart-subtitle'>PayMe</h3>
+                            <h3 className='analysis__chart-subtitle'>{t("common.providers.payme")}</h3>
                             <PayMeTransactionsPieChart period={period} offset="up"/>
                         </div>
                         <div className='analysis__chart-content'>
-                            <h3 className='analysis__chart-subtitle'>Click</h3>
+                            <h3 className='analysis__chart-subtitle'>{t("common.providers.click")}</h3>
                             <ClickTransactionsPieChart period={period} offset="down"/>
                         </div>
                         <div className='analysis__chart-content'>
-                            <h3 className='analysis__chart-subtitle'>Uzum</h3>
+                            <h3 className='analysis__chart-subtitle'>{t("common.providers.uzum")}</h3>
                             <UzumTransactionsPieChart period={period} offset="up"/>
                         </div>
                         <div className='analysis__chart-content'>
-                            <h3 className='analysis__chart-subtitle'>Anor</h3>
+                            <h3 className='analysis__chart-subtitle'>{t("common.providers.anor")}</h3>
                             <AnorTransactionsPieChart period={period} offset="down"/>
                         </div>
                     </div>
@@ -75,7 +77,7 @@ const Analysis = () => {
                         className='analysis__orders-title'
                         onClick={() => handleNavigate("/orders")}
                     >
-                        Last Payments
+                        {t("analysis.footerData.title")}
                     </h2>
                     <Logs defaultPaginationSize={10}/>
                 </div>

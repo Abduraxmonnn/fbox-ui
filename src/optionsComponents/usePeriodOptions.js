@@ -6,7 +6,7 @@ const usePeriodOptions = () => {
     return [
         {
             value: 'day',
-            label: t('analysis.headerFilters.period.lastHour'),
+            label: t('analysis.headerFilters.period.today'),
         },
         {
             value: 'hour',

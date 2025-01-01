@@ -13,7 +13,8 @@ const Period = ({handleChangePeriod}) => {
                 <Select
                     defaultValue="day"
                     style={{
-                        width: 125,
+                        minWidth: 125,
+                        width: "max-content",
                     }}
                     onChange={handleChangePeriod}
                     options={options}

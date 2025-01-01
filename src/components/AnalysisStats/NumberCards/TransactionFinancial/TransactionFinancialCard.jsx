@@ -55,7 +55,7 @@ const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({peri
 
     return (
         <div className="payment-income">
-            <h2 className="payment-income__title">{t('analysis.title')}</h2>
+            <h2 className="payment-income__title">{t('analysis.numbersStats.mainTitles.transactionsFinancialTitle')}</h2>
 
             <div className="payment-income__metrics">
                 <div className="payment-income__card">

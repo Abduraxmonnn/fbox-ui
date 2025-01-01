@@ -1,15 +1,42 @@
 {
   "common": {
     "success": "Muvaffaqiyatli",
-    "failure": "Muvaffaqiyatsiz"
+    "failure": "Muvaffaqiyatsiz",
+    "active": "Faol",
+    "inactive": "Faol emas",
+    "providers": {
+      "payme": "PayMe",
+      "click": "Click",
+      "uzum": "Uzum",
+      "anor": "Anor"
+    }
   },
   "analysis": {
     "headerFilters": {
-      "title": "Guruhlash",
-      "periodFilterTodayValue": "Today",
-      "periodFilterLastHourValue": "Last hour",
-      "periodFilterLast30DaysValue": "Last 30 days"
+      "period": {
+        "title": "Davr bo'yicha guruhlash",
+        "today": "bugun",
+        "lastHour": "so'nggi soat",
+        "last30Days": "oxirgi 30 kun"
+      }
     },
-    "title": "To'lovlar daromadi"
+    "numbersStats": {
+      "mainTitles": {
+        "transactionsFinancialTitle": "To'lovlar daromadi",
+        "transactionsCountsTitle": "To'lovlar soni",
+        "transactionsTitle": "To'lovlar soni",
+        "devicesTitle": "Faol qurilmalar"
+      },
+      "mainSubtitles": {
+        "notifySms": "SMS",
+        "notifyEmail": "Elektron pochta"
+      }
+    },
+    "charts": {
+      "title": "Muvaffaqiyatli to'lovlar"
+    },
+    "footerData": {
+      "title": "So'ngi to'lovlar"
+    }
   }
 }
