@@ -1,23 +1,39 @@
 import {useTranslation} from 'react-i18next';
-import {Radio} from 'antd';
-
+import {Select, Space} from 'antd';
 
 const Localization = () => {
     const {i18n} = useTranslation();
 
-    function changeLanguage(e) {
-        i18n.changeLanguage(e.target.value);
+    function changeLanguage(value) {
+        i18n.changeLanguage(value); // Use the selected value directly
     }
 
     return (
-        <Radio.Group>
-            <Radio.Button onClick={changeLanguage} value='en'>
-                🇺🇸 English
-            </Radio.Button>
-            <Radio.Button onClick={changeLanguage} value='ru'>
-                🇷🇺 Русский
-            </Radio.Button>
-        </Radio.Group>
+        <>
+            <Space wrap>
+                <Select
+                    defaultValue="en"
+                    style={{
+                        width: 130,
+                    }}
+                    onChange={changeLanguage}
+                    options={[
+                        {
+                            value: 'en',
+                            label: '🇺🇸 English',
+                        },
+                        {
+                            value: 'ru',
+                            label: '🇷🇺 Русский',
+                        },
+                        {
+                            value: 'uz',
+                            label: '🇺🇿 O‘zbekcha',
+                        },
+                    ]}
+                />
+            </Space>
+        </>
     );
 };
 

@@ -1,9 +1,6 @@
 {
   "analysis": {
-    "header": {
-      "title": ""
-    },
-    "title": "Payment Income",
+    "title": "To'lov daromadi",
     "titleSuccess": "Success",
     "titleFailure": "Failure"
   }
