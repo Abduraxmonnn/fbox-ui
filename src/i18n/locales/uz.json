@@ -24,7 +24,7 @@
       "mainTitles": {
         "transactionsFinancialTitle": "To'lovlar daromadi",
         "transactionsCountsTitle": "To'lovlar soni",
-        "transactionsTitle": "To'lovlar soni",
+        "notifyTitle": "Yuborilgan bildirishnomalar soni",
         "devicesTitle": "Faol qurilmalar"
       },
       "mainSubtitles": {
