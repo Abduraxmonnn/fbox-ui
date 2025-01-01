@@ -49,7 +49,7 @@ const Analysis = () => {
 
             <div className='analysis__charts'>
                 <div className='analysis__chart-card analysis__chart-card--wide'>
-                    <h2 className='analysis__chart-title'>{t("analysis.numbersStats.charts.title")}</h2>
+                    <h2 className='analysis__chart-title'>{t("analysis.charts.title")}</h2>
                     <div className='analysis__chart-grid'>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>{t("common.providers.payme")}</h3>
