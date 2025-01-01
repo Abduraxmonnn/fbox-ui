@@ -1,5 +1,4 @@
 import {Route, Routes} from 'react-router-dom'
-
 import './App.css'
 import SignIn from './components/SignIn/SignIn';
 import RootLayout from './layout/RootLayout'
