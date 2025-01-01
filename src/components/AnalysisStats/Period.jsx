@@ -1,31 +1,20 @@
 import {Select, Space} from 'antd';
-
-const options = [
-    {
-        value: 'hour',
-        label: 'Last hour',
-    },
-    {
-        value: 'day',
-        label: 'Today',
-    },
-    {
-        value: 'month',
-        label: 'Last 30 days',
-    }
-]
+import {useTranslation} from 'react-i18next';
+import usePeriodOptions from "../../optionsComponents/usePeriodOptions";
 
 const Period = ({handleChangePeriod}) => {
+    const options = usePeriodOptions();
+    const {t} = useTranslation();
+
     return (
         <>
             <Space wrap>
-                <span>Group By</span>
+                <span>{t('analysis.headerFilters.period.title')}</span>
                 <Select
                     defaultValue="day"
                     style={{
-                        width: "max-content",
+                        width: 125,
                     }}
-                    allowClear
                     onChange={handleChangePeriod}
                     options={options}
                     placeholder="select it"

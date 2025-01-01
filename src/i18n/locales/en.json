@@ -1,10 +1,17 @@
 {
+  "common": {
+    "success": "Success",
+    "failure": "Failure"
+  },
   "analysis": {
-    "header": {
-      "title": ""
+    "headerFilters": {
+      "period": {
+        "title": "Group by",
+        "today": "Today",
+        "lastHour": "Last hour",
+        "last30Days": "Last 30 days"
+      }
     },
-    "title": "Payment Income",
-    "titleSuccess": "Success",
-    "titleFailure": "Failure"
+    "title": "Payment Income"
   }
 }

@@ -1,7 +1,15 @@
 {
+  "common": {
+    "success": "Muvaffaqiyatli",
+    "failure": "Muvaffaqiyatsiz"
+  },
   "analysis": {
-    "title": "To'lov daromadi",
-    "titleSuccess": "Success",
-    "titleFailure": "Failure"
+    "headerFilters": {
+      "title": "Guruhlash",
+      "periodFilterTodayValue": "Today",
+      "periodFilterLastHourValue": "Last hour",
+      "periodFilterLast30DaysValue": "Last 30 days"
+    },
+    "title": "To'lovlar daromadi"
   }
 }
