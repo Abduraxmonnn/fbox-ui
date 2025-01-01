@@ -1,0 +1,42 @@
+{
+  "common": {
+    "success": "Success",
+    "failure": "Failure",
+    "active": "Active",
+    "inactive": "Inactive",
+    "providers": {
+      "payme": "PayMe",
+      "click": "Click",
+      "uzum": "Uzum",
+      "anor": "Anor"
+    }
+  },
+  "analysis": {
+    "headerFilters": {
+      "period": {
+        "title": "Group by",
+        "today": "Today",
+        "lastHour": "Last hour",
+        "last30Days": "Last 30 days"
+      }
+    },
+    "numbersStats": {
+      "mainTitles": {
+        "transactionsFinancialTitle": "Payment Income",
+        "transactionsCountsTitle": "No. of Payments",
+        "devicesTitle": "Active Devices",
+        "notifyTitle": "No. of sent Notify"
+      },
+      "mainSubtitles": {
+        "notifySms": "SMS",
+        "notifyEmail": "Email"
+      }
+    },
+    "charts": {
+      "title": "Completed Payments"
+    },
+    "footerData": {
+      "title": "Last Payments"
+    }
+  }
+}

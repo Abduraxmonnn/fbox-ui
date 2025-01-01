@@ -1,10 +1,11 @@
 import CountUp from "react-countup";
 import {MonitorCheck, MonitorDot} from 'lucide-react';
-import '../BaseNumberCardStyle.css'
-import './DeviceStatusCard.css'
+import {useTranslation} from "react-i18next";
 import React, {useCallback, useEffect, useState} from "react";
 import {Skeleton} from "antd";
 import {APIv1} from "../../../../api";
+import '../BaseNumberCardStyle.css'
+import './DeviceStatusCard.css'
 
 interface TransactionCountCardProps {
     successAmount?: number;
@@ -12,6 +13,7 @@ interface TransactionCountCardProps {
 }
 
 const DeviceStatusCard: React.FC<TransactionCountCardProps> = () => {
+    const {t} = useTranslation();
     const [userData, setUserData] = useState({});
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -54,11 +56,11 @@ const DeviceStatusCard: React.FC<TransactionCountCardProps> = () => {
 
     return (
         <div className="transaction-metrics">
-            <h2 className="transaction-metrics__title">Active Devices</h2>
+            <h2 className="transaction-metrics__title">{t("analysis.numbersStats.mainTitles.devicesTitle")}</h2>
 
             <div className="transaction-metrics__container">
                 <div className="transaction-metrics__card">
-                    <span className="transaction-metrics__label">Active</span>
+                    <span className="transaction-metrics__label">{t("common.active")}</span>
                     <div className="transaction-metrics__count">
                         <MonitorCheck className="transaction-metrics__icon transaction-metrics__icon--active"/>
                         {loading ? (
@@ -73,7 +75,7 @@ const DeviceStatusCard: React.FC<TransactionCountCardProps> = () => {
                 </div>
 
                 <div className="transaction-metrics__card">
-                    <span className="transaction-metrics__label">Inactive</span>
+                    <span className="transaction-metrics__label">{t("common.inactive")}</span>
                     <div className="transaction-metrics__count">
                         <MonitorDot className="transaction-metrics__icon transaction-metrics__icon--inactive"/>
                         {loading ? (

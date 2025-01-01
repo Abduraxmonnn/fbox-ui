@@ -1,6 +1,7 @@
 import CountUp from "react-countup";
 import {CheckCircle, XCircle} from 'lucide-react';
 import React, {useCallback, useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 import {Skeleton} from "antd";
 import {APIv1} from "../../../api";
 import './BaseNumberCardStyle.css'
@@ -11,6 +12,7 @@ interface TransactionCountCardProps {
 }
 
 const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({period}) => {
+    const {t} = useTranslation();
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -53,11 +55,11 @@ const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({period}) =>
 
     return (
         <div className="transaction-metrics">
-            <h2 className="transaction-metrics__title">No. of Payments</h2>
+            <h2 className="transaction-metrics__title">{t("analysis.numbersStats.mainTitles.transactionsCountsTitle")}</h2>
 
             <div className="transaction-metrics__container">
                 <div className="transaction-metrics__card">
-                    <span className="transaction-metrics__label">Success</span>
+                    <span className="transaction-metrics__label">{t('common.success')}</span>
                     <div className="transaction-metrics__count">
                         <CheckCircle className="transaction-metrics__icon transaction-metrics__icon--success"/>
                         {loading ? (
@@ -72,7 +74,7 @@ const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({period}) =>
                 </div>
 
                 <div className="transaction-metrics__card">
-                    <span className="transaction-metrics__label">Failure</span>
+                    <span className="transaction-metrics__label">{t('common.failure')}</span>
                     <div className="transaction-metrics__count">
                         <XCircle className="transaction-metrics__icon transaction-metrics__icon--failure"/>
                         {loading ? (

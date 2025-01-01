@@ -1,0 +1,42 @@
+{
+  "common": {
+    "success": "Успешный",
+    "failure": "Неуспешный",
+    "active": "Активный",
+    "inactive": "Неактивный",
+    "providers": {
+      "payme": "PayMe",
+      "click": "Click",
+      "uzum": "Uzum",
+      "anor": "Anor"
+    }
+  },
+  "analysis": {
+    "headerFilters": {
+      "period": {
+        "title": "Группировать за",
+        "today": "сегодня",
+        "lastHour": "последний час ",
+        "last30Days": "последний 30 дней"
+      }
+    },
+    "numbersStats": {
+      "mainTitles": {
+        "transactionsFinancialTitle": "Доход от платежей",
+        "transactionsCountsTitle": "Количество платежей",
+        "devicesTitle": "Активные устройства",
+        "notifyTitle": "Количество отправленных уведомлений"
+      },
+      "mainSubtitles": {
+        "notifySms": "СМС",
+        "notifyEmail": "Электронная почта"
+      }
+    },
+    "charts": {
+      "title": "Успешные платежи"
+    },
+    "footerData": {
+      "title": "Последние платежи"
+    }
+  }
+}

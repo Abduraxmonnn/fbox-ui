@@ -1,10 +1,11 @@
 import CountUp from "react-countup";
 import {Skeleton} from "antd";
 import {Mail, MessageSquareMore} from 'lucide-react';
-import '../BaseNumberCardStyle.css'
-import './NotifyNumberCard.css'
+import {useTranslation} from "react-i18next";
 import React, {useCallback, useEffect, useState} from "react";
 import {APIv1} from "../../../../api";
+import '../BaseNumberCardStyle.css'
+import './NotifyNumberCard.css'
 
 interface TransactionCountCardProps {
     successAmount?: number;
@@ -12,6 +13,7 @@ interface TransactionCountCardProps {
 }
 
 const NotifyNumberCard: React.FC<TransactionCountCardProps> = ({period}) => {
+    const {t} = useTranslation();
     const [userData, setUserData] = useState({});
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -55,11 +57,11 @@ const NotifyNumberCard: React.FC<TransactionCountCardProps> = ({period}) => {
 
     return (
         <div className="transaction-metrics">
-            <h2 className="transaction-metrics__title">No. of sent Notify</h2>
+            <h2 className="transaction-metrics__title">{t("analysis.numbersStats.mainTitles.notifyTitle")}</h2>
 
             <div className="transaction-metrics__container">
                 <div className="transaction-metrics__card">
-                    <span className="transaction-metrics__label">SMS</span>
+                    <span className="transaction-metrics__label">{t("analysis.numbersStats.mainSubtitles.notifySms")}</span>
                     <div className="transaction-metrics__count">
                         <MessageSquareMore className="transaction-metrics__icon transaction-metrics__icon--sms"/>
                         {loading ? (
@@ -74,7 +76,7 @@ const NotifyNumberCard: React.FC<TransactionCountCardProps> = ({period}) => {
                 </div>
 
                 <div className="transaction-metrics__card">
-                    <span className="transaction-metrics__label">Email</span>
+                    <span className="transaction-metrics__label">{t("analysis.numbersStats.mainSubtitles.notifyEmail")}</span>
                     <div className="transaction-metrics__count">
                         <Mail className="transaction-metrics__icon transaction-metrics__icon--email"/>
                         {loading ? (
