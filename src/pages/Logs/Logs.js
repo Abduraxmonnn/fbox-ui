@@ -1,89 +1,16 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {Link, useOutletContext} from "react-router-dom";
+import {useOutletContext} from "react-router-dom";
 import {APIv1} from "../../api";
 import {extractDateBySecond, handleTableChange} from "../../utils";
 import {Table} from "antd";
-import {LogsStatusIcon} from "../../utils/statusIcons";
 import {ConvertLogsPaymentProvider} from "../../utils/logsUtils";
-
-const columns = [
-    {
-        title: 'Status',
-        dataIndex: 'status',
-        render: (text, record) => (
-            <>
-                {[record.status].map(tag => (
-                    <LogsStatusIcon size={18} status={tag.toUpperCase()}/>
-                ))}
-            </>
-        ),
-        orderIndex: "status",
-        filters: [
-            {text: 'Paid', value: 'PAID'},
-            {text: 'Fiscalized', value: 'FISCALIZED'},
-            {text: 'Failed', value: 'FAILED'},
-        ],
-        filterMultiple: false,
-        onFilter: (value, record) => record.status === value,
-    },
-    {
-        title: 'Device serial number',
-        dataIndex: 'deviceSerial',
-        render: (text, record) => (
-            <Link to={`/payments/logs/detail/${record.key}`}>{text}</Link>
-        ),
-        sorter: true,
-        orderIndex: "device_serial",
-    },
-    {
-        title: 'Company name',
-        dataIndex: 'companyName',
-    },
-    {
-        title: 'Payment ID',
-        dataIndex: 'paymentId',
-        render: (text, record) => (
-            <Link to={`/payments/logs/detail/${record.key}`}>{text}</Link>
-        ),
-        sorter: true,
-        orderIndex: "payment_id",
-    },
-    {
-        title: 'Amount',
-        dataIndex: 'amount',
-        sorter: true,
-        orderIndex: "amount",
-    },
-    {
-        title: 'Provider',
-        dataIndex: 'logType',
-        filters: [
-            {text: 'PayMe', value: 'PAYME'},
-            {text: 'Click', value: 'CLICK'},
-            {text: 'Uzum', value: 'UZUM'},
-            {text: 'Anor', value: 'ANOR'},
-        ],
-        filterMultiple: false,
-        onFilter: (value, record) => true,
-    },
-    {
-        title: 'Created date',
-        dataIndex: 'createdDate',
-        sorter: true,
-        orderIndex: "created_date",
-        filters: [
-            {text: 'Today', value: 'day'},
-            {text: 'Last hour', value: 'hour'},
-            {text: 'Last 30 days', value: 'month'},
-        ],
-        filterMultiple: false,
-        onFilter: (value, record) => true,
-    },
-];
+import LogsColumns from "./logs.constants";
 
 const Logs = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
     let companyInn = props.companyInn;
+
+    const columns = LogsColumns();
     const [userData, setUserData] = useState({});
     const [logsData, setLogsData] = useState([]);
     const [loading, setLoading] = useState(true);

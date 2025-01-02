@@ -3,51 +3,7 @@ import {APIv1} from "../../api";
 import {Table} from "antd";
 import {Link, useOutletContext} from "react-router-dom";
 import {defaultExtractDate, handleTableChange, useRowNavigation} from "../../utils";
-
-const columns = [
-    {
-        title: 'Market name',
-        dataIndex: 'market_name',
-        render: (text, record) => (
-            <Link to={`/order/detail/${record.key}`}>{text}</Link>
-        ),
-        sorter: true,
-        orderIndex: "market_name",
-    },
-    {
-        title: 'Cash desc serial',
-        dataIndex: 'cash_desc_serial',
-        render: (text, record) => (
-            <Link to={`/order/detail/${record.key}`}>{text}</Link>
-        ),
-        sorter: true,
-        orderIndex: "cash_desc_serial",
-    },
-    {
-        title: 'Cashier',
-        dataIndex: 'cashier',
-        sorter: true,
-        orderIndex: "cashier",
-    },
-    {
-        title: 'Received cash',
-        dataIndex: 'received_cash',
-        sorter: true,
-        orderIndex: "received_cash",
-    },
-    {
-        title: 'Received card',
-        dataIndex: 'received_card',
-        sorter: true,
-        orderIndex: "received_card",
-    },
-    {
-        title: 'Time',
-        dataIndex: 'time',
-        sorter: true,
-        orderIndex: "time",
-    },
-]
+import OrdersColumns from "./orders.constants";
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -62,6 +18,8 @@ const rowSelection = {
 const Orders = (props) => {
     let serialNumber = props.serialNumber !== undefined ? props.serialNumber : null;
     let defaultPageSize = props.defaultPageSize !== undefined ? props.defaultPageSize : 40;
+
+    const columns = OrdersColumns();
     const [userData, setUserData] = useState({});
     const [ordersData, setOrdersData] = useState([])
     const [selectionType, setSelectionType] = useState('checkbox')

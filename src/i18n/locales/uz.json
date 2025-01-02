@@ -38,5 +38,40 @@
     "footerData": {
       "title": "So'ngi to'lovlar"
     }
+  },
+  "pages": {
+    "orders": {
+      "listColumns": {
+        "column1": "Magazin nomi",
+        "column2": "Kassa apparati seriyal raqami",
+        "column3": "Kassa",
+        "column4": "Naqd orqali to'lov",
+        "column5": "Karta orqali to'lov",
+        "column6": "Vaqt"
+      }
+    },
+    "logs": {
+      "listColumns": {
+        "column1": "Holat",
+        "column2": "Qurilma seriyal raqami",
+        "column3": "Kompaniya nomi",
+        "column4": "To'lov ID",
+        "column5": "Summa",
+        "column6": "Provayder",
+        "column7": "Yaratilgan sana"
+      }
+    },
+    "devices": {
+      "listColumns": {
+        "column1": "Holat",
+        "column2": "Seriya raqami",
+        "column3": "IP-manzil",
+        "column4": "Terminal ID",
+        "column5": "Yuborilmagan buyurtmalar",
+        "column6": "Yopilmagan Z-hisobotlar",
+        "column7": "Yangilangan vaqt",
+        "column8": "Versiya"
+      }
+    }
   }
 }

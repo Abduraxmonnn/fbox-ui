@@ -50,7 +50,7 @@ export const items = [
     getItem(
         'Devices',
         'devices_status_item',
-        <Link to='/devices/status'>
+        <Link to='/devices'>
             {/*<CheckCircleOutlined/>*/}
             <IoStarOutline/>
         </Link>
