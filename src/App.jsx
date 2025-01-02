@@ -8,11 +8,9 @@ import {useState} from "react";
 import {
     Sms,
     SmsDetail,
+    AddNewDevice,
     Device,
     DeviceDetail,
-    AddNewDevice,
-    DeviceStatus,
-    DeviceStatusDetail,
     Company,
     AddNewCompany,
     CompanyDetail,
@@ -42,9 +40,8 @@ function App() {
                         <Route path='/analysis' element={<Analysis/>}/>
                         <Route path='/profile' element={<UserProfile/>}/>
                         <Route path='/devices/company' element={<Company/>}/>
-                        <Route path='/devices/device' element={<Device/>}/>
                         <Route path='/devices/version' element={<Version/>}/>
-                        <Route path='/devices/status' element={<DeviceStatus/>}/>
+                        <Route path='/devices' element={<Device/>}/>
                         <Route path='/payments/logs' element={<Logs/>}/>
                         <Route path='/payments/sms' element={<Sms/>}/>
                         <Route path='/email/list' element={<Email/>}/>
@@ -56,8 +53,7 @@ function App() {
 
                         <Route path='/order/detail/:id' element={<OrderDetail/>}/>
                         <Route path='/company/detail/:id' element={<CompanyDetail/>}/>
-                        <Route path='/device/detail/:id' element={<DeviceDetail/>}/>
-                        <Route path='/device/status/detail/:serial_number' element={<DeviceStatusDetail/>}/>
+                        <Route path='/device/detail/:serial_number' element={<DeviceDetail/>}/>
                         <Route path='/payments/logs/detail/:id' element={<LogsDetail/>}/>
                         <Route path='/payments/sms/detail/:id' element={<SmsDetail/>}/>
                         <Route path='/payments/email/detail/:id' element={<EmailDetail/>}/>

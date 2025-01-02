@@ -60,6 +60,18 @@
         "column6": "Provider",
         "column7": "Created date"
       }
+    },
+    "devices": {
+      "listColumns": {
+        "column1": "Status",
+        "column2": "Device serial number",
+        "column3": "Device IP address",
+        "column4": "Terminal ID",
+        "column5": "Orders not sent count",
+        "column6": "Z report left count",
+        "column7": "Updated date",
+        "column8": "Version number"
+      }
     }
   }
 }

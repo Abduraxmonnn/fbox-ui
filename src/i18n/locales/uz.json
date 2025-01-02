@@ -60,6 +60,18 @@
         "column6": "Provayder",
         "column7": "Yaratilgan sana"
       }
+    },
+    "devices": {
+      "listColumns": {
+        "column1": "Holat",
+        "column2": "Seriya raqami",
+        "column3": "IP-manzil",
+        "column4": "Terminal ID",
+        "column5": "Yuborilmagan buyurtmalar",
+        "column6": "Yopilmagan Z-hisobotlar",
+        "column7": "Yangilangan vaqt",
+        "column8": "Versiya"
+      }
     }
   }
 }
