@@ -49,6 +49,17 @@
         "column5": "Karta orqali to'lov",
         "column6": "Vaqt"
       }
+    },
+    "logs": {
+      "listColumns": {
+        "column1": "Holat",
+        "column2": "Qurilma seriyal raqami",
+        "column3": "Kompaniya nomi",
+        "column4": "To'lov ID",
+        "column5": "Summa",
+        "column6": "Provayder",
+        "column7": "Yaratilgan sana"
+      }
     }
   }
 }
