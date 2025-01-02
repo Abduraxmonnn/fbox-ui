@@ -96,7 +96,7 @@ const DeviceDetail = () => {
     }
 
     const onRelatedDevices = (item) => {
-        navigate(`/device/status/detail/${item.device_serial_number}`)
+        navigate(`/device/detail/${item.device_serial_number}`)
         onScrollToTop();
     }
 

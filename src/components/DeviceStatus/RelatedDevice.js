@@ -33,7 +33,7 @@ const columns = [
         sorter: true,
         orderIndex: 'device_serial',
         render: (text, record) => (
-            <Link to={`/device/status/detail/${record.device_serial}`}>{text}</Link>
+            <Link to={`/device/detail/${record.device_serial}`}>{text}</Link>
         ),
     },
     {
@@ -176,7 +176,7 @@ const RelatedDeviceStatus = (props) => {
     };
 
     const onRowClick = useRowNavigation({
-        routePrefix: '/device/status/detail',
+        routePrefix: '/device/detail',
         idField: 'device_serial'
     });
 

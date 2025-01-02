@@ -95,7 +95,7 @@ const Device = () => {
     const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns);
 
     const onRowClick = useRowNavigation({
-        routePrefix: '/device/status/detail',
+        routePrefix: '/device/detail',
         idField: 'device_serial'
     });
 
