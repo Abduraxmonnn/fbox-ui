@@ -38,5 +38,17 @@
     "footerData": {
       "title": "So'ngi to'lovlar"
     }
+  },
+  "pages": {
+    "orders": {
+      "listColumns": {
+        "column1": "Magazin nomi",
+        "column2": "Kassa apparati seriyal raqami",
+        "column3": "Kassa",
+        "column4": "Naqd orqali to'lov",
+        "column5": "Karta orqali to'lov",
+        "column6": "Vaqt"
+      }
+    }
   }
 }

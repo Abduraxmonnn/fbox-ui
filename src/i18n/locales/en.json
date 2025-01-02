@@ -38,5 +38,17 @@
     "footerData": {
       "title": "Last Payments"
     }
+  },
+  "pages": {
+    "orders": {
+      "listColumns": {
+        "column1": "Market Name",
+        "column2": "Cash desc serial",
+        "column3": "Cashier",
+        "column4": "Received cash",
+        "column5": "Received card",
+        "column6": "Time"
+      }
+    }
   }
 }
