@@ -75,7 +75,7 @@ const Analysis = () => {
                 <div className='analysis__orders-card'>
                     <h2
                         className='analysis__orders-title'
-                        onClick={() => handleNavigate("/orders")}
+                        onClick={() => handleNavigate("/payments/logs")}
                     >
                         {t("analysis.footerData.title")}
                     </h2>
