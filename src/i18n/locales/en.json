@@ -1,5 +1,6 @@
 {
   "common": {
+    "success": "Success",
     "failure": "Failure",
     "active": "Active",
     "inactive": "Inactive",
@@ -127,4 +128,4 @@
       }
     }
   }
-},
+}
