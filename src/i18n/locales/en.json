@@ -24,10 +24,12 @@
       "column9": "Versions"
     }
   },
-  "userMenuBar": {
-    "column1": "Manage Account",
-    "column2": "Feedback",
-    "column3": "Log Out"
+  "header": {
+    "userMenuBar": {
+      "column1": "Manage Account",
+      "column2": "Feedback",
+      "column3": "Log Out"
+    }
   },
   "analysis": {
     "headerFilters": {
@@ -126,4 +128,4 @@
       }
     }
   }
-}
+},

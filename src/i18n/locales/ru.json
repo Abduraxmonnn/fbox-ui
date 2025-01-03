@@ -25,10 +25,12 @@
       "column9": "Версии"
     }
   },
-  "userMenuBar": {
-    "column1": "Учетная запись",
-    "column2": "Отзыв",
-    "column3": "Выйти"
+  "header": {
+    "userMenuBar": {
+      "column1": "Учетная запись",
+      "column2": "Отзыв",
+      "column3": "Выйти"
+    }
   },
   "analysis": {
     "headerFilters": {
@@ -127,4 +129,4 @@
       }
     }
   }
-}
+},
