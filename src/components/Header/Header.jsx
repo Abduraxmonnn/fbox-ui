@@ -11,8 +11,10 @@ import SearchComponent from '../Search/Search';
 import './Header.scss';
 import {APIv1} from "../../api";
 import Localization from "../Localizations/Localization";
+import {useTranslation} from "react-i18next";
 
 const Header = ({isCollapse, searchText, setSearchText}) => {
+    const {t} = useTranslation();
     const [isUserOptions, setIsUserOptions] = useState(false)
     const formRef = useRef()
     const avatarRef = useRef()
@@ -129,20 +131,20 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                                 <ul className="user-menu">
                                     <li onClick={navigateUserProfile}>
                                         <UserRoundCog size={18} color="#6cb4fc"/>
-                                        <span>Manage Account</span>
+                                        <span>{t('header.userMenuBar.column1')}</span>
                                     </li>
                                     <hr/>
                                     <li>
                                         {/*<img src={images.activity_log} alt="activity"/>*/}
                                         <MessageCircleMore size={18} color="#ac9cfc"/>
-                                        <span><Link to={`/feedback/`}>Feedback</Link></span>
+                                        <span><Link to={`/feedback/`}>{t('header.userMenuBar.column2')}</Link></span>
                                     </li>
                                     <hr/>
                                     <Link to="/">
                                         <li onClick={handleLogout} role="button" tabIndex={0}>
                                             {/*<img src={images.logout} alt="log out"/>*/}
                                             <LogOut size={18} color="#fc9c9c"/>
-                                            <span>Log out</span>
+                                            <span>{t('header.userMenuBar.column3')}</span>
                                         </li>
                                     </Link>
                                 </ul>
