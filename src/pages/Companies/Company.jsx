@@ -5,6 +5,7 @@ import {APIv1} from '../../api';
 import {Link, useOutletContext} from 'react-router-dom';
 import {handleTableChange, useRowNavigation} from "../../utils";
 import CompaniesColumns from "./company.constants";
+import {useTranslation} from "react-i18next";
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -18,7 +19,8 @@ const rowSelection = {
 const Company = () => {
     let defaultPageSize = 20;
 
-    const columns = CompaniesColumns();
+    const {t} = useTranslation();
+    const columns = CompaniesColumns(t);
     const [userData, setUserData] = useState({});
     const [companies, setCompanies] = useState([]);
     const [selectionType] = useState('checkbox');
@@ -119,7 +121,7 @@ const Company = () => {
                 <FloatButton
                     type="primary"
                     icon={<FileAddOutlined/>}
-                    tooltip={<div>Add Company</div>}
+                    tooltip={<div>{t('pages.companies.addNewDeviceTitle')}</div>}
                 />
             </Link>
         </div>

@@ -1,56 +1,10 @@
 import {APIv1} from '../../api'
 import React, {useState, useEffect, useCallback} from 'react'
-import {Link, useOutletContext} from "react-router-dom";
+import {useOutletContext} from "react-router-dom";
 import {extractDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
 import {Table} from 'antd'
-import {NotifyStatusIcon} from "../../utils/statusIcons";
-
-const columns = [
-    {
-        title: 'Status',
-        dataIndex: 'is_success',
-        sorter: true,
-        orderIndex: "is_success",
-        size: "large",
-        width: 100,
-
-        render: (text, record) => (
-            <>
-                {[record.is_success].map(tag => (
-                    <NotifyStatusIcon size={18} status={tag}/>
-                ))}
-            </>
-        ),
-    },
-    {
-        title: 'Inn',
-        dataIndex: 'inn',
-        render: (text, record) => (
-            <Link to={`/payments/email/detail/${record.key}`}>{text}</Link>
-        ),
-        sorter: true,
-        orderIndex: "inn",
-    },
-    {
-        title: 'Recipient',
-        dataIndex: 'recipient',
-        sorter: true,
-        orderIndex: "recipient",
-    },
-    {
-        title: 'Created date',
-        dataIndex: 'created_date',
-        sorter: true,
-        orderIndex: "created_date",
-        filters: [
-            {text: 'Today', value: 'day'},
-            {text: 'Last hour', value: 'hour'},
-            {text: 'Last 30 days', value: 'month'},
-        ],
-        filterMultiple: false,
-        onFilter: (value, record) => true,
-    },
-]
+import EmailColumns from "./email.constants";
+import {useTranslation} from "react-i18next";
 
 // rowSelection object indicates the need for row selection
 const rowSelection = {
@@ -65,6 +19,9 @@ const rowSelection = {
 
 const Email = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
+
+    const {t} = useTranslation();
+    const columns = EmailColumns(t);
     const [userData, setUserData] = useState({});
     const [EmailData, setEmailData] = useState([])
     const [loading, setLoading] = useState(true)

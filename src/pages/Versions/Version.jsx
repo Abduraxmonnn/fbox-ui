@@ -1,24 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {Table, Button} from 'antd'
 import {APIv1 as API} from '../../api'
-
-const columns = [
-    {
-        title: 'id',
-        dataIndex: 'version_id',
-        sorter: {},
-        render: title => <a>{title}</a>,
-    },
-    {
-        title: 'Version number',
-        dataIndex: 'version_number',
-        render: title => <a>{title}</a>,
-    },
-    {
-        title: 'File',
-        dataIndex: 'file',
-    },
-]
+import {useTranslation} from "react-i18next";
+import VersionsColumns from "./version.constants";
 
 // rowSelection object indicates the need for row selection
 const rowSelection = {
@@ -32,6 +16,8 @@ const rowSelection = {
 }
 
 const Version = () => {
+    const {t} = useTranslation();
+    const columns = VersionsColumns(t);
     const [versionData, setVersionData] = useState([])
     const [selectionType, setSelectionType] = useState('checkbox')
 
@@ -95,7 +81,7 @@ const Version = () => {
                     }}
                     onClick={handleDownload}
                 >
-                    Download latest version
+                    {t('pages.versions.downloadVersion')}
                 </Button>
             </div>
         </>

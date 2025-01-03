@@ -4,6 +4,7 @@ import {Table} from "antd";
 import {useOutletContext} from "react-router-dom";
 import {defaultExtractDate, handleTableChange, useRowNavigation} from "../../utils";
 import OrdersColumns from "./orders.constants";
+import {useTranslation} from "react-i18next";
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -19,7 +20,8 @@ const Orders = (props) => {
     let serialNumber = props.serialNumber !== undefined ? props.serialNumber : null;
     let defaultPageSize = props.defaultPageSize !== undefined ? props.defaultPageSize : 40;
 
-    const columns = OrdersColumns();
+    const {t} = useTranslation();
+    const columns = OrdersColumns(t);
     const [userData, setUserData] = useState({});
     const [ordersData, setOrdersData] = useState([])
     const [selectionType, setSelectionType] = useState('checkbox')

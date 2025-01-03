@@ -4,6 +4,7 @@
     "failure": "Неуспешный",
     "active": "Активный",
     "inactive": "Неактивный",
+    "id": "Идентификатор",
     "providers": {
       "payme": "PayMe",
       "click": "Click",
@@ -67,6 +68,7 @@
       }
     },
     "devices": {
+      "addNewDeviceTitle": "Добавить устройство",
       "listColumns": {
         "column1": "Статус",
         "column2": "Серийный номер",
@@ -79,12 +81,28 @@
       }
     },
     "companies": {
+      "addNewDeviceTitle": "Добавить компанию",
       "listColumns": {
         "column1": "Название",
         "column2": "ИНН",
         "column3": "Адрес",
         "column4": "Отправленные СМС",
         "column5": "Номер телефона"
+      }
+    },
+    "sms": {
+      "listColumns": {
+        "column1": "Статус",
+        "column2": "ИНН",
+        "column3": "Получатель",
+        "column4": "Дата отправки"
+      }
+    },
+    "versions": {
+      "downloadVersion": "Скачать последнюю версию",
+      "listColumns": {
+        "column1": "Номер версии",
+        "column2": "Файл"
       }
     }
   }

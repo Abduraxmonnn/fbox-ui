@@ -5,12 +5,14 @@ import {extractDateBySecond, handleTableChange} from "../../utils";
 import {Table} from "antd";
 import {ConvertLogsPaymentProvider} from "../../utils/logsUtils";
 import LogsColumns from "./logs.constants";
+import {useTranslation} from "react-i18next";
 
 const Logs = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
     let companyInn = props.companyInn;
 
-    const columns = LogsColumns();
+    const {t} = useTranslation();
+    const columns = LogsColumns(t);
     const [userData, setUserData] = useState({});
     const [logsData, setLogsData] = useState([]);
     const [loading, setLoading] = useState(true);

@@ -67,6 +67,7 @@
       }
     },
     "devices": {
+      "addNewDeviceTitle": "Add Device",
       "listColumns": {
         "column1": "Status",
         "column2": "Device serial number",
@@ -79,12 +80,36 @@
       }
     },
     "companies": {
+      "addNewCompanyTitle": "Add Device",
       "listColumns": {
         "column1": "Name",
         "column2": "INN",
         "column3": "Address",
         "column4": "Sent SMS count",
         "column5": "Phone number"
+      }
+    },
+    "sms": {
+      "listColumns": {
+        "column1": "Status",
+        "column2": "INN",
+        "column3": "Recipient",
+        "column4": "Sent date"
+      }
+    },
+    "email": {
+      "listColumns": {
+        "column1": "Status",
+        "column2": "INN",
+        "column3": "Recipient",
+        "column4": "Sent date"
+      }
+    },
+    "versions": {
+      "downloadVersion": "Download latest version",
+      "listColumns": {
+        "column1": "Version Number",
+        "column2": "File"
       }
     }
   }

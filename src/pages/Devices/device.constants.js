@@ -5,8 +5,7 @@ import {MonitorCheck, MonitorDot} from 'lucide-react';
 import {deviceStatusInactiveTime} from '../../utils';
 import React from "react";
 
-const DevicesColumns = () => {
-    const {t} = useTranslation();
+const DevicesColumns = (t) => {
 
     return [
         {

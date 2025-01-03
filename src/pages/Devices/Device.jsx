@@ -6,6 +6,7 @@ import {extractDateBySecond, handleTableChange, useRowNavigation} from '../../ut
 import "./Device.scss"
 import {FileAddOutlined} from "@ant-design/icons";
 import DevicesColumns from "./device.constants";
+import {useTranslation} from "react-i18next";
 
 // rowSelection object indicates the need for row selection
 const rowSelection = {
@@ -17,7 +18,8 @@ const rowSelection = {
 const Device = () => {
     let defaultPageSize = 20;
 
-    const columns = DevicesColumns();
+    const {t} = useTranslation();
+    const columns = DevicesColumns(t);
     const [deviceStatusData, setDeviceStatusData] = useState([]);
     const [selectionType, setSelectionType] = useState('checkbox');
     const [loading, setLoading] = useState(true);
@@ -127,7 +129,7 @@ const Device = () => {
                 <FloatButton
                     type="primary"
                     icon={<FileAddOutlined/>}
-                    tooltip={<div>Add Company</div>}
+                    tooltip={<div>{t('pages.devices.addNewDeviceTitle')}</div>}
                 />
             </Link>
         </div>

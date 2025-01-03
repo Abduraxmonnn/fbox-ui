@@ -1,10 +1,7 @@
 import {Link} from "react-router-dom";
-import {useTranslation} from 'react-i18next';
 import React from "react";
 
-const CompaniesColumns = () => {
-    const {t} = useTranslation();
-
+const CompaniesColumns = (t) => {
     return [
         {
             title: t('pages.companies.listColumns.column1'),

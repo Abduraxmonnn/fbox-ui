@@ -4,6 +4,7 @@
     "failure": "Muvaffaqiyatsiz",
     "active": "Faol",
     "inactive": "Faol emas",
+    "id": "id",
     "providers": {
       "payme": "PayMe",
       "click": "Click",
@@ -69,6 +70,7 @@
       }
     },
     "devices": {
+      "addNewDeviceTitle": "Qurilma qo'shish",
       "listColumns": {
         "column1": "Holat",
         "column2": "Seriya raqami",
@@ -81,12 +83,28 @@
       }
     },
     "companies": {
+      "addNewDeviceTitle": "Kompaniyani qo'shish",
       "listColumns": {
         "column1": "Nomi",
         "column2": "INN",
         "column3": "Manzil",
         "column4": "Yuborilgan SMS",
         "column5": "Telefon raqam"
+      }
+    },
+    "sms": {
+      "listColumns": {
+        "column1": "Holat",
+        "column2": "INN",
+        "column3": "Qabul qiluvchi",
+        "column4": "Yuborilgan sana"
+      }
+    },
+    "versions": {
+      "downloadVersion": "So'nggi versiyasini yuklash",
+      "listColumns": {
+        "column1": "Versiya raqami",
+        "column2": "Fayl"
       }
     }
   }

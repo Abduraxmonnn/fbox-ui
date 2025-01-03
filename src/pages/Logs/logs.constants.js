@@ -1,11 +1,8 @@
 import {Link} from "react-router-dom";
-import {useTranslation} from 'react-i18next';
 import {LogsStatusIcon} from "../../utils/statusIcons";
 import React from "react";
 
-const LogsColumns = () => {
-    const {t} = useTranslation();
-
+const LogsColumns = (t) => {
     return [
         {
             title: t('pages.logs.listColumns.column1'),
