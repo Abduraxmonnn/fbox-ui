@@ -12,6 +12,19 @@
       "anor": "Anor"
     }
   },
+  "sideBar": {
+    "items": {
+      "column1": "Tahlil",
+      "column2": "Kompaniya",
+      "column3": "Qurilma",
+      "column4": "Log",
+      "column5": "To'lovlar",
+      "column6": "SMS",
+      "column7": "Elektron pochta",
+      "column8": "Buyurtmalar",
+      "column9": "Versiyalar"
+    }
+  },
   "header": {
     "userMenuBar": {
       "column1": "Shaxsiy kabinet",

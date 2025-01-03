@@ -12,6 +12,19 @@
       "anor": "Anor"
     }
   },
+  "sideBar": {
+    "items": {
+      "column1": "Анализ",
+      "column2": "Компания",
+      "column3": "Устройство",
+      "column4": "Логи",
+      "column5": "Платежи",
+      "column6": "СМС",
+      "column7": "Почта",
+      "column8": "Заказы",
+      "column9": "Версии"
+    }
+  },
   "userMenuBar": {
     "column1": "Учетная запись",
     "column2": "Отзыв",

@@ -11,6 +11,19 @@
       "anor": "Anor"
     }
   },
+  "sideBar": {
+    "items": {
+      "column1": "Analysis",
+      "column2": "Company",
+      "column3": "Device",
+      "column4": "Logs",
+      "column5": "Payment Logs",
+      "column6": "Sms",
+      "column7": "Email",
+      "column8": "Orders",
+      "column9": "Versions"
+    }
+  },
   "userMenuBar": {
     "column1": "Manage Account",
     "column2": "Feedback",

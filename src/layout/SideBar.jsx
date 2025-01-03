@@ -1,12 +1,15 @@
 import React, {useState, useEffect} from 'react';
+import SideBarItems from "../constants/SideBarItems";
 import {Breadcrumb, Layout, Menu, theme} from 'antd';
 import Header from '../components/Header/Header';
-import {items} from '../constants';
 import {useLocation, NavLink, Outlet} from 'react-router-dom';
+import {useTranslation} from "react-i18next";
 
 const {Content, Footer, Sider} = Layout;
 
 const SideBar = () => {
+    const {t} = useTranslation();
+    const items = SideBarItems(t);
     const [collapsed, setCollapsed] = useState(false)
     const {
         token: {colorBgContainer, borderRadiusLG},
