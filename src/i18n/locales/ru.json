@@ -11,6 +11,11 @@
       "anor": "Anor"
     }
   },
+  "userMenuBar": {
+    "column1": "Учетная запись",
+    "column2": "Отзыв",
+    "column3": "Выйти"
+  },
   "analysis": {
     "headerFilters": {
       "period": {
@@ -71,6 +76,15 @@
         "column6": "Незакрыт. Z-отчеты",
         "column7": "Дата обновл.",
         "column8": "Версия"
+      }
+    },
+    "companies": {
+      "listColumns": {
+        "column1": "Название",
+        "column2": "ИНН",
+        "column3": "Адрес",
+        "column4": "Отправленные СМС",
+        "column5": "Номер телефона"
       }
     }
   }

@@ -11,6 +11,11 @@
       "anor": "Anor"
     }
   },
+  "userMenuBar": {
+    "column1": "Shaxsiy kabinet",
+    "column2": "Fikr qoldirish",
+    "column3": "Chiqish"
+  },
   "analysis": {
     "headerFilters": {
       "period": {
@@ -72,6 +77,16 @@
         "column7": "Yangilangan vaqt",
         "column8": "Versiya"
       }
+    },
+    "companies": {
+      "listColumns": {
+        "column1": "Nomi",
+        "column2": "INN",
+        "column3": "Manzil",
+        "column4": "Yuborilgan SMS",
+        "column5": "Telefon raqam"
+      }
     }
+
   }
 }

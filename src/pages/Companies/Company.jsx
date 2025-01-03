@@ -4,45 +4,7 @@ import {FileAddOutlined} from '@ant-design/icons';
 import {APIv1} from '../../api';
 import {Link, useOutletContext} from 'react-router-dom';
 import {handleTableChange, useRowNavigation} from "../../utils";
-
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'company_name',
-        sorter: true,
-        orderIndex: "name",
-        render: (text, record) => (
-            <Link to={`/company/detail/${record.key}`}>{text}</Link>
-        ),
-        width: 300,
-    },
-    {
-        title: 'INN',
-        dataIndex: 'company_inn',
-        sorter: true,
-        orderIndex: "inn",
-        // eslint-disable-next-line jsx-a11y/anchor-is-valid
-        render: title => <a>{title}</a>,
-    },
-    {
-        title: 'Address',
-        dataIndex: 'company_address',
-        sorter: true,
-        orderIndex: "address",
-    },
-    {
-        title: 'Sent sms count',
-        dataIndex: 'company_count_sent_sms',
-        sorter: true,
-        orderIndex: "send_sms",
-    },
-    {
-        title: 'Phone number',
-        dataIndex: 'company_phone_number',
-        sorter: true,
-        orderIndex: "phone_number",
-    },
-];
+import CompaniesColumns from "./company.constants";
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -55,6 +17,8 @@ const rowSelection = {
 };
 const Company = () => {
     let defaultPageSize = 20;
+
+    const columns = CompaniesColumns();
     const [userData, setUserData] = useState({});
     const [companies, setCompanies] = useState([]);
     const [selectionType] = useState('checkbox');

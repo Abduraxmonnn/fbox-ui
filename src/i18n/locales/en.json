@@ -11,6 +11,11 @@
       "anor": "Anor"
     }
   },
+  "userMenuBar": {
+    "column1": "Manage Account",
+    "column2": "Feedback",
+    "column3": "Log Out"
+  },
   "analysis": {
     "headerFilters": {
       "period": {
@@ -71,6 +76,15 @@
         "column6": "Z report left count",
         "column7": "Updated date",
         "column8": "Version number"
+      }
+    },
+    "companies": {
+      "listColumns": {
+        "column1": "Name",
+        "column2": "INN",
+        "column3": "Address",
+        "column4": "Sent SMS count",
+        "column5": "Phone number"
       }
     }
   }
