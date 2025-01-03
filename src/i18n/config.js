@@ -1,23 +1,34 @@
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import {initReactI18next} from 'react-i18next';
+import Backend from 'i18next-localstorage-backend';
 
-i18n.use(initReactI18next).init({
-    fallbackLng: 'en',
-    lng: 'en',
-    resources: {
-        en: {
-            translations: require('./locales/en.json')
+i18n
+    .use(Backend)
+    .use(initReactI18next)
+    .init({
+        fallbackLng: 'en',
+        lng: localStorage.getItem('i18nextLng') || 'en',
+        resources: {
+            en: {
+                translations: require('./locales/en.json')
+            },
+            ru: {
+                translations: require('./locales/ru.json')
+            },
+            uz: {
+                translations: require('./locales/uz.json')
+            }
         },
-        ru: {
-            translations: require('./locales/ru.json')
+        ns: ['translations'],
+        defaultNS: 'translations',
+        detection: {
+            order: ['localStorage', 'navigator'],
+            caches: ['localStorage'],
         },
-        uz: {
-            translations: require('./locales/uz.json')
+        react: {
+            useSuspense: false,
         }
-    },
-    ns: ['translations'],
-    defaultNS: 'translations'
-});
+    });
 
 i18n.languages = ['en', 'ru', 'uz'];
 
