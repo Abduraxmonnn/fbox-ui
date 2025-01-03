@@ -32,8 +32,8 @@ const LogsColumns = () => {
             render: (text, record) => (
                 <Link to={`/payments/logs/detail/${record.key}`}>{text}</Link>
             ),
-            sorter: true,
-            orderIndex: "device_serial",
+            // sorter: true,
+            // orderIndex: "device_serial",
         },
         {
             title: t('pages.logs.listColumns.column3'),
@@ -45,8 +45,8 @@ const LogsColumns = () => {
             render: (text, record) => (
                 <Link to={`/payments/logs/detail/${record.key}`}>{text}</Link>
             ),
-            sorter: true,
-            orderIndex: "payment_id",
+            // sorter: true,
+            // orderIndex: "payment_id",
         },
         {
             title: t('pages.logs.listColumns.column5'),

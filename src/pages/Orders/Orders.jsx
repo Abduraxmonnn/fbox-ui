@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {APIv1} from "../../api";
 import {Table} from "antd";
-import {Link, useOutletContext} from "react-router-dom";
+import {useOutletContext} from "react-router-dom";
 import {defaultExtractDate, handleTableChange, useRowNavigation} from "../../utils";
 import OrdersColumns from "./orders.constants";
 
