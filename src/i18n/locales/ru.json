@@ -98,6 +98,14 @@
         "column4": "Дата отправки"
       }
     },
+    "email": {
+      "listColumns": {
+        "column1": "Статус",
+        "column2": "ИНН",
+        "column3": "Получатель",
+        "column4": "Дата отправки"
+      }
+    },
     "versions": {
       "downloadVersion": "Скачать последнюю версию",
       "listColumns": {
