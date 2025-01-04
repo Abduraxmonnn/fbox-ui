@@ -127,6 +127,41 @@
         "column1": "Versiya raqami",
         "column2": "Fayl"
       }
+    },
+    "feedback": {
+      "title": "Mijozlar Fikri",
+      "submitButton": "Fikrni Yuborish",
+      "errorAlertMessage": "Nimadir noto'g'ri bo'ldi. Iltimos, keyinroq qayta urinib ko'ring.",
+      "formSection": {
+        "title": "Forma",
+        "description": "Biz sizning fikringizni qadrlaymiz! Bu, o'z fikrlaringiz, tajribalaringiz va takliflaringizni biz bilan bo'lishish uchun joyingiz. Sizning fikrlaringiz bizga nimada yaxshi ishlayotganimizni va qayerda takomillashishimiz kerakligini tushunishga yordam beradi. Sizda maqtov, tashvish yoki yaxshilash g'oyasi bo'lsa, biz sizni eshitishni istaymiz. Bizni yaxshilashga yordam berish uchun vaqt ajratganingiz uchun rahmat!",
+        "input1": "Ism",
+        "placeholder1": "To'liq ismingizni kiriting",
+        "input2": "Elektron pochta",
+        "placeholder2": "Elektron pochta manzilingizni kiriting",
+        "input3": "Mavzu",
+        "placeholder3": "Fikr mavzusini kiriting",
+        "input4": "Xabar",
+        "placeholder4": "Xabaringizni yozing..."
+      },
+      "recentSection": {
+        "title": "So'nggi Fikrlar",
+        "expandTitle": "Boshqalar",
+        "collapseTitle": "Yashirish",
+        "statusTitle": "Holat",
+        "responseTit,le": "Javob"
+      },
+      "successMessage": {
+        "title": "Muvaffaqiyatli yuborildi!",
+        "subtitle": "Fikrlaringizni biz bilan bo'lishganingiz uchun rahmat. Biz sizning fikringizni qadrlaymiz!",
+        "button1": "Bosh sahifaga qaytish",
+        "button2": "Yana yuborish"
+      },
+      "status": {
+        "status1": "Jarayonda",
+        "status2": "Kutilmoqda",
+        "status3": "Hal qilindi"
+      }
     }
   }
 }

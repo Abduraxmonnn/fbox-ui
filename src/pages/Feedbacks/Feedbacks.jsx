@@ -5,14 +5,10 @@ import './Feedbacks.scss';
 import {APIv1} from "../../api";
 import {defaultExtractDate} from "../../utils";
 import {useNavigate} from "react-router-dom";
-
-const feedbacksStatus = {
-    'IN_PROGRESS': 'In Progress',
-    'PENDING': 'Pending',
-    'RESOLVED': 'Resolving',
-};
+import {useTranslation} from "react-i18next";
 
 const Feedbacks = (props) => {
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const [userData, setUserData] = useState({});
     const [feedbackHistory, setFeedbackHistory] = useState([]);
@@ -24,6 +20,12 @@ const Feedbacks = (props) => {
     });
     const [loading, setLoading] = useState(false); // Loading state to show user feedback when submitting
     const [submissionSuccess, setSubmissionSuccess] = useState(false);  // State to control success message display
+
+    const feedbacksStatus = {
+        'IN_PROGRESS': t('pages.feedback.status.status1'),
+        'PENDING': t('pages.feedback.status.status2'),
+        'RESOLVED': t('pages.feedback.status.status3'),
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,7 +43,7 @@ const Feedbacks = (props) => {
             setFormData({name: '', email: '', subject: '', message: ''}); // Reset the form
         } catch (err) {
             console.error('Error submitting feedback:', err);
-            alert('Something went wrong. Please try again later.');
+            alert(t('pages.feedback.errorAlertMessage'));
         } finally {
             setLoading(false);
         }
@@ -105,13 +107,13 @@ const Feedbacks = (props) => {
 
     return (
         <div className="feedback-page">
-            <h1 className="page-title">Customer Feedback</h1>
+            <h1 className="page-title">{t('pages.feedback.title')}</h1>
 
             {/* Render success message if submission is successful */}
             {submissionSuccess ? (
                 <Result
                     status="success"
-                    title="Feedback Submitted Successfully!"
+                    title={t("pages.feedback.subtitle")}
                     subTitle="Thank you for sharing your feedback. We appreciate your input!"
                     extra={[
                         <Button type="primary" key="console" onClick={onNavigateToHomePage}>
@@ -126,26 +128,21 @@ const Feedbacks = (props) => {
                 <div className="feedback-container">
                     <div className="feedback-form-section">
                         <div className="feedback-content">
-                            <h2 className="section-title">Form</h2>
+                            <h2 className="section-title">{t('pages.feedback.formSection.title')}</h2>
                             <p className="feedback-description">
-                                We value your opinion! This is your space to share your thoughts, experiences, and
-                                suggestions with us. Your feedback helps us understand what we’re doing well and where
-                                we
-                                can improve. Whether you have a compliment, a concern, or an idea for enhancement, we
-                                want
-                                to hear from you. Thank you for taking the time to help us serve you better!
+                                {t('pages.feedback.formSection.description')}
                             </p>
 
                             <form onSubmit={handleSubmit} className="feedback-form">
                                 <div className="form-group">
                                     <label htmlFor="name">
-                                        Name <span className="required">*</span>
+                                        {t('pages.feedback.formSection.input1')} <span className="required">*</span>
                                     </label>
                                     <input
                                         type="text"
                                         id="name"
                                         name="name"
-                                        placeholder="Enter your full name"
+                                        placeholder={t('pages.feedback.formSection.placeholder1')}
                                         required
                                         value={formData.name}
                                         onChange={handleInputChange}
@@ -155,13 +152,13 @@ const Feedbacks = (props) => {
 
                                 <div className="form-group">
                                     <label htmlFor="email">
-                                        Email <span className="required">*</span>
+                                        {t('pages.feedback.formSection.input2')} <span className="required">*</span>
                                     </label>
                                     <input
                                         type="email"
                                         id="email"
                                         name="email"
-                                        placeholder="Enter your email address"
+                                        placeholder={t('pages.feedback.formSection.placeholder2')}
                                         required
                                         value={formData.email}
                                         onChange={handleInputChange}
@@ -171,13 +168,13 @@ const Feedbacks = (props) => {
 
                                 <div className="form-group">
                                     <label htmlFor="subject">
-                                        Subject <span className="required">*</span>
+                                        {t('pages.feedback.formSection.input3')} <span className="required">*</span>
                                     </label>
                                     <input
                                         type="text"
                                         id="subject"
                                         name="subject"
-                                        placeholder="Enter the subject of your feedback"
+                                        placeholder={t('pages.feedback.formSection.placeholder3')}
                                         required
                                         value={formData.subject}
                                         onChange={handleInputChange}
@@ -186,11 +183,11 @@ const Feedbacks = (props) => {
                                 </div>
 
                                 <div className="form-group">
-                                    <label htmlFor="message">Message</label>
+                                    <label htmlFor="message">{t('pages.feedback.formSection.input4')}</label>
                                     <textarea
                                         id="message"
                                         name="message"
-                                        placeholder="Write your message..."
+                                        placeholder={t('pages.feedback.formSection.placeholder4')}
                                         rows="4"
                                         value={formData.message}
                                         onChange={handleInputChange}
@@ -200,7 +197,7 @@ const Feedbacks = (props) => {
 
                                 <div className="form-footer">
                                     <button type="submit" className="submit-button" disabled={loading}>
-                                        {loading ? 'Submitting...' : 'Submit Feedback'}
+                                        {loading ? `${t("pages.feedback.submittingButton")}` : `${t("pages.feedback.submitButton")}`}
                                     </button>
                                 </div>
                             </form>
@@ -209,7 +206,7 @@ const Feedbacks = (props) => {
 
                     <div className="feedback-history-section">
                         <div className="history-content">
-                            <h2 className="section-title">Recent Feedbacks</h2>
+                            <h2 className="section-title">{t('pages.feedback.recentSection.title')}</h2>
                             <div className="history-list">
                                 {feedbackHistory.map((feedback) => (
                                     <div key={feedback.id} className="history-item">
@@ -229,20 +226,22 @@ const Feedbacks = (props) => {
                                             >
                                                 {feedback.expanded ? <ChevronUp size={16}/> : <ChevronDown size={16}/>}
                                                 <span
-                                                    className="expand-button-text">{feedback.expanded ? 'Less' : 'More'}</span>
+                                                    className="expand-button-text">{feedback.expanded ? `${t('pages.feedback.recentSection.collapseTitle')}` : `${t('pages.feedback.recentSection.expandTitle')}`}</span>
                                             </button>
                                         </div>
                                         {feedback.expanded && (
                                             <div className="history-item-details">
                                                 <div className="detail-row">
-                                                    <span className="detail-label">Status:</span>
+                                                    <span
+                                                        className="detail-label">{t('pages.feedback.recentSection.statusTitle')}:</span>
                                                     <span
                                                         className={`detail-value status-${feedback.status.toLowerCase().replace(' ', '-')}`}>
                                                         {feedback.status}
                                                     </span>
                                                 </div>
                                                 <div className="detail-row">
-                                                    <span className="detail-label">Response:</span>
+                                                    <span
+                                                        className="detail-label">{t('pages.feedback.recentSection.responseTitle')}:</span>
                                                     <span className="detail-value">
                                                         {feedback.response || 'No response yet'}
                                                     </span>

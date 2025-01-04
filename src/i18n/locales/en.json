@@ -126,6 +126,42 @@
         "column1": "Version Number",
         "column2": "File"
       }
+    },
+    "feedback": {
+      "title": "Customer Feedback",
+      "submitButton": "Submit Feedback",
+      "submittingButton": "Submit Feedback",
+      "errorAlertMessage": "Something went wrong. Please try again later.",
+      "formSection": {
+        "title": "Form",
+        "description": "We value your opinion! This is your space to share your thoughts, experiences, and suggestions with us. Your feedback helps us understand what we’re doing well and where we can improve. Whether you have a compliment, a concern, or an idea for enhancement, we want to hear from you. Thank you for taking the time to help us serve you better!",
+        "input1": "Name",
+        "placeholder1": "Enter your full name",
+        "input2": "Email",
+        "placeholder2": "Enter your email address",
+        "input3": "Subject",
+        "placeholder3": "Enter the subject of your feedback",
+        "input4": "Message",
+        "placeholder4": "Write your message..."
+      },
+      "recentSection": {
+        "title": "Recent Feedbacks",
+        "expandTitle": "More",
+        "collapseTitle": "Less",
+        "statusTitle": "Status",
+        "responseTitle": "Response"
+      },
+      "successMessage": {
+        "title": "Feedback Submitted Successfully!",
+        "subtitle": "Thank you for sharing your feedback. We appreciate your input!",
+        "button1": "Go Home",
+        "button2": "Submit Another Feedback"
+      },
+      "status": {
+        "status1": "In Progress",
+        "status2": "Pending",
+        "status3": "Resolved"
+      }
     }
   }
 }
