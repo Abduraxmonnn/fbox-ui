@@ -5,6 +5,10 @@
     "active": "Faol",
     "inactive": "Faol emas",
     "id": "id",
+    "inn": "INN",
+    "deviceSerial": "Uskunaning seriya raqami",
+    "deviceSerialNumber": "Uskunaning seriya raqami",
+    "status": "Holat",
     "providers": {
       "payme": "PayMe",
       "click": "Click",
@@ -80,6 +84,24 @@
         "column5": "Summa",
         "column6": "Provayder",
         "column7": "Yaratilgan sana"
+      },
+      "detailColumns": {
+        "title": "To'lovlar",
+        "sectionsColumns": {
+          "headline1": "Sarlavha",
+          "headline2": "So'rov",
+          "headline3": "Javob"
+        },
+        "section1": "To'lov mazmuni",
+        "section2": "Tasdiqlash mazmuni",
+        "showcase3": "Tranzaksiya ID",
+        "showcase4": "Miqdor",
+        "showcase5": "To'lov ID",
+        "showcase6": "Telefon raqami",
+        "showcase7": "Ta'minlovchi",
+        "showcase8": "Tranzaksiya amalga oshirilgan sana",
+        "showcase10": "Faza",
+        "showcase11": "Fiskal chek"
       }
     },
     "devices": {

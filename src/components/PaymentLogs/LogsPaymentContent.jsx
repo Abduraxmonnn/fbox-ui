@@ -1,7 +1,7 @@
 import {ChevronDown, ChevronUp} from 'lucide-react';
 
-
 export default function LogsPaymentContent(props) {
+    let t = props.t;
     let expandedSection = props.expandedSection;
     let logsData = props.logsData;
     let toggleSection = props.toggleSection;
@@ -13,7 +13,7 @@ export default function LogsPaymentContent(props) {
                 onClick={() => toggleSection('log-expand')}
                 aria-expanded={expandedSection === 'log-expand'}
             >
-                <span className="detail-view__expand-button-text">Payment Content</span>
+                <span className="detail-view__expand-button-text">{t("pages.logs.detailColumns.section1")}</span>
                 {expandedSection === 'log-expand' ? <ChevronUp size={22}/> :
                     <ChevronDown size={22}/>}
             </button>
@@ -21,19 +21,25 @@ export default function LogsPaymentContent(props) {
             {expandedSection === 'log-expand' && (
                 <div>
                     <div className="payment-log__field payment-log__field--full">
-                        <span className="payment-log__label">Headers:</span>
+                        <span className="payment-log__label">
+                            {t("pages.logs.detailColumns.sectionsColumns.headline1")}:
+                        </span>
                         {/*<TextArea rows={1} value={logsData.paymentHeaders} />*/}
                         <pre className="payment-log__pre">{logsData.paymentHeaders}</pre>
                     </div>
 
                     <div className="payment-log__field payment-log__field--full">
-                        <span className="payment-log__label">Request:</span>
+                        <span className="payment-log__label">
+                            {t("pages.logs.detailColumns.sectionsColumns.headline2")}:
+                        </span>
                         {/*<TextArea rows={4} value={logsData.paymentRequest} />*/}
                         <pre className="payment-log__pre">{logsData.paymentRequest}</pre>
                     </div>
 
                     <div className="payment-log__field payment-log__field--full">
-                        <span className="payment-log__label">Response:</span>
+                        <span className="payment-log__label">
+                            {t("pages.logs.detailColumns.sectionsColumns.headline3")}:
+                        </span>
                         {/*<TextArea rows={6} value={logsData.paymentResponse} />*/}
                         <pre className="payment-log__pre">{logsData.paymentResponse}</pre>
                     </div>

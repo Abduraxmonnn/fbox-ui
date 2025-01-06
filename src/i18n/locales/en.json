@@ -4,6 +4,10 @@
     "failure": "Failure",
     "active": "Active",
     "inactive": "Inactive",
+    "inn": "INN",
+    "deviceSerial": "Device serial",
+    "deviceSerialNumber": "Device serial number",
+    "status": "Status",
     "providers": {
       "payme": "PayMe",
       "click": "Click",
@@ -79,6 +83,24 @@
         "column5": "Amount",
         "column6": "Provider",
         "column7": "Created date"
+      },
+      "detailColumns": {
+        "title": "Payment Log",
+        "sectionsColumns": {
+          "headline1": "Header",
+          "headline2": "Request",
+          "headline3": "Response"
+        },
+        "section1": "Payment content",
+        "section2": "Confirm content",
+        "showcase3": "Transaction ID",
+        "showcase4": "Amount",
+        "showcase5": "Payment id",
+        "showcase6": "Phone number",
+        "showcase7": "Provider",
+        "showcase8": "Transaction processed date",
+        "showcase10": "Phase",
+        "showcase11": "Fiscal receipt"
       }
     },
     "devices": {

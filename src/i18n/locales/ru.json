@@ -5,6 +5,10 @@
     "active": "Активный",
     "inactive": "Неактивный",
     "id": "Идентификатор",
+    "inn": "ИНН",
+    "deviceSerial": "Серийный номер устройства",
+    "deviceSerialNumber": "Номер серийного устройства",
+    "status": "Статус",
     "providers": {
       "payme": "PayMe",
       "click": "Click",
@@ -80,6 +84,24 @@
         "column5": "Сумма",
         "column6": "Провайдер",
         "column7": "Дата создания"
+      },
+      "detailColumns": {
+        "title": "Журнал платежей",
+        "sectionsColumns": {
+          "headline1": "Заголовок",
+          "headline2": "Запрос",
+          "headline3": "Ответ"
+        },
+        "section1": "Содержание платежа",
+        "section2": "Подтверждение содержимого",
+        "showcase3": "ID транзакции",
+        "showcase4": "Сумма",
+        "showcase5": "ID платежа",
+        "showcase6": "Номер телефона",
+        "showcase7": "Поставщик",
+        "showcase8": "Дата обработки транзакции",
+        "showcase10": "Этап",
+        "showcase11": "Фискальный чек"
       }
     },
     "devices": {

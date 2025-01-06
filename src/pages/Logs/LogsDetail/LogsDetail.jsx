@@ -5,10 +5,12 @@ import {useParams} from "react-router-dom";
 import {extractDateBySecond} from "../../../utils";
 import {LogsConfirmContent, LogsPaymentContent} from "../../../components";
 import {ConvertLogsPaymentProvider} from "../../../utils/logsUtils";
+import {useTranslation} from "react-i18next";
 import "../../../styles/BaseLogsStyle.scss"
 
 const LogsDetail = () => {
     const {id} = useParams();
+    const {t} = useTranslation();
     const [userData, setUserData] = useState({});
     const [logsData, setLogsData] = useState({});
     const [expandedSection, setExpandedSection] = useState(null);
@@ -74,69 +76,69 @@ const LogsDetail = () => {
 
     return (
         <div className="content_container">
-            <h1 className="payment-log__title">Payment Log #{logsData.key}</h1>
+            <h1 className="payment-log__title">{t("pages.logs.detailColumns.title")} #{logsData.key}</h1>
 
             <div className="payment-log__grid">
                 <div className="payment-log__field">
-                    <span className="payment-log__label">INN:</span>
+                    <span className="payment-log__label">{t("common.inn")}:</span>
                     <span className="payment-log__value">{logsData.inn}</span>
                 </div>
 
                 <div className="payment-log__field">
-                    <span className="payment-log__label">Device serial:</span>
+                    <span className="payment-log__label">{t("common.deviceSerial")}:</span>
                     <span className="payment-log__value">{logsData.deviceSerial}</span>
                 </div>
 
                 <div className="payment-log__field">
-                    <span className="payment-log__label">Transaction id:</span>
+                    <span className="payment-log__label">{t("pages.logs.detailColumns.showcase3")}:</span>
                     <span className="payment-log__value">{logsData.transactionId || '-'}</span>
                 </div>
             </div>
 
             <div className="payment-log__grid">
                 <div className="payment-log__field">
-                    <span className="payment-log__label">Amount:</span>
+                    <span className="payment-log__label">{t("pages.logs.detailColumns.showcase4")}:</span>
                     <span className="payment-log__value">{logsData.amount}</span>
                 </div>
 
                 <div className="payment-log__field">
-                    <span className="payment-log__label">Payment id:</span>
+                    <span className="payment-log__label">{t("pages.logs.detailColumns.showcase5")}:</span>
                     <span className="payment-log__value">{logsData.paymentId}</span>
                 </div>
 
                 <div className="payment-log__field">
-                    <span className="payment-log__label">Phone number:</span>
+                    <span className="payment-log__label">{t("pages.logs.detailColumns.showcase6")}:</span>
                     <span className="payment-log__value">{logsData.phoneNumber || '-'}</span>
                 </div>
             </div>
 
             <div className="payment-log__grid">
                 <div className="payment-log__section">
-                    <LogsPaymentContent expandedSection={expandedSection} logsData={logsData}
+                    <LogsPaymentContent t={t} expandedSection={expandedSection} logsData={logsData}
                                         toggleSection={toggleSection}/>
                 </div>
             </div>
 
             <div className="payment-log__grid">
                 <div className="payment-log__section">
-                    <LogsConfirmContent expandedSection={expandedSecondSection} logsData={logsData}
+                    <LogsConfirmContent t={t} expandedSection={expandedSecondSection} logsData={logsData}
                                         toggleSection={toggleSecondSection}/>
                 </div>
             </div>
 
             <div className="payment-log__grid">
                 <div className="payment-log__field">
-                    <span className="payment-log__label">Provider:</span>
+                    <span className="payment-log__label">{t("pages.logs.detailColumns.showcase7")}:</span>
                     <span className="payment-log__value">{logsData.logType}</span>
                 </div>
 
                 <div className="payment-log__field">
-                    <span className="payment-log__label">Transaction processed date:</span>
+                    <span className="payment-log__label">{t("pages.logs.detailColumns.showcase8")}:</span>
                     <span className="payment-log__value">{logsData.createdDate}</span>
                 </div>
 
                 <div className="payment-log__field payment-log__field--row">
-                    <span className="payment-log__label">Status:</span>
+                    <span className="payment-log__label">{t("common.status")}:</span>
                     <div className="payment-log__status">
                         <StatusIcon status={logsData.isSuccess}/>
                         <span className="payment-log__status-text">{logsData.isSuccess}</span>
@@ -144,7 +146,7 @@ const LogsDetail = () => {
                 </div>
 
                 <div className="payment-log__field payment-log__field--row">
-                    <span className="payment-log__label">Phase:</span>
+                    <span className="payment-log__label">{t("pages.logs.detailColumns.showcase10")}:</span>
                     <div className="payment-log__status">
                         <LogsStatusIcon size={22} status={logsData.status}/>
                         <span className="payment-log__status-text">{logsData.status}</span>
@@ -153,7 +155,7 @@ const LogsDetail = () => {
             </div>
             <div className="payment-log__grid">
                 <div className="payment-log__field">
-                    <span className="payment-log__label">Fiscal receipt:</span>
+                    <span className="payment-log__label">{t("pages.logs.detailColumns.showcase11")}:</span>
                     <a href={logsData.fiscalUrl} className="payment-log__value" target="_blank"
                        rel="noreferrer">{logsData.fiscalUrl}</a>
                 </div>
