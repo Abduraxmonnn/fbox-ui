@@ -8,6 +8,7 @@ import "../../../styles/BaseDetailStyle.scss"
 import Logs from "../../Logs/Logs";
 import {ChevronDown, ChevronUp} from "lucide-react";
 import {Sms} from "../../index";
+import Device from "../../Devices/Device";
 
 const CompanyDetail = () => {
     const {id} = useParams();
@@ -137,7 +138,10 @@ const CompanyDetail = () => {
 
             <div>
                 <h2 className="related-device-title">Devices</h2>
-                <RelatedDeviceStatus companyInn={company.inn}/>
+                <Device
+                    defaultPageSize={10}
+                    companyInn={company.inn}
+                />
             </div>
             <div className="detail-view__section">
                 <button

@@ -15,8 +15,9 @@ const rowSelection = {
     },
 };
 
-const Device = () => {
-    let defaultPageSize = 20;
+const Device = (props) => {
+    let defaultPageSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
+    let companyInn = props.companyInn;
 
     const {t} = useTranslation();
     const columns = DevicesColumns(t);
@@ -33,39 +34,44 @@ const Device = () => {
 
     const fetchDeviceStatusData = useCallback(async (page, size, search = '', ordering = '') => {
         setLoading(true);
-        try {
-            const response = await APIv1.get(`/device_status/`, {
-                params: {
-                    page,
-                    page_size: size,
-                    search,
-                    ordering,
-                },
-                headers: {
-                    Authorization: `Token ${userData.token}`,
-                },
-            });
-            const data = response.data.results.map(device_status => ({
+        const mapDeviceStatusData = (deviceStatusArray) => {
+            return deviceStatusArray.map(device_status => ({
                 key: device_status.id,
                 device_serial: device_status.device_serial,
                 is_active: device_status.is_active,
                 is_active_time: device_status.is_active_time,
-                teamviewer: device_status.teamviewer === null ? '-' : device_status.teamviewer,
-                device_ip_addr: device_status.device_ip_address === null ? '-' : device_status.device_ip_address,
-                terminal_id: device_status.terminal_id === null ? '-' : device_status.terminal_id,
-                orders_not_sent_count: device_status.orders_not_sent_count === null ? '-' : device_status.orders_not_sent_count,
-                z_report_left_count: device_status.z_report_left_count === null ? '-' : device_status.z_report_left_count,
+                teamviewer: device_status.teamviewer ?? '-',
+                device_ip_addr: device_status.device_ip_address ?? '-',
+                terminal_id: device_status.terminal_id ?? '-',
+                orders_not_sent_count: device_status.orders_not_sent_count ?? '-',
+                z_report_left_count: device_status.z_report_left_count ?? '-',
                 updated_date: extractDateBySecond(device_status.updated_date),
-                version_number: device_status.version_number === null ? '-' : device_status.version_number,
+                version_number: device_status.version_number ?? '-',
             }));
+        };
+
+        try {
+            const url = companyInn !== undefined ? `/company/related/devices/${companyInn}/` : '/device_status/';
+
+            const response = await APIv1.get(url, {
+                params: {page, page_size: size, search, ordering},
+                headers: {Authorization: `Token ${userData.token}`},
+            });
+
+            const data = companyInn !== undefined
+                ? mapDeviceStatusData(response.data)
+                : mapDeviceStatusData(response.data.results);
+
             setDeviceStatusData(data);
             setTotalDevices(response.data.count);
+
         } catch (err) {
-            console.error('Something went wrong:', err);
+            console.error('Error fetching device status data:', err);
+            // You might also want to set some error state here
         } finally {
             setLoading(false);
         }
-    }, [userData.token]);
+    }, [companyInn, userData.token]);
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
