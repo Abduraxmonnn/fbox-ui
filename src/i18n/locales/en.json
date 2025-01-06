@@ -127,19 +127,33 @@
       }
     },
     "sms": {
+      "title": "SMS",
       "listColumns": {
         "column1": "Status",
         "column2": "INN",
         "column3": "Recipient",
         "column4": "Sent date"
+      },
+      "detailColumns": {
+        "showcase1": "Recipient phone number",
+        "showcase2": "Message",
+        "showcase3": "Response",
+        "showcase4": "Sms sent month",
+        "showcase5": "Sms sent last day"
       }
     },
     "email": {
+      "title": "Email",
       "listColumns": {
         "column1": "Status",
         "column2": "INN",
         "column3": "Recipient",
         "column4": "Sent date"
+      },
+      "detailColumns": {
+        "showcase1": "Recipient email",
+        "showcase2": "Message",
+        "showcase3": "Response"
       }
     },
     "versions": {

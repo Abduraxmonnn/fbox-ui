@@ -128,19 +128,33 @@
       }
     },
     "sms": {
+      "title": "SMS",
       "listColumns": {
         "column1": "Holat",
         "column2": "INN",
         "column3": "Qabul qiluvchi",
         "column4": "Yuborilgan sana"
+      },
+      "detailColumns": {
+        "showcase1": "Qabul qiluvchining telefon raqami",
+        "showcase2": "Yuborilgan xabar",
+        "showcase3": "Manbadan javob",
+        "showcase4": "Oyiga yuborilgan SMSlar soni",
+        "showcase5": "Bir kunlik yuborilgan SMSlar soni"
       }
     },
     "email": {
+      "title": "Elektron pochta",
       "listColumns": {
         "column1": "Holat",
         "column2": "INN",
         "column3": "Qabul qiluvchi",
         "column4": "Yuborilgan sana"
+      },
+      "detailColumns": {
+        "showcase1": "Qabul qiluvchining elektron pochtasi",
+        "showcase2": "Yuborilgan xabar",
+        "showcase3": "Manbadan javob"
       }
     },
     "versions": {

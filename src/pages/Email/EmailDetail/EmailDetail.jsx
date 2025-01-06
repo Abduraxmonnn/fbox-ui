@@ -2,11 +2,13 @@ import {StatusIcon} from "../../../utils/statusIcons";
 import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {APIv1} from "../../../api";
-import "../../../styles/BaseLogsStyle.scss"
 import {extractDateBySecond} from "../../../utils";
+import {useTranslation} from "react-i18next";
+import "../../../styles/BaseLogsStyle.scss"
 
 const SmsDetail = () => {
     const {id} = useParams();
+    const {t} = useTranslation();
     const [emailData, setEmailData] = useState({});
     const [userData, setUserData] = useState({});
 
@@ -51,21 +53,21 @@ const SmsDetail = () => {
 
     return (
         <div className="detail-view">
-            <h1 className="payment-log__title">Email #{emailData.key}</h1>
+            <h1 className="payment-log__title">{t("pages.email.title")} #{emailData.key}</h1>
 
             <div className="payment-log__grid">
                 <div className="payment-log__field">
-                    <span className="payment-log__label">INN:</span>
+                    <span className="payment-log__label">{t("common.inn")}:</span>
                     <span className="payment-log__value">{emailData.inn}</span>
                 </div>
 
                 <div className="payment-log__field">
-                    <span className="payment-log__label">Recipient email:</span>
+                    <span className="payment-log__label">{t("pages.email.detailColumns.showcase1")}:</span>
                     <span className="payment-log__value">{emailData.recipient}</span>
                 </div>
 
                 <div className="payment-log__field payment-log__field--row">
-                    <span className="payment-log__label">Status:</span>
+                    <span className="payment-log__label">{t("common.status")}:</span>
                     <div className="payment-log__status">
                         <StatusIcon status={emailData.status}/>
                         <span className="payment-log__status-text">{emailData.status}</span>
@@ -74,12 +76,12 @@ const SmsDetail = () => {
             </div>
 
             <div className="payment-log__field payment-log__field--full">
-                <span className="payment-log__label">Message:</span>
+                <span className="payment-log__label">{t("pages.email.detailColumns.showcase2")}:</span>
                 <pre className="payment-log__pre">{emailData.message}</pre>
             </div>
 
             <div className="payment-log__field payment-log__field--full">
-                <span className="payment-log__label">Response:</span>
+                <span className="payment-log__label">{t("pages.email.detailColumns.showcase3")}:</span>
                 <pre className="payment-log__pre">{emailData.response}</pre>
             </div>
 
