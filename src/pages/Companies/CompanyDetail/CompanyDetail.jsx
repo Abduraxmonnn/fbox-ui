@@ -1,10 +1,13 @@
 import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {APIv1} from "../../../api";
-import "../../../styles/BaseDetailStyle.scss"
 import {extractDateBySecond, isBoolean} from "../../../utils";
 import {Button} from "antd";
 import {RelatedDeviceStatus, RelatedLogs, RelatedSms} from "../../../components";
+import "../../../styles/BaseDetailStyle.scss"
+import Logs from "../../Logs/Logs";
+import {ChevronDown, ChevronUp} from "lucide-react";
+import {Sms} from "../../index";
 
 const CompanyDetail = () => {
     const {id} = useParams();
@@ -137,20 +140,38 @@ const CompanyDetail = () => {
                 <RelatedDeviceStatus companyInn={company.inn}/>
             </div>
             <div className="detail-view__section">
-                <RelatedLogs
-                    defaultPaginationSize={10}
-                    companyInn={company.inn}
-                    expandedSection={expandedSecondSection}
-                    toggleSection={toggleSecondSection}
-                />
+                <button
+                    className="detail-view__expand-button"
+                    onClick={() => toggleSecondSection('related-logs')}
+                    aria-expanded={expandedSecondSection === 'related-logs'}
+                >
+                    <span className="related-device-title">Logs</span>
+                    {expandedSecondSection === 'related-logs' ? <ChevronUp size={22}/> :
+                        <ChevronDown size={22}/>}
+                </button>
+                {expandedSecondSection === 'related-logs' && (
+                    <Logs
+                        defaultPaginationSize={10}
+                        companyInn={company.inn}
+                    />
+                )}
             </div>
             <div className="detail-view__section">
-                <RelatedSms
-                    defaultPaginationSize={10}
-                    companyInn={company.inn}
-                    expandedSection={expandedThirdSection}
-                    toggleSection={toggleThirdSection}
-                />
+                <button
+                    className="detail-view__expand-button"
+                    onClick={() => toggleThirdSection('related-sms')}
+                    aria-expanded={expandedThirdSection === 'related-sms'}
+                >
+                    <span className="related-device-title">Sms</span>
+                    {expandedThirdSection === 'related-sms' ? <ChevronUp size={22}/> :
+                        <ChevronDown size={22}/>}
+                </button>
+                {expandedThirdSection === 'related-sms' && (
+                    <Sms
+                        defaultPaginationSize={10}
+                        companyInn={company.inn}
+                    />
+                )}
             </div>
 
         </section>

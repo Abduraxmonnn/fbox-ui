@@ -19,6 +19,7 @@ const rowSelection = {
 
 const Sms = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
+    let companyInn = props.companyInn;
 
     const {t} = useTranslation();
     const columns = SmsColumns(t);
@@ -49,7 +50,8 @@ const Sms = (props) => {
                 queryParams.period = filters.period;
             }
 
-            const response = await APIv1.get('/sms/list/', {
+            let url = companyInn !== undefined ? `/sms/list/get_related_sms/?company_inn=${companyInn}` : '/sms/list/';
+            const response = await APIv1.get(url, {
                 params: queryParams,
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -70,7 +72,7 @@ const Sms = (props) => {
         } finally {
             setLoading(false)
         }
-    }, [userData.token]);
+    }, [companyInn, userData.token]);
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
