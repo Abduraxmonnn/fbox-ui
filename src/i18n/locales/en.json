@@ -124,6 +124,36 @@
         "column3": "Address",
         "column4": "Sent SMS count",
         "column5": "Phone number"
+      },
+      "detailColumns": {
+        "button1": "Edit",
+        "button2": "Back",
+        "container1": {
+          "title": "Base Information",
+          "row1": "Address",
+          "row2": "Phone number",
+          "row3": "Start date",
+          "row4": "End date"
+        },
+        "container2": {
+          "title": "Payment permissions",
+          "button": "More"
+        },
+        "container3": {
+          "title": "SMS information",
+          "row1": "Send sms status",
+          "row2": "Sent sms",
+          "row3": "Last month sent sms"
+        },
+        "relatedSection1": {
+          "title": "Devices"
+        },
+        "relatedSection2": {
+          "title": "Logs"
+        },
+        "relatedSection3": {
+          "title": "Sms"
+        }
       }
     },
     "sms": {

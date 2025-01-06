@@ -125,6 +125,36 @@
         "column3": "Manzil",
         "column4": "Yuborilgan SMS",
         "column5": "Telefon raqam"
+      },
+      "detailColumns": {
+        "button1": "O'zgartirish",
+        "button2": "Orqaga",
+        "container1": {
+          "title": "Ma'lumot",
+          "row1": "Manzil",
+          "row2": "Telefon",
+          "row3": "Boshlanish",
+          "row4": "Tugash"
+        },
+        "container2": {
+          "title": "To'lovlar",
+          "button": "Batafsil"
+        },
+        "container3": {
+          "title": "SMS ma'lumot",
+          "row1": "Holat",
+          "row2": "Yuborildi",
+          "row3": "Oy bo'yicha"
+        },
+        "relatedSection1": {
+          "title": "Qurilmalar"
+        },
+        "relatedSection2": {
+          "title": "Loglar"
+        },
+        "relatedSection3": {
+          "title": "SMS"
+        }
       }
     },
     "sms": {

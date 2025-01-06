@@ -1,17 +1,18 @@
-import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import {APIv1} from "../../../api";
-import {extractDateBySecond, isBoolean} from "../../../utils";
 import {Button} from "antd";
-import {RelatedDeviceStatus, RelatedLogs, RelatedSms} from "../../../components";
-import "../../../styles/BaseDetailStyle.scss"
-import Logs from "../../Logs/Logs";
 import {ChevronDown, ChevronUp} from "lucide-react";
+import {useTranslation} from "react-i18next";
+import Logs from "../../Logs/Logs";
+import {extractDateBySecond, isBoolean} from "../../../utils";
 import {Sms} from "../../index";
 import Device from "../../Devices/Device";
+import "../../../styles/BaseDetailStyle.scss"
 
 const CompanyDetail = () => {
     const {id} = useParams();
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const [company, setCompany] = useState({});
     const [userData, setUserData] = useState({});
@@ -85,7 +86,7 @@ const CompanyDetail = () => {
                 <div className="detail-view__title">
                     <h1 className="detail-view__main-title">{company.name}</h1>
                     <span className="detail-view__subtitle">
-                        <span className="detail-view__subtitle-label">INN: </span>
+                        <span className="detail-view__subtitle-label">{t("common.inn")}: </span>
                         {company.inn}
                     </span>
                 </div>
@@ -94,50 +95,50 @@ const CompanyDetail = () => {
                         className="detail-view__action-button detail-view__action-button--secondary"
                         onClick={() => navigate(-1)}
                     >
-                        Edit
+                        {t("pages.companies.detailColumns.button1")}
                     </button>
                     <button
                         className="detail-view__action-button detail-view__action-button--secondary"
                         onClick={() => navigate(-1)}
                     >
-                        Back
+                        {t("pages.companies.detailColumns.button2")}
                     </button>
                 </div>
             </div>
 
             <div className="detail-view__content">
                 <div className="detail-view__section">
-                    <h2 className="detail-view__section-title">Base information</h2>
+                    <h2 className="detail-view__section-title">{t("pages.companies.detailColumns.container1.title")}</h2>
                     <ul className="detail-view__list">
-                        {renderListItem("Address", company.address)}
-                        {renderListItem("Phone number", company.phone_number)}
-                        {renderListItem("Start date", extractDateBySecond(company.start_date))}
-                        {renderListItem("End date", extractDateBySecond(company.end_date))}
+                        {renderListItem(`${t("pages.companies.detailColumns.container1.row1")}`, company.address)}
+                        {renderListItem(`${t("pages.companies.detailColumns.container1.row2")}`, company.phone_number)}
+                        {renderListItem(`${t("pages.companies.detailColumns.container1.row3")}`, extractDateBySecond(company.start_date))}
+                        {renderListItem(`${t("pages.companies.detailColumns.container1.row4")}`, extractDateBySecond(company.end_date))}
                     </ul>
                 </div>
 
                 <div className="detail-view__section">
-                    <h2 className="detail-view__section-title">Payment permissions</h2>
+                    <h2 className="detail-view__section-title">{t("pages.companies.detailColumns.container2.title")}</h2>
                     <ul className="detail-view__list">
-                        {renderListItem("Click", company.click, true)}
-                        {renderListItem("PayMe", company.pay_me, true)}
-                        {renderListItem("Uzum", company.apelsin, true)}
-                        {renderListItem("Anor", company.anor, true)}
+                        {renderListItem(`${t("common.providers.click")}`, company.click, true)}
+                        {renderListItem(`${t("common.providers.payme")}`, company.pay_me, true)}
+                        {renderListItem(`${t("common.providers.uzum")}`, company.apelsin, true)}
+                        {renderListItem(`${t("common.providers.anor")}`, company.anor, true)}
                     </ul>
                 </div>
 
                 <div className="detail-view__section">
-                    <h2 className="detail-view__section-title">SMS information</h2>
+                    <h2 className="detail-view__section-title">{t("pages.companies.detailColumns.container3.title")}</h2>
                     <ul className="detail-view__list">
-                        {renderListItem("Send sms status", company.send_sms)}
-                        {renderListItem("Sent sms", company.count_sent_sms)}
-                        {renderListItem("Last month sent sms", company.last_month_sms_count)}
+                        {renderListItem(`${t("pages.companies.detailColumns.container3.row1")}`, company.send_sms)}
+                        {renderListItem(`${t("pages.companies.detailColumns.container3.row2")}`, company.count_sent_sms)}
+                        {renderListItem(`${t("pages.companies.detailColumns.container3.row3")}`, company.last_month_sms_count)}
                     </ul>
                 </div>
             </div>
 
             <div>
-                <h2 className="related-device-title">Devices</h2>
+                <h2 className="related-device-title">{t("pages.companies.detailColumns.relatedSection1.title")}</h2>
                 <Device
                     defaultPageSize={10}
                     companyInn={company.inn}
@@ -149,7 +150,7 @@ const CompanyDetail = () => {
                     onClick={() => toggleSecondSection('related-logs')}
                     aria-expanded={expandedSecondSection === 'related-logs'}
                 >
-                    <span className="related-device-title">Logs</span>
+                    <span className="related-device-title">{t("pages.companies.detailColumns.relatedSection2.title")}</span>
                     {expandedSecondSection === 'related-logs' ? <ChevronUp size={22}/> :
                         <ChevronDown size={22}/>}
                 </button>
@@ -166,7 +167,7 @@ const CompanyDetail = () => {
                     onClick={() => toggleThirdSection('related-sms')}
                     aria-expanded={expandedThirdSection === 'related-sms'}
                 >
-                    <span className="related-device-title">Sms</span>
+                    <span className="related-device-title">{t("pages.companies.detailColumns.relatedSection3.title")}</span>
                     {expandedThirdSection === 'related-sms' ? <ChevronUp size={22}/> :
                         <ChevronDown size={22}/>}
                 </button>
