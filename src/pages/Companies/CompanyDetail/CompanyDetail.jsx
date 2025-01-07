@@ -67,12 +67,12 @@ const CompanyDetail = () => {
                     </Button>
                     <span
                         className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                        {value ? 'ACCESS' : 'DECLINE'}
+                        {value ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
                     </span>
                 </div>
             ) : isBoolean(value) ? (
                 <span className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                    {value ? 'ACCESS' : 'DECLINE'}
+                    {value ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
                 </span>
             ) : (
                 <span className="detail-view__value">{value}</span>
