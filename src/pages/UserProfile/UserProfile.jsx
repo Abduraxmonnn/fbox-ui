@@ -4,12 +4,14 @@ import {X, Save} from 'lucide-react';
 import * as moment from "dayjs";
 import {getSmsClockBadgeColor} from "../../utils";
 import './UserProfile.scss';
-import {RelatedDeviceStatus, UploadUserProfile} from "../../components";
+import {UploadUserProfile} from "../../components";
 import {APIv1} from "../../api";
 import ShowUserPicture from "../../components/UserProfileCom/ShowUserPicture";
+import {Device} from "../index";
 import PaymentProvidersPermissionCheckBox
     from "../../components/UserProfileCom/PaymentProvidersPermissions/PaymentProvidersPermission";
 import {updateUserData} from "../../components/UserProfileCom/updateUserData";
+import {useTranslation} from "react-i18next";
 
 const {RangePicker} = DatePicker;
 
@@ -19,6 +21,7 @@ const utc = require('dayjs/plugin/utc')
 dayjs.extend(utc)
 
 const UserProfile = () => {
+    const {t} = useTranslation();
     const [profileData, setProfileData] = useState([]);
     const [initialData, setInitialData] = useState([]);
     const [userData, setUserData] = useState({});
@@ -118,16 +121,16 @@ const UserProfile = () => {
         if (isUpdateSuccessful) {
             setInitialData(profileData);
             setHasChanges(false);
-            message.success('Profile updated successfully');
+            message.success(t("pages.user.profile.messages.success1"));
         } else {
-            message.error('Failed to update profile');
+            message.error(t("pages.user.profile.messages.error1"));
         }
     };
 
     const handleCancel = () => {
         setProfileData(initialData);
         setHasChanges(false);
-        message.info('Changes discarded');
+        message.info(t("pages.user.profile.messages.info1"));
     };
 
     const showChangePasswordModal = () => {
@@ -136,7 +139,7 @@ const UserProfile = () => {
 
     const handleChangePassword = () => {
         if (newPassword !== confirmPassword) {
-            message.error('Passwords do not match');
+            message.error(t("pages.user.profile.messages.error2"));
             return;
         }
         // In a real application, you would send the new password to an API here
@@ -147,7 +150,7 @@ const UserProfile = () => {
         setIsChangePasswordModalVisible(false);
         setNewPassword('');
         setConfirmPassword('');
-        message.success('Password changed successfully');
+        message.success(t("pages.user.profile.messages.success2"));
     };
 
     const handleProviderPermissionChange = (newCheckedList) => {
@@ -162,7 +165,7 @@ const UserProfile = () => {
 
     return (
         <section className="user-profile">
-            <h1 className='profile-title'>Manage profile</h1>
+            <h1 className='profile-title'>{t("pages.user.profile.title")}</h1>
             <div className="profile-container">
                 <div className="profile-header">
                     <div className="profile-picture">
@@ -184,7 +187,7 @@ const UserProfile = () => {
                                 )}
                             disabled={!hasChanges}
                         >
-                            Save
+                            {t("pages.user.profile.buttons.button1")}
                         </Button>
                         <Button
                             icon={<X size={16}/>}
@@ -193,7 +196,7 @@ const UserProfile = () => {
                             onClick={handleCancel}
                             disabled={!hasChanges}
                         >
-                            Cancel
+                            {t("pages.user.profile.buttons.button2")}
                         </Button>
                     </div>
                 </div>
@@ -202,7 +205,7 @@ const UserProfile = () => {
                     <div className="form-column">
                         <div className="form-row">
                             <div className="form-group">
-                                <label htmlFor="companyName">Name</label>
+                                <label htmlFor="companyName">{t("pages.user.profile.label1")}</label>
                                 <Input
                                     id="companyName"
                                     name="companyName"
@@ -211,7 +214,7 @@ const UserProfile = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="inn">Inn</label>
+                                <label htmlFor="inn">{t("common.inn")}</label>
                                 <Input
                                     id="inn"
                                     name="inn"
@@ -223,25 +226,25 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group password-group">
-                            <label htmlFor="password">Password</label>
+                            <label htmlFor="password">{t("pages.user.profile.label2")}</label>
                             <div className="password-input">
                                 <Input.Password
                                     id="password"
                                     name="password"
-                                    placeholder="Password"
+                                    placeholder={t("pages.user.profile.label2")}
                                     value={profileData.password}
                                     onChange={handleInputChange}
                                     disabled={true}
                                     visibilityToggle={false}
                                 />
                                 <Button className="change-password-btn" onClick={showChangePasswordModal}>
-                                    Change
+                                    {t("pages.user.profile.buttons.button3")}
                                 </Button>
                             </div>
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="username">Username</label>
+                            <label htmlFor="username">{t("pages.user.profile.label3")}</label>
                             <Input
                                 id="username"
                                 name="username"
@@ -252,7 +255,7 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="email">{t("pages.user.profile.label4")}</label>
                             <Input
                                 id="email"
                                 name="email"
@@ -263,7 +266,7 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="phone">Phone</label>
+                            <label htmlFor="phone">{t("pages.user.profile.label5")}</label>
                             <Input
                                 id="phone"
                                 name="phone"
@@ -275,7 +278,7 @@ const UserProfile = () => {
 
                     <div className="form-column">
                         <div className="form-group">
-                            <label htmlFor="address">Address</label>
+                            <label htmlFor="address">{t("pages.user.profile.label6")}</label>
                             <Input
                                 id="address"
                                 name="address"
@@ -285,7 +288,7 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group">
-                            <label>Subscription Active Period</label>
+                            <label>{t("pages.user.profile.label7")}</label>
                             <RangePicker
                                 picker="date"
                                 id={{
@@ -306,7 +309,7 @@ const UserProfile = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="sms">Send SMS Notifications</label>
+                            <label htmlFor="sms">{t("pages.user.profile.label8")}</label>
                             <Space>
                                 <Switch
                                     value={isSmsShow}
@@ -314,7 +317,7 @@ const UserProfile = () => {
                                         setIsSmsShow(checked);
                                         handleSwitchChange(checked, 'isSendSms');
                                     }}
-                                    checkedChildren="On" unCheckedChildren="Off"
+                                    checkedChildren={t("common.onStatus")} unCheckedChildren={t("common.offStatus")}
                                     style={{backgroundColor: isSmsShow ? "var(--color-status-on)" : "var(--color-status-off"}}/>
                                 <Badge count={profileData.totalSms} color={isSmsShow ? "#faad14" : "gray"}
                                        overflowCount={Infinity}/>
@@ -333,21 +336,22 @@ const UserProfile = () => {
 
                         <div className="form-group-providers">
                             <PaymentProvidersPermissionCheckBox
+                                t={t}
                                 providerPermissions={providerPermissions}
                                 onChange={handleProviderPermissionChange}
                             />
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="userPicture">Upload Picture</label>
-                            <UploadUserProfile/>
+                            <label htmlFor="userPicture">{t("pages.user.profile.label11")}</label>
+                            <UploadUserProfile t={t}/>
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <h2 className="related-device-title">User Devices</h2>
-                    <RelatedDeviceStatus companyInn={profileData.inn}/>
+                    <h2 className="related-device-title">{t("pages.user.profile.section1.title")}</h2>
+                    <Device companyInn={profileData.inn}/>
                 </div>
             </div>
 

@@ -5,7 +5,7 @@ import './Search.scss';
 
 const { Search } = Input;
 
-const SearchComponent = ({ searchText, setSearchText }) => {
+const SearchComponent = ({ t, searchText, setSearchText }) => {
     const location = useLocation(); // Track route changes
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const SearchComponent = ({ searchText, setSearchText }) => {
             <Search
                 allowClear={true}
                 showCount={true}
-                placeholder="search..."
+                placeholder={t("header.placeholder1")}
                 value={searchText}
                 onChange={handleSearch}
                 style={{ width: 500 }}

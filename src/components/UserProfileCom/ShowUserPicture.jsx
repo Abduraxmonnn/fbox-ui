@@ -1,8 +1,10 @@
 import {CircleX, Maximize} from "lucide-react";
 import React, {useState} from "react";
 import {images} from "../../constants";
+import {useTranslation} from "react-i18next";
 
 export default function ShowUserPicture(data) {
+    const {t} = useTranslation();
     const [fullscreenImage, setFullscreenImage] = useState(null);
 
     const openFullscreen = (imageSrc: string) => {
@@ -20,7 +22,7 @@ export default function ShowUserPicture(data) {
             srcClassName: 'billing-img',
             src: images.defaultAvatar2,
             alt: 'Billing',
-            label: 'Billing image'
+            label: t("pages.user.profile.avatar1")
         },
         {
             id: 'qrLogo',
@@ -28,7 +30,7 @@ export default function ShowUserPicture(data) {
             srcClassName: null,
             src: data.data.logo,
             alt: 'scan2pay logo',
-            label: 'scan2pay logo'
+            label: t("pages.user.profile.avatar2")
         },
         {
             id: 'qrBanner',
@@ -36,7 +38,7 @@ export default function ShowUserPicture(data) {
             srcClassName: null,
             src: data.data.banner,
             alt: 'scan2pay banner',
-            label: 'scan2pay banner'
+            label: t("pages.user.profile.avatar3")
         },
     ]
 

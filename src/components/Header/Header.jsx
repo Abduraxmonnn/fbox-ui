@@ -106,7 +106,7 @@ const Header = ({isCollapse, searchText, setSearchText}) => {
                 </div>
 
                 <div className="header-center">
-                    <SearchComponent searchText={searchText} setSearchText={setSearchText}/>
+                    <SearchComponent t={t} searchText={searchText} setSearchText={setSearchText}/>
                 </div>
 
                 <div className="header-right">

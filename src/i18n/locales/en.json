@@ -8,6 +8,8 @@
     "deviceSerial": "Device serial",
     "deviceSerialNumber": "Device serial number",
     "status": "Status",
+    "onStatus": "On",
+    "offStatus": "Off",
     "providers": {
       "payme": "PayMe",
       "click": "Click",
@@ -34,6 +36,7 @@
     }
   },
   "header": {
+    "placeholder1": "search...",
     "userMenuBar": {
       "column1": "Manage Account",
       "column2": "Feedback",
@@ -69,6 +72,51 @@
     }
   },
   "pages": {
+    "user": {
+      "profile": {
+        "title": "Manage profile",
+        "avatar1": "Billing image",
+        "avatar2": "scan2pay logo",
+        "avatar3": "scan2pay banner",
+        "label1": "Name",
+        "label2": "Password",
+        "label3": "Username",
+        "label4": "Email",
+        "label5": "Phone",
+        "label6": "Address",
+        "label7": "Subscription Active Period",
+        "label8": "Send SMS Notifications",
+        "label9": "Providers Permission",
+        "label10": "Full Permission",
+        "label11": "Upload Picture",
+        "label12": "Select Image Section",
+        "section1": {
+          "title": "User Devices"
+        },
+        "buttons": {
+          "button1": "Save",
+          "button2": "Cancel",
+          "button3": "Change",
+          "button4": "Select File",
+          "button5": "Start upload",
+          "button6": "Uploading",
+          "button7": "Upload",
+          "button8": "Cancel"
+        },
+        "messages": {
+          "success1": "Profile updated successfully",
+          "success2": "Password changed successfully",
+          "success3": "Image for ",
+          "success4": " uploaded successfully.",
+          "info1": "Changes discarded",
+          "error1": "Failed to update profile",
+          "error2": "Passwords do not match",
+          "error3": "Please select an image section before uploading.",
+          "error4": "Please select a file before choosing the section.",
+          "error5": "Please select an image section."
+        }
+      }
+    },
     "orders": {
       "listColumns": {
         "column1": "Market Name",

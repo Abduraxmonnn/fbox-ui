@@ -9,6 +9,8 @@
     "deviceSerial": "Uskunaning seriya raqami",
     "deviceSerialNumber": "Uskunaning seriya raqami",
     "status": "Holat",
+    "onStatus": "Yoqilgan",
+    "offStatus": "O'chirilgan",
     "providers": {
       "payme": "PayMe",
       "click": "Click",
@@ -35,6 +37,7 @@
     }
   },
   "header": {
+    "placeholder1": "qidirish...",
     "userMenuBar": {
       "column1": "Shaxsiy kabinet",
       "column2": "Fikr qoldirish",
@@ -70,6 +73,51 @@
     }
   },
   "pages": {
+    "user": {
+      "profile": {
+        "title": "Profilni boshqarish",
+        "avatar1": "Billing rasmi",
+        "avatar2": "scan2pay logotipi",
+        "avatar3": "scan2pay banneri",
+        "label1": "Ism",
+        "label2": "Parol",
+        "label3": "Foydalanuvchi nomi",
+        "label4": "Elektron pochta",
+        "label5": "Telefon",
+        "label6": "Manzil",
+        "label7": "Obuna faollik davri",
+        "label8": "SMS xabarnomalarini yuborish",
+        "label9": "Provayderlar huquqi",
+        "label10": "To'liq huquq",
+        "label11": "Rasm yuklash",
+        "label12": "Rasm yuklash bo'limini tanlang",
+        "section1": {
+          "title": "Foydalanuvchi qurilmalari"
+        },
+        "buttons": {
+          "button1": "Saqlash",
+          "button2": "Bekor qilish",
+          "button3": "O'zgartirish",
+          "button4": "Faylni tanlash",
+          "button5": "Yuklashni boshlash",
+          "button6": "Yuklanmoqda",
+          "button7": "Yuklash",
+          "button8": "Bekor qilish"
+        },
+        "messages": {
+          "success1": "Profil muvaffaqiyatli yangilandi",
+          "success2": "Parol muvaffaqiyatli o'zgartirildi",
+          "success3": "Rasm uchun ",
+          "success4": " muvaffaqiyatli yuklandi.",
+          "info1": "O'zgartirishlar bekor qilindi",
+          "error1": "Profilni yangilashda xatolik yuz berdi",
+          "error2": "Parollar mos kelmaydi",
+          "error3": "Iltimos, yuklashdan oldin rasm bo'limini tanlang.",
+          "error4": "Iltimos, bo'limni tanlashdan oldin faylni tanlang.",
+          "error5": "Iltimos, rasm bo'limini tanlang."
+        }
+      }
+    },
     "orders": {
       "listColumns": {
         "column1": "Magazin nomi",

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {UploadOutlined} from '@ant-design/icons';
 import {Button, message, Upload, Modal, Radio} from 'antd';
 
-const UploadUserProfile = () => {
+const UploadUserProfile = ({t}) => {
     const [fileList, setFileList] = useState([]);
     const [uploading, setUploading] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -24,7 +24,7 @@ const UploadUserProfile = () => {
 
     const handleUpload = () => {
         if (!selectedSection) {
-            message.error('Please select an image section before uploading.');
+            message.error(t("pages.user.profile.messages.error3"));
             return;
         }
 
@@ -45,7 +45,7 @@ const UploadUserProfile = () => {
             setFileList([]);
             setSelectedSection(null);
             setUploading(false);
-            message.success(`Image for ${selectedSection} uploaded successfully.`);
+            message.success(`${t("pages.user.profile.messages.success3")} ${selectedSection} ${t("pages.user.profile.messages.success4")}`);
             setIsModalVisible(false);
         }, 1000);
     };
@@ -63,7 +63,7 @@ const UploadUserProfile = () => {
 
     const showModal = () => {
         if (fileList.length === 0) {
-            message.error('Please select a file before choosing the section.');
+            message.error(t("pages.user.profile.messages.error4"));
             return;
         }
         setIsModalVisible(true);
@@ -71,7 +71,7 @@ const UploadUserProfile = () => {
 
     const handleOk = () => {
         if (!selectedSection) {
-            message.error('Please select an image section.');
+            message.error(t("pages.user.profile.messages.error5"));
             return;
         }
         handleUpload();
@@ -88,7 +88,7 @@ const UploadUserProfile = () => {
     return (
         <>
             <Upload {...props}>
-                <Button icon={<UploadOutlined/>}>Select File</Button>
+                <Button icon={<UploadOutlined/>}>{t("pages.user.profile.buttons.button4")}</Button>
             </Upload>
             <Button
                 type="primary"
@@ -99,15 +99,15 @@ const UploadUserProfile = () => {
                     marginTop: 16,
                 }}
             >
-                {uploading ? 'Uploading' : 'Start Upload'}
+                {uploading ? `${t("pages.user.profile.buttons.button6")}` : `${t("pages.user.profile.buttons.button5")}`}
             </Button>
             <Modal
-                title="Select Image Section"
+                title={t("pages.user.profile.label12")}
                 visible={isModalVisible}
                 onOk={handleOk}
                 onCancel={handleCancel}
-                okText="Upload"
-                cancelText="Cancel"
+                okText={t("pages.user.profile.buttons.button7")}
+                cancelText={t("pages.user.profile.buttons.button8")}
             >
                 <Radio.Group onChange={handleSectionChange} value={selectedSection}>
                     <Radio value="billing">Billing Image</Radio>

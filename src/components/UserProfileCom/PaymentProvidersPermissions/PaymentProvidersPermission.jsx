@@ -5,6 +5,7 @@ import './PaymentProvidersPermission.scss'
 const CheckboxGroup = Checkbox.Group;
 
 const PaymentProvidersPermissionCheckBox = ({
+                                                t,
                                                 providerPermissions,
                                                 onChange
                                             }) => {
@@ -40,14 +41,14 @@ const PaymentProvidersPermissionCheckBox = ({
 
     return (
         <div className="providers-permission">
-            <label className="providers-permission__label">Providers Permission</label>
+            <label className="providers-permission__label">{t("pages.user.profile.label9")}</label>
             <div className="providers-permission__full">
                 <Checkbox
                     indeterminate={indeterminate}
                     onChange={onCheckAllChange}
                     checked={checkAll}
                 >
-                    Full Permission
+                    {t("pages.user.profile.label10")}
                 </Checkbox>
             </div>
             <div className="providers-permission__grid">
