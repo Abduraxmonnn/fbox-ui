@@ -1,20 +1,22 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
 import {MonitorCheck, MonitorDot} from 'lucide-react';
+import {useTranslation} from "react-i18next";
 import {Spin} from "antd";
 import {APIv1} from '../../../api'
 import Orders from "../../Orders/Orders";
-import './DeviceDetail.scss'
 import {DeviceStatusProviders, DeviceStatusQRProviders} from "../../../components";
 import {
     deviceStatusInactiveTime,
     deviceStatusInactiveTimeToText,
     extractDateBySecond
 } from "../../../utils";
+import './DeviceDetail.scss'
 
 
 const DeviceDetail = () => {
     const {serial_number} = useParams();
+    const {t} = useTranslation();
     const [userData, setUserData] = useState({});
     const [deviceData, setDeviceData] = useState(null);
     const [relatedDevices, setRelatedDevices] = useState([]);
@@ -114,7 +116,7 @@ const DeviceDetail = () => {
                         <div className="detail-view__title">
                             <h1 className="detail-view__main-title">{deviceData.company.name}</h1>
                             <span className="detail-view__subtitle">
-                        <span className="detail-view__subtitle-label">Device serial number: </span>
+                        <span className="detail-view__subtitle-label">{t("common.deviceSerialNumber")}: </span>
                                 {deviceData.device_serial_number}
                         </span>
                         </div>
@@ -123,13 +125,13 @@ const DeviceDetail = () => {
                                 className="detail-view__action-button detail-view__action-button--secondary"
                                 onClick={() => navigate(-1)}
                             >
-                                Edit
+                                {t("pages.devices.detailColumns.button1")}
                             </button>
                             <button
                                 className="detail-view__action-button detail-view__action-button--secondary"
                                 onClick={() => navigate(-1)}
                             >
-                                Back
+                                {t("pages.devices.detailColumns.button2")}
                             </button>
                         </div>
                     </div>
@@ -139,29 +141,33 @@ const DeviceDetail = () => {
                             <div className="detail-view__row">
 
                                 <div className="detail-view__section detail-view__section--half">
-                                    <h2 className="detail-view__section-title">Base</h2>
+                                    <h2 className="detail-view__section-title">{t("pages.devices.detailColumns.container1.title")}</h2>
                                     <ul className="detail-view__list">
                                         <li className="detail-view__item">
-                                            <span className="detail-view__label">User:</span>
+                                            <span
+                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row1")}:</span>
                                             <span
                                                 className="detail-view__value">{deviceData.device.user__username}</span>
                                         </li>
                                         <li className="detail-view__item">
-                                            <span className="detail-view__label">Multiple user:</span>
+                                            <span
+                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row2")}:</span>
                                             <span
                                                 className={`detail-view__tag ${deviceData.device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                                          {deviceData.device.is_multi_user ? 'ACCESS' : 'DECLINE'}
+                                          {deviceData.device.is_multi_user ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
                                         </span>
                                         </li>
                                         <li className="detail-view__item">
-                                            <span className="detail-view__label">Updated Available:</span>
+                                            <span
+                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row3")}:</span>
                                             <span
                                                 className={`detail-view__tag ${deviceData.device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                                          {deviceData.device.is_multi_user ? 'ACCESS' : 'DECLINE'}
+                                          {deviceData.device.is_multi_user ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
                                         </span>
                                         </li>
                                         <li className="detail-view__item">
-                                            <span className="detail-view__label">Activity:</span>
+                                            <span
+                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row4")}:</span>
                                             <span
                                                 className="detail-view__value">{deviceStatusInactiveTimeToText[deviceData.is_active_time]} ... {deviceData.is_active ?
                                                 <MonitorCheck size={18} color={'#1cb344'}/> :
@@ -170,18 +176,21 @@ const DeviceDetail = () => {
                                         </span>
                                         </li>
                                         <li className="detail-view__item">
-                                            <span className="detail-view__label">Last update date:</span>
+                                            <span
+                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row5")}:</span>
                                             <span
                                                 className="detail-view__value">{extractDateBySecond(deviceData.updated_date)}
                                         </span>
                                         </li>
                                         <li className="detail-view__item">
-                                            <span className="detail-view__label">Start date:</span>
+                                            <span
+                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row6")}:</span>
                                             <span
                                                 className="detail-view__value">{extractDate(deviceData.device.start_date)}</span>
                                         </li>
                                         <li className="detail-view__item">
-                                            <span className="detail-view__label">End date:</span>
+                                            <span
+                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row7")}:</span>
                                             <span
                                                 className="detail-view__value">{extractDate(deviceData.device.end_date)}</span>
                                         </li>
@@ -189,16 +198,16 @@ const DeviceDetail = () => {
                                 </div>
 
                                 <div className="detail-view__section detail-view__section--half">
-                                    <h2 className="detail-view__section-title">Status</h2>
+                                    <h2 className="detail-view__section-title">{t("pages.devices.detailColumns.container2.title")}</h2>
                                     <ul className="detail-view__list">
-                                        {['z_report_left_count', 'device_ip_address', 'orders_not_sent_count', 'version_number', 'teamviewer', 'terminal_id'].map(field => (
+                                        {['z_report_left_count', 'device_ip_address', 'orders_not_sent_count', 'version_number', 'terminal_id'].map(field => (
                                             <li key={field} className="detail-view__item">
                                             <span
-                                                className="detail-view__label">{field.replace(/_/g, ' ').charAt(0).toUpperCase() + field.replace(/_/g, ' ').slice(1).toLowerCase()}:</span>
+                                                className="detail-view__label">{t(`pages.devices.detailColumns.container2.${field}`)}:</span>
                                                 <span className="detail-view__value">
                                                 {deviceData[field] ||
                                                     <span
-                                                        className="detail-view__tag detail-view__tag--empty">empty</span>}
+                                                        className="detail-view__tag detail-view__tag--empty">{t("common.detailPages.empty")}</span>}
                                               </span>
                                             </li>
                                         ))}
@@ -206,16 +215,16 @@ const DeviceDetail = () => {
                                 </div>
 
                                 <div className="detail-view__section detail-view__section--half">
-                                    <h2 className="detail-view__section-title">Printer</h2>
+                                    <h2 className="detail-view__section-title">{t("pages.devices.detailColumns.container3.title")}</h2>
                                     <ul className="detail-view__list">
                                         {['version', 'mac_address', 'printer_name', 'printer_model', 'printer_number', 'printer_type'].map(field => (
                                             <li key={field} className="detail-view__item">
                                             <span
-                                                className="detail-view__label">{field.replace(/_/g, ' ').charAt(0).toUpperCase() + field.replace(/_/g, ' ').slice(1).toLowerCase()}:</span>
+                                                className="detail-view__label">{t(`pages.devices.detailColumns.container3.${field}`)}:</span>
                                                 <span className="detail-view__value">
                                                 {deviceData.device[field] ||
                                                     <span className="detail-view__tag detail-view__tag--empty">
-                                                        empty
+                                                        {t("common.detailPages.empty")}
                                                     </span>}
                                             </span>
                                             </li>
@@ -225,18 +234,21 @@ const DeviceDetail = () => {
                             </div>
 
                             <div className="detail-view__section">
-                                <DeviceStatusProviders expandedSection={expandedSection} deviceData={deviceData}
+                                <DeviceStatusProviders t={t}
+                                                       expandedSection={expandedSection}
+                                                       deviceData={deviceData}
                                                        toggleSection={toggleSection}/>
                             </div>
                             <div className="detail-view__section">
-                                <DeviceStatusQRProviders expandedSection={expandedSecondSection}
+                                <DeviceStatusQRProviders t={t}
+                                                         expandedSection={expandedSecondSection}
                                                          deviceData={deviceData}
                                                          toggleSection={toggleSecondSection}/>
                             </div>
 
                             <div className="detail-view__section">
-                                <h2 className="detail-view__section-title">Related devices</h2>
-                                <h3 className="detail-view__subtitle">Total: {relatedDevices.length}</h3>
+                                <h2 className="detail-view__section-title">{t("pages.devices.detailColumns.relatedSection1.title")}</h2>
+                                <h3 className="detail-view__subtitle">{t("pages.devices.detailColumns.relatedSection1.subtitle")}: {relatedDevices.length}</h3>
                                 {renderRelatedDevices()}
                             </div>
                         </div>

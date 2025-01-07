@@ -4,6 +4,7 @@ import {ChevronDown, ChevronUp} from "lucide-react";
 
 
 export default function DeviceStatusQRProviders(props) {
+    let t = props.t;
     let expandedSection = props.expandedSection;
     let deviceData = props.deviceData;
     let toggleSection = props.toggleSection;
@@ -15,7 +16,7 @@ export default function DeviceStatusQRProviders(props) {
                 onClick={() => toggleSection('payment')}
                 aria-expanded={expandedSection === 'payment'}
             >
-                <span className="detail-view__expand-button-text">Payment providers - QR Pay</span>
+                <span className="detail-view__expand-button-text">{t("pages.devices.detailColumns.section2.title")}</span>
                 {/*{expandedSection === 'payment' ? <img src={images.collapse} alt="collapse"/> :*/}
                 {/*    <img src={images.expand} alt="expand"/>}*/}
                 {expandedSection === 'payment' ? <ChevronUp size={22}/> :
@@ -25,77 +26,77 @@ export default function DeviceStatusQRProviders(props) {
             {expandedSection === 'payment' && (
                 <div className="detail-view__expanded-content">
                     <ul className="expanded-data-list">
-                        <h3 className="expanded-data-list__title">Click</h3>
+                        <h3 className="expanded-data-list__title">{t("common.providers.click")}</h3>
                         <li>
-                            <span>Click access:</span>
+                            <span>{t("pages.devices.detailColumns.section2.container1.row1")}:</span>
                             <span>
                                               <Tag color={deviceData.device.click ? 'green' : 'volcano'}>
-                                                {deviceData.device.click ? 'ACCESS' : 'DECLINE'}
+                                                {deviceData.device.click ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
                                               </Tag>
                                             </span>
                         </li>
                         <li>
-                            <span>Click service id:</span>
+                            <span>{t("pages.devices.detailColumns.section2.container1.row2")}:</span>
                             <span>
                         {deviceData.device.click_qr_pay_service_id ? deviceData.device.click_qr_pay_service_id :
                             <Tag color={!deviceData.device.click_qr_pay_service_id && 'lightgray'}>
-                                {deviceData.device.click_qr_pay_service_id || 'empty'}
+                                {deviceData.device.click_qr_pay_service_id || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                         <li>
-                            <span>Click merchant user id:</span>
+                            <span>{t("pages.devices.detailColumns.section2.container1.row3")}:</span>
                             <span>
                         {deviceData.device.click_qr_pay_merchant_user_id ? deviceData.device.click_qr_pay_merchant_user_id :
                             <Tag color={!deviceData.device.click_qr_pay_merchant_user_id && 'lightgray'}>
-                                {deviceData.device.click_qr_pay_merchant_user_id || 'empty'}
+                                {deviceData.device.click_qr_pay_merchant_user_id || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                         <li>
-                            <span>Click secret key:</span>
+                            <span>{t("pages.devices.detailColumns.section2.container1.row4")}:</span>
                             <span>
                         {deviceData.device.click_qr_pay_secret_key ? deviceData.device.click_qr_pay_secret_key :
                             <Tag color={!deviceData.device.click_qr_pay_secret_key && 'lightgray'}>
-                                {deviceData.device.click_qr_pay_secret_key || 'empty'}
+                                {deviceData.device.click_qr_pay_secret_key || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                     </ul>
                     <ul className="expanded-data-list">
-                        <h3 className="expanded-data-list__title">PayMe</h3>
+                        <h3 className="expanded-data-list__title">{t("common.providers.payme")}</h3>
                         <li>
-                            <span>PayMe access:</span>
+                            <span>{t("pages.devices.detailColumns.section2.container2.row1")}:</span>
                             <span>
                         <Tag color={deviceData.device.pay_me ? 'green' : 'volcano'}>
-                          {deviceData.device.pay_me ? 'ACCESS' : 'DECLINE'}
+                          {deviceData.device.pay_me ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
                         </Tag>
                       </span>
                         </li>
                         <li>
-                            <span>PayMe merchant user id:</span>
+                            <span>{t("pages.devices.detailColumns.section2.container2.row2")}</span>
                             <span>
                         {deviceData.device.payme_merchant_id ? deviceData.device.payme_merchant_id :
                             <Tag color={!deviceData.device.payme_merchant_id && 'lightgray'}>
-                                {deviceData.device.payme_merchant_id || 'empty'}
+                                {deviceData.device.payme_merchant_id || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                         <li>
-                            <span>PayMe secret key:</span>
+                            <span>{t("pages.devices.detailColumns.section2.container2.row2")}:</span>
                             <span>
                         {deviceData.device.payme_merchant_token ? deviceData.device.payme_merchant_token :
                             <Tag color={!deviceData.device.payme_merchant_token && 'lightgray'}>
-                                {deviceData.device.payme_merchant_token || 'empty'}
+                                {deviceData.device.payme_merchant_token || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                         <li>
-                            <span>PayMe secret test key:</span>
+                            <span>{t("pages.devices.detailColumns.section2.container2.row3")}:</span>
                             <span>
                         {deviceData.device.payme_merchant_test_token ? deviceData.device.payme_merchant_test_token :
                             <Tag color={!deviceData.device.payme_merchant_test_token && 'lightgray'}>
-                                {deviceData.device.payme_merchant_test_token || 'empty'}
+                                {deviceData.device.payme_merchant_test_token || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>

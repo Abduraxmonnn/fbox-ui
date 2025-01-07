@@ -13,6 +13,11 @@
       "click": "Click",
       "uzum": "Uzum",
       "anor": "Anor"
+    },
+    "detailPages": {
+      "empty": "empty",
+      "access": "ACCESS",
+      "decline": "DECLINE"
     }
   },
   "sideBar": {
@@ -114,6 +119,82 @@
         "column6": "Z report left count",
         "column7": "Updated date",
         "column8": "Version number"
+      },
+      "detailColumns": {
+        "button1": "Edit",
+        "button2": "Back",
+        "container1": {
+          "title": "Base",
+          "row1": "User",
+          "row2": "Multiple user",
+          "row3": "Updated available",
+          "row4": "Activity",
+          "row5": "Last update date",
+          "row6": "Start date",
+          "row7": "End date"
+        },
+        "container2": {
+          "title": "Status",
+          "z_report_left_count": "Z report left count",
+          "device_ip_address": "Device ip address",
+          "orders_not_sent_count": "Orders not sent count",
+          "version_number": "Version number",
+          "terminal_id": "Terminal id"
+        },
+        "container3": {
+          "title": "Printer",
+          "version": "Version",
+          "mac_address": "Mac address",
+          "printer_name": "Printer name",
+          "printer_model": "Printer model",
+          "printer_number": "Printer number",
+          "printer_type": "Printer type"
+        },
+        "section1": {
+          "title": "Payment providers",
+          "container1": {
+            "row1": "Access permission",
+            "row2": "Service id",
+            "row3": "User id",
+            "row4": "Secret key"
+          },
+          "container2": {
+            "row1": "Access permission",
+            "row2": "User id",
+            "row3": "Secret key"
+          },
+          "container3": {
+            "row1": "Access permission",
+            "row2": "Service id",
+            "row3": "Merchant id",
+            "row4": "Secret key",
+            "row5": "User id"
+          },
+          "container4": {
+            "row1": "Access permission",
+            "row2": "Branch id",
+            "row3": "Secret key"
+          }
+        },
+        "section2": {
+          "title": "Payment providers - QR Pay",
+          "container1": {
+            "row1": "Access permission",
+            "row2": "Service id",
+            "row3": "Merchant user id",
+            "row4": "Secret key"
+          },
+          "container2": {
+            "row1": "Access permission",
+            "row2": "Merchant user id",
+            "row3": "Secret key",
+            "row4": "Secret test key"
+          }
+        },
+        "relatedSection1": {
+          "title": "Related devices",
+          "subtitle": "Total"
+        }
       }
     },
     "companies": {

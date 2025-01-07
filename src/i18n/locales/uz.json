@@ -14,6 +14,11 @@
       "click": "Click",
       "uzum": "Uzum",
       "anor": "Anor"
+    },
+    "detailPages": {
+      "empty": "bo'sh",
+      "access": "RUHSAT",
+      "decline": "RAD ETISH"
     }
   },
   "sideBar": {
@@ -115,6 +120,82 @@
         "column6": "Yopilmagan Z-hisobotlar",
         "column7": "Yangilangan vaqt",
         "column8": "Versiya"
+      },
+      "detailColumns": {
+        "button1": "Tahrirlash",
+        "button2": "Orqaga",
+        "container1": {
+          "title": "Asosiy",
+          "row1": "Foydalanuvchi",
+          "row2": "Bir nechta foydalanuvchi",
+          "row3": "Yangilangan mavjudlik",
+          "row4": "Faoliyat",
+          "row5": "So'nggi yangilanish sanasi",
+          "row6": "Boshlanish sanasi",
+          "row7": "Tugash sanasi"
+        },
+        "container2": {
+          "title": "Holat",
+          "z_report_left_count": "Qoldiq Z hisobi",
+          "device_ip_address": "Qurilma IP manzili",
+          "orders_not_sent_count": "Yuborilmagan buyurtmalar soni",
+          "version_number": "Versiya raqami",
+          "terminal_id": "Terminal identifikatori"
+        },
+        "container3": {
+          "title": "Printerni",
+          "version": "Versiya",
+          "mac_address": "MAC manzil",
+          "printer_name": "Printer nomi",
+          "printer_model": "Printerning modeli",
+          "printer_number": "Printerning raqami",
+          "printer_type": "Printerning turi"
+        },
+        "section1": {
+          "title": "To'lov provayderlari",
+          "container1": {
+            "row1": "Kirish ruxsati",
+            "row2": "Xizmat id",
+            "row3": "Foydalanuvchi id",
+            "row4": "Maxfiy kalit"
+          },
+          "container2": {
+            "row1": "Kirish ruxsati",
+            "row2": "Foydalanuvchi id",
+            "row3": "Maxfiy kalit"
+          },
+          "container3": {
+            "row1": "Kirish ruxsati",
+            "row2": "Xizmat id",
+            "row3": "Savdogar id",
+            "row4": "Maxfiy kalit",
+            "row5": "Foydalanuvchi id"
+          },
+          "container4": {
+            "row1": "Kirish ruxsati",
+            "row2": "Filial id",
+            "row3": "Maxfiy kalit"
+          }
+        },
+        "section2": {
+          "title": "To'lov provayderlari - QR Pay",
+          "container1": {
+            "row1": "Kirish ruxsati",
+            "row2": "Xizmat id",
+            "row3": "Savdogar foydalanuvchi id",
+            "row4": "Maxfiy kalit"
+          },
+          "container2": {
+            "row1": "Kirish ruxsati",
+            "row2": "Savdogar foydalanuvchi id",
+            "row3": "Maxfiy kalit",
+            "row4": "Maxfiy test kaliti"
+          }
+        },
+        "relatedSection1": {
+          "title": "Bog'liq qurilmalar",
+          "subtitle": "Jami"
+        }
       }
     },
     "companies": {

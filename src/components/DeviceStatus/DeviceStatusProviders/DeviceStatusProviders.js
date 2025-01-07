@@ -1,9 +1,10 @@
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import {ChevronDown, ChevronUp} from 'lucide-react';
 import {Tag} from "antd";
 import React from "react";
 
 
 export default function DeviceStatusProviders(props) {
+    let t = props.t;
     let expandedSection = props.expandedSection;
     let deviceData = props.deviceData;
     let toggleSection = props.toggleSection;
@@ -15,7 +16,8 @@ export default function DeviceStatusProviders(props) {
                 onClick={() => toggleSection('payment')}
                 aria-expanded={expandedSection === 'payment'}
             >
-                <span className="detail-view__expand-button-text">Payment providers</span>
+                <span
+                    className="detail-view__expand-button-text">{t("pages.devices.detailColumns.section1.title")}</span>
                 {expandedSection === 'payment' ? <ChevronUp size={22}/> :
                     <ChevronDown size={22}/>}
             </button>
@@ -23,144 +25,144 @@ export default function DeviceStatusProviders(props) {
             {expandedSection === 'payment' && (
                 <div className="detail-view__expanded-content">
                     <ul className="expanded-data-list">
-                        <h3 className="expanded-data-list__title">Click</h3>
+                        <h3 className="expanded-data-list__title">{t("common.providers.click")}</h3>
                         <li>
-                            <span>Click access:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container1.row1")}:</span>
                             <span>
                                               <Tag color={deviceData.device.click ? 'green' : 'volcano'}>
-                                                {deviceData.device.click ? 'ACCESS' : 'DECLINE'}
+                                                {deviceData.device.click ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
                                               </Tag>
                                             </span>
                         </li>
                         <li>
-                            <span>Click service id:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container1.row2")}:</span>
                             <span>
                         {deviceData.device.click_pass_service_id ? deviceData.device.click_pass_service_id :
                             <Tag color={!deviceData.device.click_pass_service_id && 'lightgray'}>
-                                {deviceData.device.click_pass_service_id || 'empty'}
+                                {deviceData.device.click_pass_service_id || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                         <li>
-                            <span>Click user id:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container1.row3")}:</span>
                             <span>
                         {deviceData.device.click_pass_merchant_user_id ? deviceData.device.click_pass_merchant_user_id :
                             <Tag color={!deviceData.device.click_pass_merchant_user_id && 'lightgray'}>
-                                {deviceData.device.click_pass_merchant_user_id || 'empty'}
+                                {deviceData.device.click_pass_merchant_user_id || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                         <li>
-                            <span>Click secret key:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container1.row4")}:</span>
                             <span>
                         {deviceData.device.click_pass_secret_key ? deviceData.device.click_pass_secret_key :
                             <Tag color={!deviceData.device.click_pass_secret_key && 'lightgray'}>
-                                {deviceData.device.click_pass_secret_key || 'empty'}
+                                {deviceData.device.click_pass_secret_key || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                     </ul>
                     <ul className="expanded-data-list">
-                        <h3 className="expanded-data-list__title">PayMe</h3>
+                        <h3 className="expanded-data-list__title">{t("common.providers.payme")}</h3>
                         <li>
-                            <span>PayMe access:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container2.row1")}:</span>
                             <span>
                         <Tag color={deviceData.device.pay_me ? 'green' : 'volcano'}>
-                          {deviceData.device.pay_me ? 'ACCESS' : 'DECLINE'}
+                          {deviceData.device.pay_me ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
                         </Tag>
                       </span>
                         </li>
                         <li>
-                            <span>PayMe user id:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container2.row2")}:</span>
                             <span>
                         {deviceData.device.payme_subscribe_id ? deviceData.device.payme_subscribe_id :
                             <Tag color={!deviceData.device.payme_subscribe_id && 'lightgray'}>
-                                {deviceData.device.payme_subscribe_id || 'empty'}
+                                {deviceData.device.payme_subscribe_id || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                         <li>
-                            <span>PayMe secret key:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container2.row3")}:</span>
                             <span>
                         {deviceData.device.payme_subscribe_token ? deviceData.device.payme_subscribe_token :
                             <Tag color={!deviceData.device.payme_subscribe_token && 'lightgray'}>
-                                {deviceData.device.payme_subscribe_token || 'empty'}
+                                {deviceData.device.payme_subscribe_token || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                     </ul>
                     <ul className="expanded-data-list">
-                        <h3 className="expanded-data-list__title">Uzum</h3>
+                        <h3 className="expanded-data-list__title">{t("common.providers.uzum")}</h3>
                         <li>
-                            <span>Uzum access:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container3.row1")}:</span>
                             <span>
                         <Tag color={deviceData.device.apelsin ? 'green' : 'volcano'}>
-                                        {deviceData.device.apelsin ? 'ACCESS' : 'DECLINE'}
+                                        {deviceData.device.apelsin ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
                                     </Tag>
                       </span>
                         </li>
                         <li>
-                            <span>Uzum service id:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container3.row2")}:</span>
                             <span>
                         {deviceData.device.apelsin_merchant_service_id ? deviceData.device.apelsin_merchant_service_id :
                             <Tag color={!deviceData.device.apelsin_merchant_service_id && 'lightgray'}>
-                                {deviceData.device.apelsin_merchant_service_id || 'empty'}
+                                {deviceData.device.apelsin_merchant_service_id || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                         <li>
-                            <span>Uzum merchant id:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container3.row3")}:</span>
                             <span>
                         {deviceData.device.apelsin_merchant_id ? deviceData.device.apelsin_merchant_id :
                             <Tag color={!deviceData.device.apelsin_merchant_id && 'lightgray'}>
-                                {deviceData.device.apelsin_merchant_id || 'empty'}
+                                {deviceData.device.apelsin_merchant_id || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                         <li>
-                            <span>Uzum secret key:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container3.row4")}:</span>
                             <span>
                         {deviceData.device.apelsin_merchant_secret_key ? deviceData.device.apelsin_merchant_secret_key :
                             <Tag color={!deviceData.device.apelsin_merchant_secret_key && 'lightgray'}>
-                                {deviceData.device.apelsin_merchant_secret_key || 'empty'}
+                                {deviceData.device.apelsin_merchant_secret_key || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                         <li>
-                            <span>Uzum user id:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container3.row5")}:</span>
                             <span>
                         {deviceData.device.apelsin_merchant_user_id ? deviceData.device.apelsin_merchant_user_id :
                             <Tag color={!deviceData.device.apelsin_merchant_user_id && 'lightgray'}>
-                                {deviceData.device.apelsin_merchant_user_id || 'empty'}
+                                {deviceData.device.apelsin_merchant_user_id || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                     </ul>
                     <ul className="expanded-data-list">
-                        <h3 className="expanded-data-list__title">Anor</h3>
+                        <h3 className="expanded-data-list__title">{t("common.providers.anor")}</h3>
                         <li>
-                            <span>Anor access:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container4.row1")}:</span>
                             <span>
                         <Tag color={deviceData.device.anor ? 'green' : 'volcano'}>
-                          {deviceData.device.anor ? 'ACCESS' : 'DECLINE'}
+                          {deviceData.device.anor ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
                         </Tag>
                       </span>
                         </li>
                         <li>
-                            <span>Anor branch id:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container4.row2")}:</span>
                             <span>
                         {deviceData.device.anor_branch_id ? deviceData.device.anor_branch_id :
                             <Tag color={!deviceData.device.anor_branch_id && 'lightgray'}>
-                                {deviceData.anor_branch_id || 'empty'}
+                                {deviceData.anor_branch_id || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
                         <li>
-                            <span>Anor secret key:</span>
+                            <span>{t("pages.devices.detailColumns.section1.container4.row3")}:</span>
                             <span>
                         {deviceData.device.anor_secret_key ? deviceData.device.anor_secret_key :
                             <Tag color={!deviceData.device.anor_secret_key && 'lightgray'}>
-                                {deviceData.device.anor_secret_key || 'empty'}
+                                {deviceData.device.anor_secret_key || `${t("common.detailPages.empty")}`}
                             </Tag>}
                       </span>
                         </li>
