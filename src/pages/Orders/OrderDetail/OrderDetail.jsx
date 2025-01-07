@@ -1,12 +1,13 @@
 import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 import {APIv1} from "../../../api";
-
-import '../../../styles/BaseDetailStyle.scss'
 import CurrencyFormatted from "../../../utils/costFormatter";
+import '../../../styles/BaseDetailStyle.scss'
 
 const OrderDetail = () => {
     const {id} = useParams();
+    const {t} = useTranslation();
     const [order, setOrder] = useState(null);
     const navigate = useNavigate();
 
@@ -29,7 +30,7 @@ const OrderDetail = () => {
     }, [id]);
 
     if (!order) {
-        return <div>Order not found</div>
+        return <div>{t("pages.orders.detailColumns.errorNotFound")}</div>
     }
 
     return (
@@ -38,7 +39,7 @@ const OrderDetail = () => {
                 <div className="detail-view__title">
                     <h1 className="detail-view__main-title">{order.market_name}</h1>
                     <span className="detail-view__subtitle">
-              <span className="detail-view__subtitle-label">Cash desc serial: </span>
+              <span className="detail-view__subtitle-label">{t("common.deviceSerial")}: </span>
                         {order.cash_desc_serial}
             </span>
                 </div>
@@ -46,22 +47,22 @@ const OrderDetail = () => {
                     className="detail-view__action-button detail-view__action-button--secondary"
                     onClick={() => navigate(-1)}
                 >
-                    Back
+                    {t("pages.orders.detailColumns.button1")}
                 </button>
             </div>
 
             <div className="detail-view__content">
                 <div className="detail-view__section">
-                    <h2 className="detail-view__section-title">Base information</h2>
+                    <h2 className="detail-view__section-title">{t("pages.orders.detailColumns.container1.title")}</h2>
                     <ul className="detail-view__list">
                         {[
-                            {label: "Market name", value: order.market_name},
-                            {label: "INN", value: order.inn},
-                            {label: "Number", value: order.number},
-                            {label: "Cashier", value: order.cashier},
-                            {label: "Cash desc serial", value: order.cash_desc_serial},
-                            {label: "Cash desc number", value: order.cash_desc_number},
-                            {label: "End date", value: extractDate(order.time)},
+                            {label: `${t("pages.orders.detailColumns.container1.row1")}`, value: order.market_name},
+                            {label: `${t("common.inn")}`, value: order.inn},
+                            {label: `${t("pages.orders.detailColumns.container1.row2")}`, value: order.number},
+                            {label: `${t("pages.orders.detailColumns.container1.row3")}`, value: order.cashier},
+                            {label: `${t("common.deviceSerial")}`, value: order.cash_desc_serial},
+                            {label: `${t("pages.orders.detailColumns.container1.row4")}`, value: order.cash_desc_number},
+                            {label: `${t("pages.orders.detailColumns.container1.row5")}`, value: extractDate(order.time)},
                         ].map(({label, value}) => (
                             <li key={label} className="detail-view__item">
                                 <span className="detail-view__label">{label}:</span>
@@ -69,7 +70,7 @@ const OrderDetail = () => {
                             </li>
                         ))}
                         <li className="detail-view__item detail-view__item--highlighted">
-                            <span className="detail-view__label">Received cash:</span>
+                            <span className="detail-view__label">{t("pages.orders.detailColumns.container1.row6")}:</span>
                             <span
                                 className="detail-view__value detail-view__value--highlighted">{CurrencyFormatted(order.received_cash)}</span>
                         </li>
@@ -77,31 +78,31 @@ const OrderDetail = () => {
                 </div>
 
                 <div className="detail-view__section">
-                    <h2 className="detail-view__section-title">Notification information</h2>
+                    <h2 className="detail-view__section-title">{t("pages.orders.detailColumns.container2.title")}</h2>
                     <ul className="detail-view__list">
                         <li className="detail-view__item">
-                            <span className="detail-view__label">Email:</span>
+                            <span className="detail-view__label">{t("pages.orders.detailColumns.container2.row1")}:</span>
                             <span className="detail-view__value">{order.email || '-'}</span>
                         </li>
                         {[
-                            {label: "Send email", value: order.send_email},
-                            {label: "Email Sync", value: order.sync_email},
-                            {label: "SMS Phone number", value: order.sms_phone_number},
-                            {label: "SMS Sync", value: order.sync_sms},
+                            {label: `${t("pages.orders.detailColumns.container2.row2")}`, value: order.send_email},
+                            {label: `${t("pages.orders.detailColumns.container2.row3")}`, value: order.sync_email},
+                            {label: `${t("pages.orders.detailColumns.container2.row4")}`, value: order.sms_phone_number},
+                            {label: `${t("pages.orders.detailColumns.container2.row5")}`, value: order.sync_sms},
                         ].map(({label, value}) => (
                             <li key={label} className="detail-view__item">
                                 <span className="detail-view__label">{label}:</span>
                                 <span
                                     className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                    {value ? 'ACCESS' : 'DECLINE'}
+                    {value ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
                   </span>
                             </li>
                         ))}
                         <li className="detail-view__item">
-                            <span className="detail-view__label">Fiscal URL:</span>
+                            <span className="detail-view__label">{t("pages.orders.detailColumns.container2.row6")}:</span>
                             <span className="detail-view__value">
                   <a href={order.result_url} target="_blank" rel="noopener noreferrer"
-                     className="detail-view__link">Open URL</a>
+                     className="detail-view__link">{t("pages.orders.detailColumns.container2.row7")}</a>
                 </span>
                         </li>
                     </ul>

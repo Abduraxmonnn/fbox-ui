@@ -78,6 +78,29 @@
         "column4": "Naqd orqali to'lov",
         "column5": "Karta orqali to'lov",
         "column6": "Vaqt"
+      },
+      "detailColumns": {
+        "errorNotFound": "Buyurtma topilmadi",
+        "button1": "Orqaga",
+        "container1": {
+          "title": "Asosiy ma'lumotlar",
+          "row1": "Bozor nomi",
+          "row2": "Raqam",
+          "row3": "Kassir",
+          "row4": "Oxirgi yangilanish sanasi",
+          "row5": "Tugash sanasi",
+          "row6": "Olingan naqd pul"
+        },
+        "container2": {
+          "title": "Bildirishnoma ma'lumotlari",
+          "row1": "Elektron pochta",
+          "row2": "Elektron pochta yuborish",
+          "row3": "Elektron pochta sinxronizatsiyasi",
+          "row4": "SMS telefon raqami",
+          "row5": "SMS sinxronizatsiyasi",
+          "row6": "Fiskal URL",
+          "row7": "URL manzilini ochish"
+        }
       }
     },
     "logs": {

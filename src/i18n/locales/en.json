@@ -77,6 +77,29 @@
         "column4": "Received cash",
         "column5": "Received card",
         "column6": "Time"
+      },
+      "detailColumns": {
+        "errorNotFound": "Order not found",
+        "button1": "Back",
+        "container1": {
+          "title": "Base information",
+          "row1": "Market name",
+          "row2": "Number",
+          "row3": "Cashier",
+          "row4": "Cash desc number",
+          "row5": "End date",
+          "row6": "Received cash"
+        },
+        "container2": {
+          "title": "Notification information",
+          "row1": "Email",
+          "row2": "Send email",
+          "row3": "Email sync",
+          "row4": "SMS phone number",
+          "row5": "SMS sync",
+          "row6": "Fiscal URL",
+          "row7": "Open URL"
+        }
       }
     },
     "logs": {
