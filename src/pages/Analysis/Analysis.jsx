@@ -15,11 +15,12 @@ const {
     ClickTransactionsPieChart,
     UzumTransactionsPieChart,
     AnorTransactionsPieChart,
+
 } = analysisStats;
 
 const Analysis = () => {
     const {t} = useTranslation();
-    const [period, setPeriod] = useState("day");
+    const [period, setPeriod] = useState([] && 0);
     const navigate = useNavigate();
 
     const handleNavigate = (targetRoute) => {
@@ -27,7 +28,10 @@ const Analysis = () => {
     };
 
     const handleChangePeriod = (value) => {
-        setPeriod(value);
+        let startPeriod = value[0].format('YYYY-MM-DD');
+        let endPeriod = value[1].format('YYYY-MM-DD');
+        setPeriod([startPeriod, endPeriod]);
+        console.log(period)
     }
 
     return (
