@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import {analysisStats} from "../../components/AnalysisStats";
 import {Logs} from "../index";
 import './Analysis.css';
+import dayjs from "dayjs";
 
 const {
     Period,
@@ -31,7 +32,6 @@ const Analysis = () => {
         let startPeriod = value[0].format('YYYY-MM-DD');
         let endPeriod = value[1].format('YYYY-MM-DD');
         setPeriod([startPeriod, endPeriod]);
-        console.log(period)
     }
 
     return (
