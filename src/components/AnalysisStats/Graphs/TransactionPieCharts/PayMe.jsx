@@ -9,7 +9,7 @@ import '../GraphBaseStyle.scss'
 
 Chart.register(...registerables, ChartDataLabels);
 
-const PayMeTransactionsPieChart = ({period}) => {
+const PayMeTransactionsPieChart = ({startPeriod, endPeriod}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const PayMeTransactionsPieChart = ({period}) => {
     const fetchPayMeData = useCallback(async () => {
         setLoading(true);
         try {
-            let url = period ? `/analysis/transactions/counts/payme/?period=${period}` : '/analysis/transactions/counts/payme/';
+            let url = (startPeriod && endPeriod) ? `/analysis/transactions/counts/payme/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/transactions/counts/payme/';
             const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -35,13 +35,13 @@ const PayMeTransactionsPieChart = ({period}) => {
         } finally {
             setLoading(false);
         }
-    }, [userData.token, period]);
+    }, [userData.token, startPeriod, endPeriod]);
 
     useEffect(() => {
         if (!userData.token) return;
 
         fetchPayMeData()
-    }, [userData.token, period])
+    }, [userData.token, startPeriod, endPeriod])
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));

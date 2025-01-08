@@ -9,7 +9,7 @@ import '../GraphBaseStyle.scss'
 
 Chart.register(...registerables, ChartDataLabels);
 
-const AnorTransactionsPieChart = ({period}) => {
+const AnorTransactionsPieChart = ({startPeriod, endPeriod}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const AnorTransactionsPieChart = ({period}) => {
     const fetchAnorData = useCallback(async () => {
         setLoading(true);
         try {
-            let url = period ? `/analysis/transactions/counts/anor/?period=${period}` : '/analysis/transactions/counts/anor/'
+            let url = (startPeriod && endPeriod) ? `/analysis/transactions/counts/anor/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/transactions/counts/anor/'
             const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -35,13 +35,13 @@ const AnorTransactionsPieChart = ({period}) => {
         } finally {
             setLoading(false);
         }
-    }, [userData.token, period]);
+    }, [userData.token, startPeriod, endPeriod]);
 
     useEffect(() => {
         if (!userData.token) return;
 
         fetchAnorData()
-    }, [userData.token, period])
+    }, [userData.token, startPeriod, endPeriod])
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));

@@ -12,7 +12,7 @@ interface TransactionCountCardProps {
     failureAmount?: number;
 }
 
-const NotifyNumberCard: React.FC<TransactionCountCardProps> = ({period}) => {
+const NotifyNumberCard: React.FC<TransactionCountCardProps> = ({startPeriod, endPeriod}) => {
     const {t} = useTranslation();
     const [userData, setUserData] = useState({});
     const [data, setData] = useState([]);
@@ -21,7 +21,7 @@ const NotifyNumberCard: React.FC<TransactionCountCardProps> = ({period}) => {
     const fetchNotifyData = useCallback(async () => {
         setLoading(true);
         try {
-            let url = period ? `/analysis/notify/counts/?period=${period}` : '/analysis/notify/counts/';
+            let url = (startPeriod && endPeriod) ? `/analysis/notify/counts/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/notify/counts/';
             const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -39,13 +39,13 @@ const NotifyNumberCard: React.FC<TransactionCountCardProps> = ({period}) => {
         } finally {
             setLoading(false);
         }
-    }, [userData.token, period]);
+    }, [userData.token, startPeriod, endPeriod]);
 
     useEffect(() => {
         if (!userData.token) return;
 
         fetchNotifyData()
-    }, [userData.token, period])
+    }, [userData.token, startPeriod, endPeriod])
 
 
     useEffect(() => {
@@ -61,7 +61,8 @@ const NotifyNumberCard: React.FC<TransactionCountCardProps> = ({period}) => {
 
             <div className="transaction-metrics__container">
                 <div className="transaction-metrics__card">
-                    <span className="transaction-metrics__label">{t("analysis.numbersStats.mainSubtitles.notifySms")}</span>
+                    <span
+                        className="transaction-metrics__label">{t("analysis.numbersStats.mainSubtitles.notifySms")}</span>
                     <div className="transaction-metrics__count">
                         <MessageSquareMore className="transaction-metrics__icon transaction-metrics__icon--sms"/>
                         {loading ? (
@@ -76,7 +77,8 @@ const NotifyNumberCard: React.FC<TransactionCountCardProps> = ({period}) => {
                 </div>
 
                 <div className="transaction-metrics__card">
-                    <span className="transaction-metrics__label">{t("analysis.numbersStats.mainSubtitles.notifyEmail")}</span>
+                    <span
+                        className="transaction-metrics__label">{t("analysis.numbersStats.mainSubtitles.notifyEmail")}</span>
                     <div className="transaction-metrics__count">
                         <Mail className="transaction-metrics__icon transaction-metrics__icon--email"/>
                         {loading ? (
