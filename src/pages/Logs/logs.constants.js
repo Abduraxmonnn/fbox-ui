@@ -10,7 +10,7 @@ const LogsColumns = (t) => {
             render: (text, record) => (
                 <>
                     {[record.status].map(tag => (
-                        <LogsStatusIcon size={18} status={tag.toUpperCase()}/>
+                        <LogsStatusIcon key={tag} size={18} status={tag.toUpperCase()}/>
                     ))}
                 </>
             ),

@@ -9,7 +9,7 @@ import '../GraphBaseStyle.scss'
 
 Chart.register(...registerables, ChartDataLabels);
 
-const UzumTransactionsPieChart = ({period}) => {
+const UzumTransactionsPieChart = ({startPeriod, endPeriod}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const UzumTransactionsPieChart = ({period}) => {
     const fetchUzumData = useCallback(async () => {
         setLoading(true);
         try {
-            let url = period ? `/analysis/transactions/counts/uzum/?period=${period}` : '/analysis/transactions/counts/uzum/'
+            let url = (startPeriod && endPeriod) ? `/analysis/transactions/counts/uzum/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/transactions/counts/uzum/'
             const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -35,13 +35,13 @@ const UzumTransactionsPieChart = ({period}) => {
         } finally {
             setLoading(false);
         }
-    }, [userData.token, period]);
+    }, [userData.token, startPeriod, endPeriod]);
 
     useEffect(() => {
         if (!userData.token) return;
 
         fetchUzumData()
-    }, [userData.token, period])
+    }, [userData.token, startPeriod, endPeriod])
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));

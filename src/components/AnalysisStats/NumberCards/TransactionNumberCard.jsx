@@ -11,7 +11,7 @@ interface TransactionCountCardProps {
     failureAmount?: number;
 }
 
-const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({period}) => {
+const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({startPeriod, endPeriod}) => {
     const {t} = useTranslation();
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
@@ -20,7 +20,7 @@ const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({period}) =>
     const fetchData = useCallback(async () => {
         setLoading(true);
         try {
-            let url = period ? `/analysis/transactions/counts/?period=${period}` : '/analysis/transactions/counts/'
+            let url = (startPeriod && endPeriod) ? `/analysis/transactions/counts/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/transactions/counts/'
             const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -38,13 +38,13 @@ const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({period}) =>
         } finally {
             setLoading(false);
         }
-    }, [userData.token, period]);
+    }, [userData.token, startPeriod, endPeriod]);
 
     useEffect(() => {
         if (!userData.token) return;
 
         fetchData()
-    }, [userData.token, period])
+    }, [userData.token, startPeriod, endPeriod])
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));

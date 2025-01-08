@@ -9,7 +9,7 @@ import '../GraphBaseStyle.scss'
 
 Chart.register(...registerables, ChartDataLabels);
 
-const ClickTransactionsPieChart = ({period}) => {
+const ClickTransactionsPieChart = ({startPeriod, endPeriod}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const ClickTransactionsPieChart = ({period}) => {
     const fetchClickData = useCallback(async () => {
         setLoading(true);
         try {
-            let url = period ? `/analysis/transactions/counts/click/?period=${period}` : '/analysis/transactions/counts/click/'
+            let url = (startPeriod && endPeriod) ? `/analysis/transactions/counts/click/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/transactions/counts/click/'
             const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -35,13 +35,13 @@ const ClickTransactionsPieChart = ({period}) => {
         } finally {
             setLoading(false);
         }
-    }, [userData.token, period]);
+    }, [userData.token, startPeriod, endPeriod]);
 
     useEffect(() => {
         if (!userData.token) return;
 
         fetchClickData()
-    }, [userData.token, period])
+    }, [userData.token, startPeriod, endPeriod])
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));

@@ -1,12 +1,10 @@
 import {DatePicker, Space} from 'antd';
 import {useTranslation} from 'react-i18next';
-import usePeriodOptions from "../../optionsComponents/usePeriodOptions";
 import dayjs, {Dayjs} from "dayjs";
 
 const {RangePicker} = DatePicker;
 
 const Period = ({handleChangePeriod}) => {
-    const options = usePeriodOptions();
     const {t} = useTranslation();
 
     const disabledDate = (current: Dayjs) => {
@@ -18,6 +16,10 @@ const Period = ({handleChangePeriod}) => {
             <Space wrap>
                 <span>{t('analysis.headerFilters.period.title')}</span>
                 <RangePicker
+                    defaultValue={[
+                        dayjs().startOf('day'),
+                        dayjs().add(1, 'day').startOf('day')
+                    ]}
                     onChange={handleChangePeriod}
                     disabledDate={disabledDate}
                 />

@@ -21,7 +21,8 @@ const {
 
 const Analysis = () => {
     const {t} = useTranslation();
-    const [period, setPeriod] = useState([] && 0);
+    const [startPeriod, setStartPeriod] = useState(dayjs().format('YYYY-MM-DD'));
+    const [endPeriod, setEndPeriod] = useState(dayjs().add(1, 'days').format('YYYY-MM-DD'));
     const navigate = useNavigate();
 
     const handleNavigate = (targetRoute) => {
@@ -31,7 +32,8 @@ const Analysis = () => {
     const handleChangePeriod = (value) => {
         let startPeriod = value[0].format('YYYY-MM-DD');
         let endPeriod = value[1].format('YYYY-MM-DD');
-        setPeriod([startPeriod, endPeriod]);
+        setStartPeriod(startPeriod);
+        setEndPeriod(endPeriod);
     }
 
     return (
@@ -42,12 +44,12 @@ const Analysis = () => {
 
             <div className="analysis__metrics">
                 <div className='analysis__metric-card'>
-                    <TransactionFinancialCard period={period}/>
-                    <TransactionNumberCard period={period}/>
+                    <TransactionFinancialCard startPeriod={startPeriod} endPeriod={endPeriod}/>
+                    <TransactionNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
                 </div>
                 <div className='analysis__metric-card'>
                     <DeviceStatusCard/>
-                    <NotifyNumberCard period={period}/>
+                    <NotifyNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
                 </div>
             </div>
 
@@ -57,19 +59,19 @@ const Analysis = () => {
                     <div className='analysis__chart-grid'>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>{t("common.providers.payme")}</h3>
-                            <PayMeTransactionsPieChart period={period} offset="up"/>
+                            <PayMeTransactionsPieChart startPeriod={startPeriod} endPeriod={endPeriod} offset="up"/>
                         </div>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>{t("common.providers.click")}</h3>
-                            <ClickTransactionsPieChart period={period} offset="down"/>
+                            <ClickTransactionsPieChart startPeriod={startPeriod} endPeriod={endPeriod} offset="down"/>
                         </div>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>{t("common.providers.uzum")}</h3>
-                            <UzumTransactionsPieChart period={period} offset="up"/>
+                            <UzumTransactionsPieChart startPeriod={startPeriod} endPeriod={endPeriod} offset="up"/>
                         </div>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>{t("common.providers.anor")}</h3>
-                            <AnorTransactionsPieChart period={period} offset="down"/>
+                            <AnorTransactionsPieChart startPeriod={startPeriod} endPeriod={endPeriod} offset="down"/>
                         </div>
                     </div>
                 </div>
