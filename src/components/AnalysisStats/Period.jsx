@@ -24,6 +24,7 @@ const Period = ({handleChangePeriod}) => {
                     ]}
                     onChange={handleChangePeriod}
                     disabledDate={disabledDate}
+                    allowClear={false}
                 />
                 {/*<Select*/}
                 {/*    defaultValue="day"*/}
