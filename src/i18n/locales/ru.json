@@ -209,7 +209,7 @@
           "title": "Статус",
           "z_report_left_count": "Оставшийся отчет Z",
           "device_ip_address": "IP-адрес устройства",
-          "orders_not_sent_count": "Количество неотправленных заказов",
+          "orders_not_sent_count": "Кол-во неотправленных чеков на сервер ОФД",
           "version_number": "Номер версии",
           "terminal_id": "Идентификатор терминала"
         },
