@@ -48,9 +48,10 @@
     "headerFilters": {
       "period": {
         "title": "Группировать за",
-        "today": "сегодня",
-        "lastHour": "последний час ",
-        "last30Days": "последний 30 дней"
+        "last7Days": "Последние 7 дней",
+        "last14Days": "Последние 14 дней",
+        "last30Days": "Последние 30 дней",
+        "last90Days": "Последние 90 дней"
       }
     },
     "numbersStats": {

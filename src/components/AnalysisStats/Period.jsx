@@ -1,6 +1,7 @@
 import {DatePicker, Space} from 'antd';
 import {useTranslation} from 'react-i18next';
 import dayjs, {Dayjs} from "dayjs";
+import usePeriodPresets from "../../optionsComponents/usePeriodOptions";
 
 const {RangePicker} = DatePicker;
 
@@ -16,6 +17,7 @@ const Period = ({handleChangePeriod}) => {
             <Space wrap>
                 <span>{t('analysis.headerFilters.period.title')}</span>
                 <RangePicker
+                    presets={usePeriodPresets()}
                     defaultValue={[
                         dayjs().startOf('day'),
                         dayjs().add(1, 'day').startOf('day')

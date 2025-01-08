@@ -47,9 +47,10 @@
     "headerFilters": {
       "period": {
         "title": "Group by",
-        "today": "Today",
-        "lastHour": "Last hour",
-        "last30Days": "Last 30 days"
+        "last7Days": "Last 7 Days",
+        "last14Days": "Last 14 Days",
+        "last30Days": "Last 30 days",
+        "last90Days": "Last 90 days"
       }
     },
     "numbersStats": {
