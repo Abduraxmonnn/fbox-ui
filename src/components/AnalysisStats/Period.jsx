@@ -9,7 +9,7 @@ const Period = ({handleChangePeriod}) => {
     const {t} = useTranslation();
 
     const disabledDate = (current: Dayjs) => {
-        return dayjs() < current;
+        return dayjs().add(1, 'day') < current;
     };
 
     return (
