@@ -5,18 +5,18 @@ import {APIv1} from "../../api";
 import {Save, X} from 'lucide-react';
 import './AddNewCompanyForm.scss'
 
-const {RangePicker} = DatePicker
+const {RangePicker} = DatePicker;
 
 const initialFormData = {
     start_date: null,
     end_date: null,
-    company_name: "",
-    company_address: "",
-    company_inn: "",
-    phone_number: "",
+    name: "",
+    address: "",
+    inn: "",
+    phone: "",
     user: [],
     status: {
-        sentSms: false,
+        sent_sms: false,
         perm_click: false,
         perm_payme: false,
         perm_uzum: false,
@@ -28,7 +28,6 @@ const AddNewCompanyForm = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState(initialFormData);
     const [userData, setUserData] = useState([]);
-    const [savedData, setSavedData] = useState(null);
 
     const getUsersData = async () => {
         try {
@@ -70,8 +69,8 @@ const AddNewCompanyForm = () => {
     const handleDateChange = (dates) => {
         setFormData(prev => ({
             ...prev,
-            startDate: dates[0],
-            endDate: dates[1]
+            start_date: dates[0],
+            end_date: dates[1]
         }));
     };
 
@@ -84,9 +83,8 @@ const AddNewCompanyForm = () => {
 
     const handleSubmit = async () => {
         try {
-            console.log('Company data saved:', formData);
-            setSavedData(formData);
             setFormData(initialFormData);
+            console.log('Company form data:', formData);
             message.success('Profile updated successfully');
         } catch (error) {
             console.error('Error saving company data:', error);
@@ -95,7 +93,6 @@ const AddNewCompanyForm = () => {
 
     const handleClear = () => {
         setFormData(initialFormData);
-        setSavedData(null);
         message.info('Changes discarded');
     };
 
@@ -123,9 +120,9 @@ const AddNewCompanyForm = () => {
                                 showTime={{
                                     format: 'HH:mm',
                                 }}
-                                format='YYYY-MM-DD HH:mm'
+                                format='YYYY-MM-DD HH:mm:ss'
                                 onChange={handleDateChange}
-                                value={[formData.startDate, formData.endDate]}
+                                value={[formData.start_date, formData.end_date]}
                             />
                         </Space>
                     </li>
@@ -174,11 +171,11 @@ const AddNewCompanyForm = () => {
                     <li className='not_required_field'>
                         <p>Sent sms</p>
                         <Checkbox
-                            name="sentSms"
-                            checked={formData.status.sentSms}
+                            name="sent_sms"
+                            checked={formData.status.sent_sms}
                             onChange={(e) => setFormData(prev => ({
                                 ...prev,
-                                status: {...prev.status, sentSms: e.target.checked}
+                                status: {...prev.status, sent_sms: e.target.checked}
                             }))}
                         />
                     </li>
@@ -197,8 +194,8 @@ const AddNewCompanyForm = () => {
                                     width: '80%',
                                 }}
                                 type="number"
-                                name="phoneNumber"
-                                value={formData.phoneNumber}
+                                name="phone"
+                                value={formData.phone}
                                 onChange={handleInputChange}
                             />
                         </Space.Compact>
@@ -231,32 +228,32 @@ const AddNewCompanyForm = () => {
                     <li className='not_required_field'>
                         <p>Permission to PayMe</p>
                         <Checkbox
-                            name="permPayme"
-                            checked={formData.status.permPayme}
+                            name="perm_payme"
+                            checked={formData.status.perm_payme}
                             onChange={handleInputChange}
                         />
                     </li>
                     <li className='not_required_field'>
                         <p>Permission to Click</p>
                         <Checkbox
-                            name="permClick"
-                            checked={formData.status.permClick}
+                            name="perm_click"
+                            checked={formData.status.perm_click}
                             onChange={handleInputChange}
                         />
                     </li>
                     <li className='not_required_field'>
                         <p>Permission to Uzum</p>
                         <Checkbox
-                            name="permUzum"
-                            checked={formData.status.permUzum}
+                            name="perm_uzum"
+                            checked={formData.status.perm_uzum}
                             onChange={handleInputChange}
                         />
                     </li>
                     <li className='not_required_field'>
                         <p>Permission to Anor</p>
                         <Checkbox
-                            name="permAnor"
-                            checked={formData.status.permAnor}
+                            name="perm_anor"
+                            checked={formData.status.perm_anor}
                             onChange={handleInputChange}
                         />
                     </li>
