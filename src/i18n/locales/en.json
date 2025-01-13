@@ -307,6 +307,34 @@
         "relatedSection3": {
           "title": "Sms"
         }
+      },
+      "createColumns": {
+        "title": "Add Company",
+        "button1": "Back",
+        "button2": "Submit",
+        "button3": "Clear",
+        "row1": "Start / End date",
+        "row2": "Name",
+        "row3": "Address",
+        "row4": "INN",
+        "row5": "Sent sms",
+        "row6": "Phone number",
+        "row7": "Choose user",
+        "row8": "Permission to PayMe",
+        "row9": "Permission to Click",
+        "row10": "Permission to Uzum",
+        "row11": "Permission to Anor",
+        "placeholder1": "Start Date",
+        "placeholder2": "End Date",
+        "placeholder3": "Enter Company name",
+        "placeholder4": "Enter Company address",
+        "placeholder5": "Enter Company INN",
+        "placeholder6": "Choose one User",
+        "messages": {
+          "success1": "Company created successfully",
+          "info1": "Changes discarded",
+          "error1": "Raised error while creating. Try again later!"
+        }
       }
     },
     "sms": {

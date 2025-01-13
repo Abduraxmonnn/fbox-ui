@@ -308,6 +308,34 @@
         "relatedSection3": {
           "title": "SMS"
         }
+      },
+      "createColumns": {
+        "title": "Kompaniyani qo'shish",
+        "button1": "Orqaga",
+        "button2": "Yuborish",
+        "button3": "Tozalash",
+        "row1": "Boshlanish / Tugash sanasi",
+        "row2": "Nomi",
+        "row3": "Manzil",
+        "row4": "INN",
+        "row5": "SMS yuborish",
+        "row6": "Telefon raqami",
+        "row7": "Foydalanuvchini tanlang",
+        "row8": "PayMe uchun ruxsat",
+        "row9": "Click uchun ruxsat",
+        "row10": "Uzum uchun ruxsat",
+        "row11": "Anor uchun ruxsat",
+        "placeholder1": "Boshlanish",
+        "placeholder2": "Tugash",
+        "placeholder3": "Kompaniya nomini kiriting",
+        "placeholder4": "Kompaniya manzilini kiriting",
+        "placeholder5": "Kompaniya INNini kiriting",
+        "placeholder6": "Birinchi foydalanuvchini tanlang",
+        "messages": {
+          "success1": "Kompaniya muvaffaqiyatli yaratildi",
+          "info1": "O'zgarishlar bekor qilindi",
+          "error1": "Yaratishda xatolik yuz berdi. Iltimos, keyinroq qayta urinib ko'ring!"
+        }
       }
     },
     "sms": {
