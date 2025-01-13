@@ -22,6 +22,7 @@ const Company = () => {
     const {t} = useTranslation();
     const columns = CompaniesColumns(t);
     const [userData, setUserData] = useState({});
+    const [isUserStaff, setIsUserStaff] = useState({});
     const [companies, setCompanies] = useState([]);
     const [selectionType] = useState('checkbox');
     const [totalCompaniesCount, setTotalCompaniesCount] = useState(0)
@@ -68,6 +69,7 @@ const Company = () => {
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
         if (items) {
+            setIsUserStaff(items.data.is_staff)
             setUserData(items);
         }
     }, [userData.token]);
@@ -117,13 +119,15 @@ const Company = () => {
                     pageSizeOptions: ['10', '20', '50', '100'],
                 }}
             />
-            <Link to="/create_company">
-                <FloatButton
-                    type="primary"
-                    icon={<FileAddOutlined/>}
-                    tooltip={<div>{t('pages.companies.addNewDeviceTitle')}</div>}
-                />
-            </Link>
+            {isUserStaff && (
+                <Link to="/create_company">
+                    <FloatButton
+                        type="primary"
+                        icon={<FileAddOutlined/>}
+                        tooltip={<div>{t('pages.companies.addNewDeviceTitle')}</div>}
+                    />
+                </Link>
+            )}
         </div>
     )
 }
