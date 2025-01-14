@@ -25,6 +25,7 @@ const Device = (props) => {
     const [selectionType, setSelectionType] = useState('checkbox');
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState({});
+    const [isUserStaff, setIsUserStaff] = useState({});
     const [totalDevices, setTotalDevices] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(defaultPageSize);
@@ -81,6 +82,14 @@ const Device = (props) => {
     }, []);
 
     useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setIsUserStaff(items.data.is_staff)
+            setUserData(items);
+        }
+    }, [userData.token]);
+
+    useEffect(() => {
         if (!userData.token) return;
 
         let ordering = '';
@@ -131,13 +140,15 @@ const Device = (props) => {
                     pageSizeOptions: ['10', '20', '50', '100'],
                 }}
             />
-            <Link to="/create/device">
-                <FloatButton
-                    type="primary"
-                    icon={<FileAddOutlined/>}
-                    tooltip={<div>{t('pages.devices.addNewDeviceTitle')}</div>}
-                />
-            </Link>
+            {isUserStaff && (
+                <Link to="/create/device">
+                    <FloatButton
+                        type="primary"
+                        icon={<FileAddOutlined/>}
+                        tooltip={<div>{t('pages.devices.addNewDeviceTitle')}</div>}
+                    />
+                </Link>
+            )}
         </div>
     );
 }
