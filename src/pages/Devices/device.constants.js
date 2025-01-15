@@ -16,8 +16,8 @@ const DevicesColumns = (t) => {
             render: (text, record) => (
                 <>
                     {[record.is_active].map(tag => (
-                        tag ? <MonitorCheck size={18} color={'#1cb344'}/> :
-                            <MonitorDot size={18} color={deviceStatusInactiveTime[record.is_active_time]}/>
+                        tag ? <MonitorCheck key={tag} size={18} color={'#1cb344'}/> :
+                            <MonitorDot key={tag} size={18} color={deviceStatusInactiveTime[record.is_active_time]}/>
                     ))}
                 </>
             ),
