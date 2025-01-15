@@ -60,24 +60,27 @@ const AddNewCompanyForm = () => {
         const fetchCompanyDetail = async () => {
             try {
                 const response = await APIv1.get(`/company/${id}`);
-                initialFormData['start_date'] = dayjs(response.data.start_date);
-                initialFormData['end_date'] = dayjs(response.data.end_date);
-                initialFormData['name'] = response.data.name;
-                initialFormData['inn'] = response.data.inn;
-                initialFormData['address'] = response.data.address;
-                initialFormData['user'] = [response.data.user.username];
-                initialFormData['phone'] = response.data.phone_number;
-                initialFormData['status']['sent_sms'] = response.data.send_sms;
-                initialFormData['status']['perm_click'] = response.data.click;
-                initialFormData['status']['perm_payme'] = response.data.pay_me;
-                initialFormData['status']['perm_uzum'] = response.data.apelsin;
-                initialFormData['status']['perm_anor'] = response.data.anor;
+                setFormData({
+                    start_date: dayjs(response.data.start_date),
+                    end_date: dayjs(response.data.end_date),
+                    name: response.data.name,
+                    address: response.data.address,
+                    inn: response.data.inn,
+                    phone: response.data.phone_number.substring(4),
+                    user: response.data.user.username || [],
+                    status: {
+                        sent_sms: response.data.send_sms,
+                        perm_click: response.data.click,
+                        perm_payme: response.data.pay_me,
+                        perm_uzum: response.data.apelsin,
+                        perm_anor: response.data.anor,
+                    }
+                })
             } catch (err) {
                 console.error('Something went wrong:', err);
             }
         };
 
-        console.log('---> id: ', id)
         if (id !== undefined) {
             fetchCompanyDetail();
         }
@@ -128,7 +131,7 @@ const AddNewCompanyForm = () => {
                     name: formData.name,
                     inn: formData.inn,
                     phone_number: formData.phone,
-                    user: formData.user[0],
+                    user: formData.user,
                     pay_me: formData.status.perm_payme,
                     click: formData.status.perm_click,
                     uzum: formData.status.perm_uzum,
