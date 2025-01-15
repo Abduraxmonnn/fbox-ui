@@ -48,7 +48,7 @@ function App() {
                         <Route path='/feedback' element={<Feedbacks/>}/>
 
                         <Route path='/create/device' element={<AddNewDevice/>}/>
-                        <Route path='/create_company' element={<AddNewCompany/>}/>
+                        <Route path='/create_company/:id?' element={<AddNewCompany/>}/>
 
                         <Route path='/order/detail/:id' element={<OrderDetail/>}/>
                         <Route path='/company/detail/:id' element={<CompanyDetail/>}/>

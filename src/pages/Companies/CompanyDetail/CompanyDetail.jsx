@@ -42,6 +42,11 @@ const CompanyDetail = () => {
         return <div>Company not found</div>;
     }
 
+    const handleCreateCompanyNavigate = () => {
+        console.log('---> handler: ', company.id)
+        navigate(`/create_company/${company.id}`);
+    };
+
     const handleRedirect = (provider) => {
         navigate(`/payments/logs/`);
     };
@@ -93,10 +98,11 @@ const CompanyDetail = () => {
                 <div className="detail-view__action-buttons">
                     <button
                         className="detail-view__action-button detail-view__action-button--secondary"
-                        onClick={() => navigate(-1)}
+                        onClick={() => handleCreateCompanyNavigate()}
                     >
                         {t("pages.companies.detailColumns.button1")}
                     </button>
+
                     <button
                         className="detail-view__action-button detail-view__action-button--secondary"
                         onClick={() => navigate(-1)}
@@ -150,7 +156,8 @@ const CompanyDetail = () => {
                     onClick={() => toggleSecondSection('related-logs')}
                     aria-expanded={expandedSecondSection === 'related-logs'}
                 >
-                    <span className="related-device-title">{t("pages.companies.detailColumns.relatedSection2.title")}</span>
+                    <span
+                        className="related-device-title">{t("pages.companies.detailColumns.relatedSection2.title")}</span>
                     {expandedSecondSection === 'related-logs' ? <ChevronUp size={22}/> :
                         <ChevronDown size={22}/>}
                 </button>
@@ -167,7 +174,8 @@ const CompanyDetail = () => {
                     onClick={() => toggleThirdSection('related-sms')}
                     aria-expanded={expandedThirdSection === 'related-sms'}
                 >
-                    <span className="related-device-title">{t("pages.companies.detailColumns.relatedSection3.title")}</span>
+                    <span
+                        className="related-device-title">{t("pages.companies.detailColumns.relatedSection3.title")}</span>
                     {expandedThirdSection === 'related-sms' ? <ChevronUp size={22}/> :
                         <ChevronDown size={22}/>}
                 </button>

@@ -1,6 +1,7 @@
 import {Button, Checkbox, DatePicker, Flex, Input, Select, Space, message} from "antd";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
+import dayjs from "dayjs";
 import {Save, X} from 'lucide-react';
 import {APIv1} from "../../api";
 import './AddNewCompanyForm.scss'
@@ -26,6 +27,7 @@ const initialFormData = {
 };
 
 const AddNewCompanyForm = () => {
+    const {id} = useParams();
     const {t} = useTranslation();
     const navigate = useNavigate();
     const [formData, setFormData] = useState(initialFormData);
@@ -53,6 +55,33 @@ const AddNewCompanyForm = () => {
             setUserData(items);
         }
     }, [userData.token]);
+
+    useEffect(() => {
+        const fetchCompanyDetail = async () => {
+            try {
+                const response = await APIv1.get(`/company/${id}`);
+                initialFormData['start_date'] = dayjs(response.data.start_date);
+                initialFormData['end_date'] = dayjs(response.data.end_date);
+                initialFormData['name'] = response.data.name;
+                initialFormData['inn'] = response.data.inn;
+                initialFormData['address'] = response.data.address;
+                initialFormData['user'] = [response.data.user.username];
+                initialFormData['phone'] = response.data.phone_number;
+                initialFormData['status']['sent_sms'] = response.data.send_sms;
+                initialFormData['status']['perm_click'] = response.data.click;
+                initialFormData['status']['perm_payme'] = response.data.pay_me;
+                initialFormData['status']['perm_uzum'] = response.data.apelsin;
+                initialFormData['status']['perm_anor'] = response.data.anor;
+            } catch (err) {
+                console.error('Something went wrong:', err);
+            }
+        };
+
+        console.log('---> id: ', id)
+        if (id !== undefined) {
+            fetchCompanyDetail();
+        }
+    }, [id, userData.token]);
 
     useEffect(() => {
         getUsersData();
