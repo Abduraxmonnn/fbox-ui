@@ -49,7 +49,7 @@ function App() {
 
                         <Route path='/create/device' element={<AddNewDevice/>}/>
                         <Route path='/create_company/:id?' element={<AddNewCompany/>}/>
-
+'
                         <Route path='/order/detail/:id' element={<OrderDetail/>}/>
                         <Route path='/company/detail/:id' element={<CompanyDetail/>}/>
                         <Route path='/device/detail/:serial_number' element={<DeviceDetail/>}/>

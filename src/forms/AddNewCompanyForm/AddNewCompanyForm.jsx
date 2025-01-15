@@ -6,7 +6,7 @@ import {Save, X} from 'lucide-react';
 import {APIv1} from "../../api";
 import './AddNewCompanyForm.scss'
 import {useTranslation} from "react-i18next";
-import {isArray} from "chart.js/helpers";
+import {checkIsPhoneCorrect} from "../../utils";
 
 const {RangePicker} = DatePicker;
 
@@ -70,7 +70,7 @@ const AddNewCompanyForm = () => {
                     name: response.data.name,
                     address: response.data.address,
                     inn: response.data.inn,
-                    phone: response.data.phone_number.substring(4),
+                    phone: checkIsPhoneCorrect(response.data.phone_number),
                     user: [response.data.user.username],
                     status: {
                         sent_sms: response.data.send_sms,
@@ -130,6 +130,7 @@ const AddNewCompanyForm = () => {
     const handleSubmit = async () => {
         try {
             const user = Array.isArray(formData.user) ? formData.user[0] : formData.user;
+
             const body = {
                 name: formData.name,
                 inn: formData.inn,
@@ -149,30 +150,47 @@ const AddNewCompanyForm = () => {
                 },
             });
 
-            if (response.status === 201) {
+            if (response.status === 201 || response.status === 200) {
                 message.success(t("pages.companies.createColumns.messages.success1"));
+
+                setFetchedData(response.data);
                 setNewCreatedData(response.data);
+                setFormData({
+                    start_date: dayjs(response.data.start_date),
+                    end_date: dayjs(response.data.end_date),
+                    name: response.data.name,
+                    address: response.data.address,
+                    inn: response.data.inn,
+                    phone: checkIsPhoneCorrect(response.data.phone_number),
+                    user: response.data.user ? [response.data.user.username] : [],
+                    status: {
+                        sent_sms: response.data.send_sms,
+                        perm_click: response.data.click,
+                        perm_payme: response.data.pay_me,
+                        perm_uzum: response.data.apelsin,
+                        perm_anor: response.data.anor,
+                    }
+                });
+                window.location.reload();  // keep till fixing bug (fields goes to empty after click submit)
+
             } else {
                 message.info(t("pages.companies.createColumns.messages.info1"));
             }
-
         } catch (err) {
             console.error('Error submitting feedback:', err);
             message.info(t("pages.companies.createColumns.messages.error1"));
         }
     };
 
-    // Handle "Clear" button click
     const handleClear = () => {
         if (fetchedData) {
-            // If fetched data exists, reset the form to the fetched data (for editing)
             setFormData({
                 start_date: dayjs(fetchedData.start_date),
                 end_date: dayjs(fetchedData.end_date),
                 name: fetchedData.name,
                 address: fetchedData.address,
                 inn: fetchedData.inn,
-                phone: fetchedData.phone_number.substring(4),
+                phone: checkIsPhoneCorrect(fetchedData.phone_number),
                 user: [fetchedData.user.username],
                 status: {
                     sent_sms: fetchedData.send_sms,
@@ -183,15 +201,14 @@ const AddNewCompanyForm = () => {
                 }
             });
         } else if (newCreatedData) {
-            // If posted data exists, reset the form to the posted data
             setFormData({
                 start_date: dayjs(newCreatedData.start_date),
                 end_date: dayjs(newCreatedData.end_date),
                 name: newCreatedData.name,
                 address: newCreatedData.address,
                 inn: newCreatedData.inn,
-                phone: newCreatedData.phone_number.substring(4),
-                user: [newCreatedData.user.username],  // Assuming user is a single username
+                phone: checkIsPhoneCorrect(newCreatedData.phone_number),
+                user: [newCreatedData.user.username],
                 status: {
                     sent_sms: newCreatedData.send_sms,
                     perm_click: newCreatedData.click,
@@ -201,11 +218,11 @@ const AddNewCompanyForm = () => {
                 }
             });
         } else {
-            // Reset to initialFormData if no fetched or posted data
             setFormData(initialFormData);
         }
         message.info(t("pages.companies.createColumns.messages.info1"));
     };
+
     return (
         <div className='content_container'>
             <div className='addNewCompany_main'>

@@ -50,3 +50,16 @@ export const useRowNavigation = ({routePrefix, idField}: NavigationConfig) => {
 export function isBoolean(n) {
     return !!n === n;
 }
+
+export const checkIsPhoneCorrect = (phone) => {
+    if (phone === undefined) {
+        return ""
+    } else if (phone.startsWith("+")) {
+        return phone.substring(1);
+    } else if (phone.startsWith("998")) {
+        return phone.substring(3);
+    } else if (phone.startsWith("+998")) {
+        return phone.substring(4);
+    }
+    return phone;
+};
