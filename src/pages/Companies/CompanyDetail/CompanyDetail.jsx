@@ -53,7 +53,7 @@ const CompanyDetail = () => {
     }
 
     const onSendSelectedCompaniesToDelete = async () => {
-        const response = await APIv1.delete(`/company/delete/${company.inn}`, {
+        const response = await APIv1.delete(`/company/delete/${company.inn}/`, {
             headers: {
                 Authorization: `Token ${userData.token}`,
             },
