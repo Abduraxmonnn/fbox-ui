@@ -1,11 +1,17 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {Table, FloatButton} from 'antd';
-import {CustomerServiceOutlined, FileAddOutlined, FileExcelOutlined, VerticalAlignTopOutlined} from '@ant-design/icons';
+import {FileAddOutlined} from '@ant-design/icons';
 import {APIv1} from '../../api';
 import {Link, useOutletContext} from 'react-router-dom';
 import {handleTableChange, useRowNavigation} from "../../utils";
 import CompaniesColumns from "./company.constants";
 import {useTranslation} from "react-i18next";
+
+const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+        console.log('selectedRowKeys: ', selectedRowKeys);
+    },
+};
 
 const Company = () => {
     let defaultPageSize = 20;
@@ -15,7 +21,6 @@ const Company = () => {
     const [userData, setUserData] = useState({});
     const [isUserStaff, setIsUserStaff] = useState({});
     const [companies, setCompanies] = useState([]);
-    const [selectedCompanies, setSelectedCompanies] = useState([]);
     const [selectionType] = useState('checkbox');
     const [totalCompaniesCount, setTotalCompaniesCount] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
@@ -86,18 +91,6 @@ const Company = () => {
         setPageSize(pageSize)
     };
 
-    const onSendSelectedCompaniesToDelete = () => {
-        console.log('clicked', selectedCompanies);
-    }
-
-    const rowSelection = {
-        selectedRowKeys: companies.filter(company => selectedCompanies.includes(company.company_inn)).map(company => company.key),
-        onChange: (selectedRowKeys, selectedRows) => {
-            const selectedNames = selectedRows.map(row => row.company_inn);
-            setSelectedCompanies(selectedNames);
-        },
-    };
-
     return (
         <div className="content_container">
             <Table
@@ -123,34 +116,17 @@ const Company = () => {
                 }}
             />
             {isUserStaff && (
-                <FloatButton.Group
-                    trigger="hover"
-                    type="primary"
-                    icon={<VerticalAlignTopOutlined/>}
-                >
+                <Link to="/create_company">
                     <FloatButton
                         type="dashed"
                         style={{
-                            marginBottom: 15,
                             color: 'white',
-                            backgroundColor: '#ff716e',
+                            backgroundColor: '#4ecb53',
                         }}
-                        onClick={onSendSelectedCompaniesToDelete}
-                        icon={<FileExcelOutlined/>}
-                        tooltip={<div>{t('pages.companies.addNewDeviceTitle')}</div>}
+                        icon={<FileAddOutlined/>}
+                        tooltip={<div>{t('pages.companies.addNewCompanyTitle')}</div>}
                     />
-                    <Link to="/create_company">
-                        <FloatButton
-                            type="dashed"
-                            style={{
-                                color: 'white',
-                                backgroundColor: '#4ecb53',
-                            }}
-                            icon={<FileAddOutlined/>}
-                            tooltip={<div>{t('pages.companies.addNewDeviceTitle')}</div>}
-                        />
-                    </Link>
-                </FloatButton.Group>
+                </Link>
             )}
         </div>
     )

@@ -271,7 +271,7 @@
       }
     },
     "companies": {
-      "addNewDeviceTitle": "Добавить компанию",
+      "addNewCompanyTitle": "Добавить компанию",
       "listColumns": {
         "column1": "Название",
         "column2": "ИНН",
@@ -280,8 +280,9 @@
         "column5": "Номер телефона"
       },
       "detailColumns": {
-        "button1": "Редактировать",
-        "button2": "Назад",
+        "button1": "Удалить",
+        "button2": "Редактировать",
+        "button3": "Назад",
         "container1": {
           "title": "Инфо",
           "row1": "Адрес",
@@ -307,6 +308,16 @@
         },
         "relatedSection3": {
           "title": "СМС"
+        }
+      },
+      "deleteItem": {
+        "button1": "Да, удалить",
+        "button2": "Отмена",
+        "header": "Подтвердите удаление",
+        "title": "Вы уверены, что хотите удалить компанию",
+        "messages": {
+          "success1": "Компания успешно удалена!",
+          "error1": "Произошла ошибка при удалении компании!"
         }
       },
       "createColumns": {

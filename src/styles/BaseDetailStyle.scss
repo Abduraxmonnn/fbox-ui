@@ -40,28 +40,14 @@
     font-weight: 500;
   }
 
-  &__action-buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .detail-view__action-button {
+    &--delete {
+      background-color: transparent;
+      border: 1px dashed #ff4d4f;
+      color: #ff4d4f;
 
-    &__action-button {
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      font-size: 0.875rem;
-      transition: all 0.2s;
-      border-radius: 0.5rem;
-
-      &--secondary {
-        background-color: transparent;
-        border: 1px dashed var(--color-blue-grey);
-        color: var(--color-blue-grey);
-
-        &:hover {
-          background-color: var(--color-white2);
-          color: var(--color-blue);
-          border-color: var(--color-blue);
-        }
+      &:hover {
+        background-color: var(--color-white2);
       }
     }
   }

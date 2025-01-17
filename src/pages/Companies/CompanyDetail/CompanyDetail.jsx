@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {APIv1} from "../../../api";
-import {Button} from "antd";
+import {Button, message, Modal} from "antd";
 import {ChevronDown, ChevronUp} from "lucide-react";
 import {useTranslation} from "react-i18next";
 import Logs from "../../Logs/Logs";
 import {extractDateBySecond, isBoolean} from "../../../utils";
 import {Sms} from "../../index";
 import Device from "../../Devices/Device";
-import "../../../styles/BaseDetailStyle.scss"
+import "../../../styles/BaseDetailStyle.scss";
 
 const CompanyDetail = () => {
     const {id} = useParams();
@@ -16,8 +16,10 @@ const CompanyDetail = () => {
     const navigate = useNavigate();
     const [company, setCompany] = useState({});
     const [userData, setUserData] = useState({});
+    const [isUserStaff, setIsUserStaff] = useState({});
     const [expandedSecondSection, setExpandedSecondSection] = useState(null);
     const [expandedThirdSection, setExpandedThirdSection] = useState(null);
+    const [isModalVisible, setIsModalVisible] = useState(false); // For controlling the modal visibility
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
@@ -25,6 +27,14 @@ const CompanyDetail = () => {
             setUserData(items);
         }
     }, []);
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setIsUserStaff(items.data.is_staff);
+            setUserData(items);
+        }
+    }, [userData.token]);
 
     useEffect(() => {
         const fetchCompanyDetail = async () => {
@@ -42,8 +52,22 @@ const CompanyDetail = () => {
         return <div>Company not found</div>;
     }
 
+    const onSendSelectedCompaniesToDelete = async () => {
+        const response = await APIv1.delete(`/company/delete/${company.inn}`, {
+            headers: {
+                Authorization: `Token ${userData.token}`,
+            },
+        });
+
+        if (response.status === 200) {
+            message.success(t("pages.companies.deleteItem.messages.success1"));
+            navigate(-1);
+        } else {
+            message.error(t("pages.companies.deleteItem.messages.error1"));
+        }
+    };
+
     const handleCreateCompanyNavigate = () => {
-        console.log('---> handler: ', company.id)
         navigate(`/create_company/${company.id}`);
     };
 
@@ -57,6 +81,19 @@ const CompanyDetail = () => {
 
     const toggleThirdSection = (section) => {
         setExpandedThirdSection(prevSection => prevSection === section ? null : section);
+    };
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleOk = () => {
+        onSendSelectedCompaniesToDelete();
+        setIsModalVisible(false);
     };
 
     const renderListItem = (label, value, isPayment = false) => (
@@ -96,18 +133,27 @@ const CompanyDetail = () => {
                     </span>
                 </div>
                 <div className="detail-view__action-buttons">
+                    {isUserStaff && (
+                        <button
+                            className="detail-view__action-button detail-view__action-button--delete"
+                            onClick={showModal}
+                        >
+                            {t("pages.companies.detailColumns.button1")}
+                        </button>
+                    )}
+
                     <button
                         className="detail-view__action-button detail-view__action-button--secondary"
                         onClick={() => handleCreateCompanyNavigate()}
                     >
-                        {t("pages.companies.detailColumns.button1")}
+                        {t("pages.companies.detailColumns.button2")}
                     </button>
 
                     <button
                         className="detail-view__action-button detail-view__action-button--secondary"
                         onClick={() => navigate(-1)}
                     >
-                        {t("pages.companies.detailColumns.button2")}
+                        {t("pages.companies.detailColumns.button3")}
                     </button>
                 </div>
             </div>
@@ -187,8 +233,19 @@ const CompanyDetail = () => {
                 )}
             </div>
 
+            <Modal
+                title={t("pages.companies.deleteItem.header")}
+                visible={isModalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                okText={t("pages.companies.deleteItem.button1")}
+                cancelText={t("pages.companies.deleteItem.button2")}
+                okType="danger"
+            >
+                <p>{t("pages.companies.deleteItem.title")}: <strong>{company.name}</strong>?</p>
+            </Modal>
         </section>
     );
-}
+};
 
 export default CompanyDetail;

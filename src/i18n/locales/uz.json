@@ -271,7 +271,7 @@
       }
     },
     "companies": {
-      "addNewDeviceTitle": "Kompaniyani qo'shish",
+      "addNewCompanyTitle": "Kompaniyani qo'shish",
       "listColumns": {
         "column1": "Nomi",
         "column2": "INN",
@@ -280,8 +280,9 @@
         "column5": "Telefon raqam"
       },
       "detailColumns": {
-        "button1": "O'zgartirish",
-        "button2": "Orqaga",
+        "button1": "O'chirish",
+        "button2": "O'zgartirish",
+        "button3": "Orqaga",
         "container1": {
           "title": "Ma'lumot",
           "row1": "Manzil",
@@ -307,6 +308,16 @@
         },
         "relatedSection3": {
           "title": "SMS"
+        }
+      },
+      "deleteItem": {
+        "button1": "Tasdiqlash",
+        "button2": "Bekor qilish",
+        "header": "O'chirishni tasdiqlang",
+        "title": "Kompaniyani o'chirishga ishonchingiz komilmi",
+        "messages": {
+          "success1": "Kompaniya muvaffaqiyatli o'chirildi!",
+          "error1": "Kompaniyani o'chirishda xatolik yuz berdi!"
         }
       },
       "createColumns": {

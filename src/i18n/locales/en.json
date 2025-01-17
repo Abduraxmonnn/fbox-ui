@@ -270,7 +270,7 @@
       }
     },
     "companies": {
-      "addNewCompanyTitle": "Add Device",
+      "addNewCompanyTitle": "Add Company",
       "listColumns": {
         "column1": "Name",
         "column2": "INN",
@@ -279,8 +279,9 @@
         "column5": "Phone number"
       },
       "detailColumns": {
-        "button1": "Edit",
-        "button2": "Back",
+        "button1": "Delete",
+        "button2": "Edit",
+        "button3": "Back",
         "container1": {
           "title": "Base Information",
           "row1": "Address",
@@ -306,6 +307,16 @@
         },
         "relatedSection3": {
           "title": "Sms"
+        }
+      },
+      "deleteItem": {
+        "button1": "Yes, Delete",
+        "button2": "Cancel",
+        "header": "Confirm Deletion",
+        "title": "Are you sure you want to delete the company",
+        "messages": {
+          "success1": "Company deleted successfully!",
+          "error1": "Raised error while deleting company!"
         }
       },
       "createColumns": {
