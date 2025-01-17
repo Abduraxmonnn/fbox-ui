@@ -118,11 +118,7 @@ const Company = () => {
             {isUserStaff && (
                 <Link to="/create_company">
                     <FloatButton
-                        type="dashed"
-                        style={{
-                            color: 'white',
-                            backgroundColor: '#4ecb53',
-                        }}
+                        type="primary"
                         icon={<FileAddOutlined/>}
                         tooltip={<div>{t('pages.companies.addNewCompanyTitle')}</div>}
                     />
