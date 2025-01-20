@@ -1,8 +1,17 @@
 import {Link} from "react-router-dom";
 import {LogsStatusIcon} from "../../utils/statusIcons";
 import React from "react";
+import dayjs, {Dayjs} from "dayjs";
+import {DatePicker} from "antd";
+import usePeriodPresets from "../../optionsComponents/usePeriodOptions";
 
-const LogsColumns = (t) => {
+const {RangePicker} = DatePicker;
+
+const LogsColumns = (t, handleChangePeriod) => {
+    const disabledDate = (current: Dayjs) => {
+        return dayjs().add(1, 'day') < current;
+    };
+
     return [
         {
             title: t('pages.logs.listColumns.column1'),
@@ -66,15 +75,34 @@ const LogsColumns = (t) => {
         {
             title: t('pages.logs.listColumns.column7'),
             dataIndex: 'createdDate',
-            sorter: true,
             orderIndex: "created_date",
-            filters: [
-                {text: 'Today', value: 'day'},
-                {text: 'Last hour', value: 'hour'},
-                {text: 'Last 30 days', value: 'month'},
-            ],
-            filterMultiple: false,
-            onFilter: (value, record) => true,
+            filterDropdown: () => (
+                <div style={{padding: 8}}>
+                    <RangePicker
+                        presets={usePeriodPresets}
+                        defaultValue={[
+                            dayjs().startOf('day'),
+                            dayjs().add(1, 'day').startOf('day'),
+                        ]}
+                        onChange={handleChangePeriod}
+                        disabledDate={disabledDate}
+                        allowClear={false}
+                        style={{marginBottom: 16}}
+                    />
+                    {/*<div style={{marginTop: 8, display: 'flex', justifyContent: 'space-between'}}>*/}
+                    {/*    <Button*/}
+                    {/*        type="primary"*/}
+                    {/*        onClick={() => {*/}
+                    {/*            confirm();*/}
+                    {/*        }}*/}
+                    {/*        size="small"*/}
+                    {/*        style={{width: 90}}*/}
+                    {/*    >*/}
+                    {/*        {t('filter')}*/}
+                    {/*    </Button>*/}
+                    {/*</div>*/}
+                </div>
+            ),
         },
     ];
 };

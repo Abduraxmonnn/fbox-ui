@@ -1,21 +1,23 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {useOutletContext} from "react-router-dom";
 import {APIv1} from "../../api";
-import {extractDateBySecond, handleTableChange} from "../../utils";
 import {Table} from "antd";
+import dayjs from "dayjs";
 import {ConvertLogsPaymentProvider} from "../../utils/logsUtils";
-import LogsColumns from "./logs.constants";
 import {useTranslation} from "react-i18next";
+import {extractDateBySecond, handleTableChange} from "../../utils";
+import LogsColumns from "./logs.constants";
 
 const Logs = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
     let companyInn = props.companyInn;
 
     const {t} = useTranslation();
-    const columns = LogsColumns(t);
     const [userData, setUserData] = useState({});
     const [logsData, setLogsData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [startPeriod, setStartPeriod] = useState(dayjs().format('YYYY-MM-DD'));
+    const [endPeriod, setEndPeriod] = useState(dayjs().add(1, 'days').format('YYYY-MM-DD'));
     const [totalLogs, setTotalLogs] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(defaultPaginationSize);
@@ -24,10 +26,20 @@ const Logs = (props) => {
     const [filters, setFilters] = useState({});
     const {searchText} = useOutletContext();
 
+    const handleChangePeriod = (value) => {
+        let startPeriod = value[0].format('YYYY-MM-DD');
+        let endPeriod = value[1].format('YYYY-MM-DD');
+        setStartPeriod(startPeriod);
+        setEndPeriod(endPeriod);
+    }
+
+    const columns = LogsColumns(t, handleChangePeriod);
+
     const fetchLogsData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
         try {
-            let url = companyInn !== undefined ? `/logs/list/get_related_logs/?company_inn=${companyInn}` : '/logs/list/';
+            let pre_url = companyInn !== undefined ? `/logs/list/get_related_logs/?company_inn=${companyInn}` : '/logs/list/';
+            let url = (startPeriod && endPeriod) ? `${pre_url}?start_period=${startPeriod}&end_period=${endPeriod}` : pre_url
 
             const queryParams = {
                 page,
@@ -76,7 +88,7 @@ const Logs = (props) => {
         } finally {
             setLoading(false);
         }
-    }, [companyInn, userData.token]);
+    }, [companyInn, userData.token, startPeriod, endPeriod]);
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
