@@ -15,8 +15,8 @@ const Logs = (props) => {
     const [userData, setUserData] = useState({});
     const [logsData, setLogsData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [startPeriod, setStartPeriod] = useState(0 || null);
-    const [endPeriod, setEndPeriod] = useState(0 || null);
+    const [startPeriod, setStartPeriod] = useState(0);
+    const [endPeriod, setEndPeriod] = useState(0);
     const [totalLogs, setTotalLogs] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(defaultPaginationSize);
@@ -26,7 +26,7 @@ const Logs = (props) => {
     const {searchText} = useOutletContext();
 
     const handleChangePeriod = (value) => {
-        if (value === null) {
+        if (value === null || value === 0) {
             setStartPeriod(0);
             setEndPeriod(0);
         } else {
@@ -43,7 +43,7 @@ const Logs = (props) => {
         setLoading(true);
         try {
             let pre_url = companyInn !== undefined ? `/logs/list/get_related_logs/?company_inn=${companyInn}` : '/logs/list/';
-            let url = ((startPeriod !== 0 && endPeriod !== 0) && (startPeriod !== null && endPeriod !== null)) ? `${pre_url}?start_period=${startPeriod}&end_period=${endPeriod}` : pre_url
+            let url = (startPeriod !== 0 && endPeriod !== 0) ? `${pre_url}?start_period=${startPeriod}&end_period=${endPeriod}` : pre_url
 
             const queryParams = {
                 page,

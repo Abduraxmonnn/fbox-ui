@@ -24,8 +24,8 @@ const Email = (props) => {
     const [userData, setUserData] = useState({});
     const [EmailData, setEmailData] = useState([])
     const [loading, setLoading] = useState(true)
-    const [startPeriod, setStartPeriod] = useState(0 || null);
-    const [endPeriod, setEndPeriod] = useState(0 || null);
+    const [startPeriod, setStartPeriod] = useState(0);
+    const [endPeriod, setEndPeriod] = useState(0);
     const [selectionType, setSelectionType] = useState('checkbox')
     const [totalEmail, setTotalEmail] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
@@ -36,7 +36,7 @@ const Email = (props) => {
     const {searchText} = useOutletContext()
 
     const handleChangePeriod = (value) => {
-        if (value === null) {
+        if (value === null || value === 0) {
             setStartPeriod(0);
             setEndPeriod(0);
         } else {
@@ -65,7 +65,7 @@ const Email = (props) => {
             }
 
             let pre_url = '/email/list/';
-            let url = ((startPeriod !== 0 && endPeriod !== 0) && (startPeriod !== null && endPeriod !== null)) ? `${pre_url}?start_period=${startPeriod}&end_period=${endPeriod}` : pre_url
+            let url = (startPeriod !== 0 && endPeriod !== 0) ? `${pre_url}?start_period=${startPeriod}&end_period=${endPeriod}` : pre_url
             const response = await APIv1.get(url, {
                 params: queryParams,
                 headers: {
