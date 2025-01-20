@@ -5,6 +5,7 @@ import {useOutletContext} from "react-router-dom";
 import {extractDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
 import SmsColumns from "./sms.constants";
 import {useTranslation} from "react-i18next";
+import LogsColumns from "../Logs/logs.constants";
 
 // rowSelection object indicates the need for row selection
 const rowSelection = {
@@ -22,10 +23,11 @@ const Sms = (props) => {
     let companyInn = props.companyInn;
 
     const {t} = useTranslation();
-    const columns = SmsColumns(t);
     const [userData, setUserData] = useState({});
     const [smsData, setSmsData] = useState([])
     const [loading, setLoading] = useState(true)
+    const [startPeriod, setStartPeriod] = useState(0 || null);
+    const [endPeriod, setEndPeriod] = useState(0 || null);
     const [selectionType, setSelectionType] = useState('checkbox')
     const [totalSms, setTotalSms] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
@@ -34,6 +36,20 @@ const Sms = (props) => {
     const [sortOrder, setSortOrder] = useState('')
     const [filters, setFilters] = useState({})
     const {searchText} = useOutletContext()
+
+    const handleChangePeriod = (value) => {
+        if (value === null) {
+            setStartPeriod(0);
+            setEndPeriod(0);
+        } else {
+            let startPeriod = value[0].format('YYYY-MM-DD');
+            let endPeriod = value[1].add(1, 'days').format('YYYY-MM-DD');
+            setStartPeriod(startPeriod);
+            setEndPeriod(endPeriod);
+        }
+    }
+
+    const columns = SmsColumns(t, handleChangePeriod);
 
     const fetchSmsData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
@@ -50,7 +66,8 @@ const Sms = (props) => {
                 queryParams.period = filters.period;
             }
 
-            let url = companyInn !== undefined ? `/sms/list/get_related_sms/?company_inn=${companyInn}` : '/sms/list/';
+            let pre_url = companyInn !== undefined ? `/sms/list/get_related_sms/?company_inn=${companyInn}` : '/sms/list/';
+            let url = ((startPeriod !== 0 && endPeriod !== 0) && (startPeriod !== null && endPeriod !== null)) ? `${pre_url}?start_period=${startPeriod}&end_period=${endPeriod}` : pre_url
             const response = await APIv1.get(url, {
                 params: queryParams,
                 headers: {
@@ -72,7 +89,7 @@ const Sms = (props) => {
         } finally {
             setLoading(false)
         }
-    }, [companyInn, userData.token]);
+    }, [companyInn, userData.token, startPeriod, endPeriod]);
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
@@ -87,7 +104,7 @@ const Sms = (props) => {
             ordering = sortOrder === 'ascend' ? sortField : `-${sortField}`;
         }
         fetchSmsData(currentPage, pageSize, searchText, ordering, filters)
-    }, [currentPage, pageSize, searchText, sortOrder, sortField, filters, fetchSmsData])
+    }, [currentPage, pageSize, searchText, sortOrder, sortField, filters, fetchSmsData, startPeriod, endPeriod])
 
     useEffect(() => {
         setCurrentPage(1) // Reset to the first page when search text changes

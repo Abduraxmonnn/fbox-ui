@@ -1,8 +1,17 @@
 import {Link} from "react-router-dom";
 import React from "react";
 import {NotifyStatusIcon} from "../../utils/statusIcons";
+import {DatePicker} from "antd";
+import usePeriodPresets from "../../optionsComponents/usePeriodOptions";
+import dayjs, {Dayjs} from "dayjs";
 
-const EmailColumns = (t) => {
+const {RangePicker} = DatePicker;
+
+const EmailColumns = (t, handleChangePeriod) => {
+    const disabledDate = (current: Dayjs) => {
+        return dayjs().add(1, 'day') < current;
+    };
+
     return [
         {
             title: t('pages.email.listColumns.column1'),
@@ -40,13 +49,18 @@ const EmailColumns = (t) => {
             dataIndex: 'created_date',
             sorter: true,
             orderIndex: "created_date",
-            filters: [
-                {text: 'Today', value: 'day'},
-                {text: 'Last hour', value: 'hour'},
-                {text: 'Last 30 days', value: 'month'},
-            ],
-            filterMultiple: false,
-            onFilter: (value, record) => true,
+            filterDropdown: () => (
+                <div style={{padding: 8}}>
+                    <RangePicker
+                        presets={usePeriodPresets}
+                        onChange={handleChangePeriod}
+                        disabledDate={disabledDate}
+                        allowClear={true}
+                        style={{marginBottom: 16}}
+                        placeholder={[`${t("common.filter.dateFilter1")}`, `${t("common.filter.dateFilter2")}`]}
+                    />
+                </div>
+            ),
         },
     ]
 

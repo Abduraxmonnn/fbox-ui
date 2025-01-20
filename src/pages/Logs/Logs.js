@@ -41,10 +41,9 @@ const Logs = (props) => {
 
     const fetchLogsData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
-        const dateRangeCondition = [startPeriod !== (0 || null), endPeriod !== (0 || null)]
         try {
             let pre_url = companyInn !== undefined ? `/logs/list/get_related_logs/?company_inn=${companyInn}` : '/logs/list/';
-            let url = dateRangeCondition.includes(true) ? `${pre_url}?start_period=${startPeriod}&end_period=${endPeriod}` : pre_url
+            let url = ((startPeriod !== 0 && endPeriod !== 0) && (startPeriod !== null && endPeriod !== null)) ? `${pre_url}?start_period=${startPeriod}&end_period=${endPeriod}` : pre_url
 
             const queryParams = {
                 page,

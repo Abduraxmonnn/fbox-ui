@@ -21,10 +21,11 @@ const Email = (props) => {
     let defaultPaginationSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
 
     const {t} = useTranslation();
-    const columns = EmailColumns(t);
     const [userData, setUserData] = useState({});
     const [EmailData, setEmailData] = useState([])
     const [loading, setLoading] = useState(true)
+    const [startPeriod, setStartPeriod] = useState(0 || null);
+    const [endPeriod, setEndPeriod] = useState(0 || null);
     const [selectionType, setSelectionType] = useState('checkbox')
     const [totalEmail, setTotalEmail] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
@@ -33,6 +34,20 @@ const Email = (props) => {
     const [sortEmail, setSortEmail] = useState('')
     const [filters, setFilters] = useState({})
     const {searchText} = useOutletContext()
+
+    const handleChangePeriod = (value) => {
+        if (value === null) {
+            setStartPeriod(0);
+            setEndPeriod(0);
+        } else {
+            let startPeriod = value[0].format('YYYY-MM-DD');
+            let endPeriod = value[1].add(1, 'days').format('YYYY-MM-DD');
+            setStartPeriod(startPeriod);
+            setEndPeriod(endPeriod);
+        }
+    }
+
+    const columns = EmailColumns(t, handleChangePeriod);
 
     const fetchEmailData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
@@ -49,7 +64,9 @@ const Email = (props) => {
                 queryParams.period = filters.period;
             }
 
-            const response = await APIv1.get('/email/list/', {
+            let pre_url = '/email/list/';
+            let url = ((startPeriod !== 0 && endPeriod !== 0) && (startPeriod !== null && endPeriod !== null)) ? `${pre_url}?start_period=${startPeriod}&end_period=${endPeriod}` : pre_url
+            const response = await APIv1.get(url, {
                 params: queryParams,
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -69,7 +86,7 @@ const Email = (props) => {
         } finally {
             setLoading(false)
         }
-    }, [userData.token]);
+    }, [userData.token, startPeriod, endPeriod]);
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
@@ -84,7 +101,7 @@ const Email = (props) => {
             ordering = sortEmail === 'ascend' ? sortField : `-${sortField}`;
         }
         fetchEmailData(currentPage, pageSize, searchText, ordering, filters)
-    }, [currentPage, pageSize, searchText, sortEmail, sortField, filters, fetchEmailData])
+    }, [currentPage, pageSize, searchText, sortEmail, sortField, filters, fetchEmailData, startPeriod, endPeriod])
 
     useEffect(() => {
         setCurrentPage(1) // Reset to the first page when search text changes
