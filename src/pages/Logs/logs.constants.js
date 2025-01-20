@@ -76,6 +76,7 @@ const LogsColumns = (t, handleChangePeriod) => {
             title: t('pages.logs.listColumns.column7'),
             dataIndex: 'createdDate',
             orderIndex: "created_date",
+            sorter: true,
             filterDropdown: () => (
                 <div style={{padding: 8}}>
                     <RangePicker
