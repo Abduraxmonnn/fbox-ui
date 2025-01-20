@@ -81,27 +81,12 @@ const LogsColumns = (t, handleChangePeriod) => {
                 <div style={{padding: 8}}>
                     <RangePicker
                         presets={usePeriodPresets}
-                        defaultValue={[
-                            dayjs().startOf('day'),
-                            dayjs().add(1, 'day').startOf('day'),
-                        ]}
                         onChange={handleChangePeriod}
                         disabledDate={disabledDate}
-                        allowClear={false}
+                        allowClear={true}
                         style={{marginBottom: 16}}
+                        placeholder={[`${t("common.filter.dateFilter1")}`, `${t("common.filter.dateFilter2")}`]}
                     />
-                    {/*<div style={{marginTop: 8, display: 'flex', justifyContent: 'space-between'}}>*/}
-                    {/*    <Button*/}
-                    {/*        type="primary"*/}
-                    {/*        onClick={() => {*/}
-                    {/*            confirm();*/}
-                    {/*        }}*/}
-                    {/*        size="small"*/}
-                    {/*        style={{width: 90}}*/}
-                    {/*    >*/}
-                    {/*        {t('filter')}*/}
-                    {/*    </Button>*/}
-                    {/*</div>*/}
                 </div>
             ),
         },

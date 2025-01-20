@@ -21,6 +21,10 @@
       "empty": "пусто",
       "access": "ДОСТУП",
       "decline": "ОТКАЗ"
+    },
+    "filter": {
+      "dateFilter1": "начала",
+      "dateFilter2": "окончания"
     }
   },
   "sideBar": {

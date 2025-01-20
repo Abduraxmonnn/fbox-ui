@@ -20,6 +20,10 @@
       "empty": "empty",
       "access": "ACCESS",
       "decline": "DECLINE"
+    },
+    "filter": {
+      "dateFilter1": "Start Date",
+      "dateFilter2": "End Date"
     }
   },
   "sideBar": {

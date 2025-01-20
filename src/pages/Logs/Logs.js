@@ -2,7 +2,6 @@ import React, {useCallback, useEffect, useState} from "react";
 import {useOutletContext} from "react-router-dom";
 import {APIv1} from "../../api";
 import {Table} from "antd";
-import dayjs from "dayjs";
 import {ConvertLogsPaymentProvider} from "../../utils/logsUtils";
 import {useTranslation} from "react-i18next";
 import {extractDateBySecond, handleTableChange} from "../../utils";
@@ -16,8 +15,8 @@ const Logs = (props) => {
     const [userData, setUserData] = useState({});
     const [logsData, setLogsData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [startPeriod, setStartPeriod] = useState(dayjs().format('YYYY-MM-DD'));
-    const [endPeriod, setEndPeriod] = useState(dayjs().add(1, 'days').format('YYYY-MM-DD'));
+    const [startPeriod, setStartPeriod] = useState(0 || null);
+    const [endPeriod, setEndPeriod] = useState(0 || null);
     const [totalLogs, setTotalLogs] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(defaultPaginationSize);
@@ -27,19 +26,25 @@ const Logs = (props) => {
     const {searchText} = useOutletContext();
 
     const handleChangePeriod = (value) => {
-        let startPeriod = value[0].format('YYYY-MM-DD');
-        let endPeriod = value[1].format('YYYY-MM-DD');
-        setStartPeriod(startPeriod);
-        setEndPeriod(endPeriod);
+        if (value === null) {
+            setStartPeriod(0);
+            setEndPeriod(0);
+        } else {
+            let startPeriod = value[0].format('YYYY-MM-DD');
+            let endPeriod = value[1].add(1, 'days').format('YYYY-MM-DD');
+            setStartPeriod(startPeriod);
+            setEndPeriod(endPeriod);
+        }
     }
 
     const columns = LogsColumns(t, handleChangePeriod);
 
     const fetchLogsData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
+        const dateRangeCondition = [startPeriod !== (0 || null), endPeriod !== (0 || null)]
         try {
             let pre_url = companyInn !== undefined ? `/logs/list/get_related_logs/?company_inn=${companyInn}` : '/logs/list/';
-            let url = (startPeriod && endPeriod) ? `${pre_url}?start_period=${startPeriod}&end_period=${endPeriod}` : pre_url
+            let url = dateRangeCondition.includes(true) ? `${pre_url}?start_period=${startPeriod}&end_period=${endPeriod}` : pre_url
 
             const queryParams = {
                 page,
@@ -106,7 +111,7 @@ const Logs = (props) => {
         }
 
         fetchLogsData(currentPage, pageSize, searchText, ordering, filters);
-    }, [currentPage, pageSize, searchText, sortLog, sortField, userData.token, filters, fetchLogsData]);
+    }, [currentPage, pageSize, searchText, sortLog, sortField, userData.token, filters, fetchLogsData, startPeriod, endPeriod]);
 
     useEffect(() => {
         setCurrentPage(1);

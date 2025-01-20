@@ -21,6 +21,10 @@
       "empty": "bo'sh",
       "access": "RUHSAT",
       "decline": "RAD ETISH"
+    },
+    "filter": {
+      "dateFilter1": "Boshlanish",
+      "dateFilter2": "Tugash"
     }
   },
   "sideBar": {
