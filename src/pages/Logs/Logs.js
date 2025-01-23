@@ -80,8 +80,8 @@ const Logs = (props) => {
                 isSuccess: log.is_success,
                 status: log.status,
                 logType: ConvertLogsPaymentProvider(log.log_type),
-                paymentResponse: log.payment_response,
-                confirmResponse: log.confirm_response,
+                paymentResponse: log.failure_payment_response,
+                confirmResponse: log.failure_confirm_response,
                 createdDate: extractDateBySecond(log.created_date),
             }));
 
