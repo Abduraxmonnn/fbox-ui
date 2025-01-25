@@ -16,6 +16,7 @@ const initialFormData = {
     name: "",
     address: "",
     inn: "",
+    version: "",
     phone: "",
     user: [],
     status: {
@@ -32,6 +33,7 @@ const AddNewCompanyForm = () => {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const [formData, setFormData] = useState(initialFormData);
+    const [companyVersions, setCompanyVersions] = useState([]);
     const [newCreatedData, setNewCreatedData] = useState(null);  // New state to track the new created data
     const [fetchedData, setFetchedData] = useState(null); // New state to track fetched data
     const [userOptionsData, setUserOptionsData] = useState([]);
@@ -70,6 +72,7 @@ const AddNewCompanyForm = () => {
                     name: response.data.name,
                     address: response.data.address,
                     inn: response.data.inn,
+                    version: response.data.versions,
                     phone: checkIsPhoneCorrect(response.data.phone_number),
                     user: [response.data.user.username],
                     status: {
@@ -89,6 +92,26 @@ const AddNewCompanyForm = () => {
             fetchCompanyDetail();
         }
     }, [id, userData.token]);
+
+    useEffect(() => {
+        const fetchVersions = async () => {
+            try {
+                const versionsResponse = await APIv1.get('/version/list/', {
+                    headers: {
+                        Authorization: `Token ${userData.token}`
+                    },
+                });
+                setCompanyVersions(versionsResponse.data.map(item => ({
+                    value: item.version_number,
+                    label: item.version_number,
+                })))
+            } catch (err) {
+                console.error('Something went wrong with versions:', err);
+            }
+        }
+
+        fetchVersions();
+    }, [userData.token])
 
     useEffect(() => {
         getUsersData();
@@ -120,10 +143,10 @@ const AddNewCompanyForm = () => {
         }));
     };
 
-    const handleSelectChange = (value) => {
+    const handleSelectChange = (key, value) => {
         setFormData(prev => ({
             ...prev,
-            user: value
+            [key]: value
         }));
     };
 
@@ -134,6 +157,7 @@ const AddNewCompanyForm = () => {
             const body = {
                 name: formData.name,
                 inn: formData.inn,
+                version: formData.version,
                 phone_number: formData.phone,
                 user: user,
                 pay_me: formData.status.perm_payme,
@@ -161,6 +185,7 @@ const AddNewCompanyForm = () => {
                     name: response.data.name,
                     address: response.data.address,
                     inn: response.data.inn,
+                    version: formData.version,
                     phone: checkIsPhoneCorrect(response.data.phone_number),
                     user: response.data.user ? [response.data.user.username] : [],
                     status: {
@@ -190,6 +215,7 @@ const AddNewCompanyForm = () => {
                 name: fetchedData.name,
                 address: fetchedData.address,
                 inn: fetchedData.inn,
+                version: formData.version,
                 phone: checkIsPhoneCorrect(fetchedData.phone_number),
                 user: [fetchedData.user.username],
                 status: {
@@ -207,6 +233,7 @@ const AddNewCompanyForm = () => {
                 name: newCreatedData.name,
                 address: newCreatedData.address,
                 inn: newCreatedData.inn,
+                version: formData.version,
                 phone: checkIsPhoneCorrect(newCreatedData.phone_number),
                 user: [newCreatedData.user.username],
                 status: {
@@ -337,7 +364,7 @@ const AddNewCompanyForm = () => {
                             }}
                             placeholder={t("pages.companies.createColumns.placeholder6")}
                             value={formData.user}
-                            onChange={handleSelectChange}
+                            onChange={(value) => handleSelectChange("user", value)}
                             optionLabelProp='label'
                             options={userOptionsData}
                             optionRender={option => (
@@ -352,6 +379,19 @@ const AddNewCompanyForm = () => {
                             )}
                             allowClear={true}
                         />
+                    </li>
+                    <li>
+                        <p>Version</p>
+                        <Space wrap>
+                            <Select
+                                value={formData.version}
+                                style={{
+                                    width: 120,
+                                }}
+                                onChange={(value) => handleSelectChange("version", value)}
+                                options={companyVersions}
+                            />
+                        </Space>
                     </li>
                     <li className='not_required_field'>
                         <p>{t("pages.companies.createColumns.row8")}</p>
