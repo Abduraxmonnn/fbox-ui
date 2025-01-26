@@ -381,7 +381,7 @@ const AddNewCompanyForm = () => {
                         />
                     </li>
                     <li>
-                        <p>Version</p>
+                        <p>{t("pages.companies.createColumns.row12")}</p>
                         <Space wrap>
                             <Select
                                 value={formData.version}
