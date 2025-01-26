@@ -101,12 +101,12 @@ const CompanyDetail = () => {
             <span className="detail-view__label">{label}:</span>
             {isPayment ? (
                 <div className="detail-view__value-group">
-                    <Button
-                        onClick={() => handleRedirect(label)}
-                        className="detail-view__redirect-button"
-                    >
-                        More
-                    </Button>
+                    {/*<Button*/}
+                    {/*    onClick={() => handleRedirect(label)}*/}
+                    {/*    className="detail-view__redirect-button"*/}
+                    {/*>*/}
+                    {/*    More*/}
+                    {/*</Button>*/}
                     <span
                         className={`detail-view__tag ${value ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
                         {value ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
