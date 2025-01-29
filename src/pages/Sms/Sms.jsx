@@ -82,8 +82,10 @@ const Sms = (props) => {
                 is_success: sms.is_success,
                 created_date: extractDateBySecond(sms.created_date),
             }))
+            console.log(response.data.count)
             setSmsData(data)
             setTotalSms(response.data.count)
+            console.log(totalSms)
         } catch (err) {
             console.error('Something went wrong', err)
         } finally {
@@ -171,8 +173,7 @@ const Sms = (props) => {
                         defaultPageSize: defaultPaginationSize,
                         showSizeChanger: true,
                         defaultCurrent: 1,
-                        showTotal: (total, range) =>
-                            `${range[0]} - ${range[1]} / ${smsData.length}`,
+                        showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,
                         pageSizeOptions: ['10', '20', '50', '100'],
                     }}
                 />

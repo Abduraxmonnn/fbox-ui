@@ -169,8 +169,7 @@ const Email = (props) => {
                         defaultPageSize: defaultPaginationSize,
                         showSizeChanger: true,
                         defaultCurrent: 1,
-                        showTotal: (total, range) =>
-                            `${range[0]} - ${range[1]} / ${EmailData.length}`,
+                        showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,
                         pageSizeOptions: ['10', '20', '50', '100'],
                     }}
                 />

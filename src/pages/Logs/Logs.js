@@ -233,7 +233,6 @@ const Logs = (props) => {
                         showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,
                         pageSizeOptions: ['10', '20', '50', '100']
                     }}
-
                 />
             </div>
         </>

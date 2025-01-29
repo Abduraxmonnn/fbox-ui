@@ -24,7 +24,7 @@ const EmailColumns = (t, handleChangePeriod) => {
             render: (text, record) => (
                 <>
                     {[record.is_success].map(tag => (
-                        <NotifyStatusIcon size={18} status={tag}/>
+                        <NotifyStatusIcon key={record.key} size={18} status={tag}/>
                     ))}
                 </>
             ),
