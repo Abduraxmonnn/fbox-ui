@@ -16,10 +16,14 @@ const EmailColumns = (t, handleChangePeriod) => {
         {
             title: t('pages.email.listColumns.column1'),
             dataIndex: 'is_success',
-            sorter: true,
-            orderIndex: "is_success",
             size: "large",
             width: 100,
+
+            filters: [
+                {text: t('common.success'), value: true},
+                {text: t('common.failure'), value: false},
+            ],
+            filterMultiple: false,
 
             render: (text, record) => (
                 <>
