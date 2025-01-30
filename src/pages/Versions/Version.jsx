@@ -19,6 +19,7 @@ const Version = () => {
     const {t} = useTranslation();
     const columns = VersionsColumns(t);
     const [versionData, setVersionData] = useState([])
+    const [userData, setUserData] = useState({});
     const [selectionType, setSelectionType] = useState('checkbox')
 
     function extractFileName(url) {
@@ -43,14 +44,20 @@ const Version = () => {
 
     async function getVersionData() {
         try {
-            const response = await API.get('/version/');
+            const response = await API.get('/version/list/', {
+                headers: {
+                    Authorization: `Token ${userData.token}`,
+                }
+            });
 
-            const data = [{
-                key: response.data.id,
-                version_id: response.data.id,
-                version_number: response.data.version_number,
-                file: extractFileName(response.data.file),
-            }];
+            console.log(response.data)
+
+            const data = response.data.map(item => ({
+                key: item.id,
+                version_id: item.id,
+                version_number: item.version_number,
+                file: extractFileName(item.file),
+            }))
             setVersionData(data)
         } catch (err) {
             console.error('Something went wrong:', err)
@@ -59,7 +66,14 @@ const Version = () => {
 
     useEffect(() => {
         getVersionData()
-    }, [])
+    }, [userData.token])
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setUserData(items);
+        }
+    }, [userData.token]);
 
     return (
         <>

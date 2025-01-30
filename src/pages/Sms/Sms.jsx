@@ -82,10 +82,8 @@ const Sms = (props) => {
                 is_success: sms.is_success,
                 created_date: extractDateBySecond(sms.created_date),
             }))
-            console.log(response.data.count)
             setSmsData(data)
             setTotalSms(response.data.count)
-            console.log(totalSms)
         } catch (err) {
             console.error('Something went wrong', err)
         } finally {
