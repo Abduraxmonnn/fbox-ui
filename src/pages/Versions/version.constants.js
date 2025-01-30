@@ -7,6 +7,7 @@ const VersionsColumns = (t) => {
             dataIndex: 'version_id',
             sorter: {},
             render: title => <a>{title}</a>,
+            width: 200,
         },
         {
             title: t('pages.versions.listColumns.column1'),
