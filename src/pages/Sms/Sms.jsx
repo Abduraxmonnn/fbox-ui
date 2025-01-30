@@ -5,7 +5,6 @@ import {useOutletContext} from "react-router-dom";
 import {extractDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
 import SmsColumns from "./sms.constants";
 import {useTranslation} from "react-i18next";
-import LogsColumns from "../Logs/logs.constants";
 
 // rowSelection object indicates the need for row selection
 const rowSelection = {

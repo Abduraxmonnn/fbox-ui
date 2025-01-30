@@ -18,6 +18,11 @@ const SmsColumns = (t, handleChangePeriod) => {
             dataIndex: 'is_success',
             sorter: true,
             orderIndex: "is_success",
+            filters: [
+                {text: t('common.success'), value: true},
+                {text: t('common.failure'), value: false},
+            ],
+            filterMultiple: false,
             onFilter: (value, record) => record.is_success === value,
             size: "large",
             width: 150,
