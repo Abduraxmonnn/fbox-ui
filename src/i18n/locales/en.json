@@ -163,7 +163,10 @@
         "column4": "Payment ID",
         "column5": "Amount",
         "column6": "Provider",
-        "column7": "Created date"
+        "column7": "Created date",
+        "filter1": "Paid",
+        "filter2": "Fiscalized",
+        "filter3": "Failed"
       },
       "detailColumns": {
         "title": "Payment Log",

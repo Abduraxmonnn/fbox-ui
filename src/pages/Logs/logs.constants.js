@@ -25,9 +25,9 @@ const LogsColumns = (t, handleChangePeriod) => {
             ),
             orderIndex: "status",
             filters: [
-                {text: 'Paid', value: 'PAID'},
-                {text: 'Fiscalized', value: 'FISCALIZED'},
-                {text: 'Failed', value: 'FAILED'},
+                {text: t('pages.logs.listColumns.filter1'), value: 'PAID'},
+                {text: t('pages.logs.listColumns.filter2'), value: 'FISCALIZED'},
+                {text: t('pages.logs.listColumns.filter3'), value: 'FAILED'},
             ],
             filterMultiple: false,
             onFilter: (value, record) => record.status === value,
