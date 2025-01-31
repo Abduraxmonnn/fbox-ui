@@ -5,6 +5,7 @@ import {analysisStats} from "../../components/AnalysisStats";
 import {Logs} from "../index";
 import './Analysis.css';
 import dayjs from "dayjs";
+import {getFormattedPeriod} from "../../utils";
 
 const {
     Period,
@@ -16,7 +17,6 @@ const {
     ClickTransactionsPieChart,
     UzumTransactionsPieChart,
     AnorTransactionsPieChart,
-
 } = analysisStats;
 
 const Analysis = () => {
@@ -30,8 +30,7 @@ const Analysis = () => {
     };
 
     const handleChangePeriod = (value) => {
-        let startPeriod = value[0].format('YYYY-MM-DD');
-        let endPeriod = value[1].format('YYYY-MM-DD');
+        const {startPeriod, endPeriod} = getFormattedPeriod(value[0], value[1]);
         setStartPeriod(startPeriod);
         setEndPeriod(endPeriod);
     }

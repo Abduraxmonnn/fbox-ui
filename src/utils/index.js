@@ -1,6 +1,7 @@
 import {handleTableChange} from "./handleTableChangeUtils";
-import {extractDateBySecond} from "./extractDateBySeconds";
-import {defaultExtractDate} from "./extractDateBySeconds";
+import {extractDateBySecond} from "./dateUtils";
+import {defaultExtractDate} from "./dateUtils";
+import {getFormattedPeriod} from "./dateUtils";
 import {onFilter} from "./dateFilters";
 import {checkIsPhoneCorrect, isBoolean, useRowNavigation} from "./baseUtils";
 import {deviceStatusInactiveTime, deviceStatusInactiveTimeToText} from "./deviceUtils";
@@ -16,5 +17,6 @@ export {
     deviceStatusInactiveTime,
     deviceStatusInactiveTimeToText,
     getSmsClockBadgeColor,
-    checkIsPhoneCorrect
+    checkIsPhoneCorrect,
+    getFormattedPeriod
 }

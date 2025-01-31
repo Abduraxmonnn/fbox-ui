@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export function extractDateBySecond(dateString) {
     const utcDate = new Date(dateString);
 
@@ -24,4 +26,18 @@ export function extractDateBySecond(dateString) {
 export const defaultExtractDate = (dateString) => {
     const date = new Date(dateString);
     return date.toISOString().slice(0, 10);
+};
+
+export const getFormattedPeriod = (startDate, endDate) => {
+    const start = dayjs(startDate).startOf('day');
+    const end = dayjs(endDate)
+        .set('hour', 23)
+        .set('minute', 59)
+        .set('second', 59)
+        .set('millisecond', 999);
+
+    return {
+        startPeriod: start.format('YYYY-MM-DD HH:mm:ss'),
+        endPeriod: end.format('YYYY-MM-DD HH:mm:ss'),
+    };
 };
