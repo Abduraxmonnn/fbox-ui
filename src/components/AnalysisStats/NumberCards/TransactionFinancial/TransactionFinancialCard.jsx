@@ -54,52 +54,34 @@ const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({star
     }, [userData.token]);
 
     return (
-        <div className="payment-income">
-            <h2 className="payment-income__title">{t('analysis.numbersStats.mainTitles.transactionsFinancialTitle')}</h2>
-
-            <div className="payment-income__metrics">
-                <div className="payment-income__card">
-                    <span className="payment-income__label">{t('common.success')}</span>
-                    <div className="payment-income__amount success">
-                        <span className="payment-income__arrow">
-                          <ArrowUpRight/>
-                        </span>
+        <div className="analysis__metrics__card">
+            <h2>{t("analysis.numbersStats.mainTitles.transactionsFinancialTitle")}</h2>
+            <div className="analysis__metrics__container">
+                <div className="analysis__metrics__card">
+                    <span className="analysis__metrics__label">{t("common.success")}</span>
+                    <div className="analysis__metrics__value analysis__metrics__value--success">
+                        <ArrowUpRight className="analysis__metrics__icon"/>
                         {loading ? (
-                            <Skeleton.Button active style={{width: 200, height: 30}}/>
+                            <Skeleton.Button active style={{width: 100, height: 24}}/>
                         ) : (
-                            <CountUp
-                                end={fetchedData.successAmount}
-                                duration={2.5}
-                                separator=","
-                                suffix=" UZS"
-                                className="transaction-financial-card__value"
-                            />
+                            <CountUp end={fetchedData.successAmount} duration={2.5} separator="," suffix=" UZS"/>
                         )}
                     </div>
                 </div>
-
-                <div className="payment-income__card">
-                    <span className="payment-income__label">{t('common.failure')}</span>
-                    <div className="payment-income__amount failure">
-                        <span className="payment-income__arrow">
-                          <ArrowDownRight/>
-                        </span>
+                <div className="analysis__metrics__card">
+                    <span className="analysis__metrics__label">{t("common.failure")}</span>
+                    <div className="analysis__metrics__value analysis__metrics__value--failure">
+                        <ArrowDownRight className="analysis__metrics__icon"/>
                         {loading ? (
-                            <Skeleton.Button active style={{width: 200, height: 30}}/>
+                            <Skeleton.Button active style={{width: 100, height: 24}}/>
                         ) : (
-                            <CountUp
-                                end={fetchedData.failureAmount}
-                                duration={2.5}
-                                separator=","
-                                suffix=" UZS"
-                                className="transaction-financial-card__value"
-                            />
+                            <CountUp end={fetchedData.failureAmount} duration={2.5} separator="," suffix=" UZS"/>
                         )}
                     </div>
                 </div>
             </div>
         </div>
-    );
+    )
 };
 
 export default TransactionFinancialCard;

@@ -55,36 +55,28 @@ const DeviceStatusCard: React.FC<TransactionCountCardProps> = () => {
     }, [userData.token]);
 
     return (
-        <div className="transaction-metrics">
-            <h2 className="transaction-metrics__title">{t("analysis.numbersStats.mainTitles.devicesTitle")}</h2>
-
-            <div className="transaction-metrics__container">
-                <div className="transaction-metrics__card">
-                    <span className="transaction-metrics__label">{t("common.active")}</span>
-                    <div className="transaction-metrics__count">
-                        <MonitorCheck className="transaction-metrics__icon transaction-metrics__icon--active"/>
+        <div className="analysis__metrics__card">
+            <h2>{t("analysis.numbersStats.mainTitles.devicesTitle")}</h2>
+            <div className="analysis__metrics__container">
+                <div className="analysis__metrics__card">
+                    <span className="analysis__metrics__label">{t("common.active")}</span>
+                    <div className="analysis__metrics__value analysis__metrics__value--active">
+                        <MonitorCheck className="analysis__metrics__icon"/>
                         {loading ? (
-                            <Skeleton.Button active style={{width: 100, height: 30}}/>
+                            <Skeleton.Button active style={{width: 60, height: 24}}/>
                         ) : (
-                            <CountUp
-                                end={data.activeCount}
-                                duration={3}
-                            />
+                            <CountUp end={data.activeCount} duration={3}/>
                         )}
                     </div>
                 </div>
-
-                <div className="transaction-metrics__card">
-                    <span className="transaction-metrics__label">{t("common.inactive")}</span>
-                    <div className="transaction-metrics__count">
-                        <MonitorDot className="transaction-metrics__icon transaction-metrics__icon--inactive"/>
+                <div className="analysis__metrics__card">
+                    <span className="analysis__metrics__label">{t("common.inactive")}</span>
+                    <div className="analysis__metrics__value analysis__metrics__value--inactive">
+                        <MonitorDot className="analysis__metrics__icon"/>
                         {loading ? (
-                            <Skeleton.Button active style={{width: 100, height: 30}}/>
+                            <Skeleton.Button active style={{width: 60, height: 24}}/>
                         ) : (
-                            <CountUp
-                                end={data.inactiveCount}
-                                duration={3}
-                            />
+                            <CountUp end={data.inactiveCount} duration={3}/>
                         )}
                     </div>
                 </div>

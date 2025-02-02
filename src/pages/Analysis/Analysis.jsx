@@ -42,14 +42,10 @@ const Analysis = () => {
             </div>
 
             <div className="analysis__metrics">
-                <div className='analysis__metric-card'>
-                    <TransactionFinancialCard startPeriod={startPeriod} endPeriod={endPeriod}/>
-                    <TransactionNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
-                </div>
-                <div className='analysis__metric-card'>
-                    <DeviceStatusCard/>
-                    <NotifyNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
-                </div>
+                <TransactionFinancialCard startPeriod={startPeriod} endPeriod={endPeriod}/>
+                <TransactionNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
+                <DeviceStatusCard/>
+                <NotifyNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
             </div>
 
             <div className='analysis__charts'>
@@ -88,8 +84,7 @@ const Analysis = () => {
                 </div>
             </div>
         </div>
-    )
-        ;
+    );
 };
 
 export default Analysis;
