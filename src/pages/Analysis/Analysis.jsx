@@ -11,6 +11,7 @@ const {
     Period,
     TransactionFinancialCard,
     TransactionNumberCard,
+    DeviceLastStatusCard,
     DeviceStatusCard,
     NotifyNumberCard,
     PayMeTransactionsPieChart,
@@ -45,7 +46,7 @@ const Analysis = () => {
                 <div className="analysis__metrics-row">
                     <TransactionFinancialCard startPeriod={startPeriod} endPeriod={endPeriod}/>
                     <TransactionNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
-                    <DeviceStatusCard/>
+                    <DeviceLastStatusCard/>
                     <NotifyNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
                     <DeviceStatusCard/>
                 </div>

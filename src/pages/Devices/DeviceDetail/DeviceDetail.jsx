@@ -40,7 +40,7 @@ const DeviceDetail = () => {
     const fetchData = useCallback(async (serialNumber, token) => {
         setLoading(true);
         try {
-            const deviceResponse = await APIv1.get(`/device/status/${serialNumber}`, {
+            const deviceResponse = await APIv1.get(`/device/status/retrieve/${serialNumber}`, {
                 headers: {
                     Authorization: `Token ${token}`,
                 },

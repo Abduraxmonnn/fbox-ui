@@ -4,6 +4,7 @@
     "failure": "Неуспешный",
     "active": "Активный",
     "inactive": "Неактивный",
+    "disconnected": "Отключен",
     "id": "Идентификатор",
     "inn": "ИНН",
     "deviceSerial": "Серийный номер устройства",
@@ -62,7 +63,8 @@
       "mainTitles": {
         "transactionsFinancialTitle": "Доход от платежей",
         "transactionsCountsTitle": "Количество платежей",
-        "devicesTitle": "Активные устройства",
+        "devicesLastStatusTitle": "Активные устройства за 5 мин",
+        "devicesStatusTitle": "Активные устройства",
         "notifyTitle": "Количество отправленных уведомлений"
       },
       "mainSubtitles": {

@@ -9,7 +9,7 @@ const ActiveDevicesPieChart = () => {
 
     const fetchUserData = useCallback(async () => {
         try {
-            const response = await APIv1.get('/device/status/', {
+            const response = await APIv1.get('/device/recent/status/', {
                 headers: {
                     Authorization: `Token ${userData.token}`,
                 },
