@@ -3,9 +3,9 @@ import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {analysisStats} from "../../components/AnalysisStats";
 import {Logs} from "../index";
-import './Analysis.css';
 import dayjs from "dayjs";
 import {getFormattedPeriod} from "../../utils";
+import './Analysis.css';
 
 const {
     Period,

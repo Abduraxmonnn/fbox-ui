@@ -98,9 +98,31 @@
 
 .analysis__metrics__card {
     flex: 1;
-    background: #f8f9fa;
+    /*background: #f8f9fa;*/
     border-radius: 8px;
     padding: 12px;
+}
+
+.analysis__metrics__card-transaction__financial {
+    /*background: #bad5ff;*/
+    background: #d9edfc;
+}
+
+.analysis__metrics__card-transaction__counts {
+    /*background: #ffe8c8;*/
+    background: #fffbde;
+}
+
+.analysis__metrics__card-device__last_status {
+    background: #edfdf3;
+}
+
+.analysis__metrics__card-device__status {
+    background: #edfdf3;
+}
+
+.analysis__metrics__card-notify__count {
+    background: #f7edfd;
 }
 
 .analysis__metrics__label {

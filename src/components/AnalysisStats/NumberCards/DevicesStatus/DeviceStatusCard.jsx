@@ -55,7 +55,7 @@ const DeviceStatusCard: React.FC<TransactionCountCardProps> = () => {
     }, [userData.token]);
 
     return (
-        <div className="analysis__metrics__card">
+        <div className="analysis__metrics__card-device__status analysis__metrics__card">
             <h2>{t("analysis.numbersStats.mainTitles.devicesStatusTitle")}</h2>
             <div className="analysis__metrics__container">
                 <div className="analysis__metrics__card">

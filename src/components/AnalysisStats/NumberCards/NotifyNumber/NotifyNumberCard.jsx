@@ -56,7 +56,7 @@ const NotifyNumberCard: React.FC<TransactionCountCardProps> = ({startPeriod, end
     }, [userData.token]);
 
     return (
-        <div className="analysis__metrics__card">
+        <div className="analysis__metrics__card-notify__count analysis__metrics__card">
             <h2>{t("analysis.numbersStats.mainTitles.notifyTitle")}</h2>
             <div className="analysis__metrics__container">
                 <div className="analysis__metrics__card">

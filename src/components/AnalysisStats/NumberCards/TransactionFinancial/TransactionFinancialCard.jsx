@@ -1,10 +1,10 @@
 import CountUp from 'react-countup';
 import {ArrowUpRight, ArrowDownRight} from 'lucide-react';
-import './TransactionFinancial.css';
 import React, {useCallback, useEffect, useState} from "react";
 import {APIv1} from "../../../../api";
 import {Skeleton} from "antd";
 import {useTranslation} from 'react-i18next';
+import './TransactionFinancial.css';
 
 interface TransactionFinancialCardProps {
     successAmount?: number;
@@ -54,7 +54,7 @@ const TransactionFinancialCard: React.FC<TransactionFinancialCardProps> = ({star
     }, [userData.token]);
 
     return (
-        <div className="analysis__metrics__card">
+        <div className="analysis__metrics__card-transaction__financial analysis__metrics__card">
             <h2>{t("analysis.numbersStats.mainTitles.transactionsFinancialTitle")}</h2>
             <div className="analysis__metrics__container">
                 <div className="analysis__metrics__card">

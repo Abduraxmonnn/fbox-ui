@@ -54,7 +54,7 @@ const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({startPeriod
     }, [userData.token]);
 
     return (
-        <div className="analysis__metrics__card">
+        <div className="analysis__metrics__card-transaction__counts analysis__metrics__card">
             <h2>{t("analysis.numbersStats.mainTitles.transactionsCountsTitle")}</h2>
             <div className="analysis__metrics__container">
                 <div className="analysis__metrics__card">
