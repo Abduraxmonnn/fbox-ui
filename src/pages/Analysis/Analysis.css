@@ -106,23 +106,33 @@
 .analysis__metrics__card-transaction__financial {
     /*background: #bad5ff;*/
     background: #d9edfc;
+    border-style: dotted;
+    border-color: #0093ff;
 }
 
 .analysis__metrics__card-transaction__counts {
     /*background: #ffe8c8;*/
     background: #fffbde;
+    border-style: dotted;
+    border-color: #ffa600;
 }
 
 .analysis__metrics__card-device__last_status {
     background: #edfdf3;
+    border-style: dotted;
+    border-color: #26e52e;
 }
 
 .analysis__metrics__card-device__status {
     background: #edfdf3;
+    border-style: dotted;
+    border-color: #26e52e;
 }
 
 .analysis__metrics__card-notify__count {
     background: #f7edfd;
+    border-style: dotted;
+    border-color: #a000ff;
 }
 
 .analysis__metrics__label {
