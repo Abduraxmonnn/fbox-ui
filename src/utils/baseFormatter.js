@@ -16,3 +16,14 @@ export default function CurrencyFormatted(amount) {
     // £4.99
     return price.amount.toLocaleString(amount, options);
 }
+
+export function transactionStatusToColorFormatter(status) {
+    switch (status) {
+        case 'FISCALIZED':
+            return 'green';
+        case 'PAID':
+            return 'blue';
+        default:
+            return 'red';
+    }
+}

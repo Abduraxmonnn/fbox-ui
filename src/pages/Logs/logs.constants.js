@@ -2,8 +2,9 @@ import {Link} from "react-router-dom";
 import {LogsStatusIcon} from "../../utils/statusIcons";
 import React from "react";
 import dayjs, {Dayjs} from "dayjs";
-import {DatePicker} from "antd";
+import {DatePicker, Tag} from "antd";
 import usePeriodPresets from "../../optionsComponents/usePeriodOptions";
+import {transactionStatusToColorFormatter} from "../../utils";
 
 const {RangePicker} = DatePicker;
 
@@ -59,6 +60,18 @@ const LogsColumns = (t, handleChangePeriod) => {
             dataIndex: 'amount',
             sorter: true,
             orderIndex: "amount",
+            render: (text, record) => (
+                <>
+                    {[record.amount].map(tag => (
+                        <Tag
+                            color={transactionStatusToColorFormatter(record.status)}
+                            key={tag}
+                        >
+                            {`${String(tag)}`.toUpperCase()}
+                        </Tag>
+                    ))}
+                </>
+            ),
         },
         {
             title: t('pages.logs.listColumns.column6'),
