@@ -3,14 +3,15 @@ import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {analysisStats} from "../../components/AnalysisStats";
 import {Logs} from "../index";
-import './Analysis.css';
 import dayjs from "dayjs";
 import {getFormattedPeriod} from "../../utils";
+import './Analysis.css';
 
 const {
     Period,
     TransactionFinancialCard,
     TransactionNumberCard,
+    DeviceLastStatusCard,
     DeviceStatusCard,
     NotifyNumberCard,
     PayMeTransactionsPieChart,
@@ -42,13 +43,12 @@ const Analysis = () => {
             </div>
 
             <div className="analysis__metrics">
-                <div className='analysis__metric-card'>
-                    <TransactionFinancialCard startPeriod={startPeriod} endPeriod={endPeriod}/>
-                    <TransactionNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
-                </div>
-                <div className='analysis__metric-card'>
+                <div className="analysis__metrics-row">
+                    <DeviceLastStatusCard/>
                     <DeviceStatusCard/>
                     <NotifyNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
+                    <TransactionNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
+                    <TransactionFinancialCard startPeriod={startPeriod} endPeriod={endPeriod}/>
                 </div>
             </div>
 
@@ -88,8 +88,7 @@ const Analysis = () => {
                 </div>
             </div>
         </div>
-    )
-        ;
+    );
 };
 
 export default Analysis;

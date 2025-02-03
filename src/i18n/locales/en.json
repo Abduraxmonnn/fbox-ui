@@ -4,6 +4,7 @@
     "failure": "Failure",
     "active": "Active",
     "inactive": "Inactive",
+    "disconnected": "Disconnected",
     "inn": "INN",
     "deviceSerial": "Device serial",
     "deviceSerialNumber": "Device serial number",
@@ -61,7 +62,8 @@
       "mainTitles": {
         "transactionsFinancialTitle": "Payment Income",
         "transactionsCountsTitle": "No. of Payments",
-        "devicesTitle": "Active Devices",
+        "devicesLastStatusTitle": "Active Devices (5 mins)",
+        "devicesStatusTitle": "Active Devices",
         "notifyTitle": "No. of sent Notify"
       },
       "mainSubtitles": {

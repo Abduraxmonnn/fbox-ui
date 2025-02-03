@@ -56,38 +56,30 @@ const NotifyNumberCard: React.FC<TransactionCountCardProps> = ({startPeriod, end
     }, [userData.token]);
 
     return (
-        <div className="transaction-metrics">
-            <h2 className="transaction-metrics__title">{t("analysis.numbersStats.mainTitles.notifyTitle")}</h2>
-
-            <div className="transaction-metrics__container">
-                <div className="transaction-metrics__card">
+        <div className="analysis__metrics__card-notify__count analysis__metrics__card">
+            <h2>{t("analysis.numbersStats.mainTitles.notifyTitle")}</h2>
+            <div className="analysis__metrics__container">
+                <div className="analysis__metrics__card">
                     <span
-                        className="transaction-metrics__label">{t("analysis.numbersStats.mainSubtitles.notifySms")}</span>
-                    <div className="transaction-metrics__count">
-                        <MessageSquareMore className="transaction-metrics__icon transaction-metrics__icon--sms"/>
+                        className="analysis__metrics__label">{t("analysis.numbersStats.mainSubtitles.notifySms")}</span>
+                    <div className="analysis__metrics__value analysis__metrics__value--sms">
+                        <MessageSquareMore className="analysis__metrics__icon"/>
                         {loading ? (
-                            <Skeleton.Button active style={{width: 150, height: 30}}/>
+                            <Skeleton.Button active style={{width: 60, height: 24}}/>
                         ) : (
-                            <CountUp
-                                end={data.smsCount}
-                                duration={3}
-                            />
+                            <CountUp end={data.smsCount} duration={3}/>
                         )}
                     </div>
                 </div>
-
-                <div className="transaction-metrics__card">
+                <div className="analysis__metrics__card">
                     <span
-                        className="transaction-metrics__label">{t("analysis.numbersStats.mainSubtitles.notifyEmail")}</span>
-                    <div className="transaction-metrics__count">
-                        <Mail className="transaction-metrics__icon transaction-metrics__icon--email"/>
+                        className="analysis__metrics__label">{t("analysis.numbersStats.mainSubtitles.notifyEmail")}</span>
+                    <div className="analysis__metrics__value analysis__metrics__value--email">
+                        <Mail className="analysis__metrics__icon"/>
                         {loading ? (
-                            <Skeleton.Button active style={{width: 150, height: 30}}/>
+                            <Skeleton.Button active style={{width: 60, height: 24}}/>
                         ) : (
-                            <CountUp
-                                end={data.emailCount}
-                                duration={3}
-                            />
+                            <CountUp end={data.emailCount} duration={3}/>
                         )}
                     </div>
                 </div>

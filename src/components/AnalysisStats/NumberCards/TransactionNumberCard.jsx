@@ -54,36 +54,28 @@ const TransactionNumberCard: React.FC<TransactionCountCardProps> = ({startPeriod
     }, [userData.token]);
 
     return (
-        <div className="transaction-metrics">
-            <h2 className="transaction-metrics__title">{t("analysis.numbersStats.mainTitles.transactionsCountsTitle")}</h2>
-
-            <div className="transaction-metrics__container">
-                <div className="transaction-metrics__card">
-                    <span className="transaction-metrics__label">{t('common.success')}</span>
-                    <div className="transaction-metrics__count">
-                        <CheckCircle className="transaction-metrics__icon transaction-metrics__icon--success"/>
+        <div className="analysis__metrics__card-transaction__counts analysis__metrics__card">
+            <h2>{t("analysis.numbersStats.mainTitles.transactionsCountsTitle")}</h2>
+            <div className="analysis__metrics__container">
+                <div className="analysis__metrics__card">
+                    <span className="analysis__metrics__label">{t("common.success")}</span>
+                    <div className="analysis__metrics__value analysis__metrics__value--success">
+                        <CheckCircle className="analysis__metrics__icon"/>
                         {loading ? (
-                            <Skeleton.Button active style={{width: 100, height: 30}}/>
+                            <Skeleton.Button active style={{width: 60, height: 24}}/>
                         ) : (
-                            <CountUp
-                                end={fetchedData.successCount}
-                                duration={5}
-                            />
+                            <CountUp end={fetchedData.successCount} duration={5}/>
                         )}
                     </div>
                 </div>
-
-                <div className="transaction-metrics__card">
-                    <span className="transaction-metrics__label">{t('common.failure')}</span>
-                    <div className="transaction-metrics__count">
-                        <XCircle className="transaction-metrics__icon transaction-metrics__icon--failure"/>
+                <div className="analysis__metrics__card">
+                    <span className="analysis__metrics__label">{t("common.failure")}</span>
+                    <div className="analysis__metrics__value analysis__metrics__value--failure">
+                        <XCircle className="analysis__metrics__icon"/>
                         {loading ? (
-                            <Skeleton.Button active style={{width: 100, height: 30}}/>
+                            <Skeleton.Button active style={{width: 60, height: 24}}/>
                         ) : (
-                            <CountUp
-                                end={fetchedData.failureCount}
-                                duration={5}
-                            />
+                            <CountUp end={fetchedData.failureCount} duration={5}/>
                         )}
                     </div>
                 </div>

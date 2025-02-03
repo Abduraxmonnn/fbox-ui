@@ -20,15 +20,146 @@
 }
 
 .analysis__metrics {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 24px;
     margin-bottom: 24px;
 }
 
-.analysis__metric-card {
+.analysis__metrics-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.analysis__metrics-row > * {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     padding: 24px;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.analysis__metrics-row > *:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+
+.analysis__metrics-row:has(:nth-child(5):last-child) > :nth-child(5),
+.analysis__metrics-row:has(:nth-child(5):last-child) > .analysis__metrics-spacer {
+    grid-column: span 2;
+}
+
+.analysis__metrics-row:not(:has(:nth-child(5):last-child)) > .analysis__metrics-spacer {
+    display: none;
+}
+
+.analysis__metrics > div {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 16px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.analysis__metrics > div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+
+.analysis__metrics h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    color: #1a1a1a;
+}
+
+.analysis__metrics > *:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+}
+
+.analysis__metrics > * {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 24px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.analysis__metrics > *:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+
+.analysis__metrics__container {
+    display: flex;
+    gap: 16px;
+}
+
+.analysis__metrics__card {
+    flex: 1;
+    /*background: #f8f9fa;*/
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.analysis__metrics__card-transaction__financial {
+    /*background: #bad5ff;*/
+    background: #d9edfc;
+    border-style: dotted;
+    border-color: #0093ff;
+}
+
+.analysis__metrics__card-transaction__counts {
+    /*background: #ffe8c8;*/
+    background: #fffbde;
+    border-style: dotted;
+    border-color: #ffa600;
+}
+
+.analysis__metrics__card-device__last_status {
+    background: #edfdf3;
+    border-style: dotted;
+    border-color: #26e52e;
+}
+
+.analysis__metrics__card-device__status {
+    background: #edfdf3;
+    border-style: dotted;
+    border-color: #26e52e;
+}
+
+.analysis__metrics__card-notify__count {
+    background: #f7edfd;
+    border-style: dotted;
+    border-color: #a000ff;
+}
+
+.analysis__metrics__label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.analysis__metrics__value {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.analysis__metrics__icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+.analysis__metrics__value--success,
+.analysis__metrics__value--active,
+.analysis__metrics__value--sms {
+    color: #34a853;
 }
 
 .analysis__charts {
@@ -114,7 +245,6 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
 }
 
-.analysis__metric-card:hover,
 .analysis__charts:hover,
 .analysis__orders-card:hover {
     transform: translateY(-2px);
@@ -136,6 +266,14 @@
         left: 0 !important;
         top: 0 !important;
     }
+
+    .analysis__metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .analysis__metrics > *:last-child:nth-child(odd) {
+        grid-column: auto;
+    }
 }
 
 @media (max-width: 992px) {
@@ -150,7 +288,6 @@
     }
 
     .analysis__header,
-    .analysis__metric-card,
     .analysis__chart-card,
     .analysis__orders-card {
         padding: 16px;
@@ -167,6 +304,10 @@
     .analysis__orders-title {
         font-size: 1.1rem;
     }
+
+    .analysis__metrics {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 480px) {
@@ -175,7 +316,6 @@
     }
 
     .analysis__header,
-    .analysis__metric-card,
     .analysis__chart-card,
     .analysis__orders-card {
         padding: 12px;

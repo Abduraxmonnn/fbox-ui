@@ -4,6 +4,7 @@
     "failure": "Muvaffaqiyatsiz",
     "active": "Faol",
     "inactive": "Faol emas",
+    "disconnected": "Uzilgan/O'chirilgan",
     "id": "id",
     "inn": "INN",
     "deviceSerial": "Uskunaning seriya raqami",
@@ -62,8 +63,9 @@
       "mainTitles": {
         "transactionsFinancialTitle": "To'lovlar daromadi",
         "transactionsCountsTitle": "To'lovlar soni",
-        "notifyTitle": "Yuborilgan bildirishnomalar soni",
-        "devicesTitle": "Faol qurilmalar"
+        "devicesLastStatusTitle": "5 daqiqadagi faol qurilmalar",
+        "devicesStatusTitle": "Faol qurilmalar",
+        "notifyTitle": "Yuborilgan bildirishnomalar soni"
       },
       "mainSubtitles": {
         "notifySms": "SMS",
