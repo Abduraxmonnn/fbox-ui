@@ -44,11 +44,11 @@ const Analysis = () => {
 
             <div className="analysis__metrics">
                 <div className="analysis__metrics-row">
+                    <TransactionFinancialCard startPeriod={startPeriod} endPeriod={endPeriod}/>
                     <DeviceLastStatusCard/>
-                    <DeviceStatusCard/>
                     <NotifyNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
                     <TransactionNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
-                    <TransactionFinancialCard startPeriod={startPeriod} endPeriod={endPeriod}/>
+                    <DeviceStatusCard/>
                 </div>
             </div>
 
