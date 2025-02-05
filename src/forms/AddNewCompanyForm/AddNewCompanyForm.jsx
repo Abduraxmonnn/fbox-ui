@@ -159,6 +159,7 @@ const AddNewCompanyForm = () => {
                 inn: formData.inn,
                 version: formData.version,
                 phone_number: formData.phone,
+                address: formData.address,
                 user: user,
                 pay_me: formData.status.perm_payme,
                 click: formData.status.perm_click,
@@ -196,7 +197,7 @@ const AddNewCompanyForm = () => {
                         perm_anor: response.data.anor,
                     }
                 });
-                window.location.reload();  // keep till fixing bug (fields goes to empty after click submit)
+                // window.location.reload();  // keep till fixing bug (fields goes to empty after click submit)
 
             } else {
                 message.info(t("pages.companies.createColumns.messages.info1"));
