@@ -27,3 +27,14 @@ export function transactionStatusToColorFormatter(status) {
             return 'red';
     }
 }
+
+export function deviceStatusToColorFormatter(status) {
+    switch (status) {
+        case 'ACTIVE':
+            return 'green';
+        case 'INACTIVE':
+            return 'blue';
+        default:
+            return 'red';
+    }
+}

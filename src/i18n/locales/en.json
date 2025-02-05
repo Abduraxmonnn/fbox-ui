@@ -209,10 +209,11 @@
           "row1": "User",
           "row2": "Multiple user",
           "row3": "Updated available",
-          "row4": "Activity",
+          "row4": "Status",
           "row5": "Last update date",
           "row6": "Start date",
-          "row7": "End date"
+          "row7": "End date",
+          "row8": "Activity"
         },
         "container2": {
           "title": "Status",

@@ -151,39 +151,6 @@ const DeviceDetail = () => {
                                         </li>
                                         <li className="detail-view__item">
                                             <span
-                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row2")}:</span>
-                                            <span
-                                                className={`detail-view__tag ${deviceData.device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                                          {deviceData.device.is_multi_user ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
-                                        </span>
-                                        </li>
-                                        <li className="detail-view__item">
-                                            <span
-                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row3")}:</span>
-                                            <span
-                                                className={`detail-view__tag ${deviceData.device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
-                                          {deviceData.device.is_multi_user ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
-                                        </span>
-                                        </li>
-                                        <li className="detail-view__item">
-                                            <span
-                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row4")}:</span>
-                                            <span
-                                                className="detail-view__value">{deviceStatusInactiveTimeToText[deviceData.is_active_time]} ... {deviceData.is_active ?
-                                                <MonitorCheck size={18} color={'#1cb344'}/> :
-                                                <MonitorDot size={18}
-                                                            color={deviceStatusInactiveTime[deviceData.is_active_time]}/>}
-                                        </span>
-                                        </li>
-                                        <li className="detail-view__item">
-                                            <span
-                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row5")}:</span>
-                                            <span
-                                                className="detail-view__value">{extractDateBySecond(deviceData.updated_date)}
-                                        </span>
-                                        </li>
-                                        <li className="detail-view__item">
-                                            <span
                                                 className="detail-view__label">{t("pages.devices.detailColumns.container1.row6")}:</span>
                                             <span
                                                 className="detail-view__value">{extractDate(deviceData.device.start_date)}</span>
@@ -194,23 +161,100 @@ const DeviceDetail = () => {
                                             <span
                                                 className="detail-view__value">{extractDate(deviceData.device.end_date)}</span>
                                         </li>
+                                        <li className="detail-view__item">
+                                            <span
+                                                className="detail-view__label">{t("pages.devices.detailColumns.container2.version_number")}:</span>
+                                            <span
+                                                className="detail-view__value">{deviceData.version_number}</span>
+                                        </li>
+                                        <li className="detail-view__item">
+                                            <span
+                                                className="detail-view__label">
+                                                {t("pages.devices.detailColumns.container2.device_ip_address")}:
+                                            </span>
+                                            <span
+                                                className="detail-view__value">
+                                                {deviceData.device_ip_address}
+                                            </span>
+                                        </li>
+                                        <li className="detail-view__item">
+                                            <span
+                                                className="detail-view__label">
+                                                {t("pages.devices.detailColumns.container2.terminal_id")}:
+                                            </span>
+                                            <span
+                                                className="detail-view__value">
+                                                {deviceData.terminal_id}
+                                            </span>
+                                        </li>
                                     </ul>
                                 </div>
 
                                 <div className="detail-view__section detail-view__section--half">
                                     <h2 className="detail-view__section-title">{t("pages.devices.detailColumns.container2.title")}</h2>
                                     <ul className="detail-view__list">
-                                        {['z_report_left_count', 'device_ip_address', 'orders_not_sent_count', 'version_number', 'terminal_id'].map(field => (
-                                            <li key={field} className="detail-view__item">
+                                        <li className="detail-view__item">
                                             <span
-                                                className="detail-view__label">{t(`pages.devices.detailColumns.container2.${field}`)}:</span>
-                                                <span className="detail-view__value">
-                                                {deviceData[field] ||
-                                                    <span
-                                                        className="detail-view__tag detail-view__tag--empty">{t("common.detailPages.empty")}</span>}
-                                              </span>
-                                            </li>
-                                        ))}
+                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row4")}:</span>
+                                            <span
+                                                className={`detail-view__tag detail-view__tag--${deviceData.device.status.toLowerCase()}`}>
+                                                {deviceData.device.status}
+                                            </span>
+                                        </li>
+                                        <li className="detail-view__item">
+                                            <span
+                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row8")}:</span>
+                                            <span
+                                                className="detail-view__value">{deviceStatusInactiveTimeToText[deviceData.is_active_time]} ... {deviceData.is_active ?
+                                                <MonitorCheck size={18} color={'#1cb344'}/> :
+                                                <MonitorDot size={18}
+                                                            color={deviceStatusInactiveTime[deviceData.is_active_time]}/>}
+                                            </span>
+                                        </li>
+                                        <li className="detail-view__item">
+                                            <span
+                                                className="detail-view__label">
+                                                {t("pages.devices.detailColumns.container2.z_report_left_count")}:
+                                            </span>
+                                            <span
+                                                className="detail-view__value">
+                                                {deviceData.z_report_left_count}
+                                            </span>
+                                        </li>
+                                        <li className="detail-view__item">
+                                            <span
+                                                className="detail-view__label">
+                                                {t("pages.devices.detailColumns.container2.orders_not_sent_count")}:
+                                            </span>
+                                            <span
+                                                className="detail-view__value">
+                                                {deviceData.orders_not_sent_count}
+                                            </span>
+                                        </li>
+                                        <li className="detail-view__item">
+                                            <span
+                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row2")}:
+                                            </span>
+                                            <span
+                                                className={`detail-view__tag ${deviceData.device.is_multi_user ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
+                                                {deviceData.device.is_multi_user ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
+                                            </span>
+                                        </li>
+                                        <li className="detail-view__item">
+                                            <span
+                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row3")}:</span>
+                                            <span
+                                                className={`detail-view__tag ${deviceData.device.update_available ? 'detail-view__tag--success' : 'detail-view__tag--error'}`}>
+                                                {deviceData.device.update_available ? `${t("common.detailPages.access")}` : `${t("common.detailPages.decline")}`}
+                                            </span>
+                                        </li>
+                                        <li className="detail-view__item">
+                                            <span
+                                                className="detail-view__label">{t("pages.devices.detailColumns.container1.row5")}:</span>
+                                            <span
+                                                className="detail-view__value">{extractDateBySecond(deviceData.updated_date)}
+                                            </span>
+                                        </li>
                                     </ul>
                                 </div>
 

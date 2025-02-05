@@ -210,10 +210,11 @@
           "row1": "Foydalanuvchi",
           "row2": "Bir nechta foydalanuvchi",
           "row3": "Yangilangan mavjudlik",
-          "row4": "Faoliyat",
+          "row4": "Holat",
           "row5": "So'nggi yangilanish sanasi",
           "row6": "Boshlanish sanasi",
-          "row7": "Tugash sanasi"
+          "row7": "Tugash sanasi",
+          "row8": "Faolik"
         },
         "container2": {
           "title": "Holat",
