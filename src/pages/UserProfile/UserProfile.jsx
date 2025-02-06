@@ -251,6 +251,7 @@ const UserProfile = () => {
                                 type="username"
                                 value={profileData.username}
                                 onChange={handleInputChange}
+                                disabled={true}
                             />
                         </div>
 
