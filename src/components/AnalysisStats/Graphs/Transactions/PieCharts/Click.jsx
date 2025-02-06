@@ -2,22 +2,22 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Chart, registerables} from 'chart.js';
 import {Pie} from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import {APIv1} from "../../../../api";
-import {Skeleton} from 'antd';
-import {generatePieChartOptions} from "../../../../utils/analysisUtils";
-import '../GraphBaseStyle.scss'
+import {APIv1} from "../../../../../api";
+import {Skeleton} from "antd";
+import {generatePieChartOptions} from "../../../../../utils/analysisUtils";
+import '../../GraphBaseStyle.scss'
 
 Chart.register(...registerables, ChartDataLabels);
 
-const PayMeTransactionsPieChart = ({startPeriod, endPeriod}) => {
+const ClickTransactionsPieChart = ({startPeriod, endPeriod}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchPayMeData = useCallback(async () => {
+    const fetchClickData = useCallback(async () => {
         setLoading(true);
         try {
-            let url = (startPeriod && endPeriod) ? `/analysis/transactions/counts/payme/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/transactions/counts/payme/';
+            let url = (startPeriod && endPeriod) ? `/analysis/transactions/counts/click/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/transactions/counts/click/'
             const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -40,7 +40,7 @@ const PayMeTransactionsPieChart = ({startPeriod, endPeriod}) => {
     useEffect(() => {
         if (!userData.token) return;
 
-        fetchPayMeData()
+        fetchClickData()
     }, [userData.token, startPeriod, endPeriod])
 
     useEffect(() => {
@@ -54,6 +54,7 @@ const PayMeTransactionsPieChart = ({startPeriod, endPeriod}) => {
         labels: ['Success', 'Failure'],
         datasets: [
             {
+                label: '# of Votes',
                 data: [fetchedData.success, fetchedData.failure],
                 borderWidth: 2,
                 backgroundColor: [
@@ -84,4 +85,5 @@ const PayMeTransactionsPieChart = ({startPeriod, endPeriod}) => {
     );
 };
 
-export default PayMeTransactionsPieChart;
+export default ClickTransactionsPieChart;
+

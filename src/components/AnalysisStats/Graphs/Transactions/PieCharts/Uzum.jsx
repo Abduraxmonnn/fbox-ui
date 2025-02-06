@@ -2,22 +2,22 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Chart, registerables} from 'chart.js';
 import {Pie} from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import {APIv1} from "../../../../api";
+import {APIv1} from "../../../../../api";
 import {Skeleton} from "antd";
-import {generatePieChartOptions} from "../../../../utils/analysisUtils";
-import '../GraphBaseStyle.scss'
+import {generatePieChartOptions} from "../../../../../utils/analysisUtils";
+import '../../GraphBaseStyle.scss'
 
 Chart.register(...registerables, ChartDataLabels);
 
-const AnorTransactionsPieChart = ({startPeriod, endPeriod}) => {
+const UzumTransactionsPieChart = ({startPeriod, endPeriod}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchAnorData = useCallback(async () => {
+    const fetchUzumData = useCallback(async () => {
         setLoading(true);
         try {
-            let url = (startPeriod && endPeriod) ? `/analysis/transactions/counts/anor/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/transactions/counts/anor/'
+            let url = (startPeriod && endPeriod) ? `/analysis/transactions/counts/uzum/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/transactions/counts/uzum/'
             const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -40,7 +40,7 @@ const AnorTransactionsPieChart = ({startPeriod, endPeriod}) => {
     useEffect(() => {
         if (!userData.token) return;
 
-        fetchAnorData()
+        fetchUzumData()
     }, [userData.token, startPeriod, endPeriod])
 
     useEffect(() => {
@@ -68,7 +68,6 @@ const AnorTransactionsPieChart = ({startPeriod, endPeriod}) => {
             },
         ],
     };
-
     const options = generatePieChartOptions(false);
 
     return (
@@ -85,5 +84,5 @@ const AnorTransactionsPieChart = ({startPeriod, endPeriod}) => {
     );
 };
 
-export default AnorTransactionsPieChart;
+export default UzumTransactionsPieChart;
 

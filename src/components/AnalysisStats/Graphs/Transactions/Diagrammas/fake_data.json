@@ -1,0 +1,42 @@
+[
+    {
+        "date": 2023,
+        "value": 1000,
+        "provider": "PAYME"
+    },
+    {
+        "date": 2023,
+        "value": 1100,
+        "provider": "PAYME"
+    },
+    {
+        "date": 2024,
+        "value": 1200,
+        "provider": "CLICK"
+    },
+    {
+        "date": 2024,
+        "value": 1300,
+        "provider": "CLICK"
+    },
+    {
+        "date": 2025,
+        "value": 1400,
+        "provider": "UZUM"
+    },
+    {
+        "date": 2023,
+        "value": 1500,
+        "provider": "UZUM"
+    },
+    {
+        "date": 2024,
+        "value": 1600,
+        "provider": "ANOR"
+    },
+    {
+        "date": 2024,
+        "value": 1700,
+        "provider": "ANOR"
+    }
+]

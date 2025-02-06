@@ -6,6 +6,7 @@ import {Logs} from "../index";
 import dayjs from "dayjs";
 import {getFormattedPeriod} from "../../utils";
 import './Analysis.css';
+import AreaChartComponent from "../../components/AnalysisStats/Graphs/Transactions/Diagrammas/TransactionCounts";
 
 const {
     Period,
@@ -50,6 +51,10 @@ const Analysis = () => {
                     <TransactionNumberCard startPeriod={startPeriod} endPeriod={endPeriod}/>
                     <TransactionFinancialCard startPeriod={startPeriod} endPeriod={endPeriod}/>
                 </div>
+            </div>
+
+            <div>
+                <AreaChartComponent/>
             </div>
 
             <div className='analysis__charts'>

@@ -2,22 +2,22 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Chart, registerables} from 'chart.js';
 import {Pie} from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import {APIv1} from "../../../../api";
-import {Skeleton} from "antd";
-import {generatePieChartOptions} from "../../../../utils/analysisUtils";
-import '../GraphBaseStyle.scss'
+import {APIv1} from "../../../../../api";
+import {Skeleton} from 'antd';
+import {generatePieChartOptions} from "../../../../../utils/analysisUtils";
+import '../../GraphBaseStyle.scss'
 
 Chart.register(...registerables, ChartDataLabels);
 
-const UzumTransactionsPieChart = ({startPeriod, endPeriod}) => {
+const PayMeTransactionsPieChart = ({startPeriod, endPeriod}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchUzumData = useCallback(async () => {
+    const fetchPayMeData = useCallback(async () => {
         setLoading(true);
         try {
-            let url = (startPeriod && endPeriod) ? `/analysis/transactions/counts/uzum/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/transactions/counts/uzum/'
+            let url = (startPeriod && endPeriod) ? `/analysis/transactions/counts/payme/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/transactions/counts/payme/';
             const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -40,7 +40,7 @@ const UzumTransactionsPieChart = ({startPeriod, endPeriod}) => {
     useEffect(() => {
         if (!userData.token) return;
 
-        fetchUzumData()
+        fetchPayMeData()
     }, [userData.token, startPeriod, endPeriod])
 
     useEffect(() => {
@@ -54,7 +54,6 @@ const UzumTransactionsPieChart = ({startPeriod, endPeriod}) => {
         labels: ['Success', 'Failure'],
         datasets: [
             {
-                label: '# of Votes',
                 data: [fetchedData.success, fetchedData.failure],
                 borderWidth: 2,
                 backgroundColor: [
@@ -68,6 +67,7 @@ const UzumTransactionsPieChart = ({startPeriod, endPeriod}) => {
             },
         ],
     };
+
     const options = generatePieChartOptions(false);
 
     return (
@@ -84,5 +84,4 @@ const UzumTransactionsPieChart = ({startPeriod, endPeriod}) => {
     );
 };
 
-export default UzumTransactionsPieChart;
-
+export default PayMeTransactionsPieChart;

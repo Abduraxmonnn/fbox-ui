@@ -2,22 +2,22 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Chart, registerables} from 'chart.js';
 import {Pie} from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import {APIv1} from "../../../../api";
+import {APIv1} from "../../../../../api";
 import {Skeleton} from "antd";
-import {generatePieChartOptions} from "../../../../utils/analysisUtils";
-import '../GraphBaseStyle.scss'
+import {generatePieChartOptions} from "../../../../../utils/analysisUtils";
+import '../../GraphBaseStyle.scss'
 
 Chart.register(...registerables, ChartDataLabels);
 
-const ClickTransactionsPieChart = ({startPeriod, endPeriod}) => {
+const AnorTransactionsPieChart = ({startPeriod, endPeriod}) => {
     const [userData, setUserData] = useState({});
     const [fetchedData, setFetchedData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchClickData = useCallback(async () => {
+    const fetchAnorData = useCallback(async () => {
         setLoading(true);
         try {
-            let url = (startPeriod && endPeriod) ? `/analysis/transactions/counts/click/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/transactions/counts/click/'
+            let url = (startPeriod && endPeriod) ? `/analysis/transactions/counts/anor/?start_period=${startPeriod}&end_period=${endPeriod}` : '/analysis/transactions/counts/anor/'
             const response = await APIv1.get(url, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -40,7 +40,7 @@ const ClickTransactionsPieChart = ({startPeriod, endPeriod}) => {
     useEffect(() => {
         if (!userData.token) return;
 
-        fetchClickData()
+        fetchAnorData()
     }, [userData.token, startPeriod, endPeriod])
 
     useEffect(() => {
@@ -85,5 +85,5 @@ const ClickTransactionsPieChart = ({startPeriod, endPeriod}) => {
     );
 };
 
-export default ClickTransactionsPieChart;
+export default AnorTransactionsPieChart;
 
