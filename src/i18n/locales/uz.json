@@ -8,6 +8,7 @@
     "offline": "Oflayn",
     "disconnected": "Ro'yhatdan chiqarilgan",
     "suspended": "Vaqtinchalik to'xtatilgan",
+    "thanks": "Rahmat!",
     "id": "id",
     "inn": "INN",
     "deviceSerial": "Uskunaning seriya raqami",
@@ -55,7 +56,9 @@
   "analysis": {
     "headerFilters": {
       "period": {
-        "title": "Davr bo'yicha guruhlash",
+        "title1": "Davr bo'yicha guruhlash",
+        "title2": "Sayt sinov rejimida!",
+        "title3": "Agar xatolikni sezsangiz, iltimos, bizga xabar bering - ",
         "last7Days": "So‘nggi 7 kun",
         "last14Days": "So‘nggi 14 kun",
         "last30Days": "So‘nggi 30 kun",

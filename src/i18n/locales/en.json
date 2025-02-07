@@ -8,6 +8,7 @@
     "offline": "Offline",
     "suspended": "Temporarily suspended",
     "disconnected": "Снята с учета",
+    "thanks": "Thanks!",
     "inn": "INN",
     "deviceSerial": "Device serial",
     "deviceSerialNumber": "Device serial number",
@@ -54,7 +55,9 @@
   "analysis": {
     "headerFilters": {
       "period": {
-        "title": "Group by",
+        "title1": "Group by",
+        "title2": "The site is in test mode!",
+        "title3": "If you notice an error, please let us know through the ",
         "last7Days": "Last 7 Days",
         "last14Days": "Last 14 Days",
         "last30Days": "Last 30 days",

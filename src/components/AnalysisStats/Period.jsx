@@ -16,7 +16,7 @@ const Period = ({handleChangePeriod}) => {
     return (
         <>
             <Space wrap>
-                <span>{t('analysis.headerFilters.period.title')}</span>
+                <span>{t('analysis.headerFilters.period.title1')}</span>
                 <RangePicker
                     presets={usePeriodPresets()}
                     defaultValue={[
@@ -27,12 +27,13 @@ const Period = ({handleChangePeriod}) => {
                     disabledDate={disabledDate}
                     allowClear={false}
                 />
-                <span style={{ fontSize: 16 }}>
+                <span style={{fontSize: 16}}>
                     <Tag color="red" size="sm">
-                        Сайт в тестовом режиме!
+                        {t("analysis.headerFilters.period.title2")}
                     </Tag>
                     <Tag color="green" size="sm">
-                        Если заметили ошибку, сообщите нам через <Link to={'/feedback/'}>Отзыв</Link>. Спасибо!
+                        {t("analysis.headerFilters.period.title3")} <Link
+                        to={'/feedback/'}>{t("pages.feedback.title")}</Link>. {t("common.thanks")}
                     </Tag>
                 </span>
                 {/*<Select*/}
