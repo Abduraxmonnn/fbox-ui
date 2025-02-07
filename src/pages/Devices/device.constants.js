@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {Tag} from 'antd';
+import {Tag, Tooltip} from 'antd';
 import {MonitorCheck, MonitorDot} from 'lucide-react';
 import {deviceStatusInactiveTime} from '../../utils';
 import React from "react";
@@ -15,8 +15,15 @@ const DevicesColumns = (t) => {
             render: (text, record) => (
                 <>
                     {[record.is_active].map(tag => (
-                        tag ? <MonitorCheck key={tag} size={18} color={'#1cb344'}/> :
-                            <MonitorDot key={tag} size={18} color={deviceStatusInactiveTime[record.is_active_time]}/>
+                        tag ?
+                            <Tooltip key={tag} title="Device is Active">
+                                <MonitorCheck size={18} color={'#1cb344'}/>
+                            </Tooltip>
+                            :
+                            <Tooltip key={tag}
+                                     title={`Inactive ${deviceStatusInactiveTime[record.is_active_time][1]}`}>
+                                <MonitorDot size={18} color={deviceStatusInactiveTime[record.is_active_time][0]}/>
+                            </Tooltip>
                     ))}
                 </>
             ),
