@@ -6,10 +6,9 @@ import {userSignIn} from "../../store/auth/user.action";
 
 const initialState = {username: "", password: ""}
 
-const SignInForm = props => {
+const SignInForm = ({setUser}) => {
     const [formData, setFormData] = useState(initialState);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
@@ -17,7 +16,9 @@ const SignInForm = props => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(userSignIn(formData, navigate));
+        dispatch(userSignIn(formData, (user) => {
+            setUser(user);
+        }));
     };
 
     return (
@@ -60,7 +61,7 @@ const SignInForm = props => {
 
             <Form.Item
                 // label='Password'
-                label={<label style={{ color: "white" }}>Password</label>}
+                label={<label style={{color: "white"}}>Password</label>}
                 name='password'
                 rules={[
                     {

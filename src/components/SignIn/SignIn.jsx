@@ -15,7 +15,7 @@ const SignIn = () => {
         if (user) {
             navigate("/analysis")
         }
-    }, []);
+    }, [user, navigate]);
 
     return (
         <section className='sign-in'>
@@ -23,7 +23,7 @@ const SignIn = () => {
                 <h1>Login to Account</h1>
                 <span>Please enter your email and password to continue</span>
                 {signInError && <p className="auth-fail-msg">Invalid Username or Password</p>}
-                <SignInForm/>
+                <SignInForm setUser={setUser} />
             </div>
         </section>
     )
