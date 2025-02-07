@@ -1,7 +1,16 @@
 import {Link} from "react-router-dom";
 import React from "react";
+import {DatePicker} from "antd";
+import usePeriodPresets from "../../optionsComponents/usePeriodOptions";
+import dayjs, {Dayjs} from "dayjs";
 
-const CompaniesColumns = (t) => {
+const {RangePicker} = DatePicker;
+
+const CompaniesColumns = (t, handleChangePeriod) => {
+    const disabledDate = (current: Dayjs) => {
+        return dayjs().add(1, 'day') < current;
+    };
+
     return [
         {
             title: t('pages.companies.listColumns.column1'),
@@ -29,9 +38,22 @@ const CompaniesColumns = (t) => {
         },
         {
             title: t('pages.companies.listColumns.column4'),
-            dataIndex: 'company_count_sent_sms',
-            sorter: true,
-            orderIndex: "send_sms",
+            dataIndex: 'current_month_sms_count',
+            // sorter: true,
+            sorter: (a, b) => a.current_month_sms_count - b.current_month_sms_count,
+            orderIndex: "current_month_sms_count",
+            filterDropdown: () => (
+                <div style={{padding: 8}}>
+                    <RangePicker
+                        presets={usePeriodPresets}
+                        onChange={handleChangePeriod}
+                        disabledDate={disabledDate}
+                        allowClear={true}
+                        style={{marginBottom: 16}}
+                        placeholder={[`${t("common.filter.dateFilter1")}`, `${t("common.filter.dateFilter2")}`]}
+                    />
+                </div>
+            ),
         },
         {
             title: t('pages.companies.listColumns.column5'),

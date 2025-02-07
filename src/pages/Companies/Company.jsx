@@ -3,7 +3,7 @@ import {Table, FloatButton} from 'antd';
 import {FileAddOutlined} from '@ant-design/icons';
 import {APIv1} from '../../api';
 import {Link, useOutletContext} from 'react-router-dom';
-import {handleTableChange, useRowNavigation} from "../../utils";
+import {getFormattedPeriod, handleTableChange, useRowNavigation} from "../../utils";
 import CompaniesColumns from "./company.constants";
 import {useTranslation} from "react-i18next";
 
@@ -17,23 +17,46 @@ const Company = () => {
     let defaultPageSize = 20;
 
     const {t} = useTranslation();
-    const columns = CompaniesColumns(t);
     const [userData, setUserData] = useState({});
     const [isUserStaff, setIsUserStaff] = useState({});
     const [companies, setCompanies] = useState([]);
     const [selectionType] = useState('checkbox');
-    const [totalCompaniesCount, setTotalCompaniesCount] = useState(0)
-    const [currentPage, setCurrentPage] = useState(1)
-    const [pageSize, setPageSize] = useState(defaultPageSize)
+    const [totalCompaniesCount, setTotalCompaniesCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(defaultPageSize);
+    const [startPeriod, setStartPeriod] = useState(null);
+    const [endPeriod, setEndPeriod] = useState(null);
     const [loading, setLoading] = useState(true);
     const [sortField, setSortField] = useState('');
     const [sortOrder, setSortOrder] = useState('');
     const {searchText} = useOutletContext();
 
+    const handleChangePeriod = (value) => {
+        if (value === null || value === 0) {
+            setStartPeriod(null);
+            setEndPeriod(null);
+        } else {
+            const {startPeriod, endPeriod} = getFormattedPeriod(value[0], value[1]);
+            console.log(startPeriod);
+            console.log(endPeriod);
+            setStartPeriod(startPeriod);
+            setEndPeriod(endPeriod);
+        }
+    };
+
+    const columns = CompaniesColumns(t, handleChangePeriod);
+
     const fetchCompanies = useCallback(async (page, size, search = '', ordering = '') => {
         setLoading(true);
         try {
-            const response = await APIv1.get(`/company/list/`, {
+            let pre_url = '/company/list/';
+
+            // Conditionally add date filters only if they are set
+            let url = pre_url;
+            if (startPeriod && endPeriod) {
+                url = `${pre_url}?start_period=${startPeriod}&end_period=${endPeriod}`;
+            }
+            const response = await APIv1.get(url, {
                 params: {
                     page,
                     page_size: size,
@@ -50,7 +73,7 @@ const Company = () => {
                 company_name: company.name,
                 company_address: company.address ?? '-',
                 company_inn: company.inn,
-                company_count_sent_sms: company.count_sent_sms,
+                current_month_sms_count: company.current_month_sms_count,
                 company_phone_number: company.phone_number,
             }));
 
@@ -61,7 +84,7 @@ const Company = () => {
         } finally {
             setLoading(false);
         }
-    }, [userData.token]);
+    }, [userData.token, startPeriod, endPeriod]);
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
