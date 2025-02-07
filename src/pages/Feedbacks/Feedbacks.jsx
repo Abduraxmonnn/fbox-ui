@@ -11,6 +11,7 @@ const Feedbacks = (props) => {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const [userData, setUserData] = useState({});
+    const [userName, setUserName] = useState("");
     const [feedbackHistory, setFeedbackHistory] = useState([]);
     const [formData, setFormData] = useState({
         name: '',
@@ -32,7 +33,7 @@ const Feedbacks = (props) => {
         setLoading(true);
 
         try {
-            console.log(userData.token)
+            formData.name = userName
             const response = await APIv1.post('/feedback/', formData, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -70,6 +71,7 @@ const Feedbacks = (props) => {
         const items = JSON.parse(localStorage.getItem('user'));
         if (items) {
             setUserData(items);
+            setUserName(items.data.username);
         }
     }, [userData.token]);
 
@@ -143,8 +145,9 @@ const Feedbacks = (props) => {
                                         id="name"
                                         name="name"
                                         placeholder={t('pages.feedback.formSection.placeholder1')}
-                                        required
-                                        value={formData.name}
+                                        disabled={true}
+                                        defaultValue={userName}
+                                        value={userName}
                                         onChange={handleInputChange}
                                         className="form-input"
                                     />
