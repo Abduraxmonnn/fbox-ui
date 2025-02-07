@@ -1,6 +1,7 @@
 import {useTranslation} from 'react-i18next';
 import {Select, Space} from 'antd';
 import {useEffect} from "react";
+import ReactCountryFlag from "react-country-flag";
 
 const Localization = () => {
     const {i18n} = useTranslation();
@@ -23,15 +24,27 @@ const Localization = () => {
                     options={[
                         {
                             value: 'en',
-                            label: '🇺🇸 English',
+                            label: (
+                                <>
+                                    <ReactCountryFlag countryCode="GB" style={{fontSize: "1em"}}/> English
+                                </>
+                            ),
                         },
                         {
                             value: 'ru',
-                            label: '🇷🇺 Русский',
+                            label: (
+                                <>
+                                    <ReactCountryFlag countryCode="RU" style={{fontSize: "1em"}}/> Русский
+                                </>
+                            ),
                         },
                         {
                             value: 'uz',
-                            label: '🇺🇿 O‘zbekcha',
+                            label: (
+                                <>
+                                    <ReactCountryFlag countryCode="UZ" style={{fontSize: "1em"}}/> O‘zbekcha
+                                </>
+                            ),
                         },
                     ]}
                 />
