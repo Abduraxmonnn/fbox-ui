@@ -21,12 +21,12 @@ const Device = (props) => {
     let companyInn = props.companyInn;
 
     const {t} = useTranslation();
-    const columns = DevicesColumns(t);
+    const [userData, setUserData] = useState({});
+    const [isUserStaff, setIsUserStaff] = useState({});
+    const columns = DevicesColumns(t, isUserStaff);
     const [deviceStatusData, setDeviceStatusData] = useState([]);
     const [selectionType, setSelectionType] = useState('checkbox');
     const [loading, setLoading] = useState(true);
-    const [userData, setUserData] = useState({});
-    const [isUserStaff, setIsUserStaff] = useState({});
     const [totalDevices, setTotalDevices] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(defaultPageSize);
