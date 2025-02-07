@@ -1,4 +1,5 @@
-import {DatePicker, Space} from 'antd';
+import {Link} from 'react-router-dom';
+import {DatePicker, Space, Tag} from 'antd';
 import {useTranslation} from 'react-i18next';
 import dayjs, {Dayjs} from "dayjs";
 import usePeriodPresets from "../../optionsComponents/usePeriodOptions";
@@ -26,6 +27,14 @@ const Period = ({handleChangePeriod}) => {
                     disabledDate={disabledDate}
                     allowClear={false}
                 />
+                <span style={{ fontSize: 16 }}>
+                    <Tag color="red" size="sm">
+                        Сайт в тестовом режиме!
+                    </Tag>
+                    <Tag color="green" size="sm">
+                        Если заметили ошибку, сообщите нам через <Link to={'/feedback/'}>Отзыв</Link>. Спасибо!
+                    </Tag>
+                </span>
                 {/*<Select*/}
                 {/*    defaultValue="day"*/}
                 {/*    style={{*/}
