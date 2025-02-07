@@ -206,7 +206,8 @@
         "column5": "Yuborilmagan buyurtmalar",
         "column6": "Yopilmagan Z-hisobotlar",
         "column7": "Yangilangan vaqt",
-        "column8": "Versiya"
+        "column8": "Versiya",
+        "column9": "Patpiska tugashi"
       },
       "detailColumns": {
         "button1": "Tahrirlash",

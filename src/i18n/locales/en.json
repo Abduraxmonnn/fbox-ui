@@ -205,7 +205,8 @@
         "column5": "Orders not sent count",
         "column6": "Z report left count",
         "column7": "Updated date",
-        "column8": "Version number"
+        "column8": "Version number",
+        "column9": "End subscription"
       },
       "detailColumns": {
         "button1": "Edit",

@@ -78,6 +78,11 @@ const DevicesColumns = (t) => {
             sorter: (a, b) => new Date(a.updated_date) - new Date(b.updated_date),
         },
         {
+            title: t('pages.devices.listColumns.column9'),
+            dataIndex: 'end_date',
+            sorter: (a, b) => new Date(a.end_date) - new Date(b.end_date),
+        },
+        {
             title: t('pages.devices.listColumns.column8'),
             dataIndex: 'version_number',
             sorter: true,

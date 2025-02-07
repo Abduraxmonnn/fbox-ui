@@ -2,7 +2,7 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {FloatButton, Table} from 'antd';
 import {APIv1} from '../../api';
 import {Link, useOutletContext} from 'react-router-dom';
-import {extractDateBySecond, handleTableChange, useRowNavigation} from '../../utils';
+import {defaultExtractDate, extractDateBySecond, handleTableChange, useRowNavigation} from '../../utils';
 import "./Device.scss"
 import {FileAddOutlined} from "@ant-design/icons";
 import DevicesColumns from "./device.constants";
@@ -47,6 +47,7 @@ const Device = (props) => {
                 orders_not_sent_count: device_status.orders_not_sent_count ?? '-',
                 z_report_left_count: device_status.z_report_left_count ?? '-',
                 updated_date: extractDateBySecond(device_status.updated_date),
+                end_date: defaultExtractDate(device_status.end_date),
                 version_number: device_status.version_number ?? '-',
             }));
         };
