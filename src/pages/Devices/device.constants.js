@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import {Tag, Tooltip} from 'antd';
 import {MonitorCheck, MonitorDot} from 'lucide-react';
-import {deviceStatusInactiveTime} from '../../utils';
+import {deviceStatusInactiveText, deviceStatusInactiveTime} from '../../utils';
 import React from "react";
 
 const DevicesColumns = (t) => {
@@ -21,8 +21,8 @@ const DevicesColumns = (t) => {
                             </Tooltip>
                             :
                             <Tooltip key={tag}
-                                     title={`Inactive ${deviceStatusInactiveTime[record.is_active_time][1]}`}>
-                                <MonitorDot size={18} color={deviceStatusInactiveTime[record.is_active_time][0]}/>
+                                     title={`Inactive ${deviceStatusInactiveText[record.is_active_time]}`}>
+                                <MonitorDot size={18} color={deviceStatusInactiveTime[record.is_active_time]}/>
                             </Tooltip>
                     ))}
                 </>

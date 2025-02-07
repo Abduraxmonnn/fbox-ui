@@ -4,7 +4,7 @@ import {defaultExtractDate} from "./dateUtils";
 import {getFormattedPeriod} from "./dateUtils";
 import {onFilter} from "./dateFilters";
 import {checkIsPhoneCorrect, isBoolean, useRowNavigation} from "./baseUtils";
-import {deviceStatusInactiveTime, deviceStatusInactiveTimeToText} from "./deviceUtils";
+import {deviceStatusInactiveTime, deviceStatusInactiveText, deviceStatusInactiveTimeToText} from "./deviceUtils";
 import {getSmsClockBadgeColor} from "./userUtils";
 import {transactionStatusToColorFormatter} from "./baseFormatter"
 
@@ -16,6 +16,7 @@ export {
     isBoolean,
     useRowNavigation,
     deviceStatusInactiveTime,
+    deviceStatusInactiveText,
     deviceStatusInactiveTimeToText,
     getSmsClockBadgeColor,
     checkIsPhoneCorrect,

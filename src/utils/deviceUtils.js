@@ -4,6 +4,13 @@ export const deviceStatusInactiveTime = {
     'minute': ['#7815ac', 'more than 5 minutes'],
 }
 
+export const deviceStatusInactiveText = {
+    'day': 'more than day',
+    'hour': 'more than hour',
+    'minute': 'more than 5 minutes',
+}
+
+
 export const deviceStatusInactiveTimeToText = {
     'day': '> 1 day',
     'hour': '> 1 hour',
