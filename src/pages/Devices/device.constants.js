@@ -1,5 +1,4 @@
 import {Link} from "react-router-dom";
-import {useTranslation} from 'react-i18next';
 import {Tag} from 'antd';
 import {MonitorCheck, MonitorDot} from 'lucide-react';
 import {deviceStatusInactiveTime} from '../../utils';
