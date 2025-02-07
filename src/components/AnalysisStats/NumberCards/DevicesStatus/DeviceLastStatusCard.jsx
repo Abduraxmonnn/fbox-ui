@@ -58,7 +58,7 @@ const DeviceLastStatusCard: React.FC<TransactionCountCardProps> = () => {
             <h2>{t("analysis.numbersStats.mainTitles.devicesLastStatusTitle")}</h2>
             <div className="analysis__metrics__container">
                 <div className="analysis__metrics__card">
-                    <span className="analysis__metrics__label">{t("common.active")}</span>
+                    <span className="analysis__metrics__label">{t("common.online")}</span>
                     <div className="analysis__metrics__value analysis__metrics__value--active">
                         <MonitorCheck className="analysis__metrics__icon"/>
                         {loading ? (
@@ -69,7 +69,7 @@ const DeviceLastStatusCard: React.FC<TransactionCountCardProps> = () => {
                     </div>
                 </div>
                 <div className="analysis__metrics__card">
-                    <span className="analysis__metrics__label">{t("common.inactive")}</span>
+                    <span className="analysis__metrics__label">{t("common.offline")}</span>
                     <div className="analysis__metrics__value analysis__metrics__value--inactive">
                         <MonitorDot className="analysis__metrics__icon"/>
                         {loading ? (

@@ -4,7 +4,10 @@
     "failure": "Muvaffaqiyatsiz",
     "active": "Faol",
     "inactive": "Faol emas",
-    "disconnected": "Uzilgan/O'chirilgan",
+    "online": "Onlayn",
+    "offline": "Oflayn",
+    "disconnected": "Ro'yhatdan chiqarilgan",
+    "suspended": "Vaqtinchalik to'xtatilgan",
     "id": "id",
     "inn": "INN",
     "deviceSerial": "Uskunaning seriya raqami",
@@ -63,8 +66,8 @@
       "mainTitles": {
         "transactionsFinancialTitle": "To'lovlar daromadi",
         "transactionsCountsTitle": "To'lovlar soni",
-        "devicesLastStatusTitle": "5 daqiqadagi faol qurilmalar",
-        "devicesStatusTitle": "Faol qurilmalar",
+        "devicesLastStatusTitle": "5 daqiqadagi onlayn qurilmalar",
+        "devicesStatusTitle": "Barcha qurilmalar",
         "notifyTitle": "Yuborilgan bildirishnomalar soni"
       },
       "mainSubtitles": {

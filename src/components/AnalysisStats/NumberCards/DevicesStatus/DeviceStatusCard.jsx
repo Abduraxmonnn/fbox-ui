@@ -70,7 +70,7 @@ const DeviceStatusCard: React.FC<TransactionCountCardProps> = () => {
                     </div>
                 </div>
                 <div className="analysis__metrics__card">
-                    <span className="analysis__metrics__label">{t("common.inactive")}</span>
+                    <span className="analysis__metrics__label">{t("common.suspended")}</span>
                     <div className="analysis__metrics__value analysis__metrics__value--inactive">
                         <MonitorDot className="analysis__metrics__icon" color={"#6c757d"}/>
                         {loading ? (

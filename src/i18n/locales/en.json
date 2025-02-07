@@ -4,7 +4,10 @@
     "failure": "Failure",
     "active": "Active",
     "inactive": "Inactive",
-    "disconnected": "Disconnected",
+    "online": "Online",
+    "offline": "Offline",
+    "suspended": "Temporarily suspended",
+    "disconnected": "Снята с учета",
     "inn": "INN",
     "deviceSerial": "Device serial",
     "deviceSerialNumber": "Device serial number",
@@ -62,8 +65,8 @@
       "mainTitles": {
         "transactionsFinancialTitle": "Payment Income",
         "transactionsCountsTitle": "No. of Payments",
-        "devicesLastStatusTitle": "Active Devices (5 mins)",
-        "devicesStatusTitle": "Active Devices",
+        "devicesLastStatusTitle": "Online Devices (5 mins)",
+        "devicesStatusTitle": "Total Devices",
         "notifyTitle": "No. of sent Notify"
       },
       "mainSubtitles": {

@@ -4,7 +4,10 @@
     "failure": "Неуспешный",
     "active": "Активный",
     "inactive": "Неактивный",
-    "disconnected": "Отключен",
+    "online": "Онлайн",
+    "offline": "Оффлайн",
+    "disconnected": "Снята с учета",
+    "suspended": "Временно приостановлено",
     "id": "Идентификатор",
     "inn": "ИНН",
     "deviceSerial": "Серийный номер устройства",
@@ -63,8 +66,8 @@
       "mainTitles": {
         "transactionsFinancialTitle": "Доход от платежей",
         "transactionsCountsTitle": "Количество платежей",
-        "devicesLastStatusTitle": "Активные устройства за 5 мин",
-        "devicesStatusTitle": "Активные устройства",
+        "devicesLastStatusTitle": "Онлайн-устройства за 5 мин",
+        "devicesStatusTitle": "Все устройства",
         "notifyTitle": "Количество отправленных уведомлений"
       },
       "mainSubtitles": {
@@ -73,7 +76,7 @@
       }
     },
     "charts": {
-      "title": "Успешные платежи"
+      "title": "Статистика платежи"
     },
     "footerData": {
       "title": "Последние платежи"
