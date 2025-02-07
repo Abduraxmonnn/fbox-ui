@@ -25,7 +25,23 @@ export function extractDateBySecond(dateString) {
 
 export const defaultExtractDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toISOString().slice(0, 10);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+};
+
+export const extractStringDate = (dateString) => {
+    const date = new Date(dateString);
+
+    const options = {year: 'numeric', month: 'short', day: 'numeric'};
+    const formattedDate = date.toLocaleDateString('en-US', options);
+
+    const [month, day, year] = formattedDate.split(' ');
+    const monthAbbr = month.slice(0, 3) + '.';
+
+    return `${monthAbbr} ${day} ${year}`;
 };
 
 export const getFormattedPeriod = (startDate, endDate) => {
