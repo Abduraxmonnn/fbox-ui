@@ -11,7 +11,6 @@ const Feedbacks = (props) => {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const [userData, setUserData] = useState({});
-    const [userName, setUserName] = useState("");
     const [feedbackHistory, setFeedbackHistory] = useState([]);
     const [formData, setFormData] = useState({
         name: '',
@@ -19,8 +18,8 @@ const Feedbacks = (props) => {
         subject: '',
         message: '',
     });
-    const [loading, setLoading] = useState(false); // Loading state to show user feedback when submitting
-    const [submissionSuccess, setSubmissionSuccess] = useState(false);  // State to control success message display
+    const [loading, setLoading] = useState(false);
+    const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
     const feedbacksStatus = {
         'IN_PROGRESS': t('pages.feedback.status.status1'),
@@ -33,7 +32,7 @@ const Feedbacks = (props) => {
         setLoading(true);
 
         try {
-            formData.name = userName
+            formData.name = userData?.data?.username;
             const response = await APIv1.post('/feedback/', formData, {
                 headers: {
                     Authorization: `Token ${userData.token}`,
@@ -41,7 +40,7 @@ const Feedbacks = (props) => {
             });
 
             setSubmissionSuccess(true);
-            setFormData({name: '', email: '', subject: '', message: ''}); // Reset the form
+            setFormData({email: '', subject: '', message: ''});
         } catch (err) {
             console.error('Error submitting feedback:', err);
             alert(t('pages.feedback.errorAlertMessage'));
@@ -50,7 +49,6 @@ const Feedbacks = (props) => {
         }
     };
 
-    // Handle input changes for form
     const handleInputChange = (e) => {
         const {name, value} = e.target;
         setFormData((prevData) => ({
@@ -71,13 +69,12 @@ const Feedbacks = (props) => {
         const items = JSON.parse(localStorage.getItem('user'));
         if (items) {
             setUserData(items);
-            setUserName(items.data.username);
         }
-    }, [userData.token]);
+    }, []);
 
     const onNavigateToHomePage = checkedValues => {
         navigate("/analysis")
-    }
+    };
 
     useEffect(() => {
         const fetchFeedbacksData = async () => {
@@ -104,14 +101,15 @@ const Feedbacks = (props) => {
             }
         };
 
-        fetchFeedbacksData();
+        if (userData.token) {
+            fetchFeedbacksData();
+        }
     }, [userData.token]);
 
     return (
         <div className="feedback-page">
             <h1 className="page-title">{t('pages.feedback.title')}</h1>
 
-            {/* Render success message if submission is successful */}
             {submissionSuccess ? (
                 <Result
                     status="success"
@@ -146,8 +144,7 @@ const Feedbacks = (props) => {
                                         name="name"
                                         placeholder={t('pages.feedback.formSection.placeholder1')}
                                         disabled={true}
-                                        defaultValue={userName}
-                                        value={userName}
+                                        value={userData?.data?.username}
                                         onChange={handleInputChange}
                                         className="form-input"
                                     />
