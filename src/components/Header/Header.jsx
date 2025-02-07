@@ -8,10 +8,11 @@ import {Link, useNavigate} from 'react-router-dom';
 import {images} from '../../constants';
 import {logout} from '../../store/auth/user.action';
 import SearchComponent from '../Search/Search';
-import './Header.scss';
 import {APIv1} from "../../api";
 import Localization from "../Localizations/Localization";
 import {useTranslation} from "react-i18next";
+import {truncateUsername} from "../../utils/userUtils";
+import './Header.scss';
 
 const Header = ({isCollapse, searchText, setSearchText}) => {
     const {t} = useTranslation();

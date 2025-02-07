@@ -10,3 +10,10 @@ export const getSmsClockBadgeColor = (show, count) => {
     }
     return show && count;
 };
+
+export const truncateUsername = (username, maxLength = 10) => {
+    if (username.length > maxLength) {
+        return username.substring(0, maxLength) + '...';
+    }
+    return username;
+};
