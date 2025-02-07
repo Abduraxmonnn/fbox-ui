@@ -1,7 +1,7 @@
 export const deviceStatusInactiveTime = {
-    'day': ['#de0733', 'more than day'],
-    'hour': ['#f2a900', 'more than hour'],
-    'minute': ['#7815ac', 'more than 5 minutes'],
+    'day': '#de0733',
+    'hour': '#f2a900',
+    'minute': '#7815ac',
 }
 
 export const deviceStatusInactiveText = {
