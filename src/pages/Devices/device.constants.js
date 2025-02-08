@@ -88,8 +88,7 @@ const DevicesColumns = (t, isUserStaff) => {
                 ? {
                     title: t('pages.devices.listColumns.column9'),
                     dataIndex: 'end_date',
-                    orderIndex: 'end_date',
-                    sorter: (a, b) => new Date(a.end_date) - new Date(b.end_date),
+                    orderIndex: 'device_serial__end_date',
                 }
                 : {}
         ),
