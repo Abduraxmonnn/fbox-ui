@@ -42,7 +42,8 @@
       "column6": "SMS",
       "column7": "Elektron pochta",
       "column8": "Buyurtmalar",
-      "column9": "Versiyalar"
+      "column9": "Versiyalar",
+      "column10": "Mahsulotlar"
     }
   },
   "header": {
@@ -166,6 +167,14 @@
     },
     "products": {
       "title": "Mahsulotlar",
+      "listColumns": {
+        "column1": "Ism",
+        "column2": "shtrix kod",
+        "column3": "Miqdor",
+        "column4": "Mahsulot narxi",
+        "column5": "Narx",
+        "column6": "Chegirma foizi"
+      },
       "detailColumns": {
         "section1": "Mahsulot nomi",
         "section2": "Shtrix kodi",

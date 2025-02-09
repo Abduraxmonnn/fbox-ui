@@ -28,6 +28,7 @@ import {
 import getUser from "./store/utilits";
 import LogsDetail from "./pages/Logs/LogsDetail/LogsDetail";
 import ProductDetail from "./pages/Products/ProductDetail/ProductDetail";
+import Products from "./pages/Products/Products";
 
 function App() {
     const [user, setUser] = useState(getUser())
@@ -47,6 +48,7 @@ function App() {
                         <Route path='/email/list' element={<Email/>}/>
                         <Route path='/orders' element={<Orders serialNumber={null}/>}/>
                         <Route path='/feedback' element={<Feedbacks/>}/>
+                        <Route path='/products' element={<Products/>}/>
 
                         <Route path='/create/device' element={<AddNewDevice/>}/>
                         <Route path='/create_company/:id?' element={<AddNewCompany/>}/>

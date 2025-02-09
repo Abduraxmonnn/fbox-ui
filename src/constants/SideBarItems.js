@@ -125,6 +125,13 @@ const SideBarItems = (t) => {
                     </Link>
                 ),
                 getItem(
+                    t('sideBar.items.column10'),
+                    'products_items',
+                    <Link to='/products'>
+                        <FileDoneOutlined/>
+                    </Link>
+                ),
+                getItem(
                     t('sideBar.items.column9'),
                     'devices_versions_item',
                     <Link to='/devices/version'>

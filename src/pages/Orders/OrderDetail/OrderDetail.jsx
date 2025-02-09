@@ -124,7 +124,7 @@ const OrderDetail = () => {
             </div>
             <div>
                 <h2 className="related-device-title">Products</h2>
-                <Products orderId={id}/>
+                <Products related={true} defaultPageSize={10} orderId={id}/>
             </div>
         </section>
     );

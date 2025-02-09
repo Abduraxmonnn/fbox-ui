@@ -41,7 +41,8 @@
       "column6": "Sms",
       "column7": "Email",
       "column8": "Orders",
-      "column9": "Versions"
+      "column9": "Versions",
+      "column10": "Products"
     }
   },
   "header": {
@@ -165,6 +166,14 @@
     },
     "products": {
       "title": "Products",
+      "listColumns": {
+        "column1": "Name",
+        "column2": "Barcode",
+        "column3": "Amount",
+        "column4": "Product price",
+        "column5": "Price",
+        "column6": "Discount percent"
+      },
       "detailColumns": {
         "showcase1": "Product name",
         "showcase2": "Barcode",

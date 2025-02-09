@@ -42,7 +42,8 @@
       "column6": "СМС",
       "column7": "Почта",
       "column8": "Заказы",
-      "column9": "Версии"
+      "column9": "Версии",
+      "column10": "Продукты"
     }
   },
   "header": {
@@ -166,6 +167,14 @@
     },
     "products": {
       "title": "Продукты",
+      "listColumns": {
+        "column1": "Название",
+        "column2": "Штрихкод",
+        "column3": "Сумма",
+        "column4": "Цена товара",
+        "column5": "Цена",
+        "column6": "Процент скидки"
+      },
       "detailColumns": {
         "section1": "Название продукта",
         "section2": "Штрих-код",
