@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import {APIv1} from "../../../api";
 import CurrencyFormatted from "../../../utils/baseFormatter";
 import '../../../styles/BaseDetailStyle.scss'
+import {extractStringDateBySecond} from "../../../utils";
 
 const ProductDetail = () => {
     const {id} = useParams();
@@ -97,6 +98,14 @@ const ProductDetail = () => {
                         <li className="detail-view__item">
                             <span className="detail-view__label">{t("pages.products.detailColumns.showcase8")}:</span>
                             <span className="detail-view__value">{productData.class_code}</span>
+                        </li>
+                        <li className="detail-view__item">
+                            <span className="detail-view__label">{t("pages.products.detailColumns.showcase10")}:</span>
+                            <span className="detail-view__value">{extractStringDateBySecond(productData.created_date)}</span>
+                        </li>
+                        <li className="detail-view__item">
+                            <span className="detail-view__label">{t("pages.products.detailColumns.showcase11")}:</span>
+                            <span className="detail-view__value">{extractStringDateBySecond(productData.updated_date)}</span>
                         </li>
                     </ul>
                 </div>

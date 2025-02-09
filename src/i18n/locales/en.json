@@ -184,7 +184,9 @@
         "showcase6": "Discount",
         "showcase7": "Discount percent",
         "showcase8": "Class code",
-        "showcase9": "Market name"
+        "showcase9": "Market name",
+        "showcase10": "Created date",
+        "showcase11": "Updated date"
       }
     },
     "logs": {

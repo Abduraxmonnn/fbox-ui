@@ -2,10 +2,9 @@ import React, {useCallback, useEffect, useState} from "react";
 import {APIv1} from "../../api";
 import {Table} from "antd";
 import {useOutletContext} from "react-router-dom";
-import {extractDateBySecond, extractStringDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
+import {extractStringDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
 import ProductsColumns from "./products.constants";
 import {useTranslation} from "react-i18next";
-import {extractStringDate} from "../../utils/dateUtils";
 
 const Products = (props) => {
     let relatedFetch = props.related !== undefined ? props.related : false;
