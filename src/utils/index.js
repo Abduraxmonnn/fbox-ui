@@ -1,7 +1,5 @@
 import {handleTableChange} from "./handleTableChangeUtils";
-import {extractDateBySecond} from "./dateUtils";
-import {defaultExtractDate} from "./dateUtils";
-import {getFormattedPeriod} from "./dateUtils";
+import {extractDateBySecond, getFormattedPeriod, defaultExtractDate, extractStringDateBySecond} from "./dateUtils";
 import {onFilter} from "./dateFilters";
 import {checkIsPhoneCorrect, isBoolean, useRowNavigation} from "./baseUtils";
 import {deviceStatusInactiveTime, deviceStatusInactiveText, deviceStatusInactiveTimeToText} from "./deviceUtils";
@@ -12,6 +10,7 @@ export {
     handleTableChange,
     extractDateBySecond,
     defaultExtractDate,
+    extractStringDateBySecond,
     onFilter,
     isBoolean,
     useRowNavigation,

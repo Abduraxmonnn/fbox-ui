@@ -40,6 +40,12 @@ const ProductsColumns = (t) => {
             sorter: true,
             orderIndex: "discount_percent",
         },
+        {
+            title: t('pages.products.listColumns.column7'),
+            dataIndex: 'created_date',
+            sorter: true,
+            orderIndex: "created_date",
+        },
     ]
 };
 

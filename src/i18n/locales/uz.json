@@ -173,7 +173,8 @@
         "column3": "Miqdor",
         "column4": "Mahsulot narxi",
         "column5": "Narx",
-        "column6": "Chegirma foizi"
+        "column6": "Chegirma foizi",
+        "column7": "Yaratilgan sana"
       },
       "detailColumns": {
         "section1": "Mahsulot nomi",

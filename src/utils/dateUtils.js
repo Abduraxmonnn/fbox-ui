@@ -44,6 +44,27 @@ export const extractStringDate = (dateString) => {
     return `${monthAbbr} ${day} ${year}`;
 };
 
+export const extractStringDateBySecond = (dateString) => {
+    const date = new Date(dateString);
+
+    const options = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false // Optional: for 24-hour format change to true
+    };
+
+    const formattedDate = date.toLocaleString('en-US', options);
+    const [month, day, year, hours, minutes, seconds] = formattedDate.split(/[\s,:-]+/);
+    const monthAbbr = month.slice(0, 3) + '.';
+
+    return `${monthAbbr} ${day} ${year} ${hours}:${minutes}:${seconds}`;
+};
+
+
 export const getFormattedPeriod = (startDate, endDate) => {
     const start = dayjs(startDate).startOf('day');
     const end = dayjs(endDate)

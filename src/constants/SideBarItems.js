@@ -9,7 +9,7 @@ import {
     DesktopOutlined
 } from '@ant-design/icons'
 import {Link} from 'react-router-dom'
-import {Landmark} from 'lucide-react';
+import {Landmark, ShoppingBag} from 'lucide-react';
 import {useEffect, useState} from "react";
 
 export function getItem(label, key, icon, children) {
@@ -128,7 +128,7 @@ const SideBarItems = (t) => {
                     t('sideBar.items.column10'),
                     'products_items',
                     <Link to='/products'>
-                        <FileDoneOutlined/>
+                        <ShoppingBag size={14}/>
                     </Link>
                 ),
                 getItem(

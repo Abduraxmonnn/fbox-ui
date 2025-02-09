@@ -172,7 +172,8 @@
         "column3": "Amount",
         "column4": "Product price",
         "column5": "Price",
-        "column6": "Discount percent"
+        "column6": "Discount percent",
+        "column7": "Created date"
       },
       "detailColumns": {
         "showcase1": "Product name",

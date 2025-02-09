@@ -2,11 +2,13 @@ import React, {useCallback, useEffect, useState} from "react";
 import {APIv1} from "../../api";
 import {Table} from "antd";
 import {useOutletContext} from "react-router-dom";
-import {handleTableChange, useRowNavigation} from "../../utils";
+import {extractDateBySecond, extractStringDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
 import ProductsColumns from "./products.constants";
 import {useTranslation} from "react-i18next";
+import {extractStringDate} from "../../utils/dateUtils";
 
 const Products = (props) => {
+    let relatedFetch = props.related !== undefined ? props.related : false;
     let defaultPageSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
     let orderId = props.orderId !== undefined ? props.orderId : null;
 
@@ -25,7 +27,7 @@ const Products = (props) => {
     const fetchOrdersData = useCallback(async (page, size, search = '', ordering = '') => {
         setLoading(true);
         let url = '/order/products/list/';
-        if (props.related === true) {
+        if (relatedFetch === true) {
             url = `/order/related/products/${orderId}/`;
         }
 
@@ -42,7 +44,7 @@ const Products = (props) => {
                 }
             });
 
-            const data = (props.related === true ? response.data : response.data.results).map((item) => ({
+            const data = (relatedFetch === true ? response.data : response.data.results).map((item) => ({
                 key: item.id,
                 name: item.name,
                 barcode: item.barcode === "" ? '-' : item.barcode,
@@ -50,9 +52,10 @@ const Products = (props) => {
                 product_price: item.product_price,
                 price: item.price,
                 discount_percent: item.discount_percent,
+                created_date: extractStringDateBySecond(item.created_date),
             }));
 
-            const totalDevices = props.related ? response.data.count : response.data.results.length;
+            const totalDevices = relatedFetch === false ? response.data.count : response.data.results.length;
             setOrdersData(data);
             setTotalProducts(totalDevices);
         } catch (err) {
