@@ -165,16 +165,17 @@
       }
     },
     "products": {
+      "title": "Mahsulotlar",
       "detailColumns": {
-        "title": "Продукты",
-        "section1": "Название продукта",
-        "section2": "Штрих-код",
-        "section3": "Количество",
-        "section4": "Цена",
-        "section5": "Цена продукта",
-        "section6": "Скидка",
-        "section7": "Процент скидки",
-        "section8": "Код класса"
+        "section1": "Mahsulot nomi",
+        "section2": "Shtrix kodi",
+        "section3": "Miqdor",
+        "section4": "Narx",
+        "section5": "Mahsulot narxi",
+        "section6": "Chegirma",
+        "section7": "Chegirma foizi",
+        "section8": "Sinf kodi",
+        "showcase9": "Market nomi"
       }
     },
     "logs": {
