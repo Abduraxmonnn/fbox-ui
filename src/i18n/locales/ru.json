@@ -164,6 +164,19 @@
         }
       }
     },
+    "products": {
+      "detailColumns": {
+        "title": "Продукты",
+        "section1": "Название продукта",
+        "section2": "Штрих-код",
+        "section3": "Количество",
+        "section4": "Цена",
+        "section5": "Цена продукта",
+        "section6": "Скидка",
+        "section7": "Процент скидки",
+        "section8": "Код класса"
+      }
+    },
     "logs": {
       "listColumns": {
         "column1": "Статус",

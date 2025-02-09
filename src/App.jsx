@@ -27,6 +27,7 @@ import {
 } from './pages'
 import getUser from "./store/utilits";
 import LogsDetail from "./pages/Logs/LogsDetail/LogsDetail";
+import ProductDetail from "./pages/Products/ProductDetail/ProductDetail";
 
 function App() {
     const [user, setUser] = useState(getUser())
@@ -56,6 +57,7 @@ function App() {
                         <Route path='/payments/logs/detail/:id' element={<LogsDetail/>}/>
                         <Route path='/payments/sms/detail/:id' element={<SmsDetail/>}/>
                         <Route path='/payments/email/detail/:id' element={<EmailDetail/>}/>
+                        <Route path='/product/detail/:id' element={<ProductDetail/>}/>
 
                         <Route path='/z-reports' element={<ZReport/>}/>
                         <Route path='/z-reports/detail/:id' element={<ZReportDetail/>}/>

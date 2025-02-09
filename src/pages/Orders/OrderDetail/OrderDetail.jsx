@@ -3,24 +3,26 @@ import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {APIv1} from "../../../api";
 import CurrencyFormatted from "../../../utils/baseFormatter";
+import Products from "../../Products/Products";
 import '../../../styles/BaseDetailStyle.scss'
 
 const OrderDetail = () => {
     const {id} = useParams();
     const {t} = useTranslation();
-    const [order, setOrder] = useState(null);
+    const [orderData, setOrderData] = useState(null);
     const navigate = useNavigate();
 
     const extractDate = (dateString) => {
+        if (!dateString) return '-'; // Return a placeholder if no date is available
         const date = new Date(dateString);
-        return date.toISOString().slice(0, 10);
+        return isNaN(date) ? '-' : date.toISOString().slice(0, 10); // Check if the date is invalid
     };
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await APIv1.get(`orders/get/${id}`);
-                setOrder(response.data)
+                setOrderData(response.data)
             } catch (err) {
                 console.error('Something went wrong:', err);
             }
@@ -29,7 +31,7 @@ const OrderDetail = () => {
         fetchData()
     }, [id]);
 
-    if (!order) {
+    if (!orderData) {
         return <div>{t("pages.orders.detailColumns.errorNotFound")}</div>
     }
 
@@ -37,10 +39,10 @@ const OrderDetail = () => {
         <section className="detail-view">
             <div className="detail-view__header">
                 <div className="detail-view__title">
-                    <h1 className="detail-view__main-title">{order.market_name}</h1>
+                    <h1 className="detail-view__main-title">{orderData.market_name}</h1>
                     <span className="detail-view__subtitle">
               <span className="detail-view__subtitle-label">{t("common.deviceSerial")}: </span>
-                        {order.cash_desc_serial}
+                        {orderData.cash_desc_serial}
             </span>
                 </div>
                 <button
@@ -56,13 +58,19 @@ const OrderDetail = () => {
                     <h2 className="detail-view__section-title">{t("pages.orders.detailColumns.container1.title")}</h2>
                     <ul className="detail-view__list">
                         {[
-                            {label: `${t("pages.orders.detailColumns.container1.row1")}`, value: order.market_name},
-                            {label: `${t("common.inn")}`, value: order.inn},
-                            {label: `${t("pages.orders.detailColumns.container1.row2")}`, value: order.number},
-                            {label: `${t("pages.orders.detailColumns.container1.row3")}`, value: order.cashier},
-                            {label: `${t("common.deviceSerial")}`, value: order.cash_desc_serial},
-                            {label: `${t("pages.orders.detailColumns.container1.row4")}`, value: order.cash_desc_number},
-                            {label: `${t("pages.orders.detailColumns.container1.row5")}`, value: extractDate(order.time)},
+                            {label: `${t("pages.orders.detailColumns.container1.row1")}`, value: orderData.market_name},
+                            {label: `${t("common.inn")}`, value: orderData.inn},
+                            {label: `${t("pages.orders.detailColumns.container1.row2")}`, value: orderData.number},
+                            {label: `${t("pages.orders.detailColumns.container1.row3")}`, value: orderData.cashier},
+                            {label: `${t("common.deviceSerial")}`, value: orderData.cash_desc_serial},
+                            {
+                                label: `${t("pages.orders.detailColumns.container1.row4")}`,
+                                value: orderData.cash_desc_number
+                            },
+                            {
+                                label: `${t("pages.orders.detailColumns.container1.row5")}`,
+                                value: extractDate(orderData.time)
+                            },
                         ].map(({label, value}) => (
                             <li key={label} className="detail-view__item">
                                 <span className="detail-view__label">{label}:</span>
@@ -70,9 +78,10 @@ const OrderDetail = () => {
                             </li>
                         ))}
                         <li className="detail-view__item detail-view__item--highlighted">
-                            <span className="detail-view__label">{t("pages.orders.detailColumns.container1.row6")}:</span>
                             <span
-                                className="detail-view__value detail-view__value--highlighted">{CurrencyFormatted(order.received_cash)}</span>
+                                className="detail-view__label">{t("pages.orders.detailColumns.container1.row6")}:</span>
+                            <span
+                                className="detail-view__value detail-view__value--highlighted">{CurrencyFormatted(orderData.received_cash)}</span>
                         </li>
                     </ul>
                 </div>
@@ -81,14 +90,18 @@ const OrderDetail = () => {
                     <h2 className="detail-view__section-title">{t("pages.orders.detailColumns.container2.title")}</h2>
                     <ul className="detail-view__list">
                         <li className="detail-view__item">
-                            <span className="detail-view__label">{t("pages.orders.detailColumns.container2.row1")}:</span>
-                            <span className="detail-view__value">{order.email || '-'}</span>
+                            <span
+                                className="detail-view__label">{t("pages.orders.detailColumns.container2.row1")}:</span>
+                            <span className="detail-view__value">{orderData.email || '-'}</span>
                         </li>
                         {[
-                            {label: `${t("pages.orders.detailColumns.container2.row2")}`, value: order.send_email},
-                            {label: `${t("pages.orders.detailColumns.container2.row3")}`, value: order.sync_email},
-                            {label: `${t("pages.orders.detailColumns.container2.row4")}`, value: order.sms_phone_number},
-                            {label: `${t("pages.orders.detailColumns.container2.row5")}`, value: order.sync_sms},
+                            {label: `${t("pages.orders.detailColumns.container2.row2")}`, value: orderData.send_email},
+                            {label: `${t("pages.orders.detailColumns.container2.row3")}`, value: orderData.sync_email},
+                            {
+                                label: `${t("pages.orders.detailColumns.container2.row4")}`,
+                                value: orderData.sms_phone_number
+                            },
+                            {label: `${t("pages.orders.detailColumns.container2.row5")}`, value: orderData.sync_sms},
                         ].map(({label, value}) => (
                             <li key={label} className="detail-view__item">
                                 <span className="detail-view__label">{label}:</span>
@@ -99,14 +112,19 @@ const OrderDetail = () => {
                             </li>
                         ))}
                         <li className="detail-view__item">
-                            <span className="detail-view__label">{t("pages.orders.detailColumns.container2.row6")}:</span>
+                            <span
+                                className="detail-view__label">{t("pages.orders.detailColumns.container2.row6")}:</span>
                             <span className="detail-view__value">
-                  <a href={order.result_url} target="_blank" rel="noopener noreferrer"
+                  <a href={orderData.result_url} target="_blank" rel="noopener noreferrer"
                      className="detail-view__link">{t("pages.orders.detailColumns.container2.row7")}</a>
                 </span>
                         </li>
                     </ul>
                 </div>
+            </div>
+            <div>
+                <h2 className="related-device-title">Products</h2>
+                <Products orderId={id}/>
             </div>
         </section>
     );

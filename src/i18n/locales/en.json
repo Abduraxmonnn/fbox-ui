@@ -163,6 +163,19 @@
         }
       }
     },
+    "products": {
+      "title": "Products",
+      "detailColumns": {
+        "showcase1": "Product name",
+        "showcase2": "Barcode",
+        "showcase3": "Amount",
+        "showcase4": "Price",
+        "showcase5": "Product price",
+        "showcase6": "Discount",
+        "showcase7": "Discount percent",
+        "showcase8": "Class code"
+      }
+    },
     "logs": {
       "listColumns": {
         "column1": "Status",
