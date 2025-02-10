@@ -5,18 +5,13 @@ import {APIv1} from "../../../api";
 import CurrencyFormatted from "../../../utils/baseFormatter";
 import Products from "../../Products/Products";
 import '../../../styles/BaseDetailStyle.scss'
+import {extractDateBySecond} from "../../../utils";
 
 const OrderDetail = () => {
     const {id} = useParams();
     const {t} = useTranslation();
     const [orderData, setOrderData] = useState(null);
     const navigate = useNavigate();
-
-    const extractDate = (dateString) => {
-        if (!dateString) return '-'; // Return a placeholder if no date is available
-        const date = new Date(dateString);
-        return isNaN(date) ? '-' : date.toISOString().slice(0, 10); // Check if the date is invalid
-    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -69,7 +64,7 @@ const OrderDetail = () => {
                             },
                             {
                                 label: `${t("pages.orders.detailColumns.container1.row5")}`,
-                                value: extractDate(orderData.time)
+                                value: extractDateBySecond(orderData.time)
                             },
                         ].map(({label, value}) => (
                             <li key={label} className="detail-view__item">
@@ -123,7 +118,7 @@ const OrderDetail = () => {
                 </div>
             </div>
             <div>
-                <h2 className="related-device-title">Products</h2>
+                <h2 className="related-device-title">{t("pages.products.title")}</h2>
                 <Products related={true} defaultPageSize={10} orderId={id}/>
             </div>
         </section>
