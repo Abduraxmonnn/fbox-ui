@@ -55,16 +55,14 @@ const Device = (props) => {
 
         try {
             const url = companyInn !== undefined ? `/company/related/devices/${companyInn}/` : '/device_status/';
+            console.log(url)
 
             const response = await APIv1.get(url, {
                 params: {page, page_size: size, search, ordering},
                 headers: {Authorization: `Token ${userData.token}`},
             });
 
-            const data = companyInn !== undefined
-                ? mapDeviceStatusData(response.data)
-                : mapDeviceStatusData(response.data.results);
-
+            const data = mapDeviceStatusData(response.data.results);
             setDeviceStatusData(data);
             setTotalDevices(response.data.count);
 

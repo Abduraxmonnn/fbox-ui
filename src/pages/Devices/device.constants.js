@@ -10,8 +10,6 @@ const DevicesColumns = (t, isUserStaff) => {
         {
             title: t('pages.devices.listColumns.column1'),
             dataIndex: 'updated_date',
-            sorter: true,
-            orderIndex: 'updated_date',
             render: (text, record) => (
                 <>
                     {[record.is_active].map(tag => (
