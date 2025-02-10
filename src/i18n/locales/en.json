@@ -146,7 +146,7 @@
         "container1": {
           "title": "Base information",
           "row1": "Market name",
-          "row2": "Number",
+          "row2": "Fiscal receipt number",
           "row3": "Cashier",
           "row4": "Cash desc number",
           "row5": "End date",
