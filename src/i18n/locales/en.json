@@ -233,9 +233,10 @@
         "column7": "Updated date",
         "column8": "Version number",
         "column9": "End subscription",
-        "column10": "Company Name"
+        "column10": "Company name"
       },
       "detailColumns": {
+        "subtitle": "Company name",
         "button1": "Edit",
         "button2": "Back",
         "container1": {

@@ -237,6 +237,7 @@
         "column10": "Название компании"
       },
       "detailColumns": {
+        "subtitle": "Название компании",
         "button1": "Редактировать",
         "button2": "Назад",
         "container1": {

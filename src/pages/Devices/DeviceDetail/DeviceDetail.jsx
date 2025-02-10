@@ -114,10 +114,10 @@ const DeviceDetail = () => {
                 <div className="detail-view__container">
                     <div className="detail-view__header">
                         <div className="detail-view__title">
-                            <h1 className="detail-view__main-title">{deviceData.company.name}</h1>
+                            <h1 className="detail-view__main-title">{deviceData.device_serial_number}</h1>
                             <span className="detail-view__subtitle">
-                        <span className="detail-view__subtitle-label">{t("common.deviceSerialNumber")}: </span>
-                                {deviceData.device_serial_number}
+                        <span className="detail-view__subtitle-label">{t("pages.devices.detailColumns.subtitle")}: </span>
+                                {deviceData.company.name}
                         </span>
                         </div>
                         <div className="detail-view__action-buttons">

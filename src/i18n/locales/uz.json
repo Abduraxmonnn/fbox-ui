@@ -237,6 +237,7 @@
         "column10": "Kompaniya nomi"
       },
       "detailColumns": {
+        "subtitle": "Kompaniya nomi",
         "button1": "Tahrirlash",
         "button2": "Orqaga",
         "container1": {
