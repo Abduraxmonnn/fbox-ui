@@ -177,15 +177,15 @@
         "column7": "Yaratilgan sana"
       },
       "detailColumns": {
-        "section1": "Mahsulot nomi",
-        "section2": "Shtrix kodi",
-        "section3": "Miqdor",
-        "section4": "Narx",
-        "section5": "Mahsulot narxi",
-        "section6": "Chegirma",
-        "section7": "Chegirma foizi",
-        "section8": "Sinf kodi",
-        "showcase9": "Market nomi",
+        "showcase1": "Mahsulot nomi",
+        "showcase2": "Shtrix-kod",
+        "showcase3": "Miqdori",
+        "showcase4": "Narxi",
+        "showcase5": "Mahsulot narxi",
+        "showcase6": "Chegirma",
+        "showcase7": "Chegirma foizi",
+        "showcase8": "Sinf kodi",
+        "showcase9": "Bozor nomi",
         "showcase10": "Yaratilgan sana",
         "showcase11": "Yangilangan sana"
       }
