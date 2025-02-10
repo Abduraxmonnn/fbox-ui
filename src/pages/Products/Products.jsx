@@ -2,39 +2,27 @@ import React, {useCallback, useEffect, useState} from "react";
 import {APIv1} from "../../api";
 import {Table} from "antd";
 import {useOutletContext} from "react-router-dom";
-import {extractStringDateBySecond, handleTableChange, useRowNavigation} from "../../utils";
+import {handleTableChange, useRowNavigation} from "../../utils";
 import ProductsColumns from "./products.constants";
 import {useTranslation} from "react-i18next";
 
 const Products = (props) => {
-    let relatedFetch = props.related !== undefined ? props.related : false;
-    let defaultPageSize = props.defaultPaginationSize !== undefined ? props.defaultPaginationSize : 20;
     let orderId = props.orderId !== undefined ? props.orderId : null;
 
     const {t} = useTranslation();
     const columns = ProductsColumns(t);
     const [userData, setUserData] = useState({});
-    const [loading, setLoading] = useState(true)
     const [ordersData, setOrdersData] = useState([])
-    const [totalProducts, setTotalProducts] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(defaultPageSize);
+    const [loading, setLoading] = useState(true)
     const [sortField, setSortField] = useState('')
     const [sortOrder, setSortOrder] = useState('')
     const {searchText} = useOutletContext()
 
-    const fetchOrdersData = useCallback(async (page, size, search = '', ordering = '') => {
+    const fetchOrdersData = useCallback(async (search = '', ordering = '') => {
         setLoading(true);
-        let url = '/order/products/list/';
-        if (relatedFetch === true) {
-            url = `/order/related/products/${orderId}/`;
-        }
-
         try {
-            const response = await APIv1.get(`${url}`, {
+            const response = await APIv1.get(`/order/related/products/${orderId}/`, {
                 params: {
-                    page,
-                    page_size: size,
                     search,
                     ordering
                 },
@@ -43,7 +31,7 @@ const Products = (props) => {
                 }
             });
 
-            const data = (relatedFetch === true ? response.data : response.data.results).map((item) => ({
+            const data = response.data.map((item) => ({
                 key: item.id,
                 name: item.name,
                 barcode: item.barcode === "" ? '-' : item.barcode,
@@ -51,18 +39,14 @@ const Products = (props) => {
                 product_price: item.product_price,
                 price: item.price,
                 discount_percent: item.discount_percent,
-                created_date: extractStringDateBySecond(item.created_date),
             }));
-
-            const totalDevices = relatedFetch === false ? response.data.count : response.data.results.length;
-            setOrdersData(data);
-            setTotalProducts(totalDevices);
+            setOrdersData(data)
         } catch (err) {
-            console.error('Something went wrong:', err);
+            console.error('Something went wrong:', err)
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
-    }, [userData.token, orderId, props.related]);
+    }, [userData.token, orderId])
 
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('user'));
@@ -78,17 +62,8 @@ const Products = (props) => {
         if (sortField) {
             ordering = sortOrder === 'ascend' ? sortField : `-${sortField}`
         }
-        fetchOrdersData(currentPage, pageSize, searchText, ordering)
-    }, [currentPage, pageSize, searchText, sortOrder, sortField, userData.token])
-
-    useEffect(() => {
-        setCurrentPage(1);  // Reset to the first page when search text changes
-    }, [searchText]);
-
-    const onChange = (page, pageSize) => {
-        setCurrentPage(page);
-        setPageSize(pageSize);
-    };
+        fetchOrdersData(searchText, ordering)
+    }, [searchText, sortOrder, sortField, userData.token])
 
     const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns);
 
@@ -106,17 +81,6 @@ const Products = (props) => {
                     onRow={onRowClick}
                     loading={loading}
                     onChange={tableChangeHandler}
-                    pagination={{
-                        total: totalProducts,
-                        current: currentPage,
-                        pageSize: pageSize,
-                        onChange: onChange,
-                        defaultPageSize: defaultPageSize,
-                        showSizeChanger: true,
-                        defaultCurrent: 1,
-                        showTotal: (total, range) => `${range[0]} - ${range[1]} / ${total}`,
-                        pageSizeOptions: ['10', '20', '50', '100'],
-                    }}
                 />
             </div>
         </>

@@ -73,7 +73,7 @@ const ProductDetail = () => {
                         </li>
                         <li className="detail-view__item">
                             <span className="detail-view__label">{t("pages.products.detailColumns.showcase2")}:</span>
-                            <span className="detail-view__value">{productData.barcode}</span>
+                            <span className="detail-view__value">{productData.barcode ?? '-'}</span>
                         </li>
                         <li className="detail-view__item detail-view__item--highlighted">
                             <span className="detail-view__label">{t("pages.products.detailColumns.showcase3")}:</span>
