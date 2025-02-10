@@ -3,6 +3,12 @@ import {Link} from "react-router-dom";
 const OrdersColumns = (t) => {
     return [
         {
+            title: t('common.id'),
+            dataIndex: 'key',
+            sorter: true,
+            orderIndex: "id",
+        },
+        {
             title: t('pages.orders.listColumns.column1'),
             dataIndex: 'market_name',
             render: (text, record) => (
