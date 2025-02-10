@@ -35,6 +35,15 @@ const DevicesColumns = (t, isUserStaff) => {
                 <Link to={`/device/detail/${record.device_serial}`}>{text}</Link>
             ),
         },
+        (isUserStaff
+                ? {
+                    title: t('pages.devices.listColumns.column10'),
+                    dataIndex: 'company_name',
+                    sorter: true,
+                    orderIndex: 'company_name',
+                }
+                : {}
+        ),
         {
             title: t('pages.devices.listColumns.column3'),
             dataIndex: 'device_ip_addr',

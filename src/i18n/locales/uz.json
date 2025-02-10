@@ -233,7 +233,8 @@
         "column6": "Yopilmagan Z-hisobotlar",
         "column7": "Yangilangan vaqt",
         "column8": "Versiya",
-        "column9": "Patpiska tugashi"
+        "column9": "Patpiska tugashi",
+        "column10": "Kompaniya nomi"
       },
       "detailColumns": {
         "button1": "Tahrirlash",

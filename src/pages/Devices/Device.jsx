@@ -40,6 +40,7 @@ const Device = (props) => {
             return deviceStatusArray.map(device_status => ({
                 key: device_status.id,
                 device_serial: device_status.device_serial,
+                company_name: device_status.company_name,
                 is_active: device_status.is_active,
                 is_active_time: device_status.is_active_time,
                 teamviewer: device_status.teamviewer ?? '-',

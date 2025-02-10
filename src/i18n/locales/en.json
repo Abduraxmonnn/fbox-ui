@@ -232,7 +232,8 @@
         "column6": "Z report left count",
         "column7": "Updated date",
         "column8": "Version number",
-        "column9": "End subscription"
+        "column9": "End subscription",
+        "column10": "Company Name"
       },
       "detailColumns": {
         "button1": "Edit",
