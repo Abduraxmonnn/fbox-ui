@@ -67,6 +67,13 @@ const SideBarItems = (t) => {
                 <MailOutlined/>
             </Link>
         ),
+        getItem(
+            t('sideBar.items.column8'),
+            'orders_orders_item',
+            <Link to='/orders'>
+                <FileDoneOutlined/>
+            </Link>
+        ),
     ]
 
 
