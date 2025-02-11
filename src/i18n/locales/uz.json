@@ -151,7 +151,9 @@
           "row3": "Kassir",
           "row4": "Oxirgi yangilanish sanasi",
           "row5": "Tugash sanasi",
-          "row6": "Olingan naqd pul"
+          "row6": "Naqd pul orqali",
+          "row7": "Karta orqali",
+          "row8": "Jami"
         },
         "container2": {
           "title": "Bildirishnoma ma'lumotlari",

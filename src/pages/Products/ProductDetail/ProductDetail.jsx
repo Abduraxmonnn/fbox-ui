@@ -75,17 +75,17 @@ const ProductDetail = () => {
                             <span className="detail-view__label">{t("pages.products.detailColumns.showcase2")}:</span>
                             <span className="detail-view__value">{productData.barcode ?? '-'}</span>
                         </li>
-                        <li className="detail-view__item detail-view__item--highlighted">
+                        <li className="detail-view__item">
                             <span className="detail-view__label">{t("pages.products.detailColumns.showcase3")}:</span>
-                            <span className="detail-view__value">{CurrencyFormatted(productData.amount)}</span>
+                            <span className="detail-view__value">{productData.amount / 1000}</span>
                         </li>
                         <li className="detail-view__item detail-view__item--highlighted">
                             <span className="detail-view__label">{t("pages.products.detailColumns.showcase4")}:</span>
-                            <span className="detail-view__value">{CurrencyFormatted(productData.product_price)}</span>
+                            <span className="detail-view__value">{CurrencyFormatted(productData.product_price / 100)}</span>
                         </li>
                         <li className="detail-view__item detail-view__item--highlighted">
                             <span className="detail-view__label">{t("pages.products.detailColumns.showcase5")}:</span>
-                            <span className="detail-view__value">{CurrencyFormatted(productData.price)}</span>
+                            <span className="detail-view__value">{CurrencyFormatted(productData.price / 100)}</span>
                         </li>
                         <li className="detail-view__item">
                             <span className="detail-view__label">{t("pages.products.detailColumns.showcase6")}:</span>

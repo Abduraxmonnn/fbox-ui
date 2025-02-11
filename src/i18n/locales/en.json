@@ -151,7 +151,9 @@
           "row3": "Cashier",
           "row4": "Cash desc number",
           "row5": "End date",
-          "row6": "Received cash"
+          "row6": "Received by cash",
+          "row7": "Received by card",
+          "row8": "Total received"
         },
         "container2": {
           "title": "Notification information",

@@ -72,11 +72,23 @@ const OrderDetail = () => {
                                 <span className="detail-view__value">{value}</span>
                             </li>
                         ))}
-                        <li className="detail-view__item detail-view__item--highlighted">
+                        <li className="detail-view__item">
                             <span
                                 className="detail-view__label">{t("pages.orders.detailColumns.container1.row6")}:</span>
                             <span
-                                className="detail-view__value detail-view__value--highlighted">{CurrencyFormatted(orderData.received_cash)}</span>
+                                className="detail-view__value detail-view__value--highlighted">{CurrencyFormatted(orderData.received_cash / 100)}</span>
+                        </li>
+                        <li className="detail-view__item">
+                            <span
+                                className="detail-view__label">{t("pages.orders.detailColumns.container1.row7")}:</span>
+                            <span
+                                className="detail-view__value detail-view__value--highlighted">{CurrencyFormatted(orderData.received_card / 100)}</span>
+                        </li>
+                        <li className="detail-view__item detail-view__item--highlighted">
+                            <span
+                                className="detail-view__label">{t("pages.orders.detailColumns.container1.row8")}:</span>
+                            <span
+                                className="detail-view__value detail-view__value--highlighted">{CurrencyFormatted((orderData.received_cash / 100) + (orderData.received_card / 100))}</span>
                         </li>
                     </ul>
                 </div>

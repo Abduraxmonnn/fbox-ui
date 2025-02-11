@@ -53,8 +53,8 @@ const Orders = (props) => {
                 market_name: report.market_name ?? '-',
                 cashier: report.cashier ?? '-',
                 cash_desc_serial: report.cash_desc_serial,
-                received_cash: report.received_cash,
-                received_card: report.received_card,
+                received_cash: report.received_cash / 100,
+                received_card: report.received_card / 100,
                 time: report.time ? defaultExtractDate(report.time) : '----/--/--'
             }));
             setOrdersData(data)

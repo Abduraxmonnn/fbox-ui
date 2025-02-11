@@ -35,9 +35,9 @@ const Products = (props) => {
                 key: item.id,
                 name: item.name,
                 barcode: item.barcode === "" ? '-' : item.barcode,
-                amount: item.amount,
-                product_price: item.product_price,
-                price: item.price,
+                amount: item.amount / 1000,
+                product_price: item.product_price / 100,
+                price: item.price / 100,
                 discount_percent: item.discount_percent,
             }));
             setOrdersData(data)
