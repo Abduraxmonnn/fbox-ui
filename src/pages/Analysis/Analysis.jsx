@@ -18,6 +18,7 @@ const {
     ClickTransactionsPieChart,
     UzumTransactionsPieChart,
     AnorTransactionsPieChart,
+    TransactionsLineChart
 } = analysisStats;
 
 const Analysis = () => {
@@ -52,6 +53,8 @@ const Analysis = () => {
                 </div>
             </div>
 
+            <TransactionsLineChart/>
+
             <div className='analysis__charts'>
                 <div className='analysis__chart-card analysis__chart-card--wide'>
                     <h2 className='analysis__chart-title'>{t("analysis.charts.title")}</h2>
@@ -62,7 +65,8 @@ const Analysis = () => {
                         </div>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>{t("common.providers.click")}</h3>
-                            <ClickTransactionsPieChart startPeriod={startPeriod} endPeriod={endPeriod} offset="down"/>
+                            <ClickTransactionsPieChart startPeriod={startPeriod} endPeriod={endPeriod}
+                                                       offset="down"/>
                         </div>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>{t("common.providers.uzum")}</h3>
@@ -70,7 +74,8 @@ const Analysis = () => {
                         </div>
                         <div className='analysis__chart-content'>
                             <h3 className='analysis__chart-subtitle'>{t("common.providers.anor")}</h3>
-                            <AnorTransactionsPieChart startPeriod={startPeriod} endPeriod={endPeriod} offset="down"/>
+                            <AnorTransactionsPieChart startPeriod={startPeriod} endPeriod={endPeriod}
+                                                      offset="down"/>
                         </div>
                     </div>
                 </div>

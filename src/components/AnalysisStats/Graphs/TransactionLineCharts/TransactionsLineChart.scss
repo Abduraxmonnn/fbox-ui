@@ -1,0 +1,34 @@
+.transactions-line-chart {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  margin-bottom: 24px;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  &__container {
+    height: 600px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .transactions-line-chart {
+    &__container {
+      height: 300px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .transactions-line-chart {
+    &__container {
+      height: 250px;
+    }
+  }
+}
+
