@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import { Line } from "@antv/g2plot"
+import { Line, Area } from "@antv/g2plot"
 import "./TransactionsLineChart.scss"
 import carbonEmissionsData from "./carbonEmissions.json"
 
@@ -8,33 +8,39 @@ const TransactionsLineChart = () => {
 
     useEffect(() => {
         if (chartRef.current) {
-            const line = new Line(chartRef.current, {
+            const linePlot = new Area(chartRef.current, {
                 data: carbonEmissionsData,
                 xField: "day",
                 yField: "value",
                 seriesField: "provider",
-                xAxis: {
-                    type: "time",
-                    tickCount: 10,
-                },
                 yAxis: {
                     label: {
                         formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
                     },
                 },
+                slider: {
+                    start: 0.1,
+                    end: 0.9,
+                },
                 legend: {
                     position: "top",
                 },
                 smooth: true,
+                // Configure area fill for trend lines
+                area: {
+                    style: {
+                        fillOpacity: 0.15,
+                    },
+                },
                 animation: {
                     appear: {
-                        animation: "path-in",
-                        duration: 5000,
+                        animation: "wave-in",
+                        duration: 3000,
                     },
                 },
             })
 
-            line.render()
+            linePlot.render()
         }
     }, [])
 
