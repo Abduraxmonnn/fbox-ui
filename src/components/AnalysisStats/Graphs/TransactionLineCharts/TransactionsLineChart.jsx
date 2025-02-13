@@ -1,15 +1,41 @@
-import { useEffect, useRef } from "react"
-import { Line, Area } from "@antv/g2plot"
-import "./TransactionsLineChart.scss"
-import carbonEmissionsData from "./carbonEmissions.json"
+import {useEffect, useRef, useState} from "react";
+import {Area} from "@antv/g2plot";
+import "./TransactionsLineChart.scss";
+import {APIv1} from "../../../../api";
 
-const TransactionsLineChart = () => {
-    const chartRef = useRef(null)
+const TransactionsLineChart = ({t}) => {
+    const [userData, setUserData] = useState({});
+    const chartRef = useRef(null);
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-        if (chartRef.current) {
+        const fetchData = async () => {
+            try {
+                const response = await APIv1.get("analysis/transactions/periodic/summary/", {
+                    headers: {
+                        Authorization: `Token ${userData.token}`,
+                    },
+                });
+                setData(response.data);
+            } catch (error) {
+                console.error("Error fetching transaction data:", error);
+            }
+        };
+
+        fetchData();
+    }, [userData.token]);
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('user'));
+        if (items) {
+            setUserData(items);
+        }
+    }, [userData.token]);
+
+    useEffect(() => {
+        if (chartRef.current && data.length > 0) {
             const linePlot = new Area(chartRef.current, {
-                data: carbonEmissionsData,
+                data: data,
                 xField: "day",
                 yField: "value",
                 seriesField: "provider",
@@ -26,7 +52,6 @@ const TransactionsLineChart = () => {
                     position: "top",
                 },
                 smooth: true,
-                // Configure area fill for trend lines
                 area: {
                     style: {
                         fillOpacity: 0.15,
@@ -38,18 +63,18 @@ const TransactionsLineChart = () => {
                         duration: 3000,
                     },
                 },
-            })
+            });
 
-            linePlot.render()
+            linePlot.render();
         }
-    }, [])
+    }, [data]);
 
     return (
         <div className="analysis__chart-card analysis__chart-card--wide transactions-line-chart">
-            <h3 className="analysis__chart-subtitle">Carbon Emissions by Source (1850-2014)</h3>
+            <h3 className="analysis__chart-subtitle">{t("analysis.numbersStats.mainTitles.transactionsLineChartTitle")}</h3>
             <div ref={chartRef} className="transactions-line-chart__container"></div>
         </div>
-    )
-}
+    );
+};
 
-export default TransactionsLineChart
+export default TransactionsLineChart;

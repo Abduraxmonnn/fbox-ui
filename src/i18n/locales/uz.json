@@ -70,6 +70,7 @@
       "mainTitles": {
         "transactionsFinancialTitle": "To'lovlar daromadi",
         "transactionsCountsTitle": "To'lovlar soni",
+        "transactionsLineChartTitle": "Tranzaksiyalar 30 kun davom etadi",
         "devicesLastStatusTitle": "5 daqiqadagi onlayn qurilmalar",
         "devicesStatusTitle": "Barcha qurilmalar",
         "notifyTitle": "Yuborilgan bildirishnomalar soni"

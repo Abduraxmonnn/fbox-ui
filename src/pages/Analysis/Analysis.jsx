@@ -53,7 +53,7 @@ const Analysis = () => {
                 </div>
             </div>
 
-            <TransactionsLineChart/>
+            <TransactionsLineChart t={t}/>
 
             <div className='analysis__charts'>
                 <div className='analysis__chart-card analysis__chart-card--wide'>

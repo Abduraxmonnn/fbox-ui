@@ -70,6 +70,7 @@
       "mainTitles": {
         "transactionsFinancialTitle": "Payment Income",
         "transactionsCountsTitle": "No. of Payments",
+        "transactionsLineChartTitle": "Last 30 days Transactions",
         "devicesLastStatusTitle": "Online Devices (5 mins)",
         "devicesStatusTitle": "Total Devices",
         "notifyTitle": "No. of sent Notify"
