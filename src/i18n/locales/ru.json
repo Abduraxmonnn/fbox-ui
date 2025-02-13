@@ -70,6 +70,7 @@
       "mainTitles": {
         "transactionsFinancialTitle": "Доход от платежей",
         "transactionsCountsTitle": "Количество платежей",
+        "transactionsLineChartTitle": "Транзакции за последние 30 дней",
         "devicesLastStatusTitle": "Онлайн-устройства за 5 мин",
         "devicesStatusTitle": "Все устройства",
         "notifyTitle": "Количество отправленных уведомлений"

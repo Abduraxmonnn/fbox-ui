@@ -9,6 +9,7 @@ import UzumTransactionsPieChart from "./Graphs/TransactionPieCharts/Uzum";
 import AnorTransactionsPieChart from "./Graphs/TransactionPieCharts/Anor";
 import DeviceLastStatusCard from "./NumberCards/DevicesStatus/DeviceLastStatusCard";
 import DeviceStatusCard from "./NumberCards/DevicesStatus/DeviceStatusCard";
+import TransactionsLineChart from "./Graphs/TransactionLineCharts/TransactionsLineChart";
 
 export const analysisStats = {
     TransactionFinancialCard,
@@ -22,4 +23,5 @@ export const analysisStats = {
     UzumTransactionsPieChart,
     AnorTransactionsPieChart,
     AvgTransactionsCountCard,
+    TransactionsLineChart
 };
