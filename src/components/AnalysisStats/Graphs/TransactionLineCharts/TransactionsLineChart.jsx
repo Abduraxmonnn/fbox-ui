@@ -1,14 +1,16 @@
-import {useEffect, useRef, useState} from "react";
-import {Area} from "@antv/g2plot";
-import {Spin} from "antd";
-import "./TransactionsLineChart.scss";
-import {APIv1} from "../../../../api";
+"use client"
+
+import {useEffect, useRef, useState} from "react"
+import {Area} from "@antv/g2plot"
+import {Spin} from "antd"
+import "./TransactionsLineChart.scss"
+import {APIv1} from "../../../../api"
 
 const TransactionsLineChart = ({t}) => {
-    const [userData, setUserData] = useState({});
-    const chartRef = useRef(null);
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [userData, setUserData] = useState({})
+    const chartRef = useRef(null)
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,24 +19,24 @@ const TransactionsLineChart = ({t}) => {
                     headers: {
                         Authorization: `Token ${userData.token}`,
                     },
-                });
-                setData(response.data);
+                })
+                setData(response.data)
             } catch (error) {
-                console.error("Error fetching transaction data:", error);
+                console.error("Error fetching transaction data:", error)
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
-        };
+        }
 
-        fetchData();
-    }, [userData.token]);
+        fetchData()
+    }, [userData.token])
 
     useEffect(() => {
-        const items = JSON.parse(localStorage.getItem('user'));
+        const items = JSON.parse(localStorage.getItem("user"))
         if (items) {
-            setUserData(items);
+            setUserData(items)
         }
-    }, []);
+    }, [])
 
     useEffect(() => {
         if (chartRef.current && data.length > 0) {
@@ -67,24 +69,27 @@ const TransactionsLineChart = ({t}) => {
                         duration: 3000,
                     },
                 },
-            });
+            })
 
-            linePlot.render();
+            linePlot.render()
         }
-    }, [data]);
+    }, [data])
 
     return (
         <div className="analysis__chart-card analysis__chart-card--wide transactions-line-chart">
             <h3 className="analysis__chart-subtitle">{t("analysis.numbersStats.mainTitles.transactionsLineChartTitle")}</h3>
-            {loading ? (
-                <div className="transactions-line-chart__loading">
-                    <Spin size="large"/>
-                </div>
-            ) : (
-                <div ref={chartRef} className="transactions-line-chart__container"></div>
-            )}
+            <div className="transactions-line-chart__container">
+                {loading ? (
+                    <div className="transactions-line-chart__loading">
+                        <Spin size="large"/>
+                    </div>
+                ) : (
+                    <div ref={chartRef} style={{height: "100%", width: "100%"}}></div>
+                )}
+            </div>
         </div>
-    );
-};
+    )
+}
 
-export default TransactionsLineChart;
+export default TransactionsLineChart
+
