@@ -5,6 +5,19 @@
   transition: transform 0.2s ease, box-shadow 0.3s ease;
   margin-bottom: 24px;
 
+  &__loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 9999;
+  }
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
