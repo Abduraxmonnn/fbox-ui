@@ -1,5 +1,3 @@
-"use client"
-
 import {useEffect, useRef, useState} from "react"
 import {Area} from "@antv/g2plot"
 import {Spin} from "antd"
@@ -13,30 +11,43 @@ const TransactionsLineChart = ({t}) => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
+        const items = JSON.parse(localStorage.getItem("user"))
+        if (items) {
+            setUserData(items)
+        }
+    }, [])
+
+    useEffect(() => {
+        let isMounted = true
+
         const fetchData = async () => {
+            if (!userData.token) return
+
+            setLoading(true)
             try {
                 const response = await APIv1.get("analysis/transactions/periodic/summary/", {
                     headers: {
                         Authorization: `Token ${userData.token}`,
                     },
                 })
-                setData(response.data)
+                if (isMounted) {
+                    setData(response.data)
+                }
             } catch (error) {
                 console.error("Error fetching transaction data:", error)
             } finally {
-                setLoading(false)
+                if (isMounted) {
+                    setLoading(false)
+                }
             }
         }
 
         fetchData()
-    }, [userData.token])
 
-    useEffect(() => {
-        const items = JSON.parse(localStorage.getItem("user"))
-        if (items) {
-            setUserData(items)
+        return () => {
+            isMounted = false
         }
-    }, [])
+    }, [userData.token])
 
     useEffect(() => {
         if (chartRef.current && data.length > 0) {
@@ -72,6 +83,10 @@ const TransactionsLineChart = ({t}) => {
             })
 
             linePlot.render()
+
+            return () => {
+                linePlot.destroy()
+            }
         }
     }, [data])
 
@@ -92,4 +107,3 @@ const TransactionsLineChart = ({t}) => {
 }
 
 export default TransactionsLineChart
-
