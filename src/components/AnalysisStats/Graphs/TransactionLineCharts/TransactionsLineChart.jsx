@@ -11,43 +11,30 @@ const TransactionsLineChart = ({t}) => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        const items = JSON.parse(localStorage.getItem("user"))
-        if (items) {
-            setUserData(items)
-        }
-    }, [])
-
-    useEffect(() => {
-        let isMounted = true
-
         const fetchData = async () => {
-            if (!userData.token) return
-
-            setLoading(true)
             try {
                 const response = await APIv1.get("analysis/transactions/periodic/summary/", {
                     headers: {
                         Authorization: `Token ${userData.token}`,
                     },
                 })
-                if (isMounted) {
-                    setData(response.data)
-                }
+                setData(response.data)
             } catch (error) {
                 console.error("Error fetching transaction data:", error)
             } finally {
-                if (isMounted) {
-                    setLoading(false)
-                }
+                setLoading(false)
             }
         }
 
         fetchData()
-
-        return () => {
-            isMounted = false
-        }
     }, [userData.token])
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem("user"))
+        if (items) {
+            setUserData(items)
+        }
+    }, [])
 
     useEffect(() => {
         if (chartRef.current && data.length > 0) {
@@ -83,10 +70,6 @@ const TransactionsLineChart = ({t}) => {
             })
 
             linePlot.render()
-
-            return () => {
-                linePlot.destroy()
-            }
         }
     }, [data])
 
@@ -107,3 +90,4 @@ const TransactionsLineChart = ({t}) => {
 }
 
 export default TransactionsLineChart
+
