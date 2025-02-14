@@ -228,7 +228,7 @@
     "devices": {
       "addNewDeviceTitle": "Qurilma qo'shish",
       "listColumns": {
-        "column1": "Holat",
+        "column1": "Aktivlik",
         "column2": "Seriya raqami",
         "column3": "IP-manzil",
         "column4": "Terminal ID",
@@ -237,7 +237,8 @@
         "column7": "Yangilangan vaqt",
         "column8": "Versiya",
         "column9": "Patpiska tugashi",
-        "column10": "Kompaniya nomi"
+        "column10": "Kompaniya nomi",
+        "column11": "Holat"
       },
       "detailColumns": {
         "subtitle": "Kompaniya nomi",

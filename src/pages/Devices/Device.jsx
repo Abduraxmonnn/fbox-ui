@@ -2,7 +2,7 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {FloatButton, Table} from 'antd';
 import {APIv1} from '../../api';
 import {Link, useOutletContext} from 'react-router-dom';
-import {defaultExtractDate, extractDateBySecond, handleTableChange, useRowNavigation} from '../../utils';
+import {extractDateBySecond, handleTableChange, useRowNavigation} from '../../utils';
 import "./Device.scss"
 import {FileAddOutlined} from "@ant-design/icons";
 import DevicesColumns from "./device.constants";
@@ -32,9 +32,10 @@ const Device = (props) => {
     const [pageSize, setPageSize] = useState(defaultPageSize);
     const [sortField, setSortField] = useState('');
     const [sortOrder, setSortOrder] = useState('');
+    const [filters, setFilters] = useState({});
     const {searchText} = useOutletContext();
 
-    const fetchDeviceStatusData = useCallback(async (page, size, search = '', ordering = '') => {
+    const fetchDeviceStatusData = useCallback(async (page, size, search = '', ordering = '', filters = {}) => {
         setLoading(true);
         const mapDeviceStatusData = (deviceStatusArray) => {
             return deviceStatusArray.map(device_status => ({
@@ -51,6 +52,7 @@ const Device = (props) => {
                 updated_date: extractDateBySecond(device_status.updated_date),
                 end_date: extractStringDate(device_status.end_date),
                 version_number: device_status.version_number ?? '-',
+                device_serial__status: device_status.device_serial__status,
             }));
         };
 
@@ -59,7 +61,13 @@ const Device = (props) => {
             console.log(url)
 
             const response = await APIv1.get(url, {
-                params: {page, page_size: size, search, ordering},
+                params: {
+                    page,
+                    page_size: size,
+                    search,
+                    ordering,
+                    ...filters
+                },
                 headers: {Authorization: `Token ${userData.token}`},
             });
 
@@ -98,8 +106,8 @@ const Device = (props) => {
             ordering = sortOrder === 'ascend' ? sortField : `-${sortField}`;
         }
 
-        fetchDeviceStatusData(currentPage, pageSize, searchText, ordering);
-    }, [currentPage, pageSize, searchText, sortOrder, sortField, userData.token, fetchDeviceStatusData]);
+        fetchDeviceStatusData(currentPage, pageSize, searchText, ordering, filters);
+    }, [currentPage, pageSize, searchText, sortOrder, sortField, filters, userData.token, fetchDeviceStatusData]);
 
     useEffect(() => {
         setCurrentPage(1);  // Reset to the first page when search text changes
@@ -110,12 +118,32 @@ const Device = (props) => {
         setPageSize(pageSize);
     };
 
-    const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns);
+    const tableChangeHandler = handleTableChange(setSortField, setSortOrder, columns, setFilters, 'device_serial__status');
 
     const onRowClick = useRowNavigation({
         routePrefix: '/device/detail',
         idField: 'device_serial'
     });
+
+    const handleStatusChange = (value) => {
+        setFilters(prevFilters => {
+            const newFilters = {...prevFilters, status: value};
+
+            const url = new URL(window.location.href);
+            url.searchParams.set('device_serial__status', value);
+            url.searchParams.set('page', currentPage);
+            url.searchParams.set('page_size', pageSize);
+            if (searchText) url.searchParams.set('search', searchText);
+            if (sortField && sortOrder) url.searchParams.set('ordering', sortOrder === 'ascend' ? sortField : `-${sortField}`);
+            window.history.pushState({}, '', url.toString());
+
+            return newFilters;
+        });
+    };
+
+    const handleStatusFilter = (value) => {
+        handleStatusChange(value);
+    };
 
     return (
         <div className='content_container'>
@@ -127,8 +155,16 @@ const Device = (props) => {
                 columns={columns}
                 dataSource={deviceStatusData}
                 loading={loading}
-                onChange={tableChangeHandler}
                 onRow={onRowClick}
+                onChange={(pagination, filters, sorter) => {
+                    tableChangeHandler(pagination, filters, sorter);
+
+                    if (filters.status && filters.status.length > 0) {
+                        handleStatusFilter(filters.status[0]);
+                    } else {
+                        handleStatusFilter(null);
+                    }
+                }}
                 pagination={{
                     total: totalDevices,
                     current: currentPage,

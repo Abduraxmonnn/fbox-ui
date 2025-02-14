@@ -95,3 +95,14 @@ export function NotifyStatusIcon({index, size, status}) {
             return null;
     }
 }
+
+export function deviceStatusIcon(status) {
+    switch (status) {
+        case 'ACTIVE':
+            return 'green'
+        case 'INACTIVE':
+            return 'purple'
+        default:
+            return 'red';
+    }
+}

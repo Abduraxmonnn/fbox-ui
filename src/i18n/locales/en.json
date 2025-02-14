@@ -7,7 +7,7 @@
     "online": "Online",
     "offline": "Offline",
     "suspended": "Temporarily suspended",
-    "disconnected": "Снята с учета",
+    "disconnected": "Disconnected",
     "thanks": "Thanks!",
     "id": "Id",
     "inn": "INN",
@@ -228,7 +228,7 @@
     "devices": {
       "addNewDeviceTitle": "Add Device",
       "listColumns": {
-        "column1": "Status",
+        "column1": "Activity",
         "column2": "Device serial number",
         "column3": "Device IP address",
         "column4": "Terminal ID",
@@ -237,7 +237,8 @@
         "column7": "Updated date",
         "column8": "Version number",
         "column9": "End subscription",
-        "column10": "Company name"
+        "column10": "Company name",
+        "column11": "Status"
       },
       "detailColumns": {
         "subtitle": "Company name",

@@ -228,7 +228,7 @@
     "devices": {
       "addNewDeviceTitle": "Добавить устройство",
       "listColumns": {
-        "column1": "Статус",
+        "column1": "Активность",
         "column2": "Серийный номер",
         "column3": "IP-адрес",
         "column4": "ID терминала",
@@ -237,7 +237,8 @@
         "column7": "Дата обновл.",
         "column8": "Версия",
         "column9": "Конец подписки",
-        "column10": "Название компании"
+        "column10": "Название компании",
+        "column11": "Статус"
       },
       "detailColumns": {
         "subtitle": "Название компании",

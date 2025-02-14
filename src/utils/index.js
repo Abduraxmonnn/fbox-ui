@@ -5,6 +5,7 @@ import {checkIsPhoneCorrect, isBoolean, useRowNavigation} from "./baseUtils";
 import {deviceStatusInactiveTime, deviceStatusInactiveText, deviceStatusInactiveTimeToText} from "./deviceUtils";
 import {getSmsClockBadgeColor} from "./userUtils";
 import {transactionStatusToColorFormatter} from "./baseFormatter"
+import {deviceStatusIcon} from "./statusIcons";
 
 export {
     handleTableChange,
@@ -20,5 +21,6 @@ export {
     getSmsClockBadgeColor,
     checkIsPhoneCorrect,
     getFormattedPeriod,
-    transactionStatusToColorFormatter
+    transactionStatusToColorFormatter,
+    deviceStatusIcon
 }

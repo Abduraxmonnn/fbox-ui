@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import {Tag, Tooltip} from 'antd';
 import {MonitorCheck, MonitorDot} from 'lucide-react';
-import {deviceStatusInactiveText, deviceStatusInactiveTime} from '../../utils';
+import {deviceStatusIcon, deviceStatusInactiveText, deviceStatusInactiveTime} from '../../utils';
 import React from "react";
 
 const DevicesColumns = (t, isUserStaff) => {
@@ -22,6 +22,26 @@ const DevicesColumns = (t, isUserStaff) => {
                                      title={`Inactive ${deviceStatusInactiveText[record.is_active_time]}`}>
                                 <MonitorDot size={18} color={deviceStatusInactiveTime[record.is_active_time]}/>
                             </Tooltip>
+                    ))}
+                </>
+            ),
+        },
+        {
+            title: t('pages.devices.listColumns.column11'),
+            dataIndex: 'device_serial__status',
+            filters: [
+                {text: t('common.active'), value: 'ACTIVE'},
+                {text: t('common.inactive'), value: 'INACTIVE'},
+                {text: t('common.disconnected'), value: 'DISCONNECTED'},
+            ],
+            filterMultiple: false,
+            onFilter: (value, record) => record.device_serial__status === value,
+            render: (_, {device_serial__status}) => (
+                <>
+                    {[device_serial__status].map(tag => (
+                        <Tag color={deviceStatusIcon(tag)} key={tag}>
+                            {`${String(tag)}`.toUpperCase()}
+                        </Tag>
                     ))}
                 </>
             ),
