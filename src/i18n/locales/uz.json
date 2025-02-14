@@ -238,7 +238,8 @@
         "column8": "Versiya",
         "column9": "Patpiska tugashi",
         "column10": "Kompaniya nomi",
-        "column11": "Holat"
+        "column11": "Holat",
+        "column12": "Teamviewer"
       },
       "detailColumns": {
         "subtitle": "Kompaniya nomi",

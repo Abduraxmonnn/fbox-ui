@@ -5,6 +5,7 @@ import {deviceStatusIcon, deviceStatusInactiveText, deviceStatusInactiveTime} fr
 import React from "react";
 
 const DevicesColumns = (t, isUserStaff) => {
+    console.log(isUserStaff);
 
     return [
         {
@@ -117,6 +118,27 @@ const DevicesColumns = (t, isUserStaff) => {
                     dataIndex: 'end_date',
                     orderIndex: 'device_serial__end_date',
                     sorter: (a, b) => new Date(a.end_date) - new Date(b.end_date),
+                }
+                : {}
+        ),
+        (isUserStaff
+                ? {
+                    title: t('pages.devices.listColumns.column12'),
+                    dataIndex: 'teamviewer',
+                    render: (text: string, record: DeviceStatusRecord) => {
+                        console.log(isUserStaff)
+                        return (
+                            <a
+                                href={`https://start.teamviewer.com/${record.teamviewer}`}
+                                onClick={(e) => e.stopPropagation()}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="version-number-link"
+                            >
+                                {text}
+                            </a>
+                        );
+                    },
                 }
                 : {}
         ),

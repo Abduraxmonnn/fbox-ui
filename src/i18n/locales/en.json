@@ -238,7 +238,8 @@
         "column8": "Version number",
         "column9": "End subscription",
         "column10": "Company name",
-        "column11": "Status"
+        "column11": "Status",
+        "column12": "Teamviewer"
       },
       "detailColumns": {
         "subtitle": "Company name",
